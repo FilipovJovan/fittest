@@ -1,0 +1,12 @@
+export { default as HomePage } from "./HomePage";
+export { default as FoodPage } from "./FoodPage";
+export { default as ExercisePage } from "./ExercisePage";
+export { default as Login } from "./Login";
+export { default as Register } from "./Register";
+export { default as Profile } from "./Profile";
+export { default as DashboardPage } from "./DashboardPage";
+export { default as Error } from "./Error";
+export { default as LandingPage } from "./LandingPage";
+export { default as HealthPage } from "./HealthPage";
+export { default as DashboardLayoutPage } from "./DashboardLayoutPage";
+export { default as ProgressPage } from "./ProgressPage";

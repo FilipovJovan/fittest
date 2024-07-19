@@ -1,0 +1,227 @@
+[
+  {
+    "name": "Oatmeal",
+    "category": "breakfast",
+    "ingredients": "100 grams of oats, 300 milliliters yogurt, 1 banana, 1 tbsp of chia seeds, 1 tbsp of honey, 50 grams of frozen fruit",
+    "calories": "695",
+    "protein": "37",
+    "carbs": "114",
+    "fats": "15"
+  },
+  {
+    "name": "Egg omelet",
+    "category": "breakfast",
+    "ingredients": "4 whole eggs, 100 grams of cheese, 1 cup of yogurt",
+    "calories": "740",
+    "protein": "52.6",
+    "carbs": "7",
+    "fats": "41"
+  },
+  {
+    "name": "Eggs & Bacon",
+    "category": "breakfast",
+    "ingredients": "4 whole eggs, 50 grams of bacon",
+    "calories": "450",
+    "protein": "36",
+    "carbs": "3",
+    "fats": "40"
+  },
+  {
+    "name": "Protein pancakes",
+    "category": "breakfast",
+    "ingredients": "2 whole eggs, 100 grams of oats, 1 serving of whey protein, 1 banana, 1 cup of milk",
+    "calories": "850",
+    "protein": "66",
+    "carbs": "96.5",
+    "fats": "15"
+  },
+  {
+    "name": "Protein toast",
+    "category": "breakfast",
+    "ingredients": "2 whole eggs, 2 slices of toasted bread, half an avocado,100 greek yogurt",
+    "calories": "410",
+    "protein": "27",
+    "carbs": "29",
+    "fats": "27"
+  },
+  {
+    "name": "Peanut butter toast with whey protein",
+    "category": "breakfast",
+    "ingredients": "3 slices of toasted bread, 1 banana, 50 grams of peanut butter, 1 scoop of whey protein",
+    "calories": "640",
+    "protein": "48.5",
+    "carbs": "67",
+    "fats": "30"
+  },
+  {
+    "name": "Breakfast smoothie",
+    "category": "breakfast",
+    "ingredients": "1 banana, 240 milliliters of almond milk, 50 grams of frozen fruit, 50 grams of oats, 1 tbsp of chia seeds, 1 tbsp of honey",
+    "calories": "410",
+    "protein": "13",
+    "carbs": "59",
+    "fats": "8"
+  },
+  {
+    "name": "Protein overnight oats",
+    "category": "breakfast",
+    "ingredients": "75 grams of oats, 1 tbsp of chia seeds, 1 banana, 1 tbsp of honey, cinnamon, whey protein, vanilla extract, 200 milliliters almond milk",
+    "calories": "505",
+    "protein": "36",
+    "carbs": "61",
+    "fats": "8"
+  },
+  {
+    "name": "Protein waffles",
+    "category": "breakfast",
+    "ingredients": "100 grams of oats, 2 eggs, 1 tbsp of honey, 1 tbsp baking powder, 100 grams of greek yogurt, 1 tbsp baking soda, cinnamon, whey protein, vanilla extract, 150 milliliters milk",
+    "calories": "785",
+    "protein": "67",
+    "carbs": "74",
+    "fats": "20"
+  },
+  {
+    "name": "Eggs and chocolate",
+    "category": "breakfast",
+    "ingredients": "5 scrambled eggs, 15 grams of chocolate, frozen berries",
+    "calories": "400",
+    "protein": "31",
+    "carbs": "10",
+    "fats": "30"
+  },
+  {
+    "name": "Steak with baked potatoes",
+    "category": "lunch",
+    "ingredients": "200 grams of beef meat, half onion, half garlic, 300 grams of potatoes, 1tbsp olive oil",
+    "calories": "770",
+    "protein": "56",
+    "carbs": "52",
+    "fats": "40"
+  },
+  {
+    "name": "Tuna salad",
+    "category": "lunch",
+    "ingredients": "200 grams of tuna, 150 of grams macaroni, 4 pickles, 100 of grams corn",
+    "calories": "742",
+    "protein": "72",
+    "carbs": "96",
+    "fats": "6"
+  },
+  {
+    "name": "Rice and chicken breast",
+    "category": "lunch",
+    "ingredients": "200 grams of rice, 250 grams of chicken, 150 grams of green salad",
+    "calories": "732",
+    "protein": "82",
+    "carbs": "58",
+    "fats": "10"
+  },
+  {
+    "name": "Spaghetti bolognese",
+    "category": "lunch",
+    "ingredients": "150 grams of spaghetti, 200 grams of ground beef, 1 onion, bolognese sauce",
+    "calories": "1100",
+    "protein": "62",
+    "carbs": "55",
+    "fats": "60"
+  },
+  {
+    "name": "Vegetarian salad",
+    "category": "lunch",
+    "ingredients": "150 grams of chickpeas, 50 grams of macaroni, green salad, 50 grams of kidney beans, 1 tomato, 1 tbsp olive oil",
+    "calories": "890",
+    "protein": "46",
+    "carbs": "150",
+    "fats": "10"
+  },
+  {
+    "name": "Rice and salmon",
+    "category": "lunch",
+    "ingredients": "200 grams of salmon, 100 grams of rice, 150 grams of lettuce",
+    "calories": "552",
+    "protein": "44",
+    "carbs": "31",
+    "fats": "26"
+  },
+  {
+    "name": "Grilled chicken sandwiches",
+    "category": "lunch",
+    "ingredients": "200 grams of chicken breast, 100 grams of mozzarella cheese, 4 slices of lettuce, 1 tomato, light mayo, 4 slices of bread",
+    "calories": "815",
+    "protein": "88",
+    "carbs": "27",
+    "fats": "26"
+  },
+  {
+    "name": "Tuna wrap",
+    "category": "lunch",
+    "ingredients": "200 grams of tuna, 2 slices of lettuce, 50 grams of mozzarella, 50 grams of corn, 2 small tortillas, 1 slice of lemon, light mayo",
+    "calories": "615",
+    "protein": "78",
+    "carbs": "44",
+    "fats": "11"
+  },
+  {
+    "name": "Chicken wrap",
+    "category": "lunch",
+    "ingredients": "200 grams of chicken breast, 50 grams of mozzarella cheese, 2 small tortillas, half an avocado sliced, light mayo, 2 slices of lettuce",
+    "calories": "740",
+    "protein": "82",
+    "carbs": "27.5",
+    "fats": "23"
+  },
+  {
+    "name": "Vegan patties",
+    "category": "lunch",
+    "ingredients": "100 grams of chickpeas, 200 grams of steamed broccoli, 50 grams of (oat) flour, spices of choice, 1 whole egg",
+    "calories": "610",
+    "protein": "48",
+    "carbs": "100",
+    "fats": "11"
+  },
+  {
+    "name": "Roasted salmon, sweet potatoes and broccoli",
+    "category": "dinner",
+    "ingredients": "200 grams of salmon, 200 grams of sweet potato, 100 grams of broccoli, spices of choice",
+    "calories": "642",
+    "protein": "46",
+    "carbs": "47",
+    "fats": "26"
+  },
+  {
+    "name": "Black bean and rice salad",
+    "category": "dinner",
+    "ingredients": "100 grams of rice, 150 grams of kidney beans, 1 small tomato, 3 slices of lettuce, 1 carrot",
+    "calories": "575",
+    "protein": "39",
+    "carbs": "128",
+    "fats": "2"
+  },
+  {
+    "name": "Shrimps and yellow rice",
+    "category": "dinner",
+    "ingredients": "200 grams of shrimps, 100 grams of rice, 1 tbsp of curry, 1 carrot, 30 grams of corn, 30 grams of kidney beans",
+    "calories": "460",
+    "protein": "59",
+    "carbs": "51",
+    "fats": "2"
+  },
+  {
+    "name": "Chicken breast and roasted potatoes",
+    "category": "dinner",
+    "ingredients": "250 grams of chicken breast, 2 potatoes, 200 grams of mixed green salad, spices of choice",
+    "calories": "705",
+    "protein": "81",
+    "carbs": "57",
+    "fats": "10"
+  },
+  {
+    "name": "Steak with pasta",
+    "category": "dinner",
+    "ingredients": "200 grams of steak, 100 grams of pasta, small onion, 1 garlic, spices of choice, mixed green salad",
+    "calories": "910",
+    "protein": "61",
+    "carbs": "60",
+    "fats": "41"
+  }
+]
