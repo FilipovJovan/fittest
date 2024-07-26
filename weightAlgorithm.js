@@ -70,9 +70,9 @@ async function setExercisesWeight({
     barbellSquats: Math.round((squat1RM * 1 + romanianDeadlift1RM * 1) / 2),
     deadlift: Math.round(romanianDeadlift1RM * 1.02),
     dumbbellBulgarianSquats: Math.round(
-      squat1RM * 0.35 + romanianDeadlift1RM * 0.3
+      squat1RM * 0.6 + romanianDeadlift1RM * 0.6
     ),
-    dumbbellLunges: Math.round(squat1RM * 0.4 + romanianDeadlift1RM * 0.38),
+    dumbbellLunges: Math.round(squat1RM * 0.7 + romanianDeadlift1RM * 0.68),
     frontSquats: Math.round((squat1RM * 0.75 + romanianDeadlift1RM * 1.8) / 2),
     legPress: Math.round((squat1RM * 2 + romanianDeadlift1RM * 0.55) / 2),
     legExtension: Math.round((squat1RM * 0.4 + romanianDeadlift1RM * 0.45) / 2),
@@ -85,17 +85,17 @@ async function setExercisesWeight({
 
   const shoulderEstimatedWeights = {
     militaryPress: militaryPress1RM,
-    standingDumbbellPress: Math.round(militaryPress1RM * 0.46),
-    seatedDumbbellPress: Math.round(militaryPress1RM * 0.44),
+    standingDumbbellPress: Math.round(militaryPress1RM * 0.92),
+    seatedDumbbellPress: Math.round(militaryPress1RM * 0.88),
     behindTheNeckPress: Math.round(militaryPress1RM * 0.65),
-    standingDumbbellUpRightRow: Math.round(militaryPress1RM * 0.3),
+    standingDumbbellUpRightRow: Math.round(militaryPress1RM * 0.6),
     standingBarbellUprightRow: Math.round(militaryPress1RM * 0.55),
-    frontLateralRaises: Math.round(militaryPress1RM * 0.18),
+    frontLateralRaises: Math.round(militaryPress1RM * 0.36),
     cableFrontLateralRaises: Math.round(militaryPress1RM * 0.28),
-    sideLateralRaises: Math.round(militaryPress1RM * 0.18),
+    sideLateralRaises: Math.round(militaryPress1RM * 0.36),
     cableLateralRaises: Math.round(militaryPress1RM * 0.13),
-    rearDeltoidFly: Math.round(militaryPress1RM * 0.17),
-    cableRearDeltoidFly: Math.round(militaryPress1RM * 0.14),
+    rearDeltoidFly: Math.round(militaryPress1RM * 0.34),
+    cableRearDeltoidFly: Math.round(militaryPress1RM * 0.34),
     dumbbellShrugs: Math.round(militaryPress1RM * 0.57),
     facePulls: Math.round(militaryPress1RM * 0.26),
   };
@@ -134,13 +134,13 @@ function calculateWeightsAndReps(oneRepMax, currentReps, weekIndex) {
     let weight = Math.round((oneRepMax / (1 + currentReps / 30)) * 0.8);
     let reps;
     if (weight % 5 === 0) {
-      reps = Math.round((30 * (oneRepMax - weight)) / (weight * 0.5));
+      reps = Math.round(((30 * (oneRepMax - weight)) / weight) * 0.6);
     } else if (
       weight >= (weight / 10 - (weight % 10) / 10) * 10 + 2.5 &&
       weight <= (weight / 10 - (weight % 10) / 10) * 10 + 7.5
     ) {
       weight = Math.round((weight / 10 - (weight % 10) / 10) * 10 + 5);
-      reps = Math.round((30 * (oneRepMax - weight)) / (weight * 0.5));
+      reps = Math.round(((30 * (oneRepMax - weight)) / weight) * 0.6);
     } else {
       weight = Math.round(weight / 10) * 10;
       reps = Math.round(30 * (oneRepMax / weight - 1) * 0.5);
@@ -168,7 +168,7 @@ function calculateWeightsAndReps(oneRepMax, currentReps, weekIndex) {
 
 async function updateWorkoutWeights(workoutId, setExercisesWeight) {
   try {
-    const workout = await Workout.findById("66a3bf23a5b7eeb4e661ce05");
+    const workout = await Workout.findById("66a4008f9ca5c003d51d686b");
 
     if (!workout) {
       throw new Error("Workout not found");
