@@ -21,7 +21,7 @@ function assignSetsRepsRest(exercises, goal) {
       case WORKOUT_TYPE.HYPERTROPHY:
         sets = 4;
         reps = getRandomNumberInRange(8, 15);
-        rest = getRandomNumberInRange(1, 2); // in minutes
+        rest = getRandomNumberInRange(2, 3); // in minutes
         break;
       case WORKOUT_TYPE.ENDURANCE:
         sets = 4;

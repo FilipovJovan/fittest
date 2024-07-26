@@ -176,8 +176,8 @@ async function generateWorkoutProgram({
           maxSets: 4,
           minReps: 8,
           maxReps: 12,
-          minRest: 1,
-          maxRest: 2,
+          minRest: 2,
+          maxRest: 3,
         };
       case "endurance":
         return {
@@ -279,7 +279,7 @@ async function generateWorkoutProgram({
                     instructions: overallChestCompoundExercise.instructions,
                   },
                   sets: getRandomNumberInRange(minSets, maxSets),
-                  reps: [8, 10, 12][Math.floor(Math.random() * 2)],
+                  reps: getRandomNumberInRange(minReps, maxReps),
                   rest: getRandomNumberInRange(minRest, maxRest),
                   exerciseType: "compound",
                 });
@@ -304,7 +304,7 @@ async function generateWorkoutProgram({
                     instructions: upperChestCompoundExercise.instructions,
                   },
                   sets: getRandomNumberInRange(minSets, maxSets),
-                  reps: [8, 10, 12][Math.floor(Math.random() * 2)],
+                  reps: getRandomNumberInRange(minReps, maxReps),
                   rest: getRandomNumberInRange(minRest, maxRest),
                   exerciseType: "compound",
                 });
@@ -329,7 +329,7 @@ async function generateWorkoutProgram({
                     instructions: overallBackCompoundExercise.instructions,
                   },
                   sets: getRandomNumberInRange(minSets, maxSets),
-                  reps: [8, 10, 12][Math.floor(Math.random() * 2)],
+                  reps: getRandomNumberInRange(minReps, maxReps),
                   rest: getRandomNumberInRange(minRest, maxRest),
                   exerciseType: "compound",
                 });
@@ -354,7 +354,7 @@ async function generateWorkoutProgram({
                     instructions: middleBackCompoundExercise.instructions,
                   },
                   sets: getRandomNumberInRange(minSets, maxSets),
-                  reps: [8, 10, 12][Math.floor(Math.random() * 2)],
+                  reps: getRandomNumberInRange(minReps, maxReps),
                   rest: getRandomNumberInRange(minRest, maxRest),
                   exerciseType: "compound",
                 });
@@ -379,7 +379,7 @@ async function generateWorkoutProgram({
                     instructions: frontDeltoidCompoundExercise.instructions,
                   },
                   sets: getRandomNumberInRange(minSets, maxSets),
-                  reps: [8, 10, 12][Math.floor(Math.random() * 2)],
+                  reps: getRandomNumberInRange(minReps, maxReps),
                   rest: getRandomNumberInRange(minRest, maxRest),
                   exerciseType: "compound",
                 });
@@ -425,7 +425,7 @@ async function generateWorkoutProgram({
                         },
                         sets: getRandomNumberInRange(minSets, maxSets),
                         reps: getRandomNumberInRange(minReps, maxReps),
-                        rest: [10, 15][Math.floor(Math.random() * 2)],
+                        rest: getRandomNumberInRange(minRest, maxRest),
                         exerciseType: "isolation",
                       },
                       {
@@ -438,7 +438,7 @@ async function generateWorkoutProgram({
                         },
                         sets: getRandomNumberInRange(minSets, maxSets),
                         reps: getRandomNumberInRange(minReps, maxReps),
-                        rest: [60, 90, 120][Math.floor(Math.random() * 2)],
+                        rest: getRandomNumberInRange(minRest, maxRest),
                         exerciseType: "isolation",
                       }
                     );
@@ -1318,6 +1318,7 @@ async function generateWorkoutProgram({
             }
 
             break;
+
           //-------------PUSH PULL LEGS SPLIT----------------//
           case "pushPullLegs":
             const pushPullLegsMuscles = {
@@ -1692,6 +1693,123 @@ async function generateWorkoutProgram({
               }
             }
             break;
+
+          // PPL UPPER LOWER SPLIT
+          case "pplUpperLower":
+            const PPLUPMuscles = {
+              1: [
+                "overall chest",
+                "upper chest",
+                "lower chest",
+                "triceps",
+                "front deltoid",
+              ],
+              2: ["overall back", "lats", "biceps", "traps", "rear deltoid"],
+              3: ["hamstrings", "quadriceps", "calves", "abs"],
+              4: [
+                "overall chest",
+                "upper chest",
+                "lower chest",
+                "overall back",
+                "lats",
+                "front deltoid",
+                "triceps",
+                "biceps",
+              ],
+              5: ["hamstrings", "quadriceps", "calves", "abs"],
+            };
+
+            const muscleTypesPPLUP = PPLUPMuscles[day];
+            const muscleGroupExercisesPPLUP = splitWorkout(
+              workoutWithSetsRepsRest,
+              muscleTypesPPLUP
+            );
+
+            const filteredMuscleGroupExercisesPPLUPSplit =
+              filterExercisesByEquipment(
+                muscleGroupExercisesPPLUP,
+                equipmentType
+              );
+
+            if (day == 1) {
+              const overallChestCompoundExercise = selectRandomExercise(
+                filteredMuscleGroupExercisesPPLUPSplit.filter(
+                  (exercise) => exercise.muscleType === "overall chest"
+                ),
+                "compound"
+              );
+
+              if (overallChestCompoundExercise) {
+                const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
+                  getSetsRepsRestByWorkoutType(workoutType);
+
+                dailyWorkout.push({
+                  exercise: {
+                    _id: overallChestCompoundExercise._id,
+                    name: overallChestCompoundExercise.name,
+                    muscleType: overallChestCompoundExercise.muscleType,
+                    equipment: overallChestCompoundExercise.equipment,
+                    instructions: overallChestCompoundExercise.instructions,
+                  },
+                  sets: getRandomNumberInRange(minSets, maxSets),
+                  reps: getRandomNumberInRange(minReps, maxReps),
+                  rest: getRandomNumberInRange(minRest, maxRest),
+                  exerciseType: "compound",
+                });
+              }
+              const upperChestCompoundExercise = selectRandomExercise(
+                filteredMuscleGroupExercisesPPLUPSplit.filter(
+                  (exercise) => exercise.muscleType === "upper chest"
+                ),
+                "compound"
+              );
+
+              if (upperChestCompoundExercise) {
+                const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
+                  getSetsRepsRestByWorkoutType(workoutType);
+
+                dailyWorkout.push({
+                  exercise: {
+                    _id: upperChestCompoundExercise._id,
+                    name: upperChestCompoundExercise.name,
+                    muscleType: upperChestCompoundExercise.muscleType,
+                    equipment: upperChestCompoundExercise.equipment,
+                    instructions: upperChestCompoundExercise.instructions,
+                  },
+                  sets: getRandomNumberInRange(minSets, maxSets),
+                  reps: getRandomNumberInRange(minReps, maxReps),
+                  rest: getRandomNumberInRange(minRest, maxRest),
+                  exerciseType: "compound",
+                });
+              }
+              const lowerChestCompoundExercise = selectRandomExercise(
+                filteredMuscleGroupExercisesPPLUPSplit.filter(
+                  (exercise) => exercise.muscleType === "lower chest"
+                ),
+                "compound"
+              );
+
+              if (lowerChestCompoundExercise) {
+                const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
+                  getSetsRepsRestByWorkoutType(workoutType);
+
+                dailyWorkout.push({
+                  exercise: {
+                    _id: lowerChestCompoundExercise._id,
+                    name: lowerChestCompoundExercise.name,
+                    muscleType: lowerChestCompoundExercise.muscleType,
+                    equipment: lowerChestCompoundExercise.equipment,
+                    instructions: lowerChestCompoundExercise.instructions,
+                  },
+                  sets: getRandomNumberInRange(minSets, maxSets),
+                  reps: getRandomNumberInRange(minReps, maxReps),
+                  rest: getRandomNumberInRange(minRest, maxRest),
+                  exerciseType: "compound",
+                });
+              }
+            }
+            break;
+
           //default workout
           case "daily workout":
             dailyWorkout = generateDailyWorkout();
