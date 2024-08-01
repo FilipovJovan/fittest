@@ -15,10 +15,8 @@ export const generateWorkout = async (req, res) => {
       workoutsPerWeek,
       splitPreference,
       equipmentType,
+      userId,
     } = req.body;
-
-    const userId = req.user.userId;
-    console.log(userId);
 
     // Simulated exercise fetch from the database
     const exercises = await Exercise.find({}).lean();
