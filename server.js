@@ -44,8 +44,8 @@ app.get("/test", (req, res) => {
   res.json({ msg: "test route" });
 });
 
-//app.use("/api/v1", authenticateApiKey);
-app.use("/api/v1/generate-custom", authenticateUser, workoutRouter);
+app.use("/api/v1", authenticateApiKey);
+app.use("/api/v1/generate-custom", workoutRouter);
 app.use("/api/v1/exercises", authenticateUser, exerciseRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
 app.use("/api/v1/auth", authRouter);
