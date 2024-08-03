@@ -12,7 +12,7 @@ import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 import exerciseRouter from "./routes/exerciseRouter.js";
 import workoutRouter from "./routes/generateWorkoutRouter.js";
-//public
+//public things
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import path from "path";
