@@ -69,3 +69,21 @@ export const EXERCISE_IMPORTANCE = {
   SECONDARY_EXERCISES: "secondary",
   TERTIARY_EXERCISES: "tertiary",
 };
+
+export const PROGRESS_QUESTIONS_FIRST = {
+  NO_MIND_MUSCLE_CONNECTION: "no connection",
+  SOME_MIND_MUSCLE_CONNECTION: "some connection",
+  STRONG_MIND_MUSCLE_CONNECTION: "strong connection",
+};
+
+export const PROGRESS_QUESTIONS_SECOND = {
+  NO_SORENESS: "no soreness",
+  SOME_SORENESS: "some soreness",
+  HIGH_SORENESS: "high soreness",
+};
+
+export const PROGRESS_QUESTIONS_THIRD = {
+  NO_MUSCLE_PUMP: "no muscle pump",
+  SOME_MUSCLE_PUMP: "some muscle pump",
+  HIGH_MUSCLE_PUMP: "high muscle pump",
+};
