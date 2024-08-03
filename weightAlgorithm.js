@@ -14,6 +14,7 @@ async function setExercisesWeight({
   tricepsPushdown,
   squat,
   romanianDeadlift,
+  workoutId,
 }) {
   const benchPress1RM = Math.round(calculate1RM(benchPress, 10));
   const latPulldown1RM = Math.round(calculate1RM(latPulldown, 10));
@@ -150,16 +151,16 @@ function calculateWeightsAndReps(oneRepMax, currentReps, weekIndex) {
     let weight = Math.round(oneRepMax / (1 + currentReps / 30));
     let reps;
     if (weight % 5 === 0) {
-      reps = Math.round((30 * (oneRepMax - weight)) / weight);
+      reps = Math.round((30 * (oneRepMax - weight)) / weight) - 2;
     } else if (
       weight >= (weight / 10 - (weight % 10) / 10) * 10 + 2.5 &&
       weight <= (weight / 10 - (weight % 10) / 10) * 10 + 7.5
     ) {
       weight = Math.round((weight / 10 - (weight % 10) / 10) * 10 + 5);
-      reps = Math.round((30 * (oneRepMax - weight)) / weight);
+      reps = Math.round((30 * (oneRepMax - weight)) / weight) - 2;
     } else {
       weight = Math.round(weight / 10) * 10;
-      reps = Math.round(30 * (oneRepMax / weight - 1));
+      reps = Math.round(30 * (oneRepMax / weight - 1)) - 2;
     }
 
     return { weight, reps };
@@ -168,7 +169,7 @@ function calculateWeightsAndReps(oneRepMax, currentReps, weekIndex) {
 
 async function updateWorkoutWeights(workoutId, setExercisesWeight) {
   try {
-    const workout = await Workout.findById("66a4008f9ca5c003d51d686b");
+    const workout = await Workout.findById(workoutId);
 
     if (!workout) {
       throw new Error("Workout not found");
@@ -883,6 +884,7 @@ export const getExercisesWeight = async (req, res) => {
       tricepsPushdown,
       squat,
       romanianDeadlift,
+      workoutId,
     } = req.body;
 
     const calculatedWeights = await setExercisesWeight({
@@ -894,9 +896,9 @@ export const getExercisesWeight = async (req, res) => {
       tricepsPushdown,
       squat,
       romanianDeadlift,
+      workoutId,
     });
     res.status(StatusCodes.OK).json("Success");
-    const workoutId = "669f68f396690b2ba941e67c";
     await updateWorkoutWeights(workoutId, calculatedWeights);
   } catch (error) {
     console.error(error);
