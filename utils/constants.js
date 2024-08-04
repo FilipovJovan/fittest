@@ -71,19 +71,19 @@ export const EXERCISE_IMPORTANCE = {
 };
 
 export const PROGRESS_QUESTIONS_FIRST = {
-  NO_MIND_MUSCLE_CONNECTION: "no connection",
-  SOME_MIND_MUSCLE_CONNECTION: "some connection",
-  STRONG_MIND_MUSCLE_CONNECTION: "strong connection",
+  NO_MIND_MUSCLE_CONNECTION: 0,
+  SOME_MIND_MUSCLE_CONNECTION: 1,
+  STRONG_MIND_MUSCLE_CONNECTION: 2,
 };
 
 export const PROGRESS_QUESTIONS_SECOND = {
-  NO_SORENESS: "no soreness",
-  SOME_SORENESS: "some soreness",
-  HIGH_SORENESS: "high soreness",
+  NO_SORENESS: 0,
+  SOME_SORENESS: 1,
+  HIGH_SORENESS: 2,
 };
 
 export const PROGRESS_QUESTIONS_THIRD = {
-  NO_MUSCLE_PUMP: "no muscle pump",
-  SOME_MUSCLE_PUMP: "some muscle pump",
-  HIGH_MUSCLE_PUMP: "high muscle pump",
+  NO_MUSCLE_PUMP: 0,
+  SOME_MUSCLE_PUMP: 1,
+  HIGH_MUSCLE_PUMP: 2,
 };
