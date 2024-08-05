@@ -65,7 +65,7 @@ async function generateWorkoutProgram({
   equipmentType,
 }) {
   const frequency = workoutsPerWeek || 3; // Replace with user's selected frequency
-  const weeks = 3;
+  const weeks = 5;
 
   console.log(splitPreference + " " + workoutsPerWeek);
 
@@ -169,14 +169,25 @@ async function generateWorkoutProgram({
           maxRest: 5,
         };
       case "hypertrophy":
-        return {
-          minSets: 3,
-          maxSets: 4,
-          minReps: 8,
-          maxReps: 12,
-          minRest: 2,
-          maxRest: 3,
-        };
+        if (difficultyLevel === "beginner") {
+          return {
+            minSets: 2,
+            maxSets: 2,
+            minReps: 8,
+            maxReps: 12,
+            minRest: 2,
+            maxRest: 3,
+          };
+        } else {
+          return {
+            minSets: 3,
+            maxSets: 4,
+            minReps: 8,
+            maxReps: 12,
+            minRest: 2,
+            maxRest: 3,
+          };
+        }
       case "endurance":
         return {
           minSets: 2,
