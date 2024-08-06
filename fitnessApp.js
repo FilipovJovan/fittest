@@ -180,7 +180,7 @@ async function generateWorkoutProgram({
           };
         } else {
           return {
-            minSets: 3,
+            minSets: 4,
             maxSets: 4,
             minReps: 8,
             maxReps: 12,
