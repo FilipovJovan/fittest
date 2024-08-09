@@ -65,7 +65,7 @@ async function generateWorkoutProgram({
   equipmentType,
 }) {
   const frequency = workoutsPerWeek || 3; // Replace with user's selected frequency
-  const weeks = 5;
+  const weeks = 52;
 
   console.log(splitPreference + " " + workoutsPerWeek);
 
@@ -125,8 +125,6 @@ async function generateWorkoutProgram({
         });
       }
     }
-
-    // Loop to select isolation exercises
     for (let i = 0; i < 2; i++) {
       const isolationExercise = selectRandomExercise(exercises, "isolation");
 

@@ -151,13 +151,13 @@ function calculateWeightsAndReps(oneRepMax, currentReps, weekIndex) {
     let weight = Math.round(oneRepMax / (1 + currentReps / 30));
     let reps;
     if (weight % 5 === 0) {
-      reps = Math.round((30 * (oneRepMax - weight)) / weight) - 2;
+      reps = Math.round((30 * (oneRepMax - weight)) / weight) - 2; // -2 reps for RIR
     } else if (
       weight >= (weight / 10 - (weight % 10) / 10) * 10 + 2.5 &&
       weight <= (weight / 10 - (weight % 10) / 10) * 10 + 7.5
     ) {
       weight = Math.round((weight / 10 - (weight % 10) / 10) * 10 + 5);
-      reps = Math.round((30 * (oneRepMax - weight)) / weight) - 2;
+      reps = Math.round((30 * (oneRepMax - weight)) / weight) - 2; // -2 reps for RIR
     } else {
       weight = Math.round(weight / 10) * 10;
       reps = Math.round(30 * (oneRepMax / weight - 1)) - 2;
