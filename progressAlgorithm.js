@@ -12,25 +12,21 @@ function calculateVolume(reps, weight, sets) {
 function adjustWorkout(counter, exerciseRef) {
   const { reps, sets, rest } = exerciseRef;
   if (counter < 2) {
-    // No hypertrophy - Increase sets and rest, decrease reps
-    exerciseRef.reps = Math.max(1, reps - 2); // Ensure reps don't go below 1
-    exerciseRef.sets = sets + 1;
-    exerciseRef.rest = rest + 15; // Increase rest time by 15 seconds
-  } else if (counter >= 2 && counter < 4) {
-    // Maintenance - Small adjustments
-    exerciseRef.reps = reps;
-    exerciseRef.sets = sets;
-    exerciseRef.rest = rest;
-  } else if (counter < 6) {
-    // Maximal hypertrophy - Increase reps and sets, decrease rest
     exerciseRef.reps = reps + 2;
     exerciseRef.sets = sets + 1;
-    exerciseRef.rest = Math.max(15, rest - 15); // Ensure rest doesn't go below 15 seconds
+    exerciseRef.rest = rest;
+  } else if (counter >= 2 && counter < 4) {
+    exerciseRef.reps = reps + 1;
+    exerciseRef.sets = sets + 1;
+    exerciseRef.rest = rest;
+  } else if (counter >= 4 && counter < 6) {
+    exerciseRef.reps = reps + 1;
+    exerciseRef.sets = sets;
+    exerciseRef.rest = rest;
   } else {
-    // High stress - Decrease sets and reps, increase rest
-    exerciseRef.reps = Math.max(1, reps - 1); // Ensure reps don't go below 1
-    exerciseRef.sets = Math.max(1, sets - 1); // Ensure sets don't go below 1
-    exerciseRef.rest = rest + 15; // Increase rest time by 15 seconds
+    exerciseRef.reps = Math.max(1, reps - 1);
+    exerciseRef.sets = Math.max(1, sets - 1);
+    exerciseRef.rest = rest + 0.25;
   }
 }
 
@@ -107,11 +103,11 @@ export const progressTracker = async (req, res) => {
             exerciseRef.sets
           );
           dailyVolume += volume;
-          console.log(
+          /*console.log(
             `Week ${weekIndex + 1} Day ${day.dayNumber} Exercise ${
               exerciseRef.exercise.name
             } Volume: ${volume}`
-          );
+          );*/
         });
         weeklyVolume += dailyVolume;
         console.log(
@@ -120,10 +116,10 @@ export const progressTracker = async (req, res) => {
           } Total Daily Volume: ${dailyVolume}`
         );
       });
-      console.log(`Week ${weekIndex + 1} Total Weekly Volume: ${weeklyVolume}`);
+      //console.log(`Week ${weekIndex + 1} Total Weekly Volume: ${weeklyVolume}`);
     });
 
-    await workout.save();
+    //await workout.save();
     res.status(200).send("Evaluation and adjustment complete");
   } catch (error) {
     console.error(error);

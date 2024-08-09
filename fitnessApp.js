@@ -165,7 +165,7 @@ async function generateWorkoutProgram({
           maxSets: 4,
           minReps: 3,
           maxReps: 5,
-          minRest: 3,
+          minRest: 4,
           maxRest: 5,
         };
       case "hypertrophy":
@@ -203,16 +203,13 @@ async function generateWorkoutProgram({
           maxSets: 4,
           minReps: 8,
           maxReps: 12,
-          minRest: 1,
+          minRest: 60,
           maxRest: 2,
         };
     }
   };
-
-  // Rest of the code remains unchanged
   function splitWorkout(workoutWithSetsRepsRest, muscleGroups) {
     if (!muscleGroups || !Array.isArray(muscleGroups)) {
-      // Handle the case where muscleGroups is undefined or not an array
       console.error("Invalid muscleGroups array");
       return [];
     }
@@ -2349,10 +2346,9 @@ async function generateWorkoutProgram({
     workoutProgram.weeks.push(weekObject);
   }
 
-  // Save the workout program to the database (simulated for demonstration)
   const currentDate = new Date();
   const endDate = new Date(currentDate);
-  endDate.setDate(currentDate.getDate() + weeks * 7); // Replace with actual end date calculation
+  endDate.setDate(currentDate.getDate() + weeks * 7);
   //await saveWorkoutProgramToDatabase(workoutProgram, endDate);
 
   const createdBy = userId;
@@ -2380,7 +2376,6 @@ async function generateWorkoutProgram({
 
       const populatedExercises = await Promise.all(
         exercises.map(async (exercise) => {
-          // Populate the exercise details
           const populatedExercise = await Exercise.findById(
             exercise.exercise
           ).lean();
