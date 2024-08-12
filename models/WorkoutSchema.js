@@ -35,6 +35,10 @@ const exerciseReferenceSchema = new Schema({
 });
 
 const workoutDaySchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   workout: [exerciseReferenceSchema],
   isCompleted: {
     type: Boolean,
@@ -48,6 +52,10 @@ const workoutSchema = new Schema({
     ref: "User",
     required: true,
   },*/
+  workoutSplitName: {
+    type: String,
+    required: true,
+  },
   weeks: [
     {
       days: [workoutDaySchema],

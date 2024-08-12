@@ -30,9 +30,24 @@ function adjustWorkout(counter, exerciseRef) {
   }
 }
 
+async function findNextWorkoutWithSameName(workout, currentDayId, name) {
+  let foundCurrent = false;
+  for (const week of workout.weeks) {
+    for (const day of week.days) {
+      if (day._id.toString() === currentDayId.toString()) {
+        foundCurrent = true;
+      } else if (foundCurrent && day.name === name) {
+        return day;
+      }
+    }
+  }
+  return null; // If no next workout found with the same name
+}
+
 export const progressTracker = async (req, res) => {
   try {
-    const { questionOne, questionTwo, questionThree, workoutId } = req.body;
+    const { questionOne, questionTwo, questionThree, workoutId, currentDayId } =
+      req.body;
 
     let counter = 0;
 
@@ -43,8 +58,8 @@ export const progressTracker = async (req, res) => {
       case "some connection":
         counter += PROGRESS_QUESTIONS_FIRST.SOME_MIND_MUSCLE_CONNECTION;
         break;
-      case "strong connection":
-        counter += PROGRESS_QUESTIONS_FIRST.STRONG_MIND_MUSCLE_CONNECTION;
+      case "high connection":
+        counter += PROGRESS_QUESTIONS_FIRST.HIGH_MIND_MUSCLE_CONNECTION;
         break;
     }
 
@@ -90,36 +105,33 @@ export const progressTracker = async (req, res) => {
       return res.status(404).send("Workout not found");
     }
 
-    workout.weeks.forEach((week, weekIndex) => {
-      let weeklyVolume = 0;
-      week.days.forEach((day) => {
-        let dailyVolume = 0;
-        day.workout.forEach((exerciseRef) => {
-          adjustWorkout(counter, exerciseRef);
+    // Find the current workout day by ID
+    const currentDay = workout.weeks
+      .flatMap((week) => week.days)
+      .find((day) => day._id.toString() === currentDayId);
 
-          const volume = calculateVolume(
-            exerciseRef.reps,
-            exerciseRef.weight,
-            exerciseRef.sets
-          );
-          dailyVolume += volume;
-          /*console.log(
-            `Week ${weekIndex + 1} Day ${day.dayNumber} Exercise ${
-              exerciseRef.exercise.name
-            } Volume: ${volume}`
-          );*/
-        });
-        weeklyVolume += dailyVolume;
-        console.log(
-          `Week ${weekIndex + 1} Day ${
-            day.dayNumber
-          } Total Daily Volume: ${dailyVolume}`
-        );
-      });
-      //console.log(`Week ${weekIndex + 1} Total Weekly Volume: ${weeklyVolume}`);
+    if (!currentDay) {
+      return res.status(404).send("Current workout day not found");
+    }
+
+    // Find the next workout day with the same name
+    const nextDay = await findNextWorkoutWithSameName(
+      workout,
+      currentDayId,
+      currentDay.name
+    );
+
+    if (!nextDay) {
+      console.log("No next workout found with the same name");
+      return res.status(200).send("No next workout found with the same name");
+    }
+
+    // Adjust volume and progress for the next workout day
+    nextDay.workout.forEach((exerciseRef) => {
+      adjustWorkout(counter, exerciseRef);
     });
 
-    //await workout.save();
+    await workout.save();
     res.status(200).send("Evaluation and adjustment complete");
   } catch (error) {
     console.error(error);

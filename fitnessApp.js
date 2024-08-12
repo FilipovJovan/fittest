@@ -65,7 +65,8 @@ async function generateWorkoutProgram({
   equipmentType,
 }) {
   const frequency = workoutsPerWeek || 3; // Replace with user's selected frequency
-  const weeks = 52;
+  const weeks = 5;
+  //const workout = Workout;
 
   console.log(splitPreference + " " + workoutsPerWeek);
 
@@ -73,8 +74,29 @@ async function generateWorkoutProgram({
   const goal = workoutType || WORKOUT_TYPE.ALL_TYPES;
   const workoutWithSetsRepsRest = assignSetsRepsRest(exercises, goal);
 
+  let workoutSplitName = "";
+  switch (splitPreference) {
+    case "pushPullLegs":
+      workoutSplitName = "Push Pull Legs Split";
+      break;
+    case "upperLower":
+      workoutSplitName = "Upper Lower Split";
+      break;
+    case "fullBody":
+      workoutSplitName = "Full Body Split";
+      break;
+    case "broSplit":
+      workoutSplitName = "Bro Split Split";
+      break;
+    case "pplUpperLower":
+      workoutSplitName = "Push Pull Legs Upper Lower Split";
+      break;
+    default:
+      break;
+  }
   // Create the workout program structure
   const workoutProgram = {
+    workoutSplitName: workoutSplitName,
     weeks: [],
     exercises: workoutWithSetsRepsRest,
   };
@@ -201,7 +223,7 @@ async function generateWorkoutProgram({
           maxSets: 4,
           minReps: 8,
           maxReps: 12,
-          minRest: 60,
+          minRest: 1,
           maxRest: 2,
         };
     }
@@ -216,6 +238,7 @@ async function generateWorkoutProgram({
       muscleGroups.includes(exercise.muscleType)
     );
   }
+
   for (let week = 1; week <= weeks; week++) {
     const weekObject = {
       weekNumber: week,
@@ -225,6 +248,7 @@ async function generateWorkoutProgram({
     for (let day = 1; day <= 7; day++) {
       if (day <= frequency) {
         let dailyWorkout = [];
+        let name = "";
 
         switch (splitPreference) {
           //---------------UPPER LOWER SPLIT------------------//
@@ -263,6 +287,7 @@ async function generateWorkoutProgram({
                 equipmentType
               );
             if (day === 1) {
+              name = "Upper day";
               const overallChestCompoundExercise = selectRandomExercise(
                 filteredMuscleGroupExercisesUpperLower.filter(
                   (exercise) => exercise.muscleType === "overall chest"
@@ -516,6 +541,7 @@ async function generateWorkoutProgram({
                 }
               }
             } else if (day === 3) {
+              name = "Upper day";
               const overallChestCompoundExercise = selectRandomExercise(
                 filteredMuscleGroupExercisesUpperLower.filter(
                   (exercise) => exercise.muscleType === "overall chest"
@@ -707,6 +733,7 @@ async function generateWorkoutProgram({
                 }
               }
             } else {
+              name = "Lower day";
               for (let i = 0; i < 5; i++) {
                 const compoundExercise = selectRandomExercise(
                   filteredMuscleGroupExercisesUpperLower,
@@ -840,6 +867,7 @@ async function generateWorkoutProgram({
             );*/
 
             if (day == 1) {
+              name = "Push day";
               const overallChestCompoundExercise = selectRandomExercise(
                 filteredMuscleGroupExercisesBroSplit.filter(
                   (exercise) => exercise.muscleType === "overall chest"
@@ -953,6 +981,7 @@ async function generateWorkoutProgram({
                 }
               }
             } else if (day == 2) {
+              name = "Pull day";
               for (let i = 0; i < 3; i++) {
                 const backCompoundExercise = selectRandomExercise(
                   filteredMuscleGroupExercisesBroSplit,
@@ -1017,6 +1046,7 @@ async function generateWorkoutProgram({
                 }
               }
             } else if (day == 3) {
+              name = "Shoulder day";
               for (let i = 0; i < 2; i++) {
                 const frontDeltoidCompoundExercise = selectRandomExercise(
                   filteredMuscleGroupExercisesBroSplit.filter(
@@ -1118,6 +1148,7 @@ async function generateWorkoutProgram({
                 }
               }
             } else if (day == 4) {
+              name = "Legs day";
               for (let i = 0; i < 2; i++) {
                 const quadCompoundExercise = selectRandomExercise(
                   filteredMuscleGroupExercisesBroSplit.filter(
@@ -1218,6 +1249,7 @@ async function generateWorkoutProgram({
                 }
               }
             } else {
+              name = "Arms day";
               for (let i = 0; i < 3; i++) {
                 const bicepsIsolationExercise = selectRandomExercise(
                   filteredMuscleGroupExercisesBroSplit.filter(
@@ -1361,6 +1393,7 @@ async function generateWorkoutProgram({
             if (day === 1 || day === 4) {
               // Push day
               // Add 3 compound chest exercises
+              name = "Push day";
               const lowerChestCompoundExercise = selectRandomExercise(
                 filteredMuscleGroupExercisesPPLSplit.filter(
                   (exercise) => exercise.muscleType === "lower chest"
@@ -1529,6 +1562,7 @@ async function generateWorkoutProgram({
             } else if (day === 2 || day === 5) {
               // Pull day
               // Add 3 compound back exercises
+              name = "Pull day";
               for (let i = 0; i < 3; i++) {
                 const backCompoundExercise = selectRandomExercise(
                   filteredMuscleGroupExercisesPPLSplit,
@@ -1625,6 +1659,7 @@ async function generateWorkoutProgram({
             } else if (day === 3 || day === 6) {
               // Leg day
               // Add 3 compound exercises for the legs
+              name = "Leg day";
               for (let i = 0; i < 3; i++) {
                 const legCompoundExercise = selectRandomExercise(
                   filteredMuscleGroupExercisesPPLSplit.filter(
@@ -1736,6 +1771,7 @@ async function generateWorkoutProgram({
               );
 
             if (day == 1) {
+              name = "Push day";
               const overallChestCompoundExercise = selectRandomExercise(
                 filteredMuscleGroupExercisesPPLUPSplit.filter(
                   (exercise) => exercise.muscleType === "overall chest"
@@ -1870,6 +1906,7 @@ async function generateWorkoutProgram({
                 }
               }
             } else if (day == 2) {
+              name = "Pull day";
               const middleBackCompoundExercise = selectRandomExercise(
                 filteredMuscleGroupExercisesPPLUPSplit.filter(
                   (exercise) => exercise.muscleType === "middle back"
@@ -2004,6 +2041,7 @@ async function generateWorkoutProgram({
                 }
               }
             } else if (day == 3) {
+              name = "Legs day";
               for (let i = 0; i < 4; i++) {
                 const legCompoundExercise = selectRandomExercise(
                   filteredMuscleGroupExercisesPPLSplit.filter(
@@ -2075,6 +2113,7 @@ async function generateWorkoutProgram({
                 }
               }
             } else if (day == 4) {
+              name = "Upper day";
               const overallChestCompoundExercise = selectRandomExercise(
                 filteredMuscleGroupExercisesPPLUPSplit.filter(
                   (exercise) => exercise.muscleType === "overall chest"
@@ -2227,6 +2266,7 @@ async function generateWorkoutProgram({
                 });
               }
             } else if (day == 5) {
+              name = "Lower day";
               for (let i = 0; i < 2; i++) {
                 const quadsCompoundExercise = selectRandomExercise(
                   filteredMuscleGroupExercisesPPLUPSplit.filter(
@@ -2335,6 +2375,7 @@ async function generateWorkoutProgram({
         }
 
         weekObject.days.push({
+          name: name,
           dayNumber: day,
           workout: dailyWorkout,
         });
@@ -2353,6 +2394,7 @@ async function generateWorkoutProgram({
 
   const savedWorkout = await saveWorkoutProgramToDatabase(
     workoutProgram,
+    workoutSplitName,
     currentDate,
     endDate,
     createdBy
@@ -2360,6 +2402,7 @@ async function generateWorkoutProgram({
 
   async function saveWorkoutProgramToDatabase(
     workoutProgram,
+    workoutSplitName,
     currentDate,
     endDate,
     createdBy
@@ -2386,6 +2429,7 @@ async function generateWorkoutProgram({
       // Create a new Workout document
       const newWorkout = new Workout({
         weeks: workoutProgram.weeks,
+        workoutSplitName,
         createdBy,
         currentDate,
         endDate,
