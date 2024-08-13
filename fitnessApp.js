@@ -2,7 +2,7 @@
 import {
   assignSetsRepsRest,
   getRandomNumberInRange,
-} from "./workoutAlgorithm.js";
+} from "./workoutAlgorithm/workoutAlgorithm.js";
 import Exercise from "./models/ExerciseModel.js";
 import Workout from "./models/WorkoutSchema.js";
 import { WORKOUT_TYPE } from "./utils/constants.js";

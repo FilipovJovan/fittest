@@ -1,4 +1,4 @@
-import Workout from "./models/WorkoutSchema.js";
+import Workout from "../models/WorkoutSchema.js";
 import { StatusCodes } from "http-status-codes";
 
 function calculate1RM(weight, reps) {

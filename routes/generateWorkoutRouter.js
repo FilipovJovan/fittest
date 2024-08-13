@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { generateWorkout } from "../fitnessApp.js";
-import { getExercisesWeight } from "../weightAlgorithm.js";
-import { progressTracker } from "../progressAlgorithm.js";
+import { getExercisesWeight } from "../workoutAlgorithm/weightAlgorithm.js";
+import { progressTracker } from "../workoutAlgorithm/progressAlgorithm.js";
 const router = Router();
 
 router.post("/workout", generateWorkout);

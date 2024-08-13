@@ -5,7 +5,7 @@ import {
   DIFFICULTY,
   EQUIPMENT,
   MUSCLE_TYPE,
-} from "./utils/constants.js";
+} from "../utils/constants.js";
 
 // Function to assign sets, reps, and rest based on user's goal
 function assignSetsRepsRest(exercises, goal) {

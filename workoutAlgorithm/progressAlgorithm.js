@@ -1,9 +1,9 @@
-import Workout from "./models/WorkoutSchema.js";
+import Workout from "../models/WorkoutSchema.js";
 import {
   PROGRESS_QUESTIONS_FIRST,
   PROGRESS_QUESTIONS_SECOND,
   PROGRESS_QUESTIONS_THIRD,
-} from "./utils/constants.js";
+} from "../utils/constants.js";
 
 function calculateVolume(reps, weight, sets) {
   return reps * weight * sets;
