@@ -22,12 +22,12 @@ function assignSetsRepsRest(exercises, goal) {
         if (DIFFICULTY.BEGINNER) {
           sets = 2;
           reps = getRandomNumberInRange(8, 15);
-          rest = getRandomNumberInRange(2, 3);
+          rest = getRandomNumberInRange(1.5, 2);
           break;
         } else {
           sets = 4;
           reps = getRandomNumberInRange(8, 15);
-          rest = getRandomNumberInRange(2, 3);
+          rest = getRandomNumberInRange(1.5, 2);
           break;
         }
 
