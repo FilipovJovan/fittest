@@ -11,9 +11,11 @@ const upperLower4x = (
   workoutWithSetsRepsRest,
   workoutType,
   difficultyLevel,
-  dailyWorkout
+  dailyWorkout,
+  week
 ) => {
   let name = "";
+
   const upperLowerMuscles = {
     1: [
       "overall chest",

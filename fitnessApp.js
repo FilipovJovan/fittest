@@ -10,6 +10,9 @@ import upperLower4x from "./workoutAlgorithm/upperLower4x.js";
 import pushPullLegs from "./workoutAlgorithm/pushPullLegs.js";
 import broSplit from "./workoutAlgorithm/broSplit.js";
 import pushPullLegsUpperLower from "./workoutAlgorithm/pushPullLegsUpperLower.js";
+import upperLower3x from "./workoutAlgorithm/upperLower3x.js";
+import upperLower2x from "./workoutAlgorithm/upperLower2x.js";
+import pushPullLegs3x from "./workoutAlgorithm/pushPullLegs3x.js";
 
 export const generateWorkout = async (req, res) => {
   try {
@@ -156,8 +159,17 @@ async function generateWorkoutProgram({
     case "pushPullLegs":
       workoutSplitName = "Push Pull Legs Split";
       break;
-    case "upperLower":
-      workoutSplitName = "Upper Lower Split";
+    case "pushPullLegs3x":
+      workoutSplitName = "Push Pull Legs 3x Split";
+      break;
+    case "upperLower4x":
+      workoutSplitName = "Upper Lower Split 4x";
+      break;
+    case "upperLower3x":
+      workoutSplitName = "Upper Lower Split 3x";
+      break;
+    case "upperLower2x":
+      workoutSplitName = "Upper Lower Split 2x";
       break;
     case "fullBody":
       workoutSplitName = "Full Body Split";
@@ -167,8 +179,6 @@ async function generateWorkoutProgram({
       break;
     case "pushPullLegsUpperLower":
       workoutSplitName = "Push Pull Legs Upper Lower Split";
-      break;
-    default:
       break;
   }
   // Create the workout program structure
@@ -252,17 +262,44 @@ async function generateWorkoutProgram({
         let dailyWorkout = [];
         let name = "";
         switch (splitPreference) {
-          case "upperLower":
-            const resultUpperLower = upperLower4x(
+          case "upperLower4x":
+            const resultUpperLower4x = upperLower4x(
               day,
               equipmentType,
               workoutWithSetsRepsRest,
               workoutType,
               difficultyLevel,
-              dailyWorkout
+              dailyWorkout,
+              week
             );
-            dailyWorkout = resultUpperLower.dailyWorkout;
-            name = resultUpperLower.name;
+            dailyWorkout = resultUpperLower4x.dailyWorkout;
+            name = resultUpperLower4x.name;
+            break;
+          case "upperLower3x":
+            const resultUpperLower3x = upperLower3x(
+              day,
+              equipmentType,
+              workoutWithSetsRepsRest,
+              workoutType,
+              difficultyLevel,
+              dailyWorkout,
+              week
+            );
+            dailyWorkout = resultUpperLower3x.dailyWorkout;
+            name = resultUpperLower3x.name;
+            break;
+          case "upperLower2x":
+            const resultUpperLower2x = upperLower2x(
+              day,
+              equipmentType,
+              workoutWithSetsRepsRest,
+              workoutType,
+              difficultyLevel,
+              dailyWorkout,
+              week
+            );
+            dailyWorkout = resultUpperLower2x.dailyWorkout;
+            name = resultUpperLower2x.name;
             break;
           case "fullBody":
             dailyWorkout = generateDailyWorkout();
@@ -291,6 +328,18 @@ async function generateWorkoutProgram({
             dailyWorkout = resultPushPullLegs.dailyWorkout;
             name = resultPushPullLegs.name;
             break;
+          case "pushPullLegs3x":
+            const resultPushPullLegs3x = pushPullLegs3x(
+              day,
+              equipmentType,
+              workoutWithSetsRepsRest,
+              workoutType,
+              difficultyLevel,
+              dailyWorkout
+            );
+            dailyWorkout = resultPushPullLegs3x.dailyWorkout;
+            name = resultPushPullLegs3x.name;
+            break;
           case "pushPullLegsUpperLower":
             const resultPushPullLegsUpperLower = pushPullLegsUpperLower(
               day,
@@ -303,8 +352,6 @@ async function generateWorkoutProgram({
             dailyWorkout = resultPushPullLegsUpperLower.dailyWorkout;
             name = resultPushPullLegsUpperLower.name;
             break;
-          case "daily workout":
-            dailyWorkout = generateDailyWorkout();
         }
 
         weekObject.days.push({
