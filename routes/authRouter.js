@@ -6,6 +6,7 @@ import {
   validateLoginInput,
 } from "../middleware/validationMiddleware.js";
 
+router.post("/signup-newsletter");
 router.post("/register", validateRegisterInput, register);
 router.post("/login", validateLoginInput, login);
 router.get("/logout", logout);
