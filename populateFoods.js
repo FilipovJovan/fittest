@@ -11,7 +11,7 @@ try {
   const user = await User.insertMany();
 
   const jsonFoods = JSON.parse(
-    await readFile(new URL("./utils/foodData.json", import.meta.url))
+    await readFile(new URL("./utils/foodChatGPTdata.json", import.meta.url))
   );
   const foods = jsonFoods.map((exercise) => {
     return { ...exercise };
