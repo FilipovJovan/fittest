@@ -9,6 +9,7 @@ const Wrapper = styled.section`
   .container {
     background-color: var(--grey-200);
     max-width: 100%;
+    margin-bottom: 50px;
   }
 `;
 export default Wrapper;

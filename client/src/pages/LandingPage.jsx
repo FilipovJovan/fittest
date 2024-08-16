@@ -108,6 +108,7 @@ const LandingPage = () => {
           </Col>
         </Row>
       </Row>
+      <Newsletter />
       <Row className="section-two" id="section-two">
         <h1 className="section-two-heading">How it works</h1>
         <Row className="section-two-rows-left">
@@ -206,7 +207,7 @@ const LandingPage = () => {
           </Col>
         </Row>
       </Row>
-      <Newsletter />
+
       <Row className="section-three" id="section-three">
         <h1 className="section-two-heading">Pricing and packages</h1>
         <Row className="pricing-packages">

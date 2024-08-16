@@ -7,12 +7,12 @@ const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    pass: process.env.EMAIL_PASSWORD,
   },
 });
 
 export const sendVerificationEmail = async (email, token) => {
-  const url = `${"http://localhost:5000"}/verify/${token}`;
+  const url = `http://localhost:5000/verify/${token}`;
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,

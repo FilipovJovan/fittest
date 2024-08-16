@@ -7,26 +7,28 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import crypto from "crypto";
+import nodemailer from "nodemailer";
 
-//router import
+// Router imports
 import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 import exerciseRouter from "./routes/exerciseRouter.js";
 import workoutRouter from "./routes/generateWorkoutRouter.js";
-//public things
+
+// Public things
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import path from "path";
 
-//middleware
+// Middleware
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 import { authenticateUser } from "./middleware/authMiddleware.js";
 import { authenticateApiKey } from "./middleware/apiKeyMiddleware.js";
 
 // Models and services for newsletter
-import User from "./models/UserModel.js";
+import NewsletterSubscriber from "./models/newsletterSubscriber.js";
 import { sendVerificationEmail, sendBulkEmails } from "./emailService.js";
-import jwt from "jsonwebtoken";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -43,21 +45,46 @@ app.use(cors());
 app.post("/signup", async (req, res) => {
   const { email } = req.body;
   try {
-    let user = await User.findOne({ email });
-    if (user) {
+    let subscriber = await NewsletterSubscriber.findOne({ email });
+    if (subscriber) {
       return res.status(400).send("Email already exists.");
     }
 
-    user = new User({ email });
-    await user.save();
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+    subscriber = new NewsletterSubscriber({ email, verificationToken });
+    await subscriber.save();
 
-    const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
+    const verificationUrl = `http://localhost:${port}/verify/${verificationToken}`;
+
+    // Send verification email
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
     });
-    await sendVerificationEmail(email, token);
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "FittestApp Newsletter Subscription Verification",
+      html: `
+      <p>Please verify your email by clicking on the following link:</p>
+      <a href="${verificationUrl}" style="text-decoration: underline; color: blue;">Verify Email</a>
+      <br/><br/>
+      <p>If you wish to unsubscribe, please click the following link:</p>
+      <a href="http://localhost:5000/unsubscribe?email=${encodeURIComponent(
+        email
+      )}" style="text-decoration: underline; color: blue;">Unsubscribe</a>
+    `,
+    };
+
+    await transporter.sendMail(mailOptions);
 
     res.status(201).send("Signup successful! Please verify your email.");
   } catch (error) {
+    console.error("Signup error:", error);
     res.status(500).send("Internal Server Error");
   }
 });
@@ -65,19 +92,29 @@ app.post("/signup", async (req, res) => {
 app.get("/verify/:token", async (req, res) => {
   const { token } = req.params;
   try {
-    const { email } = jwt.verify(token, process.env.JWT_SECRET);
-    await User.findOneAndUpdate({ email }, { verified: true });
-    res.send("Email verified successfully!");
+    const subscriber = await NewsletterSubscriber.findOne({
+      verificationToken: token,
+    });
+    if (!subscriber) {
+      return res.status(400).send("Invalid token.");
+    }
+
+    subscriber.verified = true;
+    subscriber.verificationToken = undefined;
+    await subscriber.save();
+
+    res.redirect("/verification");
   } catch (error) {
-    res.status(400).send("Invalid or expired token.");
+    console.error("Verification error:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
 app.post("/unsubscribe", async (req, res) => {
   const { email } = req.body;
   try {
-    await User.findOneAndDelete({ email });
-    res.send("Unsubscribed successfully!");
+    await NewsletterSubscriber.findOneAndDelete({ email });
+    res.redirect("/unsubscribe");
   } catch (error) {
     res.status(500).send("Internal Server Error");
   }
@@ -86,8 +123,8 @@ app.post("/unsubscribe", async (req, res) => {
 app.post("/sendBulkEmails", async (req, res) => {
   const { subject, text } = req.body;
   try {
-    const users = await User.find({ verified: true });
-    const emails = users.map((user) => user.email);
+    const subscribers = await NewsletterSubscriber.find({ verified: true });
+    const emails = subscribers.map((subscriber) => subscriber.email);
     await sendBulkEmails(emails, subject, text);
     res.send("Bulk emails sent successfully!");
   } catch (error) {

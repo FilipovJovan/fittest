@@ -13,6 +13,8 @@ import {
   HealthPage,
   DashboardLayoutPage,
   ProgressPage,
+  VerificationPage,
+  UnsubscribePage,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />,
         action: loginAction,
+      },
+      {
+        path: "verification",
+        element: <VerificationPage />,
+      },
+      {
+        path: "unsubscribe",
+        element: <UnsubscribePage />,
       },
       {
         path: "profile",
