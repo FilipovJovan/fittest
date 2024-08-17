@@ -70,14 +70,24 @@ app.post("/signup", async (req, res) => {
       to: email,
       subject: "FittestApp Newsletter Subscription Verification",
       html: `
-      <p>Please verify your email by clicking on the following link:</p>
-      <a href="${verificationUrl}" style="text-decoration: underline; color: blue;">Verify Email</a>
-      <br/><br/>
-      <p>If you wish to unsubscribe, please click the following link:</p>
-      <a href="http://localhost:5000/unsubscribe?email=${encodeURIComponent(
-        email
-      )}" style="text-decoration: underline; color: blue;">Unsubscribe</a>
-    `,
+  <p>Dear ${email},</p>
+  <p>Thank you for subscribing to our newsletter!</p>
+  <p>At FittestApp, we use advanced algorithms to tailor personalized food and workout plans just for you. Get ready to achieve your fitness goals with us!</p>
+  <p>Best regards,<br/>The FittestApp Team</p>
+  <p>Please verify your email by clicking on the following link:</p>
+  <a href="${verificationUrl}" style="text-decoration: underline; color: blue;">Verify Email</a>
+  <br/><br/>
+  <p>If you wish to unsubscribe, please click the following link:</p>
+  <a href="http://localhost:5000/unsubscribe?email=${encodeURIComponent(
+    email
+  )}" style="text-decoration: underline; color: blue;">Unsubscribe</a>`,
+      attachments: [
+        {
+          filename: "Introduction to bodybuilding ebook.pdf",
+          path: path.resolve("public/assets/freeEbook.pdf"),
+          contentType: "application/pdf",
+        },
+      ],
     };
 
     await transporter.sendMail(mailOptions);
