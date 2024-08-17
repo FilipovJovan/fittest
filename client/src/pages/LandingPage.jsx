@@ -218,7 +218,7 @@ const LandingPage = () => {
             priceMonthly="Free"
             pricingButtonText="pricing-button-text-black"
             includedItems={[
-              "1 mesocycle workout plan",
+              "1 month workout plan",
               "Meal suggestions",
               "1 newsletter per week",
               "Exercise access",
@@ -235,7 +235,7 @@ const LandingPage = () => {
             pricingButtonText="pricing-button-text-white"
             includedItems={[
               "All from free",
-              "Custom weight-exercise algorithm",
+              "Weight algorithm",
               "Progress tracking",
               "10+ pre-made splits",
               "Calories calculator",

@@ -177,7 +177,7 @@ const Wrapper = styled.section`
     max-width: 100%;
     text-align: left;
     margin: auto;
-    margin-bottom: 250px;
+    margin-bottom: 320px;
   }
   .pricing-packages-columns {
     margin: 2px;
@@ -350,7 +350,7 @@ const Wrapper = styled.section`
       --bs-gutter-x: none;
     }
     .phoneImage {
-      width: 280px;
+      width: 255px;
       position: relative;
       top: 0%;
       left: 0%;
@@ -358,6 +358,10 @@ const Wrapper = styled.section`
     }
     .first-text {
       margin-bottom: 20px;
+    }
+    .text-headings h1 {
+      font-size: 56px;
+      margin-top: 20px;
     }
     .rowAppLinks {
       width: 100%; /* Ensure the parent container takes full width */
@@ -448,7 +452,9 @@ const Wrapper = styled.section`
     .first-text {
       margin-top: 100px;
     }
-
+    .text-headings h1 {
+      margin-top: 20px;
+    }
     .container-link-to-app {
       position: relative;
       top: 15%;
@@ -543,6 +549,26 @@ const Wrapper = styled.section`
     .pricing-packages-columns {
       margin-top: 15px;
       margin-bottom: 15px;
+    }
+    .ticks {
+      max-width: min-content;
+    }
+    .words {
+      max-width: max-content;
+    }
+  }
+  @media (max-width: 450px) {
+    .phoneImage {
+      width: 180px;
+      position: relative;
+      top: 2%;
+      left: 2%;
+      transform: translate(-2%, -2%);
+      margin-top: 50px;
+    }
+    .text-headings h1 {
+      font-size: 48px;
+      margin-top: 20px;
     }
   }
 `;
