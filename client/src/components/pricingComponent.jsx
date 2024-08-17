@@ -15,7 +15,7 @@ const PricingPackage = ({
     <Col className="pricing-packages-columns">
       <Row className="pricing-packages-upper-row">
         <span className={dotClass}></span>
-        <h4>{title}</h4>
+        <h4 className="highlighted-text-one">{title}</h4>
         <p>{description}</p>
       </Row>
       <Row className="pricing-packages-lower-row">

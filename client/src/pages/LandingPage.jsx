@@ -218,25 +218,11 @@ const LandingPage = () => {
             priceMonthly="Free"
             pricingButtonText="pricing-button-text-black"
             includedItems={[
-              "1 month workout plan",
-              "nutritional advices",
-              "sleep advices",
-            ]}
-          />
-          <PricingPackage
-            dotClass="dot-two"
-            title="Standard"
-            description="For people who want to take their fitness to the next level"
-            priceMonthly="$7"
-            priceAnnually="$10"
-            pricingButtonText="pricing-button-text-black"
-            includedItems={[
-              "free package",
-              "food recipes",
-              "basic support",
-              "exercises access",
-              "warm-up routines",
-              "stretching routines",
+              "1 mesocycle workout plan",
+              "Meal suggestions",
+              "1 newsletter per week",
+              "Exercise access",
+              "4 pre-made splits",
             ]}
           />
           <PricingPackage
@@ -248,11 +234,15 @@ const LandingPage = () => {
             buttonColor="pricing-button-premium"
             pricingButtonText="pricing-button-text-white"
             includedItems={[
-              "standard package",
-              "2 months workout program",
-              "progress tracking",
-              "daily reminders",
-              "weekly newsletter",
+              "All from free",
+              "Custom weight-exercise algorithm",
+              "Progress tracking",
+              "10+ pre-made splits",
+              "Calories calculator",
+              "Warm-up routines",
+              "Stretching routines",
+              "Daily reminders",
+              "100$ worth of ebooks",
             ]}
           />
         </Row>

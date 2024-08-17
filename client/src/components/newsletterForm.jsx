@@ -10,11 +10,17 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import Wrapper from "../assets/Wrappers/newsLetter";
+import { useSpring, animated } from "react-spring";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+
+  const fade = useSpring({
+    opacity: message || error ? 1 : 0,
+    transform: message || error ? "translateY(0)" : "translateY(20px)",
+  });
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -45,9 +51,9 @@ const Newsletter = () => {
           <form onSubmit={handleSubscribe}>
             <Row className="d-flex justify-content-center">
               <Col size="auto" className="mb-4 mb-md-0">
-                <h3>
-                  <strong>Sign up to claim the discount!</strong>
-                </h3>
+                <p>
+                  <strong>Sign up to claim your discount!</strong>
+                </p>
               </Col>
               <Col md="5" size="12" className="mb-4 mb-md-0">
                 <Form.Control
@@ -65,16 +71,18 @@ const Newsletter = () => {
               </Col>
             </Row>
           </form>
-          {message && (
-            <Alert variant="success" className="mt-3">
-              {message}
-            </Alert>
-          )}
-          {error && (
-            <Alert variant="danger" className="mt-3">
-              {error}
-            </Alert>
-          )}
+          <animated.div style={fade}>
+            {message && (
+              <Alert variant="success" className="mt-3">
+                {message}
+              </Alert>
+            )}
+            {error && (
+              <Alert variant="danger" className="mt-3">
+                {error}
+              </Alert>
+            )}
+          </animated.div>
         </Container>
       </CardFooter>
     </Wrapper>
