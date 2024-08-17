@@ -24,28 +24,21 @@ const Footer = () => {
     <Wrapper>
       <footer className=" text-center text-lg-start text-muted mt-4">
         <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-          <div className="me-5 d-none d-lg-block">
-            <span>Get connected with us on social networks:</span>
-          </div>
-
-          <div>
-            <a href="#" className="me-4 text-reset">
+          <div className="mx-auto">
+            <a href="#" className="text-reset">
               <FaFacebook />
             </a>
-            <a href="#" className="me-4 text-reset">
-              <FaTwitter />
-            </a>
-            <a href="#" className="me-4 text-reset">
+            <a href="#" className="text-reset">
               <FaYoutube />
             </a>
             <a
               href="https://www.instagram.com/app_fittest?igsh=MXVicDBsb3JkY28w"
               target="blank"
-              className="me-4 text-reset"
+              className="text-reset"
             >
               <FaInstagram />
             </a>
-            <a href="#" className="me-4 text-reset">
+            <a href="#" className="text-reset">
               <FaTiktok />
             </a>
           </div>
@@ -55,13 +48,10 @@ const Footer = () => {
           <Container className="text-center text-md-start mt-5">
             <Row className="mt-3">
               <Col md="3" lg="4" xl="3" className="mx-auto mb-4">
-                <h6 className="text-uppercase fw-bold mb-4">
-                  <FaGem className="me-3" />
-                  FITTEST
-                </h6>
+                <h6 className="text-uppercase fw-bold mb-4 mx-auto">FITTEST</h6>
                 <p>
-                  Achieve your fitness goals with personalized workouts and meal
-                  advice and much more.
+                  Achieve your fitness goals with personalized workouts, meal
+                  advices and much more.
                 </p>
               </Col>
 
@@ -113,14 +103,14 @@ const Footer = () => {
                 </p>
                 <p>
                   <FaEnvelope className="me-3" />
-                  info@example.com
+                  fittestsapp@gmail.com
                 </p>
-                <p>
+                {/*<p>
                   <FaPhone className="me-3" /> + 012 345 678
                 </p>
                 <p>
                   <FaPrint className="me-3" /> + 012 345 678
-                </p>
+                </p>*/}
               </Col>
             </Row>
           </Container>
