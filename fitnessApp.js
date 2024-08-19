@@ -156,29 +156,38 @@ async function generateWorkoutProgram({
 
   let workoutSplitName = "";
   switch (splitPreference) {
-    case "pushPullLegs":
+    case "pushPullLegs6x":
       workoutSplitName = "Push Pull Legs Split";
       break;
     case "pushPullLegs3x":
       workoutSplitName = "Push Pull Legs 3x Split";
       break;
     case "upperLower4x":
-      workoutSplitName = "Upper Lower Split 4x";
+      workoutSplitName = "Upper Lower Split 4x per week";
       break;
     case "upperLower3x":
-      workoutSplitName = "Upper Lower Split 3x";
+      workoutSplitName = "Upper Lower Split 3x per week";
       break;
     case "upperLower2x":
-      workoutSplitName = "Upper Lower Split 2x";
+      workoutSplitName = "Upper Lower Split 2x per week";
+      break;
+    case "broSplit5x":
+      workoutSplitName = "Bro Split Split";
       break;
     case "fullBody":
       workoutSplitName = "Full Body Split";
       break;
-    case "broSplit":
-      workoutSplitName = "Bro Split Split";
-      break;
-    case "pushPullLegsUpperLower":
+    case "pushPullLegsUpperLower5x":
       workoutSplitName = "Push Pull Legs Upper Lower Split";
+      break;
+    case "fullBody2x":
+      workoutSplitName = "Full Body 2x per week";
+      break;
+    case "fullBody3x":
+      workoutSplitName = "Full Body 3x per week";
+      break;
+    case "fullBody4x":
+      workoutSplitName = "Full Body 4x per week";
       break;
   }
   // Create the workout program structure
@@ -269,8 +278,7 @@ async function generateWorkoutProgram({
               workoutWithSetsRepsRest,
               workoutType,
               difficultyLevel,
-              dailyWorkout,
-              week
+              dailyWorkout
             );
             dailyWorkout = resultUpperLower4x.dailyWorkout;
             name = resultUpperLower4x.name;
@@ -304,7 +312,7 @@ async function generateWorkoutProgram({
           case "fullBody":
             dailyWorkout = generateDailyWorkout();
             break;
-          case "broSplit":
+          case "broSplit5x":
             const resultBroSplit = broSplit(
               day,
               equipmentType,
@@ -316,7 +324,7 @@ async function generateWorkoutProgram({
             dailyWorkout = resultBroSplit.dailyWorkout;
             name = resultBroSplit.name;
             break;
-          case "pushPullLegs":
+          case "pushPullLegs6x":
             const resultPushPullLegs = pushPullLegs(
               day,
               equipmentType,
@@ -340,7 +348,7 @@ async function generateWorkoutProgram({
             dailyWorkout = resultPushPullLegs3x.dailyWorkout;
             name = resultPushPullLegs3x.name;
             break;
-          case "pushPullLegsUpperLower":
+          case "pushPullLegsUpperLower5x":
             const resultPushPullLegsUpperLower = pushPullLegsUpperLower(
               day,
               equipmentType,
