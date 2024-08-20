@@ -39,6 +39,12 @@ const workoutDaySchema = new Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    enum: ["workout", "rest"],
+    default: "workout", // Default to workout day if not specified
+    required: true,
+  },
   workout: [exerciseReferenceSchema],
   isCompleted: {
     type: Boolean,

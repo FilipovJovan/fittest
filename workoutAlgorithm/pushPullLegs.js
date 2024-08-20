@@ -5,13 +5,15 @@ import {
   filterExercisesByEquipment,
   selectRandomExercise,
 } from "../fitnessApp.js";
-const pushPullLegs = (
+
+const pushPullLegs6x = (
   day,
   equipmentType,
   workoutWithSetsRepsRest,
   workoutType,
   difficultyLevel,
-  dailyWorkout
+  dailyWorkout,
+  week
 ) => {
   let name = "";
   const pushPullLegsMuscles = {
@@ -29,334 +31,202 @@ const pushPullLegs = (
       "upper chest",
       "lower chest",
       "triceps",
-      "front deltoid",
+      "middle deltoid",
     ],
     5: ["overall back", "lats", "biceps", "traps", "rear deltoid"],
     6: ["hamstrings", "quadriceps", "calves", "abs"],
+    7: [],
   };
 
-  const muscleTypesPushPullLegs = pushPullLegsMuscles[day];
-  const muscleGroupExercisesPushPullLegs = splitWorkout(
+  const muscleTypesUpperLower = pushPullLegsMuscles[day];
+  const muscleGroupExercisesUpperLower = splitWorkout(
     workoutWithSetsRepsRest,
-    muscleTypesPushPullLegs
+    muscleTypesUpperLower
   );
-
-  const filteredMuscleGroupExercisesPPLSplit = filterExercisesByEquipment(
-    muscleGroupExercisesPushPullLegs,
+  const filteredMuscleGroupExercisesUpperLower = filterExercisesByEquipment(
+    muscleGroupExercisesUpperLower,
     equipmentType
   );
 
-  if (day === 1 || day === 4) {
-    // Push day
-    // Add 3 compound chest exercises
+  const addCompoundExercise = (muscleType) => {
+    const compoundExercise = selectRandomExercise(
+      filteredMuscleGroupExercisesUpperLower.filter(
+        (exercise) => exercise.muscleType === muscleType
+      ),
+      "compound"
+    );
+
+    if (compoundExercise) {
+      const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
+        getSetsRepsRestByWorkoutType(workoutType);
+      dailyWorkout.push({
+        exercise: {
+          _id: compoundExercise._id,
+          name: compoundExercise.name,
+          muscleType: compoundExercise.muscleType,
+          equipment: compoundExercise.equipment,
+          instructions: compoundExercise.instructions,
+        },
+        sets: getRandomNumberInRange(minSets, maxSets),
+        reps: getRandomNumberInRange(minReps, maxReps),
+        rest: getRandomNumberInRange(minRest, maxRest),
+        exerciseType: "compound",
+      });
+    }
+  };
+
+  const addIsolationExercise = (muscleType) => {
+    const isolationExercise = selectRandomExercise(
+      filteredMuscleGroupExercisesUpperLower.filter(
+        (exercise) => exercise.muscleType === muscleType
+      ),
+      "isolation"
+    );
+
+    if (isolationExercise) {
+      const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
+        getSetsRepsRestByWorkoutType(workoutType);
+      dailyWorkout.push({
+        exercise: {
+          _id: isolationExercise._id,
+          name: isolationExercise.name,
+          muscleType: isolationExercise.muscleType,
+          equipment: isolationExercise.equipment,
+          instructions: isolationExercise.instructions,
+        },
+        sets: getRandomNumberInRange(minSets, maxSets),
+        reps: getRandomNumberInRange(minReps, maxReps),
+        rest: getRandomNumberInRange(minRest, maxRest),
+        exerciseType: "isolation",
+      });
+    }
+  };
+
+  const addSupersetExercises = (muscleType1, muscleType2) => {
+    const exercise1 = selectRandomExercise(
+      filteredMuscleGroupExercisesUpperLower.filter(
+        (exercise) => exercise.muscleType === muscleType1
+      ),
+      "isolation"
+    );
+
+    const exercise2 = selectRandomExercise(
+      filteredMuscleGroupExercisesUpperLower.filter(
+        (exercise) => exercise.muscleType === muscleType2
+      ),
+      "isolation"
+    );
+
+    if (exercise1 && exercise2) {
+      const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
+        getSetsRepsRestByWorkoutType(workoutType);
+
+      dailyWorkout.push(
+        {
+          exercise: {
+            _id: exercise1._id,
+            name: exercise1.name,
+            muscleType: exercise1.muscleType,
+            equipment: exercise1.equipment,
+            instructions: exercise1.instructions,
+          },
+          sets: getRandomNumberInRange(minSets, maxSets),
+          reps: getRandomNumberInRange(minReps, maxReps),
+          rest: getRandomNumberInRange(minRest, maxRest),
+          exerciseType: "isolation",
+        },
+        {
+          exercise: {
+            _id: exercise2._id,
+            name: exercise2.name,
+            muscleType: exercise2.muscleType,
+            equipment: exercise2.equipment,
+            instructions: exercise2.instructions,
+          },
+          sets: getRandomNumberInRange(minSets, maxSets),
+          reps: getRandomNumberInRange(minReps, maxReps),
+          rest: getRandomNumberInRange(minRest, maxRest),
+          exerciseType: "isolation",
+        }
+      );
+    }
+  };
+  if (day === 1) {
     name = "Push day";
-    const lowerChestCompoundExercise = selectRandomExercise(
-      filteredMuscleGroupExercisesPPLSplit.filter(
-        (exercise) => exercise.muscleType === "lower chest"
-      ),
-      "compound"
-    );
-
-    if (lowerChestCompoundExercise) {
-      const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
-        getSetsRepsRestByWorkoutType(workoutType);
-
-      dailyWorkout.push({
-        exercise: {
-          _id: lowerChestCompoundExercise._id,
-          name: lowerChestCompoundExercise.name,
-          muscleType: lowerChestCompoundExercise.muscleType,
-          equipment: lowerChestCompoundExercise.equipment,
-          instructions: lowerChestCompoundExercise.instructions,
-        },
-        sets: getRandomNumberInRange(minSets, maxSets),
-        reps: getRandomNumberInRange(minReps, maxReps),
-        rest: getRandomNumberInRange(minRest, maxRest),
-        exerciseType: "compound",
-      });
-    }
-
-    // Add 1 upper chest compound exercise
-    const upperChestCompoundExercise = selectRandomExercise(
-      filteredMuscleGroupExercisesPPLSplit.filter(
-        (exercise) => exercise.muscleType === "upper chest"
-      ),
-      "compound"
-    );
-
-    if (upperChestCompoundExercise) {
-      const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
-        getSetsRepsRestByWorkoutType(workoutType);
-
-      dailyWorkout.push({
-        exercise: {
-          _id: upperChestCompoundExercise._id,
-          name: upperChestCompoundExercise.name,
-          muscleType: upperChestCompoundExercise.muscleType,
-          equipment: upperChestCompoundExercise.equipment,
-          instructions: upperChestCompoundExercise.instructions,
-        },
-        sets: getRandomNumberInRange(minSets, maxSets),
-        reps: getRandomNumberInRange(minReps, maxReps),
-        rest: getRandomNumberInRange(minRest, maxRest),
-        exerciseType: "compound",
-      });
-    }
-
-    // Add 1 overall chest compound exercise
-    const overallChestCompoundExercise = selectRandomExercise(
-      filteredMuscleGroupExercisesPPLSplit.filter(
-        (exercise) => exercise.muscleType === "overall chest"
-      ),
-      "compound"
-    );
-
-    if (overallChestCompoundExercise) {
-      const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
-        getSetsRepsRestByWorkoutType(workoutType);
-
-      dailyWorkout.push({
-        exercise: {
-          _id: overallChestCompoundExercise._id,
-          name: overallChestCompoundExercise.name,
-          muscleType: overallChestCompoundExercise.muscleType,
-          equipment: overallChestCompoundExercise.equipment,
-          instructions: overallChestCompoundExercise.instructions,
-        },
-        sets: getRandomNumberInRange(minSets, maxSets),
-        reps: getRandomNumberInRange(minReps, maxReps),
-        rest: getRandomNumberInRange(minRest, maxRest),
-        exerciseType: "compound",
-      });
-    }
-    // Add 1 compound shoulder exercise
-    const shoulderCompoundExercise = selectRandomExercise(
-      filteredMuscleGroupExercisesPPLSplit.filter(
-        (exercise) => exercise.muscleType === "front deltoid"
-      ),
-      "compound"
-    );
-
-    if (shoulderCompoundExercise) {
-      const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
-        getSetsRepsRestByWorkoutType(workoutType);
-
-      dailyWorkout.push({
-        exercise: {
-          _id: shoulderCompoundExercise._id,
-          name: shoulderCompoundExercise.name,
-          muscleType: shoulderCompoundExercise.muscleType,
-          equipment: shoulderCompoundExercise.equipment,
-          instructions: shoulderCompoundExercise.instructions,
-        },
-        sets: getRandomNumberInRange(minSets, maxSets),
-        reps: getRandomNumberInRange(minReps, maxReps),
-        rest: getRandomNumberInRange(minRest, maxRest),
-        exerciseType: "compound",
-      });
-    }
-
-    // Add 2 isolation triceps exercises
-    for (let i = 0; i < 2; i++) {
-      const tricepsIsolationExercise = selectRandomExercise(
-        filteredMuscleGroupExercisesPPLSplit.filter(
-          (exercise) => exercise.muscleType === "triceps"
-        ),
-        "isolation"
-      );
-
-      if (tricepsIsolationExercise) {
-        const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
-          getSetsRepsRestByWorkoutType(workoutType);
-
-        dailyWorkout.push({
-          exercise: {
-            _id: tricepsIsolationExercise._id,
-            name: tricepsIsolationExercise.name,
-            muscleType: tricepsIsolationExercise.muscleType,
-            equipment: tricepsIsolationExercise.equipment,
-            instructions: tricepsIsolationExercise.instructions,
-          },
-          sets: getRandomNumberInRange(minSets, maxSets),
-          reps: getRandomNumberInRange(minReps, maxReps),
-          rest: getRandomNumberInRange(minRest, maxRest),
-          exerciseType: "isolation",
-        });
+    addCompoundExercise("overall chest");
+    addCompoundExercise("upper chest");
+    addCompoundExercise("front deltoid");
+    if (difficultyLevel === "intermediate" || difficultyLevel === "advanced") {
+      for (let i = 0; i < 2; i++) {
+        addSupersetExercises("triceps", "front deltoid");
+      }
+      addIsolationExercise("lower chest");
+    } else {
+      for (let i = 0; i < 1; i++) {
+        addIsolationExercise("triceps");
+        addIsolationExercise("front deltoid");
       }
     }
-    const lowerChestIsolationExercise = selectRandomExercise(
-      filteredMuscleGroupExercisesPPLSplit.filter(
-        (exercise) => exercise.muscleType === "lower chest"
-      ),
-      "isolation"
-    );
-
-    if (lowerChestIsolationExercise) {
-      const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
-        getSetsRepsRestByWorkoutType(workoutType);
-
-      dailyWorkout.push({
-        exercise: {
-          _id: lowerChestIsolationExercise._id,
-          name: lowerChestIsolationExercise.name,
-          muscleType: lowerChestIsolationExercise.muscleType,
-          equipment: lowerChestIsolationExercise.equipment,
-          instructions: lowerChestIsolationExercise.instructions,
-        },
-        sets: getRandomNumberInRange(minSets, maxSets),
-        reps: getRandomNumberInRange(minReps, maxReps),
-        rest: getRandomNumberInRange(minRest, maxRest),
-        exerciseType: "isolation",
-      });
-    }
-  } else if (day === 2 || day === 5) {
-    // Pull day
-    // Add 3 compound back exercises
+  } else if (day === 2) {
     name = "Pull day";
-    for (let i = 0; i < 3; i++) {
-      const backCompoundExercise = selectRandomExercise(
-        filteredMuscleGroupExercisesPPLSplit,
-        "compound"
-      );
-
-      if (backCompoundExercise) {
-        const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
-          getSetsRepsRestByWorkoutType(workoutType);
-
-        dailyWorkout.push({
-          exercise: {
-            _id: backCompoundExercise._id,
-            name: backCompoundExercise.name,
-            muscleType: backCompoundExercise.muscleType,
-            equipment: backCompoundExercise.equipment,
-            instructions: backCompoundExercise.instructions,
-          },
-          sets: getRandomNumberInRange(minSets, maxSets),
-          reps: getRandomNumberInRange(minReps, maxReps),
-          rest: getRandomNumberInRange(minRest, maxRest),
-          exerciseType: "compound",
-        });
-      }
-    }
-
-    // Add 2 isolation biceps exercises
+    addCompoundExercise("overall back");
+    addCompoundExercise("middle back");
+    addCompoundExercise("lats");
+    addCompoundExercise("lats");
     for (let i = 0; i < 2; i++) {
-      const bicepsIsolationExercise = selectRandomExercise(
-        filteredMuscleGroupExercisesPPLSplit.filter(
-          (exercise) => exercise.muscleType === "biceps"
-        ),
-        "isolation"
-      );
-
-      if (bicepsIsolationExercise) {
-        const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
-          getSetsRepsRestByWorkoutType(workoutType);
-
-        dailyWorkout.push({
-          exercise: {
-            _id: bicepsIsolationExercise._id,
-            name: bicepsIsolationExercise.name,
-            muscleType: bicepsIsolationExercise.muscleType,
-            equipment: bicepsIsolationExercise.equipment,
-            instructions: bicepsIsolationExercise.instructions,
-          },
-          sets: getRandomNumberInRange(minSets, maxSets),
-          reps: getRandomNumberInRange(minReps, maxReps),
-          rest: getRandomNumberInRange(minRest, maxRest),
-          exerciseType: "isolation",
-        });
-      }
+      addIsolationExercise("rear deltoid");
+      addIsolationExercise("biceps");
     }
-
-    // Add 1 isolation shoulder exercise
-    const shoulderIsolationExercise = selectRandomExercise(
-      filteredMuscleGroupExercisesPPLSplit.filter(
-        (exercise) => exercise.muscleType === "rear deltoid"
-      ),
-      "isolation"
-    );
-
-    if (shoulderIsolationExercise) {
-      const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
-        getSetsRepsRestByWorkoutType(workoutType);
-
-      dailyWorkout.push({
-        exercise: {
-          _id: shoulderIsolationExercise._id,
-          name: shoulderIsolationExercise.name,
-          muscleType: shoulderIsolationExercise.muscleType,
-          equipment: shoulderIsolationExercise.equipment,
-          instructions: shoulderIsolationExercise.instructions,
-        },
-        sets: getRandomNumberInRange(minSets, maxSets),
-        reps: getRandomNumberInRange(minReps, maxReps),
-        rest: getRandomNumberInRange(minRest, maxRest),
-        exerciseType: "isolation",
-      });
-    }
-  } else if (day === 3 || day === 6) {
-    // Leg day
-    // Add 3 compound exercises for the legs
-    name = "Leg day";
-    for (let i = 0; i < 3; i++) {
-      const legCompoundExercise = selectRandomExercise(
-        filteredMuscleGroupExercisesPPLSplit.filter(
-          (exercise) =>
-            exercise.muscleType === "hamstrings" ||
-            exercise.muscleType === "quadriceps"
-        ),
-        "compound"
-      );
-
-      if (legCompoundExercise) {
-        const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
-          getSetsRepsRestByWorkoutType(workoutType);
-
-        dailyWorkout.push({
-          exercise: {
-            _id: legCompoundExercise._id,
-            name: legCompoundExercise.name,
-            muscleType: legCompoundExercise.muscleType,
-            equipment: legCompoundExercise.equipment,
-            instructions: legCompoundExercise.instructions,
-          },
-          sets: getRandomNumberInRange(minSets, maxSets),
-          reps: getRandomNumberInRange(minReps, maxReps),
-          rest: getRandomNumberInRange(minRest, maxRest),
-          exerciseType: "compound",
-        });
-      }
-    }
-
-    // Add 2 isolation calves exercises
+  } else if (day === 3) {
+    name = "Legs day";
     for (let i = 0; i < 2; i++) {
-      const calvesIsolationExercise = selectRandomExercise(
-        filteredMuscleGroupExercisesPPLSplit.filter(
-          (exercise) => exercise.muscleType === "calves"
-        ),
-        "isolation"
-      );
-
-      if (calvesIsolationExercise) {
-        const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
-          getSetsRepsRestByWorkoutType(workoutType);
-
-        dailyWorkout.push({
-          exercise: {
-            _id: calvesIsolationExercise._id,
-            name: calvesIsolationExercise.name,
-            muscleType: calvesIsolationExercise.muscleType,
-            equipment: calvesIsolationExercise.equipment,
-            instructions: calvesIsolationExercise.instructions,
-          },
-          sets: getRandomNumberInRange(minSets, maxSets),
-          reps: getRandomNumberInRange(minReps, maxReps),
-          rest: getRandomNumberInRange(minRest, maxRest),
-          exerciseType: "isolation",
-        });
+      addCompoundExercise("hamstrings");
+      addCompoundExercise("quadriceps");
+    }
+    for (let i = 0; i < 2; i++) {
+      addIsolationExercise("calves");
+      addIsolationExercise("abs");
+    }
+  } else if (day === 4) {
+    name = "Push day";
+    addCompoundExercise("overall chest");
+    addCompoundExercise("upper chest");
+    addCompoundExercise("front deltoid");
+    if (difficultyLevel === "intermediate" || difficultyLevel === "advanced") {
+      for (let i = 0; i < 2; i++) {
+        addSupersetExercises("triceps", "middle deltoid");
+      }
+      addIsolationExercise("upper chest");
+    } else {
+      for (let i = 0; i < 1; i++) {
+        addIsolationExercise("triceps");
+        addIsolationExercise("middle deltoid");
       }
     }
+  } else if (day === 5) {
+    name = "Pull day";
+    addCompoundExercise("overall back");
+    addCompoundExercise("middle back");
+    addCompoundExercise("lats");
+    addCompoundExercise("lats");
+    for (let i = 0; i < 2; i++) {
+      addIsolationExercise("rear deltoid");
+      addIsolationExercise("biceps");
+    }
+  } else if (day === 6) {
+    name = "Legs day";
+    for (let i = 0; i < 2; i++) {
+      addCompoundExercise("hamstrings");
+      addCompoundExercise("quadriceps");
+    }
+    for (let i = 0; i < 2; i++) {
+      addIsolationExercise("calves");
+      addIsolationExercise("abs");
+    }
+  } else {
+    name = "Rest day";
+    dailyWorkout = [];
   }
   return { name, dailyWorkout };
 };
-export default pushPullLegs;
+export default pushPullLegs6x;

@@ -6,13 +6,13 @@ import {
 import Exercise from "./models/ExerciseModel.js";
 import Workout from "./models/WorkoutSchema.js";
 import { WORKOUT_TYPE, DIFFICULTY } from "./utils/constants.js";
-import upperLower4x from "./workoutAlgorithm/upperLower4x.js";
-import pushPullLegs from "./workoutAlgorithm/pushPullLegs.js";
 import broSplit from "./workoutAlgorithm/broSplit.js";
 import pushPullLegsUpperLower from "./workoutAlgorithm/pushPullLegsUpperLower.js";
+import upperLower4x from "./workoutAlgorithm/upperLower4x.js";
 import upperLower3x from "./workoutAlgorithm/upperLower3x.js";
 import upperLower2x from "./workoutAlgorithm/upperLower2x.js";
 import pushPullLegs3x from "./workoutAlgorithm/pushPullLegs3x.js";
+import pushPullLegs6x from "./workoutAlgorithm/pushPullLegs.js";
 
 export const generateWorkout = async (req, res) => {
   try {
@@ -23,6 +23,7 @@ export const generateWorkout = async (req, res) => {
       splitPreference,
       equipmentType,
       userId,
+      restDays,
     } = req.body;
 
     // Simulated exercise fetch from the database
@@ -42,6 +43,7 @@ export const generateWorkout = async (req, res) => {
       exercises,
       userId,
       equipmentType,
+      restDays,
     });
 
     // Respond with the workout and endDate
@@ -143,6 +145,7 @@ async function generateWorkoutProgram({
   exercises,
   userId,
   equipmentType,
+  restDays,
 }) {
   const frequency = workoutsPerWeek || 3; // Replace with user's selected frequency
   const weeks = 5;
@@ -266,14 +269,25 @@ async function generateWorkoutProgram({
       days: [],
     };
 
+    let dayCounter = 1; // Track workout days
+
     for (let day = 1; day <= 7; day++) {
-      if (day <= frequency) {
-        let dailyWorkout = [];
-        let name = "";
+      let dailyWorkout = [];
+      let name = "";
+
+      if (restDays.includes(day)) {
+        // If it's a rest day
+        weekObject.days.push({
+          name: "Rest Day",
+          dayNumber: day,
+          workout: [],
+        });
+      } else if (dayCounter <= frequency) {
+        // Workout days
         switch (splitPreference) {
           case "upperLower4x":
             const resultUpperLower4x = upperLower4x(
-              day,
+              dayCounter,
               equipmentType,
               workoutWithSetsRepsRest,
               workoutType,
@@ -285,7 +299,7 @@ async function generateWorkoutProgram({
             break;
           case "upperLower3x":
             const resultUpperLower3x = upperLower3x(
-              day,
+              dayCounter,
               equipmentType,
               workoutWithSetsRepsRest,
               workoutType,
@@ -298,7 +312,7 @@ async function generateWorkoutProgram({
             break;
           case "upperLower2x":
             const resultUpperLower2x = upperLower2x(
-              day,
+              dayCounter,
               equipmentType,
               workoutWithSetsRepsRest,
               workoutType,
@@ -309,12 +323,9 @@ async function generateWorkoutProgram({
             dailyWorkout = resultUpperLower2x.dailyWorkout;
             name = resultUpperLower2x.name;
             break;
-          case "fullBody":
-            dailyWorkout = generateDailyWorkout();
-            break;
           case "broSplit5x":
             const resultBroSplit = broSplit(
-              day,
+              dayCounter,
               equipmentType,
               workoutWithSetsRepsRest,
               workoutType,
@@ -325,20 +336,20 @@ async function generateWorkoutProgram({
             name = resultBroSplit.name;
             break;
           case "pushPullLegs6x":
-            const resultPushPullLegs = pushPullLegs(
-              day,
+            const resultPushPullLegs6x = pushPullLegs6x(
+              dayCounter,
               equipmentType,
               workoutWithSetsRepsRest,
               workoutType,
               difficultyLevel,
               dailyWorkout
             );
-            dailyWorkout = resultPushPullLegs.dailyWorkout;
-            name = resultPushPullLegs.name;
+            dailyWorkout = resultPushPullLegs6x.dailyWorkout;
+            name = resultPushPullLegs6x.name;
             break;
           case "pushPullLegs3x":
             const resultPushPullLegs3x = pushPullLegs3x(
-              day,
+              dayCounter,
               equipmentType,
               workoutWithSetsRepsRest,
               workoutType,
@@ -350,7 +361,7 @@ async function generateWorkoutProgram({
             break;
           case "pushPullLegsUpperLower5x":
             const resultPushPullLegsUpperLower = pushPullLegsUpperLower(
-              day,
+              dayCounter,
               equipmentType,
               workoutWithSetsRepsRest,
               workoutType,
@@ -360,6 +371,10 @@ async function generateWorkoutProgram({
             dailyWorkout = resultPushPullLegsUpperLower.dailyWorkout;
             name = resultPushPullLegsUpperLower.name;
             break;
+          case "fullBody":
+            dailyWorkout = generateDailyWorkout();
+            name = "Full Body Workout";
+            break;
         }
 
         weekObject.days.push({
@@ -367,6 +382,8 @@ async function generateWorkoutProgram({
           dayNumber: day,
           workout: dailyWorkout,
         });
+
+        dayCounter++; // Increment workout day counter only if it's not a rest day
       }
     }
 

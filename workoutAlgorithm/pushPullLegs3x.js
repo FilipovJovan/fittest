@@ -145,13 +145,12 @@ const pushPullLegs3x = (
     name = "Push day";
     addCompoundExercise("overall chest");
     addCompoundExercise("upper chest");
-    addCompoundExercise("overall back");
-    addCompoundExercise("middle back");
     addCompoundExercise("front deltoid");
     if (difficultyLevel === "intermediate" || difficultyLevel === "advanced") {
       for (let i = 0; i < 2; i++) {
         addSupersetExercises("triceps", "front deltoid");
       }
+      addIsolationExercise("lower chest");
     } else {
       for (let i = 0; i < 1; i++) {
         addIsolationExercise("triceps");
@@ -172,12 +171,11 @@ const pushPullLegs3x = (
     }
   } else {
     name = "Legs day";
-    for (let i = 0; i < 5; i++) {
-      addCompoundExercise("hamstrings");
+    for (let i = 0; i < 2; i++) {
       addCompoundExercise("quadriceps");
-      addCompoundExercise("calves");
-      addCompoundExercise("abs");
     }
+    addCompoundExercise("hamstrings");
+    addIsolationExercise("hamstrings");
     for (let i = 0; i < 2; i++) {
       addIsolationExercise("calves");
       addIsolationExercise("abs");
