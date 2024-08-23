@@ -781,6 +781,17 @@
     "instructions:": "lorem ipsum"
   },
   {
+    "name": "biceps chin up",
+    "workoutType": "all types",
+    "difficultyLevel": "every level",
+    "equipment": "machines",
+    "muscleType": "biceps",
+    "exerciseType": "compound",
+    "exerciseImportance": "tertiary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions:": "lorem ipsum"
+  },
+  {
     "name": "dumbbell curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
@@ -1061,7 +1072,7 @@
     "difficultyLevel": "every level",
     "equipment": "no equipment",
     "muscleType": "triceps",
-    "exerciseType": "isolation",
+    "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "bodyweight",
     "instructions:": "lorem ipsum"

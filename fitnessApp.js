@@ -13,6 +13,9 @@ import upperLower3x from "./workoutAlgorithm/upperLower3x.js";
 import upperLower2x from "./workoutAlgorithm/upperLower2x.js";
 import pushPullLegs3x from "./workoutAlgorithm/pushPullLegs3x.js";
 import pushPullLegs6x from "./workoutAlgorithm/pushPullLegs.js";
+import fullBody2x from "./workoutAlgorithm/fullBodySplit2x.js";
+import fullBody3x from "./workoutAlgorithm/fullBodySplit3x.js";
+import fullBody4x from "./workoutAlgorithm/fullBodySplit4x.js";
 
 export const generateWorkout = async (req, res) => {
   try {
@@ -279,6 +282,7 @@ async function generateWorkoutProgram({
         // If it's a rest day
         weekObject.days.push({
           name: "Rest Day",
+          type: "rest",
           dayNumber: day,
           workout: [],
         });
@@ -371,9 +375,41 @@ async function generateWorkoutProgram({
             dailyWorkout = resultPushPullLegsUpperLower.dailyWorkout;
             name = resultPushPullLegsUpperLower.name;
             break;
-          case "fullBody":
-            dailyWorkout = generateDailyWorkout();
-            name = "Full Body Workout";
+          case "fullBody2x":
+            const resultFullBody2x = fullBody2x(
+              dayCounter,
+              equipmentType,
+              workoutWithSetsRepsRest,
+              workoutType,
+              difficultyLevel,
+              dailyWorkout
+            );
+            dailyWorkout = resultFullBody2x.dailyWorkout;
+            name = resultFullBody2x.name;
+            break;
+          case "fullBody3x":
+            const resultFullBody3x = fullBody3x(
+              dayCounter,
+              equipmentType,
+              workoutWithSetsRepsRest,
+              workoutType,
+              difficultyLevel,
+              dailyWorkout
+            );
+            dailyWorkout = resultFullBody3x.dailyWorkout;
+            name = resultFullBody3x.name;
+            break;
+          case "fullBody4x":
+            const resultFullBody4x = fullBody4x(
+              dayCounter,
+              equipmentType,
+              workoutWithSetsRepsRest,
+              workoutType,
+              difficultyLevel,
+              dailyWorkout
+            );
+            dailyWorkout = resultFullBody4x.dailyWorkout;
+            name = resultFullBody4x.name;
             break;
         }
 

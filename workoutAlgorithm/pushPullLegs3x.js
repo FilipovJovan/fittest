@@ -159,12 +159,10 @@ const pushPullLegs3x = (
     }
   } else if (day === 2) {
     name = "Pull day";
-    for (let i = 0; i < 5; i++) {
-      addCompoundExercise("overall back");
-      addCompoundExercise("middle back");
-      addCompoundExercise("lats");
-      addCompoundExercise("lats");
-    }
+    addCompoundExercise("overall back");
+    addCompoundExercise("middle back");
+    addCompoundExercise("lats");
+    addCompoundExercise("lats");
     for (let i = 0; i < 2; i++) {
       addIsolationExercise("rear deltoid");
       addIsolationExercise("biceps");
