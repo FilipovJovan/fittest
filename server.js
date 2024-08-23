@@ -15,6 +15,7 @@ import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 import exerciseRouter from "./routes/exerciseRouter.js";
 import workoutRouter from "./routes/generateWorkoutRouter.js";
+import calorieRouter from "./routes/calorieRouter.js";
 
 // Public things
 import { dirname } from "path";
@@ -156,6 +157,7 @@ app.get("/test", (req, res) => {
 
 app.use("/api/v1", authenticateApiKey);
 app.use("/api/v1/generate-custom", workoutRouter);
+app.use("/api/v1/calculate-calories-macros", calorieRouter);
 app.use("/api/v1/exercises", authenticateUser, exerciseRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
 app.use("/api/v1/auth", authRouter);
