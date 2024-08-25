@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
-    // Existing fields
     name: String,
     lastName: {
       type: String,
@@ -24,11 +23,24 @@ const UserSchema = new mongoose.Schema(
     avatarPublicId: String,
     tier: Number,
 
-    // New fields for calorie calculation
-    age: Number,
-    gender: String,
-    height: Number,
-    weight: Number,
+    // New fields for fitness calculations
+    height: {
+      type: Number, // height in centimeters
+      required: true,
+    },
+    weight: {
+      type: Number, // weight in kilograms
+      required: true,
+    },
+    age: {
+      type: Number,
+      required: true,
+    },
+    gender: {
+      type: String,
+      enum: ["male", "female", "other"],
+      required: true,
+    },
     activityLevel: {
       type: String,
       enum: [
@@ -36,36 +48,33 @@ const UserSchema = new mongoose.Schema(
         "lightly active",
         "moderately active",
         "very active",
-        "super active",
+        "extra active",
       ],
     },
+    workoutLevel: {
+      type: Number, // workouts per week
+      required: true,
+    },
+    /*sleepQuality: {
+      type: Number,
+      required: true,
+    },
+    hydration: {
+      type: Number, // liters per day
+      required: true,
+    },*/
     fitnessGoal: {
       type: String,
       enum: ["weight loss", "maintenance", "muscle gain"],
+      required: true,
     },
-    medicalConditions: [String],
-    medications: [String],
-    lifestyleFactors: {
-      workSchedule: String,
-      stressLevel: String,
+    currentCalories: {
+      type: Number,
     },
-    sleepQuality: {
-      duration: Number,
-      quality: String,
-    },
-    hydration: Number, // in liters or other unit
-    eatingPatterns: String,
-    behavioralFactors: {
-      cravings: Boolean,
-      eatingOutFrequency: Number,
-    },
-    fitnessLevelProgress: String,
-    initialCalories: Number,
-    currentCalories: Number,
     macros: {
-      protein: Number, // in grams
-      fat: Number, // in grams
-      carbs: Number, // in grams
+      protein: Number,
+      fat: Number,
+      carbs: Number,
     },
   },
   { timestamps: true }

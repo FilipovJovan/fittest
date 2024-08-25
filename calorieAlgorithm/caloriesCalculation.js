@@ -14,7 +14,7 @@ export const calculateBMR = (weight, height, age, gender) => {
   return bmr;
 };
 
-export const calculateTDEE = (bmr, activityLevel) => {
+export const calculateTDEE = (bmr, activityLevel, workoutLevel) => {
   const activityMultiplier = {
     sedentary: 1.2,
     "lightly active": 1.375,
@@ -23,7 +23,19 @@ export const calculateTDEE = (bmr, activityLevel) => {
     "extra active": 1.9,
   };
 
-  return bmr * activityMultiplier[activityLevel];
+  const baseTDEE = bmr * activityMultiplier[activityLevel];
+
+  // Adjust based on the number of workouts per week
+  let workoutMultiplier = 1;
+  if (workoutLevel >= 5) {
+    workoutMultiplier = 1.15; // Significant increase for high workout frequency
+  } else if (workoutLevel >= 3) {
+    workoutMultiplier = 1.1; // Moderate increase for average workout frequency
+  } else if (workoutLevel > 0) {
+    workoutMultiplier = 1.05; // Slight increase for low workout frequency
+  }
+
+  return baseTDEE * workoutMultiplier;
 };
 
 export const adjustCaloriesForGoal = (tdee, fitnessGoal) => {

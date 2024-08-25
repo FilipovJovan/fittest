@@ -21,13 +21,14 @@ export const calculateUserCaloriesAndMacros = async (req, res) => {
       gender = user.gender,
       activityLevel = user.activityLevel,
       fitnessGoal = user.fitnessGoal,
+      workoutLevel = user.workoutLevel,
     } = req.body;
 
     // Calculate BMR
     const bmr = calculateBMR(weight, height, age, gender);
 
     // Calculate TDEE
-    const tdee = calculateTDEE(bmr, activityLevel);
+    const tdee = calculateTDEE(bmr, activityLevel, workoutLevel);
 
     // Adjust for fitness goal
     const dailyCalories = adjustCaloriesForGoal(tdee, fitnessGoal);
@@ -44,6 +45,8 @@ export const calculateUserCaloriesAndMacros = async (req, res) => {
     };
 
     // Optionally update user document with new data
+
+    await user.updateOne(req.body);
     user.currentCalories = roundedCalories;
     user.macros = roundedMacros;
     await user.save();
@@ -52,4 +55,33 @@ export const calculateUserCaloriesAndMacros = async (req, res) => {
   } catch (err) {
     res.status(500).send(err.message);
   }
+};
+
+// Example function to calculate activity multiplier based on steps per day and workouts per week
+const calculateActivityMultiplier = (steps, workouts) => {
+  let activityMultiplier = 1.2; // Default for sedentary
+
+  if (steps > 10000 || workouts >= 4) {
+    activityMultiplier = 1.5;
+  } else if (steps > 7000 || workouts >= 3) {
+    activityMultiplier = 1.375;
+  } else if (steps > 5000 || workouts >= 2) {
+    activityMultiplier = 1.2;
+  }
+
+  return activityMultiplier;
+};
+
+// Example function to adjust multiplier based on sleep quality
+const calculateSleepMultiplier = (hours) => {
+  if (hours >= 8) return 1.1;
+  if (hours >= 6) return 1.05;
+  return 1.0;
+};
+
+// Example function to adjust multiplier based on hydration
+const calculateHydrationMultiplier = (liters) => {
+  if (liters >= 3) return 1.1;
+  if (liters >= 2) return 1.05;
+  return 1.0;
 };

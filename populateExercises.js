@@ -8,7 +8,7 @@ import Exercise from "./models/ExerciseModel.js";
 try {
   await mongoose.connect(process.env.MONGO_URL);
   //const user = await User.findOne({ email: "jovan@gmail.com" });
-  const user = await User.insertMany();
+  //const user = await User.insertMany();
 
   const jsonExercises = JSON.parse(
     await readFile(new URL("./utils/exercisesData.json", import.meta.url))
@@ -16,7 +16,7 @@ try {
   const exercises = jsonExercises.map((exercise) => {
     return { ...exercise };
   });
-  console.log(user._id);
+  //console.log(user._id);
   await Exercise.create(exercises);
   console.log("Success!!!");
   process.exit(0);

@@ -1,5 +1,5 @@
 import React from "react";
-import food from "../utils/FoodData";
+//import food from "../utils/FoodData";
 import FoodItems from "../components/FoodItems";
 import Wrapper from "../assets/Wrappers/FoodItems";
 

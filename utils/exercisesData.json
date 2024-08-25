@@ -1,6 +1,6 @@
 [
   {
-    "name": "bench press",
+    "name": "Bench Press",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -8,10 +8,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on a flat bench, grip the barbell slightly wider than shoulder-width, lower the barbell to your chest, then press it back up."
   },
   {
-    "name": "inclined bench press",
+    "name": "Inclined Bench Press",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -19,10 +19,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on an inclined bench, grip the barbell slightly wider than shoulder-width, lower the barbell to your upper chest, then press it back up."
   },
   {
-    "name": "declined bench press",
+    "name": "Declined Bench Press",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -30,10 +30,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on a declined bench, grip the barbell slightly wider than shoulder-width, lower the barbell to your chest, then press it back up."
   },
   {
-    "name": "dumbbells bench press",
+    "name": "Dumbbells Bench Press",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dumbbells",
@@ -41,10 +41,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on a flat bench with a dumbbell in each hand, press the weights up and together above your chest, then lower them back down."
   },
   {
-    "name": "inclined dumbbells bench press",
+    "name": "Inclined Dumbbells Bench Press",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dumbbells",
@@ -52,10 +52,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on an inclined bench with a dumbbell in each hand, press the weights up and together above your chest, then lower them back down."
   },
   {
-    "name": "declined dumbbells bench press",
+    "name": "Declined Dumbbells Bench Press",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dumbbells",
@@ -63,10 +63,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on a declined bench with a dumbbell in each hand, press the weights up and together above your chest, then lower them back down."
   },
   {
-    "name": "machine chest fly",
+    "name": "Machine Chest Fly",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -74,10 +74,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on the machine, adjust the seat and arms to the correct position, then bring the arms together in front of your chest and return slowly."
   },
   {
-    "name": "dumbbell fly",
+    "name": "Dumbbell Fly",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dumbbells",
@@ -85,10 +85,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on a flat bench, hold a dumbbell in each hand with arms extended above you, and lower the dumbbells out to the sides, then bring them back together."
   },
   {
-    "name": "standing cable chest fly",
+    "name": "Standing Cable Chest Fly",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -96,10 +96,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand between two cable machines with the cables set at shoulder height, hold the handles, and bring your arms together in front of you, then return to the starting position."
   },
   {
-    "name": "standing incline cable chest fly",
+    "name": "Standing Incline Cable Chest Fly",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -107,10 +107,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Set the cables to a high position, stand facing away from the machine, hold the handles, and perform a flye motion by bringing your arms together in front of you."
   },
   {
-    "name": "standing decline cable chest fly",
+    "name": "Standing Decline Cable Chest Fly",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -118,10 +118,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Set the cables to a low position, stand facing the machine, hold the handles, and perform a flye motion by bringing your arms together in front of you."
   },
   {
-    "name": "dips",
+    "name": "Dips",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dip & pull up bars",
@@ -129,10 +129,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Use parallel bars, lower your body by bending your elbows until your chest is level with the bars, then push back up."
   },
   {
-    "name": "push ups",
+    "name": "Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "no equipment",
@@ -140,10 +140,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Place your hands slightly wider than shoulder-width apart on the floor, lower your body until your chest nearly touches the ground, then push back up."
   },
   {
-    "name": "knee push ups",
+    "name": "Knee Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "beginner",
     "equipment": "no equipment",
@@ -151,10 +151,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Place your hands on the floor and your knees down, lower your body until your chest nearly touches the ground, then push back up."
   },
   {
-    "name": "negative push ups",
+    "name": "Negative Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "beginner",
     "equipment": "no equipment",
@@ -162,10 +162,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lower yourself slowly to the ground from a push-up position, focusing on the descent, then return to the starting position."
   },
   {
-    "name": "explosive push ups",
+    "name": "Explosive Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "advanced",
     "equipment": "no equipment",
@@ -173,10 +173,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Perform a push-up but push off the ground with enough force to lift your hands off the floor."
   },
   {
-    "name": "archer push ups",
+    "name": "Archer Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "advanced",
     "equipment": "no equipment",
@@ -184,10 +184,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Perform a push-up, but extend one arm out to the side while lowering your body, then switch arms."
   },
   {
-    "name": "typewriter push ups",
+    "name": "Typewriter Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "advanced",
     "equipment": "no equipment",
@@ -195,10 +195,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Perform a push-up, then shift your body weight from side to side in a controlled manner while maintaining the push-up position."
   },
   {
-    "name": "inclined push ups",
+    "name": "Inclined Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "beginner",
     "equipment": "no equipment",
@@ -206,10 +206,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Place your hands on an elevated surface like a bench, lower your body until your chest nearly touches the surface, then push back up."
   },
   {
-    "name": "declined push ups",
+    "name": "Declined Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "no equipment",
@@ -217,10 +217,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Place your feet on an elevated surface like a bench, lower your body until your chest nearly touches the ground, then push back up."
   },
   {
-    "name": "diamond push ups",
+    "name": "Diamond Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "advanced",
     "equipment": "no equipment",
@@ -228,10 +228,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Place your hands close together under your chest, with fingers forming a diamond shape, lower your body until your chest nearly touches your hands, then push back up."
   },
   {
-    "name": "wide push ups",
+    "name": "Wide Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "no equipment",
@@ -239,10 +239,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Place your hands wider than shoulder-width apart, lower your body until your chest nearly touches the ground, then push back up."
   },
   {
-    "name": "resistance band push ups",
+    "name": "Resistance Band Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "advanced",
     "equipment": "resistance band",
@@ -250,10 +250,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Place a resistance band across your back and hold the ends in your hands, perform a push-up while the band adds extra resistance."
   },
   {
-    "name": "resistance band inclined push ups",
+    "name": "Resistance Band Inclined Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "advanced",
     "equipment": "resistance band",
@@ -261,10 +261,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Place a resistance band across your back and hold the ends in your hands while your hands are elevated on a surface, perform a push-up with added resistance."
   },
   {
-    "name": "resistance band declined push ups",
+    "name": "Resistance Band Declined Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "advanced",
     "equipment": "resistance band",
@@ -272,10 +272,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Place a resistance band across your back and hold the ends in your hands while your feet are elevated on a surface, perform a push-up with added resistance."
   },
   {
-    "name": "resistance band diamond push ups",
+    "name": "Resistance Band Diamond Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "advanced",
     "equipment": "resistance band",
@@ -283,10 +283,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Place a resistance band across your back and hold the ends in your hands with your hands forming a diamond shape, perform a push-up with added resistance."
   },
   {
-    "name": "resistance band wide push ups",
+    "name": "Resistance Band Wide Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "advanced",
     "equipment": "resistance band",
@@ -294,10 +294,98 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Place a resistance band across your back and hold the ends in your hands with your hands wider than shoulder-width apart, perform a push-up with added resistance."
   },
   {
-    "name": "pull down",
+    "name": "Pec Deck Machine",
+    "workoutType": "all types",
+    "difficultyLevel": "every level",
+    "equipment": "machines",
+    "muscleType": "overall chest",
+    "exerciseType": "isolation",
+    "exerciseImportance": "tertiary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Sit on the machine, adjust the seat and arms to the correct position, then bring the arms together in front of your chest and return slowly."
+  },
+  {
+    "name": "Reverse Grip Bench Press",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "barbell",
+    "muscleType": "upper chest",
+    "exerciseType": "compound",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on a flat bench, grip the barbell with an underhand grip, lower the barbell to your chest, then press it back up."
+  },
+  {
+    "name": "Decline Cable Flyes",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "machines",
+    "muscleType": "lower chest",
+    "exerciseType": "isolation",
+    "exerciseImportance": "tertiary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Set the cables to the lowest setting, lie on a decline bench, and perform flyes by bringing the handles together above your chest."
+  },
+  {
+    "name": "Single-Arm Dumbbell Press",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "dumbbells",
+    "muscleType": "overall chest",
+    "exerciseType": "compound",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on a flat bench, hold a dumbbell in one hand, press it up from your chest, then lower it back down and switch arms."
+  },
+  {
+    "name": "Cable Chest Press",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "machines",
+    "muscleType": "overall chest",
+    "exerciseType": "compound",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Set up a bench in the center of two cable machines, hold the handles, press them forward from your chest, then return to the starting position."
+  },
+  {
+    "name": "Landmine Chest Press",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "machines",
+    "muscleType": "overall chest",
+    "exerciseType": "compound",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Secure one end of a barbell in a landmine attachment, grip the other end, and press it away from your chest."
+  },
+  {
+    "name": "Chest Dip",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "dip & pull up bars",
+    "muscleType": "overall chest",
+    "exerciseType": "compound",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Use parallel bars, lean forward slightly, and lower your body until your chest is level with the bars, then push back up."
+  },
+  {
+    "name": "Machine Incline Press",
+    "workoutType": "all types",
+    "difficultyLevel": "every level",
+    "equipment": "machines",
+    "muscleType": "upper chest",
+    "exerciseType": "compound",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Adjust the seat and handles of the machine, press the handles up from your chest, then return to the starting position."
+  },
+  {
+    "name": "Pull Down",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -305,10 +393,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit at a pull-down machine, grip the bar with an overhand grip, and pull it down to your chest while keeping your back straight. Slowly return the bar to the starting position."
   },
   {
-    "name": "wide grip pull down",
+    "name": "Wide Grip Pull Down",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -316,10 +404,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit at a pull-down machine with a wider-than-shoulder-width grip on the bar. Pull the bar down to your chest while squeezing your shoulder blades together, then return it slowly."
   },
   {
-    "name": "close grip pull down",
+    "name": "Close Grip Pull Down",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -327,10 +415,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Using a close grip handle, pull the bar down to your chest, focusing on engaging your lats. Slowly release the handle back to the starting position."
   },
   {
-    "name": "underhand grip pull down",
+    "name": "Underhand Grip Pull Down",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -338,10 +426,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Grip the bar with an underhand (supinated) grip, pull it down to your chest while keeping your elbows close to your body, and slowly return to the starting position."
   },
   {
-    "name": "t-bar rows",
+    "name": "T-Bar Rows",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -349,10 +437,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand at a T-bar row machine, grip the handles, and row the weight toward your chest while keeping your back straight. Lower the weight back down in a controlled manner."
   },
   {
-    "name": "cable rows",
+    "name": "Cable Rows",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -360,10 +448,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit at a cable row machine, grab the handles with a neutral grip, and pull them toward your torso, squeezing your shoulder blades together. Slowly extend your arms back to the starting position."
   },
   {
-    "name": "machines rows",
+    "name": "Machine Rows",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -371,10 +459,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit at a rowing machine, adjust the seat and handles, and pull the handles toward your chest, keeping your back straight. Slowly return to the starting position."
   },
   {
-    "name": "dumbbell rows",
+    "name": "Dumbbell Rows",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dumbbells",
@@ -382,10 +470,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Place one knee and hand on a bench, hold a dumbbell in the other hand, and row it toward your hip while keeping your back flat. Lower the dumbbell back down slowly."
   },
   {
-    "name": "barbell rows",
+    "name": "Barbell Rows",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "barbell",
@@ -393,10 +481,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet shoulder-width apart, bend at the hips, and grip a barbell. Row the barbell toward your lower chest while keeping your back straight, then lower it back down."
   },
   {
-    "name": "straight arms cable pulldown",
+    "name": "Straight Arms Cable Pulldown",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -404,10 +492,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand in front of a cable machine with the handle at the highest setting, grab the handle with both hands, and pull it down to your thighs while keeping your arms straight. Slowly return to the starting position."
   },
   {
-    "name": "seated one arm cable pulldown",
+    "name": "Seated One Arm Cable Pulldown",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -415,98 +503,98 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit at a cable machine, grip the handle with one hand, and pull it down to your shoulder while keeping your back straight. Slowly release it back to the starting position and switch arms."
   },
   {
-    "name": "pull ups",
+    "name": "Pull Ups",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "dip & pull up bars",
     "muscleType": "lats",
     "exerciseType": "compound",
     "exerciseImportance": "primary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "exerciseTypeByWeight": "bodyweight",
+    "instructions": "Hang from a pull-up bar with an overhand grip, pull your body up until your chin is above the bar, then lower yourself back down with control."
   },
   {
-    "name": "assisted pull ups",
+    "name": "Assisted Pull Ups",
     "workoutType": "all types",
     "difficultyLevel": "beginner",
     "equipment": "dip & pull up bars",
     "muscleType": "lats",
     "exerciseType": "compound",
     "exerciseImportance": "primary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "exerciseTypeByWeight": "bodyweight",
+    "instructions": "Use an assisted pull-up machine or resistance bands to help you complete pull-ups, focusing on proper form as you pull yourself up and lower back down."
   },
   {
-    "name": "negative pull ups",
+    "name": "Negative Pull Ups",
     "workoutType": "all types",
     "difficultyLevel": "beginner",
     "equipment": "dip & pull up bars",
     "muscleType": "lats",
     "exerciseType": "compound",
     "exerciseImportance": "primary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "exerciseTypeByWeight": "bodyweight",
+    "instructions": "Jump or use a step to get your chin above the pull-up bar, then slowly lower yourself down to a full hang. Repeat this for multiple reps."
   },
   {
-    "name": "chin ups",
+    "name": "Chin Ups",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "dip & pull up bars",
     "muscleType": "lats",
     "exerciseType": "compound",
     "exerciseImportance": "primary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "exerciseTypeByWeight": "bodyweight",
+    "instructions": "Hang from a pull-up bar with an underhand grip, pull your body up until your chin is above the bar, and lower yourself back down slowly."
   },
   {
-    "name": "wide pull ups",
+    "name": "Wide Pull Ups",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "dip & pull up bars",
     "muscleType": "lats",
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "exerciseTypeByWeight": "bodyweight",
+    "instructions": "Grip the pull-up bar with a wide, overhand grip, pull yourself up until your chin clears the bar, then lower yourself back down with control."
   },
   {
-    "name": "close grip pull ups",
+    "name": "Close Grip Pull Ups",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "dip & pull up bars",
     "muscleType": "lats",
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "exerciseTypeByWeight": "bodyweight",
+    "instructions": "Grip the pull-up bar with a close, overhand grip, pull yourself up until your chin clears the bar, and then lower yourself back down slowly."
   },
   {
-    "name": "wide chin ups",
+    "name": "Wide Chin Ups",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "dip & pull up bars",
     "muscleType": "lats",
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "exerciseTypeByWeight": "bodyweight",
+    "instructions": "Grip the bar with a wide, underhand grip, pull yourself up until your chin clears the bar, then lower yourself back down slowly."
   },
   {
-    "name": "close grip chin ups",
+    "name": "Close Grip Chin Ups",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "dip & pull up bars",
     "muscleType": "lats",
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "exerciseTypeByWeight": "bodyweight",
+    "instructions": "Use a close, underhand grip to pull yourself up until your chin clears the bar, then lower yourself back down with control."
   },
   {
-    "name": "resistance band rows",
+    "name": "Resistance Band Rows",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "resistance band",
@@ -514,10 +602,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Anchor a resistance band at chest height, grab the ends, and row the band toward your chest, keeping your back straight. Slowly release the tension."
   },
   {
-    "name": "backpack rows",
+    "name": "Backpack Rows",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "backpack",
@@ -525,10 +613,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Fill a backpack with weight, bend over at the hips, and row the backpack toward your chest. Keep your back straight and control the movement."
   },
   {
-    "name": "one arm backpack rows",
+    "name": "One Arm Backpack Rows",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "backpack",
@@ -536,252 +624,219 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Hold a weighted backpack with one hand, bend over at the hips, and row it toward your hip. Maintain a flat back and control the descent."
   },
   {
-    "name": "military press",
+    "name": "Military Press",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "intermediate",
+    "equipment": "barbell",
+    "muscleType": "front deltoid",
+    "exerciseType": "compound",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Stand with your feet shoulder-width apart, grip the barbell at shoulder height, and press it overhead by extending your arms fully. Keep your core tight and avoid arching your back."
+  },
+  {
+    "name": "Dumbbell Shoulder Press",
+    "workoutType": "all types",
+    "difficultyLevel": "beginner",
     "equipment": "dumbbells",
     "muscleType": "front deltoid",
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on a bench with a backrest, hold a dumbbell in each hand at shoulder height, and press the weights overhead until your arms are fully extended. Lower the weights back down with control."
   },
   {
-    "name": "resistance band shoulder press",
+    "name": "Seated Dumbbell Press",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "resistance band",
-    "muscleType": "front deltoid",
-    "exerciseType": "compound",
-    "exerciseImportance": "primary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
-  },
-  {
-    "name": "dumbbell press",
-    "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "dumbbells",
     "muscleType": "front deltoid",
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on a bench with your back supported, hold dumbbells at shoulder level, and press them overhead until your arms are straight. Keep your core engaged throughout the movement."
   },
   {
-    "name": "seated dumbbell press",
+    "name": "Behind the Neck Press",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "dumbbells",
-    "muscleType": "front deltoid",
-    "exerciseType": "compound",
-    "exerciseImportance": "primary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
-  },
-  {
-    "name": "behind the neck press",
-    "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "dumbbells",
+    "difficultyLevel": "advanced",
+    "equipment": "barbell",
     "muscleType": "front deltoid",
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit or stand with a barbell resting on your upper traps. Press the barbell overhead while keeping your core tight and your back straight. Lower the bar slowly behind your neck."
   },
   {
-    "name": "standing dumbbell upright row",
+    "name": "Standing Dumbbell Upright Row",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "intermediate",
     "equipment": "dumbbells",
     "muscleType": "lateral deltoid",
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet hip-width apart, hold a dumbbell in each hand, and pull the weights upwards along your body, keeping your elbows higher than your wrists. Stop when the weights reach your chest."
   },
   {
-    "name": "standing backpack upright row",
+    "name": "Standing Barbell Upright Row",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "backpack",
-    "muscleType": "lateral deltoid",
-    "exerciseType": "compound",
-    "exerciseImportance": "secondary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
-  },
-  {
-    "name": "standing barbell upright row",
-    "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "intermediate",
     "equipment": "barbell",
     "muscleType": "lateral deltoid",
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet shoulder-width apart, hold a barbell with an overhand grip, and lift it towards your chin while keeping your elbows above your hands. Lower it slowly back down."
   },
   {
-    "name": "standing resistance band upright row",
+    "name": "Resistance Band Shoulder Press",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "resistance band",
-    "muscleType": "lateral deltoid",
+    "muscleType": "front deltoid",
     "exerciseType": "compound",
-    "exerciseImportance": "secondary",
+    "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand on a resistance band with your feet shoulder-width apart, hold the handles at shoulder height, and press the handles overhead until your arms are fully extended. Lower slowly."
   },
   {
-    "name": "pike push ups",
+    "name": "Pike Push-Ups",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "intermediate",
     "equipment": "no equipment",
     "muscleType": "front deltoid",
     "exerciseType": "compound",
     "exerciseImportance": "primary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "exerciseTypeByWeight": "bodyweight",
+    "instructions": "Start in a downward dog position with your hips raised and hands shoulder-width apart. Lower your head towards the ground by bending your elbows, then press back up."
   },
   {
-    "name": "front lateral raises",
+    "name": "Front Lateral Raises",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "dumbbells",
     "muscleType": "front deltoid",
     "exerciseType": "isolation",
-    "exerciseImportance": "tertiary",
+    "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet shoulder-width apart, hold a dumbbell in each hand, and raise them in front of you to shoulder height with straight arms. Lower them back down slowly."
   },
   {
-    "name": "resistance band front lateral raises",
+    "name": "Side Lateral Raises",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "resistance band",
-    "muscleType": "front deltoid",
-    "exerciseType": "isolation",
-    "exerciseImportance": "tertiary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
-  },
-  {
-    "name": "backpack front lateral raises",
-    "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "backpack",
-    "muscleType": "front deltoid",
-    "exerciseType": "isolation",
-    "exerciseImportance": "tertiary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
-  },
-  {
-    "name": "cable front lateral raises",
-    "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "machines",
-    "muscleType": "front deltoid",
-    "exerciseType": "isolation",
-    "exerciseImportance": "tertiary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
-  },
-  {
-    "name": "side lateral raises",
-    "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "dumbbells",
     "muscleType": "lateral deltoid",
     "exerciseType": "isolation",
-    "exerciseImportance": "tertiary",
+    "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet shoulder-width apart, hold dumbbells at your sides, and raise your arms out to the sides until they are parallel to the ground. Lower the weights back down slowly."
   },
   {
-    "name": "resistance band side lateral raises",
+    "name": "Rear Deltoid Fly",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "resistance band",
-    "muscleType": "lateral deltoid",
-    "exerciseType": "isolation",
-    "exerciseImportance": "tertiary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
-  },
-  {
-    "name": "cable lateral raises",
-    "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "machines",
-    "muscleType": "lateral deltoid",
-    "exerciseType": "isolation",
-    "exerciseImportance": "tertiary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
-  },
-  {
-    "name": "rear deltoid fly",
-    "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "intermediate",
     "equipment": "dumbbells",
     "muscleType": "rear deltoid",
     "exerciseType": "isolation",
-    "exerciseImportance": "tertiary",
+    "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Bend at the waist with your back straight, hold dumbbells in each hand, and raise them out to the sides with your elbows slightly bent. Squeeze your shoulder blades together at the top."
   },
   {
-    "name": "resistance band rear deltoid fly",
+    "name": "Dumbbell Shrugs",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "resistance band",
-    "muscleType": "rear deltoid",
-    "exerciseType": "isolation",
-    "exerciseImportance": "tertiary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
-  },
-  {
-    "name": "cable rear deltoid fly",
-    "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "machines",
-    "muscleType": "rear deltoid",
-    "exerciseType": "isolation",
-    "exerciseImportance": "tertiary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
-  },
-  {
-    "name": "dumbbell shrugs",
-    "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "dumbbells",
     "muscleType": "traps",
     "exerciseType": "isolation",
-    "exerciseImportance": "tertiary",
+    "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet shoulder-width apart, hold a dumbbell in each hand at your sides, and shrug your shoulders upwards as high as possible. Hold briefly at the top before lowering."
   },
   {
-    "name": "face pulls",
+    "name": "Face Pulls",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "machines",
     "muscleType": "rear deltoid",
     "exerciseType": "isolation",
-    "exerciseImportance": "tertiary",
+    "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Attach a rope handle to a cable machine at face height, grip the handles with both hands, and pull towards your face while keeping your elbows high and squeezing your shoulder blades together."
   },
   {
-    "name": "biceps chin up",
+    "name": "Resistance Band Front Lateral Raises",
+    "workoutType": "all types",
+    "difficultyLevel": "beginner",
+    "equipment": "resistance band",
+    "muscleType": "front deltoid",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Stand on a resistance band with your feet shoulder-width apart, hold the handles with straight arms, and raise them in front of you to shoulder height. Lower them slowly back down."
+  },
+  {
+    "name": "Cable Lateral Raises",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "machines",
+    "muscleType": "lateral deltoid",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Stand next to a cable machine with the handle at the lowest position, grab the handle with one hand, and raise your arm out to the side to shoulder height. Lower back down with control."
+  },
+  {
+    "name": "Cable Rear Deltoid Fly",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "machines",
+    "muscleType": "rear deltoid",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Stand facing a cable machine, cross the handles in front of you, and pull them out to the sides while keeping your arms slightly bent. Focus on squeezing your shoulder blades together."
+  },
+  {
+    "name": "Resistance Band Side Lateral Raises",
+    "workoutType": "all types",
+    "difficultyLevel": "beginner",
+    "equipment": "resistance band",
+    "muscleType": "lateral deltoid",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Stand on a resistance band with your feet shoulder-width apart, hold the handles at your sides, and raise your arms out to the sides until they are parallel to the ground. Lower slowly."
+  },
+  {
+    "name": "Standing Backpack Upright Row",
+    "workoutType": "all types",
+    "difficultyLevel": "beginner",
+    "equipment": "backpack",
+    "muscleType": "lateral deltoid",
+    "exerciseType": "compound",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Fill a backpack with weight, stand with your feet shoulder-width apart, hold the straps, and pull the backpack towards your chin while keeping your elbows above your hands. Lower slowly."
+  },
+  {
+    "name": "Backpack Front Lateral Raises",
+    "workoutType": "all types",
+    "difficultyLevel": "beginner",
+    "equipment": "backpack",
+    "muscleType": "front deltoid",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Stand with your feet shoulder-width apart, hold a weighted backpack in front of you with straight arms, and raise it to shoulder height. Lower it back down slowly."
+  },
+  {
+    "name": "Biceps Chin Up",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -789,10 +844,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Grab the pull-up bar with an underhand grip, shoulder-width apart. Pull your body up until your chin is over the bar, focusing on squeezing your biceps. Lower yourself down slowly and repeat."
   },
   {
-    "name": "dumbbell curl",
+    "name": "Dumbbell Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dumbbells",
@@ -800,10 +855,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with a dumbbell in each hand, arms fully extended. Curl the weights while keeping your upper arms stationary. Squeeze your biceps at the top, then slowly lower the weights back to the starting position."
   },
   {
-    "name": "supinated backpack curl",
+    "name": "Supinated Backpack Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "backpack",
@@ -811,10 +866,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Fill a backpack with weights. Hold it with your palms facing up and curl it towards your shoulders, squeezing your biceps at the top. Lower the backpack slowly back to the starting position."
   },
   {
-    "name": "pronated backpack curl",
+    "name": "Pronated Backpack Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "backpack",
@@ -822,10 +877,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Fill a backpack with weights. Hold it with your palms facing down and curl it towards your shoulders. Keep your elbows close to your torso throughout the movement. Lower the backpack slowly."
   },
   {
-    "name": "resistance band curls",
+    "name": "Resistance Band Curls",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "resistance band",
@@ -833,10 +888,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand on the middle of the resistance band with both feet. Hold the ends of the band in your hands and curl them towards your shoulders, squeezing your biceps at the top. Lower back down slowly."
   },
   {
-    "name": "resistance band wide grip supination curls",
+    "name": "Resistance Band Wide Grip Supination Curls",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "resistance band",
@@ -844,10 +899,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand on the resistance band with a wide stance. Hold the band with a wide grip, palms up, and curl the band towards your shoulders. Focus on keeping your elbows close to your body. Lower the band slowly."
   },
   {
-    "name": "resistance band close grip supination curls",
+    "name": "Resistance Band Close Grip Supination Curls",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "resistance band",
@@ -855,10 +910,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand on the resistance band with a narrow stance. Hold the band with a close grip, palms up, and curl the band towards your shoulders. Squeeze your biceps at the top, then lower slowly."
   },
   {
-    "name": "resistance band elbows behind curl",
+    "name": "Resistance Band Elbows Behind Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "resistance band",
@@ -866,10 +921,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Attach the resistance band to a low anchor point behind you. Hold the ends of the band and step forward until there is tension. Curl the band towards your shoulders while keeping your elbows back. Lower slowly."
   },
   {
-    "name": "barbell curl",
+    "name": "Barbell Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "barbell",
@@ -877,10 +932,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet shoulder-width apart, holding a barbell with an underhand grip. Curl the barbell towards your chest, keeping your elbows close to your body. Squeeze your biceps at the top, then slowly lower the barbell."
   },
   {
-    "name": "hammer curl",
+    "name": "Hammer Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dumbbells",
@@ -888,10 +943,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Hold a dumbbell in each hand with a neutral grip (palms facing each other). Curl the weights towards your shoulders while keeping your upper arms stationary. Lower the dumbbells back down slowly."
   },
   {
-    "name": "resistance band hammer curl",
+    "name": "Resistance Band Hammer Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "resistance band",
@@ -899,10 +954,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand on the middle of the resistance band. Hold the ends of the band with a neutral grip (palms facing each other) and curl them towards your shoulders. Lower back down slowly."
   },
   {
-    "name": "concentration curl",
+    "name": "Concentration Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dumbbells",
@@ -910,10 +965,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on a bench with your legs spread. Hold a dumbbell in one hand, rest your elbow against the inside of your thigh, and curl the weight up towards your shoulder. Squeeze at the top, then lower the dumbbell back down slowly. Repeat on the other arm."
   },
   {
-    "name": "ez-bar curl",
+    "name": "EZ-Bar Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "barbell",
@@ -921,10 +976,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Hold the EZ-bar with an underhand grip, palms facing upward. Curl the bar towards your shoulders, keeping your elbows stationary. Squeeze your biceps at the top, then lower the bar slowly."
   },
   {
-    "name": "spider curl",
+    "name": "Spider Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "barbell",
@@ -932,10 +987,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie face down on an incline bench, holding a barbell with an underhand grip. Let your arms hang down straight, then curl the bar towards your shoulders. Squeeze your biceps at the top, then lower the bar slowly."
   },
   {
-    "name": "preacher dumbbell curl",
+    "name": "Preacher Dumbbell Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dumbbells",
@@ -943,10 +998,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on a preacher bench with a dumbbell in one hand. Curl the dumbbell towards your shoulder while keeping your upper arm stationary. Squeeze your bicep at the top, then lower the dumbbell slowly."
   },
   {
-    "name": "preacher machine curl",
+    "name": "Preacher Machine Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -954,7 +1009,7 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on the preacher curl machine and grasp the handles with an underhand grip. Curl the handles towards your upper arm stationary. Squeeze your bicep at the top, then lower the dumbbell slowly."
   },
   {
     "name": "cable curl",
@@ -968,7 +1023,183 @@
     "instructions:": "lorem ipsum"
   },
   {
-    "name": "cable triceps extension",
+    "name": "Zottman Curl",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "dumbbells",
+    "muscleType": "biceps",
+    "exerciseType": "compound",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Stand with dumbbells in each hand, palms facing up. Curl the weights towards your shoulders. At the top of the curl, rotate your wrists so that your palms face down, then lower the weights slowly. Rotate your wrists back to the starting position and repeat."
+  },
+  {
+    "name": "Cable Hammer Curl",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "machines",
+    "muscleType": "biceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Attach a rope handle to a low pulley on a cable machine. Stand with your feet shoulder-width apart and grasp the rope with a neutral grip (palms facing each other). Curl the rope towards your shoulders, keeping your elbows close to your torso. Slowly lower the rope back down."
+  },
+  {
+    "name": "Alternating Dumbbell Curl",
+    "workoutType": "all types",
+    "difficultyLevel": "every level",
+    "equipment": "dumbbells",
+    "muscleType": "biceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Stand with a dumbbell in each hand, arms fully extended. Curl one dumbbell towards your shoulder while keeping the other arm stationary. Lower the dumbbell back down and repeat with the other arm."
+  },
+  {
+    "name": "Preacher Hammer Curl",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "dumbbells",
+    "muscleType": "biceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Sit on a preacher bench with a dumbbell in each hand, palms facing each other. Curl the dumbbells towards your shoulders while keeping your upper arms on the bench. Squeeze your biceps at the top, then lower the weights back down slowly."
+  },
+  {
+    "name": "Single Arm Cable Curl",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "machines",
+    "muscleType": "biceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Attach a single handle to a low pulley on a cable machine. Stand with your side facing the machine, grasp the handle with one hand, and curl it towards your shoulder. Keep your upper arm stationary and focus on your biceps. Lower the handle slowly and repeat on the other side."
+  },
+  {
+    "name": "Drag Curl",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "barbell",
+    "muscleType": "biceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Hold a barbell with an underhand grip, arms fully extended. Curl the barbell up towards your chest while dragging it up along your torso. Keep your elbows back and close to your body. Squeeze your biceps at the top, then lower the barbell slowly."
+  },
+  {
+    "name": "Standing Cable Curl",
+    "workoutType": "all types",
+    "difficultyLevel": "every level",
+    "equipment": "machines",
+    "muscleType": "biceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Attach a bar or handle to a low pulley on a cable machine. Stand with your feet shoulder-width apart and grasp the bar or handle with an underhand grip. Curl the bar or handle towards your shoulders, keeping your elbows close to your body. Slowly lower the bar back down."
+  },
+  {
+    "name": "Skull Crushers",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "barbell",
+    "muscleType": "triceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on a bench with a barbell or dumbbells held above your chest. Lower the weights towards your forehead by bending your elbows, then extend your arms back to the starting position. Keep your upper arms stationary throughout the movement."
+  },
+  {
+    "name": "Skull Crushers",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "dumbbells",
+    "muscleType": "triceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on a bench with a dumbbells held above your chest. Lower the weights towards your forehead by bending your elbows, then extend your arms back to the starting position. Keep your upper arms stationary throughout the movement."
+  },
+  {
+    "name": "Overhead Triceps Extension With Single Dumbbell",
+    "workoutType": "all types",
+    "difficultyLevel": "every level",
+    "equipment": "dumbbells",
+    "muscleType": "triceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Stand or sit with a single dumbbell held with both hands behind your head. Extend your arms fully to lift the dumbbell overhead, then lower it slowly back to the starting position. Keep your elbows close to your head throughout the exercise."
+  },
+  {
+    "name": "Triceps Kickbacks",
+    "workoutType": "all types",
+    "difficultyLevel": "every level",
+    "equipment": "dumbbells",
+    "muscleType": "triceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Bend forward at the waist with a dumbbell in each hand, palms facing each other. Keeping your upper arms stationary, extend your forearms back until your arms are straight. Squeeze your triceps at the top, then return to the starting position."
+  },
+  {
+    "name": "Triceps Rope Pushdown",
+    "workoutType": "all types",
+    "difficultyLevel": "every level",
+    "equipment": "machines",
+    "muscleType": "triceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Attach a rope handle to a high pulley on a cable machine. Stand with your feet shoulder-width apart, grasp the rope with both hands, and pull it down towards your thighs while keeping your elbows close to your body. Extend your arms fully, then slowly return to the starting position."
+  },
+  {
+    "name": "Diamond Push-Ups",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "no equipment",
+    "muscleType": "triceps",
+    "exerciseType": "compound",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "bodyweight",
+    "instructions": "Assume a push-up position with your hands close together directly under your chest, forming a diamond shape with your fingers. Lower your body towards the floor by bending your elbows, then push back up to the starting position."
+  },
+  {
+    "name": "Dumbbell Kickback With Neutral Grip",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "dumbbells",
+    "muscleType": "triceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Bend forward at the waist with a dumbbell in each hand, palms facing each other. Extend your forearms back until your arms are straight while keeping your upper arms stationary. Squeeze your triceps at the top, then return to the starting position."
+  },
+  {
+    "name": "Reverse Grip Triceps Pushdown",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "machines",
+    "muscleType": "triceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Attach a straight bar to a high pulley on a cable machine. Stand with your feet shoulder-width apart, grasp the bar with an overhand grip (palms facing down), and pull it down towards your thighs. Extend your arms fully, then slowly return to the starting position."
+  },
+  {
+    "name": "Bodyweight Triceps Extension",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "barbell",
+    "muscleType": "triceps",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "bodyweight",
+    "instructions": "Position yourself facing an exercise bar or a sturdy surface, with your hands shoulder-width apart. Lean forward and bend your elbows to lower your body towards the surface, then push yourself back up to the starting position. Keep your body in a straight line throughout the movement."
+  },
+  {
+    "name": "Cable Triceps Extension",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -976,10 +1207,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Attach a rope or bar to the high pulley of a cable machine. Stand with your feet shoulder-width apart, grasp the attachment, and extend your arms downwards until fully extended. Slowly return to the starting position, keeping your elbows close to your sides."
   },
   {
-    "name": "resistance band overhead triceps extension",
+    "name": "Resistance Band Overhead Triceps Extension",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "resistance band",
@@ -987,10 +1218,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand on a resistance band with both feet and hold the band with both hands behind your head. Extend your arms upwards until they are fully extended, then lower back to the starting position. Keep your elbows close to your head throughout the movement."
   },
   {
-    "name": "backpack overhead triceps extension",
+    "name": "Backpack Overhead Triceps Extension",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "backpack",
@@ -998,10 +1229,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Hold a backpack with both hands and place it behind your head. Extend your arms upwards until fully extended, then lower back to the starting position. Ensure your elbows stay close to your head throughout the exercise."
   },
   {
-    "name": "dumbbell triceps extension",
+    "name": "Dumbbell Triceps Extension",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dumbbells",
@@ -1009,10 +1240,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Hold a dumbbell with both hands above your head. Lower the dumbbell behind your head by bending your elbows, then extend your arms back to the starting position. Keep your elbows close to your head throughout the movement."
   },
   {
-    "name": "lying triceps extension",
+    "name": "Lying Triceps Extension",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dumbbells",
@@ -1020,10 +1251,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on a bench with dumbbells held above your chest. Lower the dumbbells towards your forehead by bending your elbows, then extend your arms back to the starting position. Keep your upper arms stationary throughout the movement."
   },
   {
-    "name": "lying resistance band triceps extension",
+    "name": "Lying Resistance Band Triceps Extension",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "resistance band",
@@ -1031,10 +1262,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on a bench with a resistance band held above your chest. Lower the band towards your forehead by bending your elbows, then extend your arms back to the starting position. Keep your upper arms stationary throughout the movement."
   },
   {
-    "name": "triceps push down",
+    "name": "Triceps Pushdown",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -1042,10 +1273,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Attach a rope or bar to a high pulley on a cable machine. Stand with your feet shoulder-width apart, grasp the attachment, and push it down towards your thighs while keeping your elbows close to your body. Extend your arms fully, then slowly return to the starting position."
   },
   {
-    "name": "triceps dips",
+    "name": "Triceps Dips",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "no equipment",
@@ -1053,10 +1284,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Position yourself between two parallel bars or on a sturdy surface. Lower your body by bending your elbows until your upper arms are parallel to the ground, then push yourself back up to the starting position."
   },
   {
-    "name": "chair triceps dips",
+    "name": "Chair Triceps Dips",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "no equipment",
@@ -1064,10 +1295,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on the edge of a chair or bench with your hands beside your hips. Move your hips off the edge and lower your body by bending your elbows until your arms are at a 90-degree angle. Push yourself back up to the starting position."
   },
   {
-    "name": "triceps push ups",
+    "name": "Triceps Push Ups",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "no equipment",
@@ -1075,10 +1306,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "bodyweight",
-    "instructions:": "lorem ipsum"
+    "instructions": "Assume a push-up position with your hands close together directly under your chest. Lower your body towards the floor by bending your elbows, then push back up to the starting position."
   },
   {
-    "name": "crunches",
+    "name": "Crunches",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "no equipment",
@@ -1086,10 +1317,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on your back with your knees bent and feet flat on the floor. Place your hands behind your head or across your chest. Lift your shoulders towards your knees by engaging your core, then lower back down slowly. Keep your lower back pressed into the floor throughout the movement."
   },
   {
-    "name": "reverse crunches",
+    "name": "Reverse Crunches",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "no equipment",
@@ -1097,10 +1328,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on your back with your legs lifted and knees bent at 90 degrees. Place your hands by your sides or under your hips for support. Curl your hips off the floor towards your chest, then slowly lower your legs back to the starting position. Focus on using your lower abs to lift your hips."
   },
   {
-    "name": "bicycle crunches",
+    "name": "Bicycle Crunches",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "no equipment",
@@ -1108,10 +1339,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on your back with your hands behind your head and legs lifted. Bring one knee towards your chest while rotating your torso to bring the opposite elbow towards that knee. Switch sides in a pedaling motion, keeping your core engaged and lower back pressed into the floor."
   },
   {
-    "name": "plank",
+    "name": "Plank",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "no equipment",
@@ -1119,10 +1350,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Assume a push-up position with your body in a straight line from head to heels. Rest on your forearms instead of your hands. Engage your core, squeeze your glutes, and hold this position while keeping your hips level and avoiding sagging in your lower back."
   },
   {
-    "name": "v-ups",
+    "name": "V-Ups",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "no equipment",
@@ -1130,10 +1361,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on your back with your arms extended above your head and legs straight. Simultaneously lift your legs and upper body off the ground, reaching your hands towards your toes to form a 'V' shape. Lower back down with control and repeat."
   },
   {
-    "name": "lying leg raises",
+    "name": "Lying Leg Raises",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "no equipment",
@@ -1141,10 +1372,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie on your back with your legs straight and arms by your sides. Lift your legs towards the ceiling while keeping them straight, then slowly lower them back down without letting them touch the floor. Engage your core throughout the movement."
   },
   {
-    "name": "russian twist",
+    "name": "Russian Twist",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "no equipment",
@@ -1152,10 +1383,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on the floor with your knees bent and feet flat. Lean back slightly and lift your feet off the ground. Hold your hands together in front of you and twist your torso to the right, then to the left, touching the floor beside your hips with each twist."
   },
   {
-    "name": "hanging leg raises",
+    "name": "Hanging Leg Raises",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dip & pull up bars",
@@ -1163,10 +1394,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Hang from a pull-up bar with your arms fully extended and legs straight. Engage your core and lift your legs towards your chest while keeping them straight. Slowly lower your legs back to the starting position without swinging your body."
   },
   {
-    "name": "hanging knee raises",
+    "name": "Hanging Knee Raises",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dip & pull up bars",
@@ -1174,10 +1405,43 @@
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Hang from a pull-up bar with your arms fully extended and legs straight. Bring your knees up towards your chest, engaging your abs throughout the movement. Lower your knees back down slowly and repeat."
   },
   {
-    "name": "barbell squats",
+    "name": "Toe Touches",
+    "workoutType": "all types",
+    "difficultyLevel": "every level",
+    "equipment": "no equipment",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on your back with your legs extended towards the ceiling. Reach your hands towards your toes by lifting your shoulders off the floor. Engage your core and lower back down slowly, keeping your legs straight throughout the exercise."
+  },
+  {
+    "name": "Flutter Kicks",
+    "workoutType": "all types",
+    "difficultyLevel": "every level",
+    "equipment": "no equipment",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on your back with your legs straight and hands under your hips for support. Lift your legs slightly off the floor and alternate kicking them up and down in a fluttering motion. Keep your core engaged and lower back pressed into the floor."
+  },
+  {
+    "name": "Medicine Ball Slams",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "dumbbells",
+    "muscleType": "abs",
+    "exerciseType": "compound",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Stand with your feet shoulder-width apart and hold a medicine ball overhead. Slam the ball down towards the ground with force while engaging your core. Catch the ball on the rebound or pick it up and repeat."
+  },
+  {
+    "name": "Barbell Squats",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -1185,10 +1449,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Position a barbell across your upper back with your feet shoulder-width apart. Lower your body by bending your knees and hips, keeping your back straight and chest up. Descend until your thighs are parallel to the floor, then push through your heels to return to the starting position."
   },
   {
-    "name": "bodyweight squats",
+    "name": "Bodyweight Squats",
     "workoutType": "all types",
     "difficultyLevel": "beginner",
     "equipment": "no equipment",
@@ -1196,10 +1460,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet shoulder-width apart and your arms extended in front of you. Bend your knees and hips to lower your body as if sitting back into a chair. Keep your chest up and knees aligned with your toes. Push through your heels to return to the starting position."
   },
   {
-    "name": "backpack squats",
+    "name": "Backpack Squats",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "backpack",
@@ -1207,10 +1471,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Fill a backpack with weight and secure it on your back. Stand with your feet shoulder-width apart. Lower your body by bending your knees and hips, keeping your back straight. Push through your heels to return to the starting position."
   },
   {
-    "name": "assisted sissy squats",
+    "name": "Assisted Sissy Squats",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "no equipment",
@@ -1218,10 +1482,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet shoulder-width apart and hold onto a support (e.g., a chair or wall). Lower your body by leaning back and bending your knees, keeping your torso upright. Push through your toes to return to the starting position."
   },
   {
-    "name": "sissy squats",
+    "name": "Sissy Squats",
     "workoutType": "all types",
     "difficultyLevel": "advanced",
     "equipment": "no equipment",
@@ -1229,10 +1493,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet shoulder-width apart and your torso upright. Lean back slightly and bend your knees, keeping your hips extended. Lower your body as far as possible while keeping your torso upright, then push through your toes to return to the starting position."
   },
   {
-    "name": "bodyweight lunges",
+    "name": "Bodyweight Lunges",
     "workoutType": "all types",
     "difficultyLevel": "beginner",
     "equipment": "no equipment",
@@ -1240,10 +1504,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet together. Step forward with one foot and lower your body by bending both knees until your back knee almost touches the floor. Push through the front heel to return to the starting position and repeat on the other side."
   },
   {
-    "name": "backpack lunges",
+    "name": "Backpack Lunges",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "backpack",
@@ -1251,10 +1515,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Fill a backpack with weight and secure it on your back. Step forward with one foot and lower your body by bending both knees. Push through the front heel to return to the starting position and repeat on the other side."
   },
   {
-    "name": "dumbbell lunges",
+    "name": "Dumbbell Lunges",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "dumbbells",
@@ -1262,10 +1526,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Hold a dumbbell in each hand with your arms at your sides. Step forward with one foot and lower your body until your back knee almost touches the floor. Push through the front heel to return to the starting position and repeat on the other side."
   },
   {
-    "name": "bodyweight leg extension",
+    "name": "Bodyweight Leg Extension",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "no equipment",
@@ -1273,10 +1537,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on a chair with your feet flat on the floor. Extend one leg out in front of you, keeping it straight, and hold for a moment. Lower it back down with control and repeat on the other side."
   },
   {
-    "name": "bodyweight bulgarian squats",
+    "name": "Bodyweight Bulgarian Squats",
     "workoutType": "all types",
     "difficultyLevel": "beginner",
     "equipment": "no equipment",
@@ -1284,10 +1548,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand a few feet in front of a chair or bench and place one foot on it behind you. Lower your body by bending your front knee until your thigh is parallel to the floor. Push through your front heel to return to the starting position and repeat on the other side."
   },
   {
-    "name": "backpack bulgarian squats",
+    "name": "Backpack Bulgarian Squats",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "backpack",
@@ -1295,10 +1559,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Fill a backpack with weight and place it on your back. Stand a few feet in front of a chair or bench and place one foot on it behind you. Lower your body by bending your front knee until your thigh is parallel to the floor. Push through your front heel to return to the starting position and repeat on the other side."
   },
   {
-    "name": "dumbbell bulgarian squats",
+    "name": "Dumbbell Bulgarian Squats",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "dumbbells",
@@ -1306,10 +1570,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Hold a dumbbell in each hand at your sides. Stand a few feet in front of a chair or bench and place one foot on it behind you. Lower your body by bending your front knee until your thigh is parallel to the floor. Push through your front heel to return to the starting position and repeat on the other side."
   },
   {
-    "name": "front squats",
+    "name": "Front Squats",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -1317,10 +1581,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Position a barbell across the front of your shoulders, resting on your collarbones. Stand with your feet shoulder-width apart. Lower your body by bending your knees and hips while keeping your torso upright. Push through your heels to return to the starting position."
   },
   {
-    "name": "leg press",
+    "name": "Leg Press",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -1328,10 +1592,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on the leg press machine with your back supported and feet on the platform. Push the platform away by extending your legs, then slowly lower it back towards you by bending your knees. Keep your feet shoulder-width apart and maintain a controlled movement."
   },
   {
-    "name": "leg extension",
+    "name": "Leg Extension",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -1339,10 +1603,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on the leg extension machine with your knees aligned with the pivot point. Extend your legs until they are straight, then slowly lower them back to the starting position. Focus on engaging your quadriceps throughout the movement."
   },
   {
-    "name": "romanian deadlift",
+    "name": "Romanian Deadlift",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "barbell",
@@ -1350,10 +1614,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet hip-width apart and a barbell in front of your thighs. Hinge at your hips and lower the barbell down your legs, keeping your back straight and knees slightly bent. Return to the starting position by driving your hips forward."
   },
   {
-    "name": "resistance band romanian deadlift",
+    "name": "Resistance Band Romanian Deadlift",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "resistance band",
@@ -1361,10 +1625,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand on a resistance band with your feet hip-width apart, holding the band handles. Hinge at your hips and lower the band down your legs, keeping your back straight and knees slightly bent. Return to the starting position by driving your hips forward."
   },
   {
-    "name": "deadlift",
+    "name": "Deadlift",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "barbell",
@@ -1372,10 +1636,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet hip-width apart and a barbell over your mid-foot. Bend at your hips and knees to grasp the barbell. Lift the barbell by extending your hips and knees to full extension, then lower it back down with control."
   },
   {
-    "name": "leg curls",
+    "name": "Leg Curls",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -1383,10 +1647,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Lie face down on the leg curl machine with your ankles under the pad. Curl your legs up towards your glutes by bending your knees, then slowly lower them back to the starting position. Focus on engaging your hamstrings throughout the movement."
   },
   {
-    "name": "nordic hamstring curls",
+    "name": "Nordic Hamstring Curls",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "no equipment",
@@ -1394,10 +1658,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Kneel on the floor with your feet anchored under a stable object. Lean forward slowly, keeping your body straight from your knees to your shoulders, and use your hamstrings to control the descent. Push yourself back up to the starting position with your hands if needed."
   },
   {
-    "name": "hip trust",
+    "name": "Hip Thrust",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "barbell",
@@ -1405,10 +1669,10 @@
     "exerciseType": "compound",
     "exerciseImportance": "secondary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on the floor with your upper back against a bench and a barbell over your hips. Roll the barbell over your hips and drive your hips upward until your body is in a straight line from your shoulders to your knees. Lower your hips back down with control."
   },
   {
-    "name": "calf raises",
+    "name": "Calf Raises",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "no equipment",
@@ -1416,10 +1680,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Stand with your feet shoulder-width apart and your weight evenly distributed. Raise your heels off the ground as high as possible by pushing through the balls of your feet, then lower them back down slowly."
   },
   {
-    "name": "weighted calf raises",
+    "name": "Weighted Calf Raises",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "dumbbells",
@@ -1427,10 +1691,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Hold a dumbbell in each hand at your sides. Stand with your feet shoulder-width apart and your weight evenly distributed. Raise your heels off the ground as high as possible, then lower them back down slowly."
   },
   {
-    "name": "seated calf raises",
+    "name": "Seated Calf Raises",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -1438,10 +1702,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on the calf raise machine with your feet on the platform and your knees under the pads. Raise your heels as high as possible, then lower them back down with control."
   },
   {
-    "name": "smith machine calf raises",
+    "name": "Smith Machine Calf Raises",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -1449,10 +1713,10 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Position yourself under the Smith machine bar with the barbell resting on your shoulders. Stand with your feet shoulder-width apart and your toes on a block or elevated surface. Raise your heels as high as possible, then lower them back down slowly."
   },
   {
-    "name": "calf extension",
+    "name": "Calf Extension",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -1460,6 +1724,6 @@
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
     "exerciseTypeByWeight": "weighted",
-    "instructions:": "lorem ipsum"
+    "instructions": "Sit on the calf extension machine with your feet on the platform and your knees under the pads. Extend your feet by raising your heels as high as possible, then lower them back down slowly."
   }
 ]
