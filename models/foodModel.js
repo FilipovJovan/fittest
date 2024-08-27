@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const FoodSchema = new mongoose.Schema(
   {
     name: String,
-    category: String,
+    categoryMeal: String,
     ingredients: String,
     recipe: String,
     calories: Number,
