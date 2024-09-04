@@ -1,7 +1,6 @@
 import User from "../models/UserModel.js";
 import Food from "../models/foodModel.js";
 
-// Function to suggest a weekly meal plan based on user preferences and goals
 const suggestDailyMealPlan = async (user) => {
   const { fitnessGoal, dietaryPreferences, dislikes } = user;
 
@@ -16,9 +15,8 @@ const suggestDailyMealPlan = async (user) => {
         //{ dietTypes: { $in: dietaryPreferences } },
         //{ name: { $nin: dislikes } },
       ],
-    }).limit(3); // Suggest top 3 options per meal type
+    }).limit(4); // top 4 options
 
-    // Fallback logic for snacks and drinks if no options are found
     if (mealType === "Snack" && mealOptions.length === 0) {
       const alternativeCategory = [
         "weight loss",
@@ -82,9 +80,6 @@ export const suggestFoods = async (req, res) => {
     const { currentCalories, macros, fitnessGoal } = user;
     const mealType = req.body.mealType;
 
-    // Map fitnessGoal to the corresponding Food category
-
-    // Ensure that these are numbers
     const remainingCalories = Number(currentCalories);
     const remainingMacros = {
       protein: Number(macros.protein),
@@ -105,11 +100,8 @@ export const suggestFoods = async (req, res) => {
     };
 
     console.log("MongoDB Query:", query);
-
-    // Query for the specific meal type and category
     let suggestedFoods = await Food.find(query);
 
-    // Handle snacks separately if no suitable foods are found
     if (mealType === "Snack" && suggestedFoods.length === 0) {
       const alternativeCategory = [
         "weight loss",

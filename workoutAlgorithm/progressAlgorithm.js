@@ -5,31 +5,45 @@ import {
   PROGRESS_QUESTIONS_THIRD,
 } from "../utils/constants.js";
 
+// Utility function to calculate workout volume
 function calculateVolume(reps, weight, sets) {
   return reps * weight * sets;
 }
 
-function adjustWorkout(counter, exerciseRef) {
+// Function to adjust exercise parameters based on user feedback
+function adjustWorkout(counter, exerciseRef, currentWeek) {
   const { reps, sets, rest } = exerciseRef;
-  if (counter < 2) {
-    exerciseRef.reps = reps + 2;
-    exerciseRef.sets = sets + 1;
-    exerciseRef.rest = rest;
-  } else if (counter >= 2 && counter < 4) {
-    exerciseRef.reps = reps + 1;
-    exerciseRef.sets = sets + 1;
-    exerciseRef.rest = rest;
-  } else if (counter >= 4 && counter < 6) {
+
+  if (currentWeek == 1) {
+    // Less intense, focus on learning movements and form
     exerciseRef.reps = reps + 1;
     exerciseRef.sets = sets;
-    exerciseRef.rest = rest;
-  } else {
+    exerciseRef.rest = rest + 15;
+  } else if (currentWeek >= 2 && currentWeek <= 5) {
+    // Gradual increase in intensity based on user feedback
+    if (counter < 2) {
+      exerciseRef.reps = reps + 2;
+      exerciseRef.sets = sets + 1;
+    } else if (counter >= 2 && counter < 4) {
+      exerciseRef.reps = reps + 1;
+      exerciseRef.sets = sets + 1;
+    } else if (counter < 6) {
+      exerciseRef.reps = reps;
+      exerciseRef.sets = sets;
+    } else {
+      exerciseRef.reps = Math.max(1, reps - 1);
+      exerciseRef.sets = Math.max(1, sets - 1);
+      exerciseRef.rest = rest + 15;
+    }
+  } else if (currentWeek == 6) {
+    // Reduce intensity to allow for recovery
     exerciseRef.reps = Math.max(1, reps - 1);
     exerciseRef.sets = Math.max(1, sets - 1);
-    exerciseRef.rest = rest + 0.25;
+    exerciseRef.rest = rest + 15;
   }
 }
 
+// Function to find the next workout day with the same name
 async function findNextWorkoutWithSameName(workout, currentDayId, name) {
   let foundCurrent = false;
   for (const week of workout.weeks) {
@@ -51,6 +65,7 @@ export const progressTracker = async (req, res) => {
 
     let counter = 0;
 
+    // Calculate counter based on user feedback
     switch (questionOne) {
       case "no connection":
         counter += PROGRESS_QUESTIONS_FIRST.NO_MIND_MUSCLE_CONNECTION;
@@ -89,20 +104,21 @@ export const progressTracker = async (req, res) => {
 
     console.log(`Total Score: ${counter}`);
 
-    if (counter < 2) {
-      console.log("no hypertrophy");
-    } else if (counter >= 2 && counter < 4) {
-      console.log("maintenance");
-    } else if (counter < 6) {
-      console.log("maximal hypertrophy");
-    } else {
-      console.log("high stress");
-    }
-
     const workout = await Workout.findById(workoutId);
 
     if (!workout) {
       return res.status(404).send("Workout not found");
+    }
+
+    // Determine the current phase of the workout (adaptation, overload, deload)
+    const currentWeekIndex = workout.weeks.findIndex((week) =>
+      week.days.some((day) => day._id.toString() === currentDayId)
+    );
+    let workoutPhase = "overload";
+    if (currentWeekIndex === 0) {
+      workoutPhase = "adaptation";
+    } else if (currentWeekIndex === workout.weeks.length - 1) {
+      workoutPhase = "deload";
     }
 
     // Find the current workout day by ID
@@ -126,12 +142,14 @@ export const progressTracker = async (req, res) => {
       return res.status(200).send("No next workout found with the same name");
     }
 
-    // Adjust volume and progress for the next workout day
+    // Adjust the workout parameters for the next workout day based on user feedback
     nextDay.workout.forEach((exerciseRef) => {
-      adjustWorkout(counter, exerciseRef);
+      adjustWorkout(counter, exerciseRef, currentWeek);
     });
 
+    // Save the updated workout plan
     await workout.save();
+
     res.status(200).send("Evaluation and adjustment complete");
   } catch (error) {
     console.error(error);

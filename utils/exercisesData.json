@@ -726,6 +726,17 @@
     "instructions": "Stand with your feet shoulder-width apart, hold a dumbbell in each hand, and raise them in front of you to shoulder height with straight arms. Lower them back down slowly."
   },
   {
+    "name": "Cable Front Lateral Raises",
+    "workoutType": "all types",
+    "difficultyLevel": "beginner",
+    "equipment": "machines",
+    "muscleType": "front deltoid",
+    "exerciseType": "isolation",
+    "exerciseImportance": "secondary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Stand with your feet shoulder-width apart, hold a dumbbell in each hand, and raise them in front of you to shoulder height with straight arms. Lower them back down slowly."
+  },
+  {
     "name": "Side Lateral Raises",
     "workoutType": "all types",
     "difficultyLevel": "beginner",
@@ -1012,7 +1023,7 @@
     "instructions": "Sit on the preacher curl machine and grasp the handles with an underhand grip. Curl the handles towards your upper arm stationary. Squeeze your bicep at the top, then lower the dumbbell slowly."
   },
   {
-    "name": "cable curl",
+    "name": "Cable Curl",
     "workoutType": "all types",
     "difficultyLevel": "every level",
     "equipment": "machines",
@@ -1111,7 +1122,7 @@
     "instructions": "Lie on a bench with a barbell or dumbbells held above your chest. Lower the weights towards your forehead by bending your elbows, then extend your arms back to the starting position. Keep your upper arms stationary throughout the movement."
   },
   {
-    "name": "Skull Crushers",
+    "name": "Dumbbell Skull Crushers",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "dumbbells",
@@ -1283,7 +1294,7 @@
     "muscleType": "triceps",
     "exerciseType": "isolation",
     "exerciseImportance": "tertiary",
-    "exerciseTypeByWeight": "weighted",
+    "exerciseTypeByWeight": "bodyweight",
     "instructions": "Position yourself between two parallel bars or on a sturdy surface. Lower your body by bending your elbows until your upper arms are parallel to the ground, then push yourself back up to the starting position."
   },
   {

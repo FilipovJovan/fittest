@@ -16,6 +16,7 @@ import pushPullLegs6x from "./workoutAlgorithm/pushPullLegs.js";
 import fullBody2x from "./workoutAlgorithm/fullBodySplit2x.js";
 import fullBody3x from "./workoutAlgorithm/fullBodySplit3x.js";
 import fullBody4x from "./workoutAlgorithm/fullBodySplit4x.js";
+import upperLowerPushPull4x from "./workoutAlgorithm/upperLowerPushPull4x.js";
 
 export const generateWorkout = async (req, res) => {
   try {
@@ -102,7 +103,7 @@ const getSetsRepsRestByWorkoutType = (workoutType, difficultyLevel) => {
       if (difficultyLevel === "beginner") {
         return {
           minSets: 2,
-          maxSets: 2,
+          maxSets: 3,
           minReps: 8,
           maxReps: 12,
           minRest: 1.5,
@@ -110,7 +111,7 @@ const getSetsRepsRestByWorkoutType = (workoutType, difficultyLevel) => {
         };
       } else {
         return {
-          minSets: 4,
+          minSets: 3,
           maxSets: 4,
           minReps: 8,
           maxReps: 12,
@@ -194,6 +195,9 @@ async function generateWorkoutProgram({
       break;
     case "fullBody4x":
       workoutSplitName = "Full Body 4x per week";
+      break;
+    case "upperLowerPushPull4x":
+      workoutSplitName = "Upper Lower Push Pull Split";
       break;
   }
   // Create the workout program structure
@@ -410,6 +414,18 @@ async function generateWorkoutProgram({
             );
             dailyWorkout = resultFullBody4x.dailyWorkout;
             name = resultFullBody4x.name;
+            break;
+          case "upperLowerPushPull4x":
+            const resultUpperLowerPushPull4x = upperLowerPushPull4x(
+              dayCounter,
+              equipmentType,
+              workoutWithSetsRepsRest,
+              workoutType,
+              difficultyLevel,
+              dailyWorkout
+            );
+            dailyWorkout = resultUpperLowerPushPull4x.dailyWorkout;
+            name = resultUpperLowerPushPull4x.name;
             break;
         }
 

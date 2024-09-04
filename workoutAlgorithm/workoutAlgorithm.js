@@ -14,25 +14,25 @@ function assignSetsRepsRest(exercises, goal) {
 
     switch (goal) {
       case WORKOUT_TYPE.STRENGTH:
-        sets = 4;
+        sets = getRandomNumberInRange(3, 4);
         reps = getRandomNumberInRange(3, 5);
         rest = getRandomNumberInRange(3, 5);
         break;
       case WORKOUT_TYPE.HYPERTROPHY:
         if (DIFFICULTY.BEGINNER) {
-          sets = 2;
+          sets = getRandomNumberInRange(3, 4);
           reps = getRandomNumberInRange(8, 15);
           rest = getRandomNumberInRange(1.5, 2);
           break;
         } else {
-          sets = 4;
+          sets = getRandomNumberInRange(3, 4);
           reps = getRandomNumberInRange(8, 15);
           rest = getRandomNumberInRange(1.5, 2);
           break;
         }
 
       case WORKOUT_TYPE.ENDURANCE:
-        sets = 4;
+        sets = getRandomNumberInRange(3, 4);
         reps = getRandomNumberInRange(15, 25);
         rest = getRandomNumberInRange(0.5, 2);
         break;

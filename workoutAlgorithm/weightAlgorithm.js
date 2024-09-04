@@ -37,12 +37,20 @@ async function setExercisesWeight({
     standingCableChestFly: Math.round(benchPress1RM * 0.42),
     standingInclineCableChestFly: Math.round(benchPress1RM * 0.4),
     standingDeclineCableChestFly: Math.round(benchPress1RM * 0.47),
+    dips: Math.round(benchPress1RM * 0.9),
+    pecDeckMachine: Math.round(benchPress1RM * 0.58),
+    reverseGripBenchPress: Math.round(benchPress1RM * 0.75),
+    declineCableFlyes: Math.round(benchPress1RM * 0.42),
+    singleArmDumbbellPress: Math.round(benchPress1RM * 0.4),
+    cableChestPress: Math.round(benchPress1RM * 0.6),
+    landmineChestPress: Math.round(benchPress1RM * 0.5),
+    chestDip: Math.round(benchPress1RM * 0.88),
+    machineInclinePress: Math.round(benchPress1RM * 0.7),
   };
-
   const backEstimatedWeights = {
     latPulldown: latPulldown1RM,
     barbellRow: barbellRow1RM,
-    tbarRows: Math.round((latPulldown1RM * 0.85 + barbellRow1RM * 0.95) / 2),
+    tBarRows: Math.round((latPulldown1RM * 0.85 + barbellRow1RM * 0.95) / 2),
     cableRows: Math.round((latPulldown1RM * 0.75 + barbellRow1RM * 0.85) / 2),
     machineRows: Math.round((latPulldown1RM * 0.75 + barbellRow1RM * 0.85) / 2),
     dumbbellRows: Math.round(
@@ -64,7 +72,6 @@ async function setExercisesWeight({
       (latPulldown1RM * 0.9 + barbellRow1RM * 0.9) / 2
     ),
   };
-
   const legEstimatedWeights = {
     squat: squat1RM,
     romanianDeadlift: romanianDeadlift1RM,
@@ -82,25 +89,32 @@ async function setExercisesWeight({
     smithMachineCalfRaises: Math.round(
       (squat1RM * 0.45 + romanianDeadlift1RM * 0.48) / 2
     ),
+    assistedSissySquats: Math.round(squat1RM * 0.5),
+    sissySquats: Math.round(squat1RM * 0.65),
+    bodyweightLegExtension: Math.round(squat1RM * 0.4),
+    bodyweightBulgarianSquats: Math.round(squat1RM * 1.25),
+    backpackBulgarianSquats: Math.round(squat1RM * 0.75),
+    calfRaises: Math.round(squat1RM * 0.5),
+    weightedCalfRaises: Math.round(squat1RM * 0.8),
+    seatedCalfRaises: Math.round(squat1RM * 1.1),
+    calfExtension: Math.round(squat1RM * 1.0),
   };
-
   const shoulderEstimatedWeights = {
     militaryPress: militaryPress1RM,
     standingDumbbellPress: Math.round(militaryPress1RM * 0.92),
     seatedDumbbellPress: Math.round(militaryPress1RM * 0.88),
     behindTheNeckPress: Math.round(militaryPress1RM * 0.65),
-    standingDumbbellUpRightRow: Math.round(militaryPress1RM * 0.6),
+    standingDumbbellUprightRow: Math.round(militaryPress1RM * 0.6),
     standingBarbellUprightRow: Math.round(militaryPress1RM * 0.55),
-    frontLateralRaises: Math.round(militaryPress1RM * 0.36),
-    cableFrontLateralRaises: Math.round(militaryPress1RM * 0.28),
-    sideLateralRaises: Math.round(militaryPress1RM * 0.36),
-    cableLateralRaises: Math.round(militaryPress1RM * 0.13),
+    frontRaise: Math.round(militaryPress1RM * 0.36),
+    sideRaise: Math.round(militaryPress1RM * 0.36),
+    cableFrontRaise: Math.round(militaryPress1RM * 0.28),
+    cableSideRaise: Math.round(militaryPress1RM * 0.13),
     rearDeltoidFly: Math.round(militaryPress1RM * 0.34),
     cableRearDeltoidFly: Math.round(militaryPress1RM * 0.34),
     dumbbellShrugs: Math.round(militaryPress1RM * 0.57),
     facePulls: Math.round(militaryPress1RM * 0.26),
   };
-
   const bicepsEstimatedWeights = {
     bicepsCurl: bicepsCurl1RM,
     barbellCurl: Math.round(bicepsCurl1RM * 0.9),
@@ -111,13 +125,31 @@ async function setExercisesWeight({
     preacherMachineCurl: Math.round(bicepsCurl1RM * 0.57),
     preacherDumbbellCurl: Math.round(bicepsCurl1RM * 0.4),
     cableCurl: Math.round(bicepsCurl1RM * 0.58),
+    zottmanCurl: Math.round(bicepsCurl1RM * 0.65),
+    cableHammerCurl: Math.round(bicepsCurl1RM * 0.65),
+    alternatingDumbbellCurl: Math.round(bicepsCurl1RM * 0.7),
+    preacherHammerCurl: Math.round(bicepsCurl1RM * 0.6),
+    singleArmCableCurl: Math.round(bicepsCurl1RM * 0.65),
+    dragCurl: Math.round(bicepsCurl1RM * 0.7),
+    standingCableCurl: Math.round(bicepsCurl1RM * 0.75),
   };
-
   const tricepsEstimatedWeights = {
     tricepsPushdown: tricepsPushdown1RM,
     cableTricepsExtension: Math.round(tricepsPushdown1RM * 0.9),
     dumbbellTricepsExtension: Math.round(tricepsPushdown1RM * 0.45),
     lyingTricepsExtension: Math.round(tricepsPushdown1RM * 0.75),
+    skullCrushers: Math.round(tricepsPushdown1RM * 0.65),
+    dumbbellSkullCrushers: Math.round(tricepsPushdown1RM * 0.6),
+    overheadTricepsExtensionWithSingleDumbbell: Math.round(
+      tricepsPushdown1RM * 0.55
+    ),
+    tricepsKickbacks: Math.round(tricepsPushdown1RM * 0.5),
+    diamondPushUps: Math.round(tricepsPushdown1RM * 0.4),
+    dumbbellKickbackWithNeutralGrip: Math.round(tricepsPushdown1RM * 0.5),
+    reverseGripTricepsPushdown: Math.round(tricepsPushdown1RM * 0.55),
+    bodyweightTricepsExtension: Math.round(tricepsPushdown1RM * 0.4),
+    tricepsDips: Math.round(tricepsPushdown1RM * 0.6),
+    chairTricepsDips: Math.round(tricepsPushdown1RM * 0.5),
   };
 
   return {
@@ -166,7 +198,6 @@ function calculateWeightsAndReps(oneRepMax, currentReps, weekIndex) {
     return { weight, reps };
   }
 }
-
 async function updateWorkoutWeights(workoutId, setExercisesWeight) {
   try {
     const workout = await Workout.findById(workoutId);
@@ -183,18 +214,18 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
           let currentReps = exerciseRef.reps;
           let updatedValues;
           let weight;
-          for (let i = 0; i <= weekIndex; i++) {
+          /*for (let i = 0; i <= weekIndex; i++) {
             if (currentReps === 12) {
               weight = Math.round(oneRepMax / (1 + 8 / 30));
               currentReps = 8;
             } else {
               currentReps++;
             }
-          }
+          }*/
 
           switch (exerciseName) {
             //CHEST EXERCISES
-            case "declined bench press":
+            case "Declined Bench Press":
               oneRepMax =
                 setExercisesWeight.chestEstimatedWeights.declineBenchPress;
               updatedValues = calculateWeightsAndReps(
@@ -205,7 +236,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "inclined dumbbells bench press":
+            case "Inclined Dumbbells Bench Press":
               oneRepMax =
                 setExercisesWeight.chestEstimatedWeights
                   .inclineDumbbellBenchPress;
@@ -217,7 +248,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "bench press":
+            case "Bench Press":
               oneRepMax = setExercisesWeight.chestEstimatedWeights.benchPress;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -227,7 +258,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "inclined bench press":
+            case "Inclined Bench Press":
               oneRepMax =
                 setExercisesWeight.chestEstimatedWeights.inclineBenchPress;
               updatedValues = calculateWeightsAndReps(
@@ -238,7 +269,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "dumbbells bench press":
+            case "Dumbbells Bench Press":
               oneRepMax =
                 setExercisesWeight.chestEstimatedWeights.dumbbellBenchPress;
               updatedValues = calculateWeightsAndReps(
@@ -249,7 +280,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "inclined dumbbells bench press":
+            case "Inclined Dumbbells Bench Press":
               oneRepMax =
                 setExercisesWeight.chestEstimatedWeights
                   .inclineDumbbellBenchPress;
@@ -261,7 +292,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "declined dumbbells bench press":
+            case "Declined Dumbbells Bench Press":
               oneRepMax =
                 setExercisesWeight.chestEstimatedWeights
                   .inclineDumbbellBenchPress;
@@ -273,7 +304,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "machine chest fly":
+            case "Machine Chest Fly":
               oneRepMax =
                 setExercisesWeight.chestEstimatedWeights.machineChestFly;
               updatedValues = calculateWeightsAndReps(
@@ -284,7 +315,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "dumbbell fly":
+            case "Dumbbell Fly":
               oneRepMax =
                 setExercisesWeight.chestEstimatedWeights.dumbbellChestFly;
               updatedValues = calculateWeightsAndReps(
@@ -295,7 +326,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "standing cable chest fly":
+            case "Standing Cable Chest Fly":
               oneRepMax =
                 setExercisesWeight.chestEstimatedWeights.standingCableChestFly;
               updatedValues = calculateWeightsAndReps(
@@ -306,7 +337,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "standing incline cable chest fly":
+            case "Standing Incline Cable Chest Fly":
               oneRepMax =
                 setExercisesWeight.chestEstimatedWeights
                   .standingInclineCableChestFly;
@@ -318,7 +349,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "standing decline cable chest fly":
+            case "Standing Decline Cable Chest Fly":
               oneRepMax =
                 setExercisesWeight.chestEstimatedWeights
                   .standingDeclineCableChestFly;
@@ -330,8 +361,95 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
+            case "Dips":
+              oneRepMax = setExercisesWeight.chestEstimatedWeights.dips;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Pec Deck Machine":
+              oneRepMax =
+                setExercisesWeight.chestEstimatedWeights.pecDeckMachine;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Reverse Grip Bench Press":
+              oneRepMax =
+                setExercisesWeight.chestEstimatedWeights.reverseGripBenchPress;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Decline Cable Flyes":
+              oneRepMax =
+                setExercisesWeight.chestEstimatedWeights.declineCableFlyes;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Single-Arm Dumbbell Press":
+              oneRepMax =
+                setExercisesWeight.chestEstimatedWeights.singleArmDumbbellPress;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Cable Chest Press":
+              oneRepMax =
+                setExercisesWeight.chestEstimatedWeights.cableChestPress;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Landmine Chest Press":
+              oneRepMax =
+                setExercisesWeight.chestEstimatedWeights.landmineChestPress;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Machine Incline Press":
+              oneRepMax =
+                setExercisesWeight.chestEstimatedWeights.machineInclinePress;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
             //BACK EXERCISES
-            case "pull down":
+            case "Pull Down":
               oneRepMax = setExercisesWeight.backEstimatedWeights.latPulldown;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -341,7 +459,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "dumbbell rows":
+            case "Dumbbell Rows":
               oneRepMax = setExercisesWeight.backEstimatedWeights.dumbbellRows;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -351,7 +469,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "wide grip pull down":
+            case "Wide Grip Pull Down":
               oneRepMax =
                 setExercisesWeight.backEstimatedWeights.wideGripPulldown;
               updatedValues = calculateWeightsAndReps(
@@ -362,7 +480,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "close grip pull down":
+            case "Close Grip Pull Down":
               oneRepMax =
                 setExercisesWeight.backEstimatedWeights.closeGripPulldown;
               updatedValues = calculateWeightsAndReps(
@@ -373,7 +491,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "underhand grip pull down":
+            case "Underhand Grip Pull Down":
               oneRepMax =
                 setExercisesWeight.backEstimatedWeights.undergripGripPulldown;
               updatedValues = calculateWeightsAndReps(
@@ -384,8 +502,8 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "t-bar rows":
-              oneRepMax = setExercisesWeight.backEstimatedWeights.tbarRows;
+            case "T-Bar Rows":
+              oneRepMax = setExercisesWeight.backEstimatedWeights.tBarRows;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
                 currentReps,
@@ -394,7 +512,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "cable rows":
+            case "Cable Rows":
               oneRepMax = setExercisesWeight.backEstimatedWeights.cableRows;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -404,7 +522,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "machines rows":
+            case "Machine Rows":
               oneRepMax = setExercisesWeight.backEstimatedWeights.machineRows;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -414,7 +532,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "barbell rows":
+            case "Barbell Rows":
               oneRepMax = setExercisesWeight.backEstimatedWeights.barbellRow;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -424,7 +542,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "straight arms cable pulldown":
+            case "Straight Arms Cable Pulldown":
               oneRepMax =
                 setExercisesWeight.backEstimatedWeights
                   .straightArmCablePulldown;
@@ -436,7 +554,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "seated one arm cable pulldown":
+            case "Seated One Arm Cable Pulldown":
               oneRepMax =
                 setExercisesWeight.backEstimatedWeights
                   .seatedOneArmCablePulldown;
@@ -449,7 +567,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.reps = updatedValues.reps;
               break;
             //SHOULDERS EXERCISES
-            case "military press":
+            case "Military Press":
               oneRepMax =
                 setExercisesWeight.shoulderEstimatedWeights.militaryPress;
               updatedValues = calculateWeightsAndReps(
@@ -460,7 +578,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "dumbbell press":
+            case "Dumbbell Shoulder Press":
               oneRepMax =
                 setExercisesWeight.shoulderEstimatedWeights
                   .standingDumbbellPress;
@@ -472,7 +590,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "seated dumbbell press":
+            case "Seated Dumbbell Press":
               oneRepMax =
                 setExercisesWeight.shoulderEstimatedWeights.seatedDumbbellPress;
               updatedValues = calculateWeightsAndReps(
@@ -483,7 +601,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "behind the neck press":
+            case "Behind the Neck Press":
               oneRepMax =
                 setExercisesWeight.shoulderEstimatedWeights.behindTheNeckPress;
               updatedValues = calculateWeightsAndReps(
@@ -494,7 +612,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "standing dumbbell upright row":
+            case "Standing Dumbbell Upright Row":
               oneRepMax =
                 setExercisesWeight.shoulderEstimatedWeights
                   .standingDumbbellUpRightRow;
@@ -506,7 +624,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "standing barbell upright row":
+            case "Standing Barbell Upright Row":
               oneRepMax =
                 setExercisesWeight.shoulderEstimatedWeights
                   .standingBarbellUprightRow;
@@ -518,9 +636,9 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "front lateral raises":
+            case "Front Lateral Raises":
               oneRepMax =
-                setExercisesWeight.shoulderEstimatedWeights.frontLateralRaises;
+                setExercisesWeight.shoulderEstimatedWeights.frontRaise;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
                 currentReps,
@@ -529,10 +647,9 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "cable front lateral raises":
+            case "Cable Front Lateral Raises":
               oneRepMax =
-                setExercisesWeight.shoulderEstimatedWeights
-                  .cableFrontLateralRaises;
+                setExercisesWeight.shoulderEstimatedWeights.cableFrontRaise;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
                 currentReps,
@@ -541,7 +658,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "side lateral raises":
+            case "Side Lateral Raises":
               oneRepMax =
                 setExercisesWeight.shoulderEstimatedWeights.sideLateralRaises;
               updatedValues = calculateWeightsAndReps(
@@ -552,18 +669,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "cable lateral raises":
-              oneRepMax =
-                setExercisesWeight.shoulderEstimatedWeights.cableLateralRaises;
-              updatedValues = calculateWeightsAndReps(
-                oneRepMax,
-                currentReps,
-                weekIndex
-              );
-              exerciseRef.weight = updatedValues.weight;
-              exerciseRef.reps = updatedValues.reps;
-              break;
-            case "rear deltoid fly":
+            case "Rear Deltoid Fly":
               oneRepMax =
                 setExercisesWeight.shoulderEstimatedWeights.rearDeltoidFly;
               updatedValues = calculateWeightsAndReps(
@@ -574,7 +680,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "cable rear deltoid fly":
+            case "Cable Rear Deltoid Fly":
               oneRepMax =
                 setExercisesWeight.shoulderEstimatedWeights.cableRearDeltoidFly;
               updatedValues = calculateWeightsAndReps(
@@ -585,7 +691,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "dumbbell shrugs":
+            case "Dumbbell Shrugs":
               oneRepMax =
                 setExercisesWeight.shoulderEstimatedWeights.dumbbellShrugs;
               updatedValues = calculateWeightsAndReps(
@@ -596,7 +702,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "face pulls":
+            case "Face Pulls":
               oneRepMax = setExercisesWeight.shoulderEstimatedWeights.facePulls;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -607,7 +713,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.reps = updatedValues.reps;
               break;
             //BICEPS EXERCISES
-            case "dumbbell curl":
+            case "Dumbbell Curl":
               oneRepMax = setExercisesWeight.bicepsEstimatedWeights.bicepsCurl;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -617,7 +723,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "barbell curl":
+            case "Barbell Curl":
               oneRepMax = setExercisesWeight.bicepsEstimatedWeights.barbellCurl;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -627,7 +733,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "hammer curl":
+            case "Hammer Curl":
               oneRepMax = setExercisesWeight.bicepsEstimatedWeights.hammerCurl;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -637,7 +743,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "concentration curl":
+            case "Concentration Curl":
               oneRepMax =
                 setExercisesWeight.bicepsEstimatedWeights.concentrationCurl;
               updatedValues = calculateWeightsAndReps(
@@ -648,7 +754,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "ez-bar curl":
+            case "EZ-Bar Curl":
               oneRepMax = setExercisesWeight.bicepsEstimatedWeights.ezBarCurl;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -658,7 +764,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "spider curl":
+            case "Spider Curl":
               oneRepMax = setExercisesWeight.bicepsEstimatedWeights.spiderCurl;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -668,7 +774,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "preacher dumbbell curl":
+            case "Preacher Dumbbell Curl":
               oneRepMax =
                 setExercisesWeight.bicepsEstimatedWeights.preacherDumbbellCurl;
               updatedValues = calculateWeightsAndReps(
@@ -679,7 +785,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "preacher machine curl":
+            case "Preacher Machine Curl":
               oneRepMax =
                 setExercisesWeight.bicepsEstimatedWeights.preacherMachineCurl;
               updatedValues = calculateWeightsAndReps(
@@ -690,7 +796,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "cable curl":
+            case "Cable Curl":
               oneRepMax = setExercisesWeight.bicepsEstimatedWeights.cableCurl;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -700,8 +806,84 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
+            case "Zottman Curl":
+              oneRepMax = setExercisesWeight.bicepsEstimatedWeights.zottmanCurl;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Cable Hammer Curl":
+              oneRepMax =
+                setExercisesWeight.bicepsEstimatedWeights.cableHammerCurl;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Alternating Dumbbell Curl":
+              oneRepMax =
+                setExercisesWeight.bicepsEstimatedWeights
+                  .alternatingDumbbellCurl;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Preacher Hammer Curl":
+              oneRepMax =
+                setExercisesWeight.bicepsEstimatedWeights.preacherHammerCurl;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Single Arm Cable Curl":
+              oneRepMax =
+                setExercisesWeight.bicepsEstimatedWeights.singleArmCableCurl;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Drag Curl":
+              oneRepMax = setExercisesWeight.bicepsEstimatedWeights.dragCurl;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Standing Cable Curl":
+              oneRepMax =
+                setExercisesWeight.bicepsEstimatedWeights.standingCableCurl;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
             //TRICEPS EXERCISES
-            case "cable triceps extension":
+            case "Cable Triceps Extension":
               oneRepMax =
                 setExercisesWeight.tricepsEstimatedWeights
                   .cableTricepsExtension;
@@ -713,7 +895,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "dumbbell triceps extension":
+            case "Dumbbell Triceps Extension":
               oneRepMax =
                 setExercisesWeight.tricepsEstimatedWeights
                   .dumbbellTricepsExtension;
@@ -725,7 +907,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "lying triceps extension":
+            case "Lying Triceps Extension":
               oneRepMax =
                 setExercisesWeight.tricepsEstimatedWeights
                   .lyingTricepsExtension;
@@ -737,7 +919,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "triceps push down":
+            case "Triceps Pushdown":
               oneRepMax =
                 setExercisesWeight.tricepsEstimatedWeights.tricepsPushdown;
               updatedValues = calculateWeightsAndReps(
@@ -748,8 +930,123 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
+            case "Skull Crushers":
+              oneRepMax =
+                setExercisesWeight.tricepsEstimatedWeights.skullCrushers;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Dumbbell Skull Crushers":
+              oneRepMax =
+                setExercisesWeight.tricepsEstimatedWeights
+                  .dumbbellSkullCrushers;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Overhead Triceps Extension With Single Dumbbell":
+              oneRepMax =
+                setExercisesWeight.tricepsEstimatedWeights
+                  .overheadTricepsExtensionWithSingleDumbbell;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Triceps Kickbacks":
+              oneRepMax =
+                setExercisesWeight.tricepsEstimatedWeights.tricepsKickbacks;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Triceps Rope Pushdown":
+              oneRepMax =
+                setExercisesWeight.tricepsEstimatedWeights.tricepsPushdown;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Dumbbell Kickback With Neutral Grip":
+              oneRepMax =
+                setExercisesWeight.tricepsEstimatedWeights
+                  .dumbbellKickbackWithNeutralGrip;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Reverse Grip Triceps Pushdown":
+              oneRepMax =
+                setExercisesWeight.tricepsEstimatedWeights
+                  .reverseGripTricepsPushdown;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Triceps Pushdown":
+              oneRepMax =
+                setExercisesWeight.tricepsEstimatedWeights.tricepsPushdown;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Bodyweight Triceps Extension":
+              oneRepMax =
+                setExercisesWeight.tricepsEstimatedWeights
+                  .bodyweightTricepsExtension;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Triceps Dips":
+              oneRepMax =
+                setExercisesWeight.tricepsEstimatedWeights.tricepsDips;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
             //LEG EXERCISES
-            case "barbell squats":
+            case "Barbell Squats":
               oneRepMax = setExercisesWeight.legEstimatedWeights.barbellSquats;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -759,7 +1056,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "dumbbell lunges":
+            case "Dumbbell Lunges":
               oneRepMax = setExercisesWeight.legEstimatedWeights.dumbbellLunges;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -769,7 +1066,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "dumbbell bulgarian squats":
+            case "Dumbbell Bulgarian Squats":
               oneRepMax =
                 setExercisesWeight.legEstimatedWeights.dumbbellBulgarianSquats;
               updatedValues = calculateWeightsAndReps(
@@ -780,7 +1077,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "front squats":
+            case "Front Squats":
               oneRepMax = setExercisesWeight.legEstimatedWeights.frontSquats;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -790,7 +1087,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "leg press":
+            case "Leg Press":
               oneRepMax = setExercisesWeight.legEstimatedWeights.legPress;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -800,7 +1097,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "leg extension":
+            case "Leg Extension":
               oneRepMax = setExercisesWeight.legEstimatedWeights.legExtension;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -810,7 +1107,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "romanian deadlift":
+            case "Romanian Deadlift":
               oneRepMax =
                 setExercisesWeight.legEstimatedWeights.romanianDeadlift;
               updatedValues = calculateWeightsAndReps(
@@ -821,7 +1118,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "deadlift":
+            case "Deadlift":
               oneRepMax = setExercisesWeight.legEstimatedWeights.deadlift;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -831,7 +1128,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "leg curls":
+            case "Leg Curls":
               oneRepMax = setExercisesWeight.legEstimatedWeights.legCurls;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -841,7 +1138,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "hip trust":
+            case "Hip Thrust":
               oneRepMax = setExercisesWeight.legEstimatedWeights.hipTrust;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
@@ -851,9 +1148,51 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.weight = updatedValues.weight;
               exerciseRef.reps = updatedValues.reps;
               break;
-            case "smith machine calf raises":
+            case "Smith Machine Calf Raises":
               oneRepMax =
                 setExercisesWeight.legEstimatedWeights.smithMachineCalfRaises;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Calf Raises":
+              oneRepMax = setExercisesWeight.legEstimatedWeights.calfRaises;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Weighted Calf Raises":
+              oneRepMax =
+                setExercisesWeight.legEstimatedWeights.weightedCalfRaises;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Seated Calf Raises":
+              oneRepMax =
+                setExercisesWeight.legEstimatedWeights.seatedCalfRaises;
+              updatedValues = calculateWeightsAndReps(
+                oneRepMax,
+                currentReps,
+                weekIndex
+              );
+              exerciseRef.weight = updatedValues.weight;
+              exerciseRef.reps = updatedValues.reps;
+              break;
+            case "Calf Extension":
+              oneRepMax = setExercisesWeight.legEstimatedWeights.calfExtension;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
                 currentReps,
