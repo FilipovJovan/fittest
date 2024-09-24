@@ -19,7 +19,7 @@
     "protein": "15",
     "carbs": "2",
     "fats": "4",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Overnight Oats with Almond Butter and Banana",
@@ -30,7 +30,7 @@
     "protein": "10",
     "carbs": "4",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Avocado Toast with Poached Egg",
@@ -52,7 +52,7 @@
     "protein": "25",
     "carbs": "4",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Smoothie with Whey Protein",
@@ -63,7 +63,7 @@
     "protein": "30",
     "carbs": "3",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Chia Pudding",
@@ -74,7 +74,7 @@
     "protein": "8",
     "carbs": "3",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Oatmeal with Whey Protein and Berries",
@@ -85,7 +85,7 @@
     "protein": "25",
     "carbs": "5",
     "fats": "6",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Egg White Omelette with Veggies",
@@ -96,7 +96,7 @@
     "protein": "20",
     "carbs": "5",
     "fats": "5",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Quinoa Breakfast Bowl",
@@ -118,7 +118,7 @@
     "protein": "20",
     "carbs": "2",
     "fats": "5",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Peanut Butter Banana Smoothie",
@@ -129,7 +129,7 @@
     "protein": "25",
     "carbs": "4",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Spinach and Feta Omelette",
@@ -151,7 +151,7 @@
     "protein": "10",
     "carbs": "2",
     "fats": "6",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Breakfast Burrito",
@@ -173,7 +173,7 @@
     "protein": "25",
     "carbs": "3",
     "fats": "8",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Smoked Salmon and Avocado Toast",
@@ -195,7 +195,7 @@
     "protein": "30",
     "carbs": "3",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Strawberry Banana Smoothie",
@@ -206,7 +206,7 @@
     "protein": "25",
     "carbs": "4",
     "fats": "8",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Egg Muffins",
@@ -217,7 +217,7 @@
     "protein": "8",
     "carbs": "3",
     "fats": "6",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Chocolate Protein Smoothie",
@@ -228,7 +228,7 @@
     "protein": "25",
     "carbs": "3",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Pumpkin Spice Protein Pancakes",
@@ -250,7 +250,7 @@
     "protein": "10",
     "carbs": "4",
     "fats": "6",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Peanut Butter and Jelly Overnight Oats",
@@ -261,7 +261,7 @@
     "protein": "10",
     "carbs": "4",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Berry Smoothie Bowl",
@@ -294,7 +294,7 @@
     "protein": "12",
     "carbs": "4",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Turkey and Avocado Wrap",
@@ -316,7 +316,7 @@
     "protein": "35",
     "carbs": "5",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Tuna Salad with Greek Yogurt",
@@ -327,7 +327,7 @@
     "protein": "30",
     "carbs": "5",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Spicy Chicken and Avocado Wrap",
@@ -349,7 +349,7 @@
     "protein": "25",
     "carbs": "3",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Beef and Broccoli Stir-Fry",
@@ -360,7 +360,7 @@
     "protein": "30",
     "carbs": "4",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Lentil and Veggie Soup",
@@ -371,7 +371,7 @@
     "protein": "15",
     "carbs": "4",
     "fats": "5",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Chicken Caesar Salad",
@@ -393,7 +393,7 @@
     "protein": "30",
     "carbs": "2",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Chicken and Sweet Potato Bowl",
@@ -404,7 +404,7 @@
     "protein": "30",
     "carbs": "4",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Salmon and Asparagus",
@@ -437,7 +437,7 @@
     "protein": "12",
     "carbs": "4",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Chicken and Avocado Wrap",
@@ -459,7 +459,7 @@
     "protein": "30",
     "carbs": "4",
     "fats": "2",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Veggie and Hummus Wrap",
@@ -470,7 +470,7 @@
     "protein": "10",
     "carbs": "4",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Tuna and Avocado Salad",
@@ -481,7 +481,7 @@
     "protein": "25",
     "carbs": "1",
     "fats": "2",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Grilled Chicken and Avocado Salad",
@@ -525,7 +525,7 @@
     "protein": "30",
     "carbs": "5",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Quinoa and Veggie Salad",
@@ -536,7 +536,7 @@
     "protein": "10",
     "carbs": "4",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Beef and Veggie Stir-Fry",
@@ -547,7 +547,7 @@
     "protein": "30",
     "carbs": "5",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Chicken and Veggie Salad",
@@ -558,7 +558,7 @@
     "protein": "30",
     "carbs": "1",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Turkey and Veggie Salad",
@@ -569,7 +569,7 @@
     "protein": "30",
     "carbs": "1",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Grilled Chicken and Veggie Salad",
@@ -580,7 +580,7 @@
     "protein": "30",
     "carbs": "1",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Chicken and Avocado Salad",
@@ -624,7 +624,7 @@
     "protein": "30",
     "carbs": "5",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Beef and Vegetable Skewers",
@@ -657,18 +657,18 @@
     "protein": "30",
     "carbs": "2",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Shrimp and Asparagus Stir-Fry",
     "categoryMeal": "Dinner",
-    "ingredients": "4 oz shrimp (peeled), 1 cup asparagus (weight loss into pieces), 1/2 cup brown rice, 1 tbsp soy sauce, 1 tbsp olive oil",
+    "ingredients": "4 oz shrimp (peeled), 1 cup asparagus (Weight Loss into pieces), 1/2 cup brown rice, 1 tbsp soy sauce, 1 tbsp olive oil",
     "recipe": "1. Heat olive oil in a pan over medium heat.\n2. Add shrimp and cook until pink.\n3. Add asparagus and stir-fry until tender.\n4. Drizzle with soy sauce.\n5. Serve with brown rice.",
     "calories": "350",
     "protein": "30",
     "carbs": "4",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Beef Chili",
@@ -679,7 +679,7 @@
     "protein": "30",
     "carbs": "4",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Chicken and Sweet Potato Skillet",
@@ -690,7 +690,7 @@
     "protein": "30",
     "carbs": "4",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Salmon and Quinoa Bowl",
@@ -723,7 +723,7 @@
     "protein": "30",
     "carbs": "3",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Baked Cod with Vegetables",
@@ -734,7 +734,7 @@
     "protein": "30",
     "carbs": "2",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Chicken Alfredo with Zoodles",
@@ -745,7 +745,7 @@
     "protein": "30",
     "carbs": "2",
     "fats": "2",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Pork Tenderloin with Sweet Potatoes",
@@ -778,7 +778,7 @@
     "protein": "30",
     "carbs": "2",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Beef Tacos with Lettuce Wraps",
@@ -789,7 +789,7 @@
     "protein": "30",
     "carbs": "1",
     "fats": "2",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Chicken and Broccoli Bake",
@@ -811,7 +811,7 @@
     "protein": "30",
     "carbs": "1",
     "fats": "2",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Salmon and Avocado Salad",
@@ -833,7 +833,7 @@
     "protein": "30",
     "carbs": "3",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Chicken Fajitas",
@@ -844,7 +844,7 @@
     "protein": "30",
     "carbs": "2",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Beef and Sweet Potato Hash",
@@ -866,7 +866,7 @@
     "protein": "30",
     "carbs": "5",
     "fats": "1",
-    "category": "muscle gain"
+    "category": "Muscle Gain"
   },
   {
     "name": "Grilled Chicken with Roasted Vegetables",
@@ -877,7 +877,7 @@
     "protein": "30",
     "carbs": "3",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Vegetable and Bean Chili",
@@ -888,7 +888,7 @@
     "protein": "20",
     "carbs": "5",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Whey Protein Smoothie Bowl",
@@ -899,7 +899,7 @@
     "protein": "30",
     "carbs": "4",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Chicken and Cauliflower Rice",
@@ -910,7 +910,7 @@
     "protein": "30",
     "carbs": "2",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Greek Yogurt with Berries",
@@ -971,7 +971,7 @@
     "name": "Whey Protein Bars",
     "categoryMeal": "Snack",
     "ingredients": "1 scoop whey protein powder, 1/2 cup oats, 1/4 cup almond butter, 1/4 cup honey",
-    "recipe": "1. Mix all ingredients until well combined.\n2. Press mixture into a baking dish and refrigerate until set.\n3. weight loss into bars.",
+    "recipe": "1. Mix all ingredients until well combined.\n2. Press mixture into a baking dish and refrigerate until set.\n3. Weight Loss into bars.",
     "calories": "250",
     "protein": "20",
     "carbs": "3",
@@ -1020,7 +1020,7 @@
     "protein": "25",
     "carbs": "2",
     "fats": "6",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Turkey Jerky",
@@ -1031,7 +1031,7 @@
     "protein": "18",
     "carbs": "5",
     "fats": "8",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Hard-Boiled Eggs",
@@ -1086,7 +1086,7 @@
     "protein": "25",
     "carbs": "2",
     "fats": "5",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Mixed Nuts",
@@ -1108,7 +1108,7 @@
     "protein": "6",
     "carbs": "2",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Roasted Chickpeas",
@@ -1119,7 +1119,7 @@
     "protein": "6",
     "carbs": "2",
     "fats": "6",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Nut Butter Energy Balls",
@@ -1152,7 +1152,7 @@
     "protein": "20",
     "carbs": "5",
     "fats": "6",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Rice Cake with Avocado",
@@ -1163,7 +1163,7 @@
     "protein": "3",
     "carbs": "1",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Apple Chips",
@@ -1174,7 +1174,7 @@
     "protein": "0",
     "carbs": "2",
     "fats": "0",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Cottage Cheese with Cucumber",
@@ -1185,7 +1185,7 @@
     "protein": "14",
     "carbs": "5",
     "fats": "5",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Protein Smoothie Bowl",
@@ -1196,7 +1196,7 @@
     "protein": "25",
     "carbs": "3",
     "fats": "1",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Green Smoothie",
@@ -1229,7 +1229,7 @@
     "protein": "0",
     "carbs": "0",
     "fats": "0",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Infused Water",
@@ -1240,7 +1240,7 @@
     "protein": "0",
     "carbs": "0",
     "fats": "0",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Herbal Tea",
@@ -1251,7 +1251,7 @@
     "protein": "0",
     "carbs": "0",
     "fats": "0",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Berry Blast Smoothie",
@@ -1284,7 +1284,7 @@
     "protein": "0",
     "carbs": "7",
     "fats": "0",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Beetroot Juice",
@@ -1295,7 +1295,7 @@
     "protein": "2",
     "carbs": "3",
     "fats": "0",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Protein Coffee Shake",
@@ -1306,7 +1306,7 @@
     "protein": "25",
     "carbs": "1",
     "fats": "8",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Coconut Water",
@@ -1372,7 +1372,7 @@
     "protein": "1",
     "carbs": "7",
     "fats": "0",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Kiwi Spinach Smoothie",
@@ -1427,7 +1427,7 @@
     "protein": "3",
     "carbs": "4",
     "fats": "2",
-    "category": "weight loss"
+    "category": "Weight Loss"
   },
   {
     "name": "Carrot Orange Juice",

@@ -5,6 +5,7 @@ import { getExercisesSettings } from "../workoutAlgorithm/weightAlgorithmSecondG
 import { progressTracker } from "../workoutAlgorithm/progressAlgorithm.js";
 import {
   addExerciseToWorkout,
+  isWorkoutFinished,
   updateExerciseInWorkout,
 } from "../controllers/workoutController.js";
 const router = Router();
@@ -18,5 +19,6 @@ router.patch(
   updateExerciseInWorkout
 );
 router.post("/workout/add-exercise/:workoutId", addExerciseToWorkout);
+router.patch("/workout/is-workout-finished", isWorkoutFinished);
 
 export default router;

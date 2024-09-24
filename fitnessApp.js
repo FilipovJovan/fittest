@@ -465,24 +465,42 @@ async function generateWorkoutProgram({
     createdBy
   ) {
     try {
-      // Flatten the workoutProgram.weeks structure into a single array of exercises
+      // Validate and flatten the workoutProgram.weeks structure into a single array of exercises
       const exercises = workoutProgram.weeks
-        .map((week) => week.days)
+        .map((week, weekIndex) => {
+          if (!week.days || !Array.isArray(week.days)) {
+            throw new Error(`Invalid days structure in week ${weekIndex + 1}`);
+          }
+          return week.days;
+        })
         .flat()
-        .map((day) => day.workout)
+        .map((day, dayIndex) => {
+          if (!day.workout || !Array.isArray(day.workout)) {
+            throw new Error(`Invalid workout structure on day ${dayIndex + 1}`);
+          }
+          return day.workout;
+        })
         .flat();
 
+      // Populate each exercise by fetching its full details from the Exercise collection
       const populatedExercises = await Promise.all(
         exercises.map(async (exercise) => {
           const populatedExercise = await Exercise.findById(
             exercise.exercise
           ).lean();
+
+          // Check if the exercise was found
+          if (!populatedExercise) {
+            throw new Error(`Exercise not found for ID: ${exercise.exercise}`);
+          }
+
           return {
             ...exercise,
-            exercise: populatedExercise._id, // Use the ObjectId of the populated exercise
+            exercise: populatedExercise, // Include the full populated exercise data, not just the ID
           };
         })
       );
+
       // Create a new Workout document
       const newWorkout = new Workout({
         weeks: workoutProgram.weeks,
@@ -490,17 +508,22 @@ async function generateWorkoutProgram({
         createdBy,
         currentDate,
         endDate,
-        exercises: populatedExercises, // Assign the flattened array of exercises
+        exercises: populatedExercises, // Assign the populated exercises array
       });
 
-      // Save the workout to the database
+      // Save the workout to the database and handle errors
       const savedWorkout = await newWorkout.save();
-
-      console.log("Workout program saved successfully:");
 
       return savedWorkout;
     } catch (error) {
-      console.error("Failed to save workout program to the database.", error);
+      // Improved error handling to capture different types of errors
+      if (error.name === "ValidationError") {
+        console.error("Validation error:", error.errors);
+      } else if (error.name === "MongoError" && error.code === 11000) {
+        console.error("Duplicate key error:", error);
+      } else {
+        console.error("Failed to save workout program to the database:", error);
+      }
       return null;
     }
   }

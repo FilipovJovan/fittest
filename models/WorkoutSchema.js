@@ -46,9 +46,13 @@ const workoutDaySchema = new Schema({
     required: true,
   },
   workout: [exerciseReferenceSchema],
-  isCompleted: {
+  isFinished: {
     type: Boolean,
     default: false,
+  },
+  finishedType: {
+    type: String,
+    default: "",
   },
 });
 

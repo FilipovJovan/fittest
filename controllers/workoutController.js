@@ -149,3 +149,33 @@ export const updateExerciseInWorkout = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const isWorkoutFinished = async (req, res) => {
+  try {
+    const { workoutId, weekIndex, dayIndex, finishedType } = req.body;
+
+    const workoutPlan = await Workout.findById(workoutId);
+
+    if (!workoutPlan) {
+      return res.status(404).json({ message: "Workout plan not found" });
+    }
+
+    const workoutDay = workoutPlan.weeks[weekIndex].days[dayIndex];
+
+    if (!workoutDay) {
+      return res
+        .status(404)
+        .json({ message: "Day not found in the workout plan" });
+    }
+
+    workoutDay.finishedType = finishedType;
+    workoutDay.isFinished = true;
+
+    await workoutPlan.save();
+
+    res.status(200).json({ message: "Values updated successfully" });
+  } catch (error) {
+    console.error("Error updating values:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
