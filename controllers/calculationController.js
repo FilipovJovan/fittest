@@ -44,8 +44,6 @@ export const calculateUserCaloriesAndMacros = async (req, res) => {
       carbs: Math.round(macros.carbs),
     };
 
-    // Optionally update user document with new data
-
     await user.updateOne(req.body);
     user.currentCalories = roundedCalories;
     user.macros = roundedMacros;
