@@ -31,6 +31,9 @@ import { authenticateApiKey } from "./middleware/apiKeyMiddleware.js";
 import NewsletterSubscriber from "./models/newsletterSubscriber.js";
 import { sendVerificationEmail, sendBulkEmails } from "./emailService.js";
 
+//Cron job
+import "./cronJobs/markSkippedWorkouts.js";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 if (process.env.NODE_ENV === "development") {

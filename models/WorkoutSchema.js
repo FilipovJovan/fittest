@@ -52,7 +52,12 @@ const workoutDaySchema = new Schema({
   },
   finishedType: {
     type: String,
-    default: "",
+    enum: ["pending", "completed", "skipped"],
+    default: "pending",
+  },
+  date: {
+    type: Date, // This field is needed to check against today's date
+    required: true,
   },
 });
 

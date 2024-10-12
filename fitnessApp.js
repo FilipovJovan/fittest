@@ -18,6 +18,8 @@ import fullBody3x from "./workoutAlgorithm/fullBodySplit3x.js";
 import fullBody4x from "./workoutAlgorithm/fullBodySplit4x.js";
 import upperLowerPushPull4x from "./workoutAlgorithm/upperLowerPushPull4x.js";
 
+import moment from "moment-timezone";
+
 export const generateWorkout = async (req, res) => {
   try {
     const {
@@ -27,16 +29,18 @@ export const generateWorkout = async (req, res) => {
       splitPreference,
       equipmentType,
       userId,
+      startDate,
       restDays,
     } = req.body;
 
+    const currentDate = startDate ? moment(startDate) : moment();
     // Simulated exercise fetch from the database
     const exercises = await Exercise.find({}).lean();
 
     // Save the workout program to the database
-    const currentDate = new Date();
+    /*const currentDate = currentDate;
     const endDate = new Date(currentDate);
-    endDate.setDate(currentDate.getDate() + 8 * 7);
+    endDate.setDate(currentDate.getDate() + 8 * 7);*/
 
     // Generate the workout program
     const generatedProgram = await generateWorkoutProgram({
@@ -46,8 +50,9 @@ export const generateWorkout = async (req, res) => {
       splitPreference,
       exercises,
       userId,
+      startDate: currentDate,
       equipmentType,
-      restDays,
+      restDays: restDays || [],
     });
 
     // Respond with the workout and endDate
@@ -148,6 +153,7 @@ async function generateWorkoutProgram({
   splitPreference,
   exercises,
   userId,
+  startDate,
   equipmentType,
   restDays,
 }) {
@@ -282,6 +288,11 @@ async function generateWorkoutProgram({
       let dailyWorkout = [];
       let name = "";
 
+      const workoutDate = startDate
+        .clone()
+        .add(week - 1, "weeks")
+        .add(day - 1, "days");
+
       if (restDays.includes(day)) {
         // If it's a rest day
         weekObject.days.push({
@@ -289,6 +300,7 @@ async function generateWorkoutProgram({
           type: "rest",
           dayNumber: day,
           workout: [],
+          date: workoutDate.toDate(),
         });
       } else if (dayCounter <= frequency) {
         // Workout days
@@ -433,6 +445,7 @@ async function generateWorkoutProgram({
           name: name,
           dayNumber: day,
           workout: dailyWorkout,
+          date: workoutDate.toDate(),
         });
 
         dayCounter++; // Increment workout day counter only if it's not a rest day
@@ -442,9 +455,18 @@ async function generateWorkoutProgram({
     workoutProgram.weeks.push(weekObject);
   }
 
-  const currentDate = new Date();
-  const endDate = new Date(currentDate);
-  endDate.setDate(currentDate.getDate() + weeks * 7);
+  /*const datePlanIsMade = currentDate;
+  const endDate = new Date(datePlanIsMade);
+  endDate.setDate(datePlanIsMade.getDate() + weeks * 7);*/
+  //const startDate = moment();
+  const endDate = startDate
+    .clone()
+    .add(weeks * 7, "days")
+    .toDate();
+
+  /*const currentDateNew = new Date();
+  const endDate = new Date(currentDateNew);
+  endDate.setDate(currentDateNew.getDate() + 8 * weeks);*/
   //await saveWorkoutProgramToDatabase(workoutProgram, endDate);
 
   const createdBy = userId;
@@ -452,7 +474,7 @@ async function generateWorkoutProgram({
   const savedWorkout = await saveWorkoutProgramToDatabase(
     workoutProgram,
     workoutSplitName,
-    currentDate,
+    startDate,
     endDate,
     createdBy
   );
@@ -465,58 +487,61 @@ async function generateWorkoutProgram({
     createdBy
   ) {
     try {
-      // Validate and flatten the workoutProgram.weeks structure into a single array of exercises
+      const startDate = moment(currentDate);
+
       const exercises = workoutProgram.weeks
         .map((week, weekIndex) => {
           if (!week.days || !Array.isArray(week.days)) {
             throw new Error(`Invalid days structure in week ${weekIndex + 1}`);
           }
-          return week.days;
+          return week.days.map((day, dayIndex) => {
+            const workoutDate = startDate
+              .clone()
+              .add(weekIndex * 7 + dayIndex, "days");
+            return {
+              ...day,
+              date: workoutDate.toDate(),
+            };
+          });
         })
         .flat()
         .map((day, dayIndex) => {
           if (!day.workout || !Array.isArray(day.workout)) {
             throw new Error(`Invalid workout structure on day ${dayIndex + 1}`);
           }
-          return day.workout;
+          return day.workout.map((exercise) => ({
+            ...exercise,
+            date: day.date,
+          }));
         })
         .flat();
-
-      // Populate each exercise by fetching its full details from the Exercise collection
       const populatedExercises = await Promise.all(
         exercises.map(async (exercise) => {
           const populatedExercise = await Exercise.findById(
             exercise.exercise
           ).lean();
-
-          // Check if the exercise was found
           if (!populatedExercise) {
             throw new Error(`Exercise not found for ID: ${exercise.exercise}`);
           }
 
           return {
             ...exercise,
-            exercise: populatedExercise, // Include the full populated exercise data, not just the ID
+            exercise: populatedExercise,
           };
         })
       );
-
-      // Create a new Workout document
       const newWorkout = new Workout({
         weeks: workoutProgram.weeks,
         workoutSplitName,
         createdBy,
-        currentDate,
+        currentDate: startDate.toDate(),
         endDate,
-        exercises: populatedExercises, // Assign the populated exercises array
+        exercises: populatedExercises,
       });
-
-      // Save the workout to the database and handle errors
       const savedWorkout = await newWorkout.save();
 
       return savedWorkout;
     } catch (error) {
-      // Improved error handling to capture different types of errors
       if (error.name === "ValidationError") {
         console.error("Validation error:", error.errors);
       } else if (error.name === "MongoError" && error.code === 11000) {
