@@ -76,6 +76,16 @@ const UserSchema = new mongoose.Schema(
       fat: Number,
       carbs: Number,
     },
+    utcOffset: {
+      type: String,
+      default: "+00:00", // UTC as default
+      validate: {
+        validator: function (v) {
+          return /^(\+|-)\d{2}:\d{2}$/.test(v); // Validates format like +02:00 or -05:00
+        },
+        message: (props) => `${props.value} is not a valid UTC offset!`,
+      },
+    },
   },
   { timestamps: true }
 );
