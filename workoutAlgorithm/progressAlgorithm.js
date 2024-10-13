@@ -18,7 +18,7 @@ function adjustWorkout(counter, exerciseRef, currentWeek) {
     // Less intense, focus on learning movements and form
     exerciseRef.reps = reps + 1;
     exerciseRef.sets = sets;
-    exerciseRef.rest = rest + 15;
+    exerciseRef.rest = rest + 0.25;
   } else if (currentWeek >= 2 && currentWeek <= 5) {
     // Gradual increase in intensity based on user feedback
     if (counter < 2) {
@@ -33,13 +33,13 @@ function adjustWorkout(counter, exerciseRef, currentWeek) {
     } else {
       exerciseRef.reps = Math.max(1, reps - 1);
       exerciseRef.sets = Math.max(1, sets - 1);
-      exerciseRef.rest = rest + 15;
+      exerciseRef.rest = rest + 0.25;
     }
   } else if (currentWeek == 6) {
     // Reduce intensity to allow for recovery
     exerciseRef.reps = Math.max(1, reps - 1);
     exerciseRef.sets = Math.max(1, sets - 1);
-    exerciseRef.rest = rest + 15;
+    exerciseRef.rest = rest + 0.25;
   }
 }
 
