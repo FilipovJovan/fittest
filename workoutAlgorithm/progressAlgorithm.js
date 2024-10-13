@@ -121,6 +121,7 @@ export const progressTracker = async (req, res) => {
       workoutPhase = "deload";
     }
 
+    const currentWeek = currentWeekIndex + 1;
     // Find the current workout day by ID
     const currentDay = workout.weeks
       .flatMap((week) => week.days)
