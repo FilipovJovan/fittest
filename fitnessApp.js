@@ -33,7 +33,10 @@ export const generateWorkout = async (req, res) => {
       restDays,
     } = req.body;
 
-    const currentDate = startDate ? moment(startDate) : moment();
+    const utcOffset = req.body.utcOffset || "+00:00"; // If user sends timezone offset
+    const currentDate = startDate
+      ? moment(startDate).utcOffset(utcOffset).startOf("day") // Normalize to 00:00
+      : moment().utcOffset(utcOffset).startOf("day");
     // Simulated exercise fetch from the database
     const exercises = await Exercise.find({}).lean();
 
