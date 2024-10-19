@@ -7,16 +7,17 @@ const Wrapper = styled.div`
     border-radius: 6px;
   }
   .fluid {
-    position: fixed;
+    position: sticky;
     z-index: 1;
     max-width: 100%;
     background-image: linear-gradient(var(--primary-500), var(--primary-300));
-    border-radius: 0px 0px 15px 15px;
+    //border-radius: 0px 0px 15px 15px;
   }
   .navbar-items {
     color: var(--black);
     font-size: 18px;
     padding-left: 15px;
+    white-space: nowrap;
   }
   .navbar-items:hover {
     color: var(--white);
@@ -25,6 +26,7 @@ const Wrapper = styled.div`
   .toggle-icon {
     color: var(--black);
     border: none;
+    border-color: var(--primary-500);
     font-size: 2rem;
   }
   @media (max-width: 991px) {

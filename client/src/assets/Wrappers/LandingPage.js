@@ -22,12 +22,16 @@ const Wrapper = styled.section`
     font-weight: bold;
     color: var(--black);
     font-size: 96px;
+    animation: slideInLeft 1.5s ease-in-out forwards;
   }
   .first-text {
     color: var(--white);
     position: relative;
     transform: translate(50%, -50%);
     text-shadow: var(--shadow-4);
+  }
+  .first-text p {
+    animation: slideInRight 1.5s ease-in-out forwards;
   }
   .da {
     color: var(--white);
@@ -132,6 +136,12 @@ const Wrapper = styled.section`
   .section-two-images {
     width: 350px;
     border-radius: 20px;
+  }
+  .right-animation {
+    animation: slideInLeft 1s ease-in-out forwards;
+  }
+  .left-animation {
+    animation: slideInRight 1s ease-in-out forwards;
   }
   .mid-section {
     background-image: linear-gradient(
@@ -250,6 +260,64 @@ const Wrapper = styled.section`
   .highlighted-text-free {
     font-size: 18px;
     font-weight: 550;
+  }
+  @keyframes slideInLeft {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slideInFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .image-slide-right {
+    animation: slideInFromRight 1s ease-in-out forwards;
+  }
+
+  .image-slide-left {
+    animation: slideInFromLeft 1s ease-in-out forwards;
+  }
+
+  .text-slide-left {
+    animation: slideInFromLeft 1s ease-in-out forwards;
+  }
+
+  .text-slide-right {
+    animation: slideInFromRight 1s ease-in-out forwards;
   }
   @media (max-width: 992px) {
     .section-one {
@@ -442,15 +510,16 @@ const Wrapper = styled.section`
       margin-bottom: 40px;
       background-color: var(--primary-200);
       padding: 15px;
-      height: 105vh;
+      height: 100vh;
       --bs-gutter-x: none;
     }
     .da {
-      height: 40vh;
+      height: 20vh;
       position: relative;
+      padding: 15px;
     }
     .first-text {
-      margin-top: 100px;
+      margin-top: 0px;
     }
     .text-headings h1 {
       margin-top: 20px;
@@ -476,7 +545,6 @@ const Wrapper = styled.section`
       top: 2%;
       left: 2%;
       transform: translate(-2%, -2%);
-      margin-top: 50px;
     }
 
     .section-two-rows {
@@ -564,7 +632,6 @@ const Wrapper = styled.section`
       top: 2%;
       left: 2%;
       transform: translate(-2%, -2%);
-      margin-top: 50px;
     }
     .text-headings h1 {
       font-size: 48px;

@@ -7,5 +7,8 @@ const Wrapper = styled.section`
     text-align: center;
     padding: 12px;
   }
+  .text-center p-4 {
+    margin-bottom: 50px;
+  }
 `;
 export default Wrapper;

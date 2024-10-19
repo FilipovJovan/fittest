@@ -9,7 +9,7 @@ const NavigationBar = () => {
   return (
     <Wrapper>
       <Container className="fluid">
-        <Navbar expand="lg" className="py-4 px-4 sticky-top ">
+        <Navbar expand="lg" className="py-4 px-4 sticky-top">
           <Navbar.Brand>
             <Link
               to="#section-one"
@@ -23,8 +23,14 @@ const NavigationBar = () => {
             </Link>
           </Navbar.Brand>
 
-          <Navbar>
-            <Nav>
+          {/* Hamburger Icon */}
+          <Navbar.Toggle aria-controls="basic-navbar-nav">
+            <FiAlignRight className="toggle-icon" />
+          </Navbar.Toggle>
+
+          {/* Navbar Items */}
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto">
               <Link
                 to="#section-two"
                 smooth={true}
@@ -56,7 +62,7 @@ const NavigationBar = () => {
                 Contact
               </Link>
             </Nav>
-          </Navbar>
+          </Navbar.Collapse>
         </Navbar>
       </Container>
     </Wrapper>
