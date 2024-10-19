@@ -115,9 +115,8 @@ const LandingPage = () => {
         <h1 className="section-two-heading">How it works</h1>
         <Row className="section-two-rows-left">
           <Col>
-            <AnimationScroll animationClass="right-animation">
-              <img src={fitnessImage} className="section-two-images" />
-            </AnimationScroll>
+            <AnimationScroll animationClass="right-animation"></AnimationScroll>
+            <img src={fitnessImage} className="section-two-images" />
           </Col>
           <Col className="section-two-right">
             <svg
@@ -134,71 +133,75 @@ const LandingPage = () => {
             >
               {/* SVG Content */}
             </svg>
-            <AnimationScroll animationClass="left-animation"></AnimationScroll>
-            <div className="section-two-text">
-              <h3>Personalized workout plan</h3>
-              <p>
-                Personalized workout plans tailored through advanced algorithm.
-              </p>
-            </div>
+            <AnimationScroll animationClass="left-animation">
+              <div className="section-two-text">
+                <h3>Personalized workout plan</h3>
+                <p>
+                  Personalized workout plans tailored through advanced
+                  algorithm.
+                </p>
+              </div>
+            </AnimationScroll>
           </Col>
         </Row>
         <Row className="section-two-rows-right">
           <Col className="section-two-left">
-            <AnimationScroll animationClass="right-animation"></AnimationScroll>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              fill="#007bff"
-              width="70px"
-              height="70px"
-            >
-              {/* SVG Content */}
-            </svg>
-            <div className="section-two-text">
-              <h3>Food & nutrition</h3>
-              <p>
-                Access to a variety of meal recipes and nutritional
-                recommendations.
-              </p>
-            </div>
+            <AnimationScroll animationClass="right-animation">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                fill="#007bff"
+                width="70px"
+                height="70px"
+              >
+                {/* SVG Content */}
+              </svg>
+              <div className="section-two-text">
+                <h3>Food & nutrition</h3>
+                <p>
+                  Access to a variety of meal recipes and nutritional
+                  recommendations.
+                </p>
+              </div>
+            </AnimationScroll>
           </Col>
           <Col>
-            <AnimationScroll animationClass="left-animation">
-              <img src={dietImage} className="section-two-images" />
-            </AnimationScroll>
+            <AnimationScroll animationClass="left-animation"></AnimationScroll>
+            <img src={dietImage} className="section-two-images" />
           </Col>
         </Row>
         <Row className="section-two-rows-left">
           <Col>
-            <AnimationScroll animationClass="right-animation">
-              <img src={progressImage} className="section-two-images" />
-            </AnimationScroll>
+            <AnimationScroll animationClass="right-animation"></AnimationScroll>
+            <img src={progressImage} className="section-two-images" />
           </Col>
           <Col className="section-two-right">
-            <AnimationScroll animationClass="left-animation"></AnimationScroll>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              fill="#007bff"
-              width="70px"
-              height="70px"
-            >
-              {/* SVG Content */}
-            </svg>
-            <div className="section-two-text">
-              <h3>Progress tracking</h3>
-              <p>
-                Set goals, track workouts, log meals, and see progress in
-                real-time.
-              </p>
-            </div>
+            <AnimationScroll animationClass="left-animation">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                fill="#007bff"
+                width="70px"
+                height="70px"
+              >
+                {/* SVG Content */}
+              </svg>
+              <div className="section-two-text">
+                <h3>Progress tracking</h3>
+                <p>
+                  Set goals, track workouts, log meals, and see progress in
+                  real-time.
+                </p>
+              </div>
+            </AnimationScroll>
           </Col>
         </Row>
       </Row>
 
       <Row className="section-three" id="section-three">
-        <h1 className="section-two-heading">Pricing and packages</h1>
+        <AnimationScroll animationClass="left-animation">
+          <h1 className="section-two-heading">Pricing and packages</h1>
+        </AnimationScroll>
         <Row className="pricing-packages">
           <PricingPackage
             dotClass="dot-one"

@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 const Wrapper = styled.section`
+  body {
+    overflow-x: hidden;
+  }
   .section-one {
     max-width: 100%;
     margin: auto;
@@ -23,6 +26,7 @@ const Wrapper = styled.section`
     color: var(--black);
     font-size: 96px;
     animation: slideInLeft 1.5s ease-in-out forwards;
+    transform: translateZ(0);
   }
   .first-text {
     color: var(--white);
@@ -263,7 +267,8 @@ const Wrapper = styled.section`
   }
   @keyframes slideInLeft {
     from {
-      transform: translateX(-100%);
+      transform-origin: left;
+      transform: translateX(-10%);
       opacity: 0;
     }
     to {
@@ -274,7 +279,8 @@ const Wrapper = styled.section`
 
   @keyframes slideInRight {
     from {
-      transform: translateX(100%);
+      transform-origin: left;
+      transform: translateX(10%);
       opacity: 0;
     }
     to {
@@ -284,8 +290,9 @@ const Wrapper = styled.section`
   }
   @keyframes slideInFromLeft {
     from {
+      transform-origin: left;
       opacity: 0;
-      transform: translateX(-100%);
+      transform: translateX(-10%);
     }
     to {
       opacity: 1;
@@ -295,8 +302,9 @@ const Wrapper = styled.section`
 
   @keyframes slideInFromRight {
     from {
+      transform-origin: left;
       opacity: 0;
-      transform: translateX(100%);
+      transform: translateX(10%);
     }
     to {
       opacity: 1;
