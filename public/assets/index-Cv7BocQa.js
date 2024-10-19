@@ -160,9 +160,12 @@ Error generating stack: `+o.message+`
   }
   .toggle-icon {
     color: var(--black);
-    border: none;
-    border-color: var(--primary-500);
     font-size: 2rem;
+    outline: none;
+  }
+  .navbar-toggler {
+    outline: none;
+    border: none;
   }
   @media (max-width: 991px) {
     .navbar-items {
