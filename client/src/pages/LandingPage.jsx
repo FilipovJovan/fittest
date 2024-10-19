@@ -199,9 +199,7 @@ const LandingPage = () => {
       </Row>
 
       <Row className="section-three" id="section-three">
-        <AnimationScroll animationClass="left-animation">
-          <h1 className="section-two-heading">Pricing and packages</h1>
-        </AnimationScroll>
+        <h1 className="section-two-heading">Pricing and packages</h1>
         <Row className="pricing-packages">
           <PricingPackage
             dotClass="dot-one"
