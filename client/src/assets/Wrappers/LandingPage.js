@@ -43,7 +43,6 @@ const Wrapper = styled.section`
     justify-content: center;
     align-items: center;
     height: 100%;
-    margin-top: 80px;
   }
 
   .rowAppLinks {
@@ -80,7 +79,7 @@ const Wrapper = styled.section`
     font-weight: 600;
   }
   .phoneImage {
-    width: 290px;
+    width: 260px;
     position: relative;
     top: 20%;
     left: 15%;
@@ -109,13 +108,15 @@ const Wrapper = styled.section`
   }
   .section-two-right svg {
     position: relative;
-    top: 25%;
-    transform: translate(0, -25%);
+    margin-bottom: 30px;
+    top: 100%;
+    transform: translate(0, 100%);
   }
   .section-two-left svg {
     position: relative;
-    top: 25%;
-    transform: translate(0, -25%);
+    margin-bottom: 30px;
+    top: 100%;
+    transform: translate(0, 100%);
   }
   .section-two-text {
     max-width: 350px;
@@ -124,9 +125,8 @@ const Wrapper = styled.section`
     margin-bottom: 50px;
     margin-top: 50px;
     line-height: 1.5;
-    position: relative;
-    top: 25%;
-    transform: translate(0, -25%);
+    // position: absolute;
+    top: 100%;
   }
   .section-two-text h3 {
     line-height: 42px;
@@ -135,17 +135,11 @@ const Wrapper = styled.section`
     font-size: 36px;
   }
   .section-two-heading {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
   }
   .section-two-images {
     width: 350px;
     border-radius: 20px;
-  }
-  .right-animation {
-    animation: slideInLeft 1s ease-in-out forwards;
-  }
-  .left-animation {
-    animation: slideInRight 1s ease-in-out forwards;
   }
   .mid-section {
     background-image: linear-gradient(
@@ -264,6 +258,12 @@ const Wrapper = styled.section`
   .highlighted-text-free {
     font-size: 18px;
     font-weight: 550;
+  }
+  .right-animation {
+    animation: slideInLeft 1s ease-in-out forwards;
+  }
+  .left-animation {
+    animation: slideInRight 1s ease-in-out forwards;
   }
   @keyframes slideInLeft {
     from {
@@ -490,16 +490,6 @@ const Wrapper = styled.section`
       top: 1%;
       transform: translate(0, -1%);
     }
-    .section-two-left svg {
-      position: relative;
-      bottom: 1%;
-      transform: translate(0, -40%);
-    }
-    .section-two-right svg {
-      position: relative;
-      bottom: 1%;
-      transform: translate(0, -50%);
-    }
     .pricing-packages {
       max-width: 400px;
       text-align: left;
@@ -606,6 +596,8 @@ const Wrapper = styled.section`
     }
     .section-two-right {
       text-align: center;
+      padding-top: 0;
+      margin-top: 0;
     }
     .section-two-left {
       text-align: center;

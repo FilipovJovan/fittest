@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import Wrapper from "../assets/Wrappers/AnimationScroll";
 
 const AnimationOnScroll = ({ children, animationClass }) => {
   const ref = useRef();
@@ -29,9 +30,11 @@ const AnimationOnScroll = ({ children, animationClass }) => {
   }, [animationClass]);
 
   return (
-    <div ref={ref} className="animated-element">
-      {children}
-    </div>
+    <Wrapper>
+      <div ref={ref} className="animated-element">
+        {children}
+      </div>
+    </Wrapper>
   );
 };
 

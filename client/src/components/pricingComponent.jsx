@@ -11,6 +11,18 @@ const PricingPackage = ({
   pricingButtonText,
   includedItems,
 }) => {
+  const scrollToNewsletter = () => {
+    const newsletterElement = document.getElementById("section-newsletter");
+
+    if (newsletterElement) {
+      newsletterElement.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
+    }
+  };
+
   return (
     <Col className="pricing-packages-columns">
       <Row className="pricing-packages-upper-row">
@@ -32,7 +44,11 @@ const PricingPackage = ({
             <span className="highlighted-text-free">Free</span>
           )}
         </p>
-        <Button variant="secondary" className={`pricing-button ${buttonColor}`}>
+        <Button
+          variant="secondary"
+          className={`pricing-button ${buttonColor}`}
+          onClick={scrollToNewsletter}
+        >
           <p className={pricingButtonText}>Get Started</p>
         </Button>
         <h5>What's included</h5>

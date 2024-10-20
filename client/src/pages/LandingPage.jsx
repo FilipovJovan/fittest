@@ -6,6 +6,7 @@ import phoneImage from "../assets/images/phoneImage.png";
 import fitnessImage from "../assets/images/fitnessImage.jpg";
 import progressImage from "../assets/images/progress.png";
 import dietImage from "../assets/images/dietImage.jpg";
+import dumbbell from "../assets/images/dumbbell-svgrepo-com.svg";
 import PricingPackage from "../components/pricingComponent";
 import Newsletter from "../components/newsletterForm";
 import Footer from "../components/Footer";
@@ -110,7 +111,7 @@ const LandingPage = () => {
           </Col>
         </Row>
       </Row>
-      <Newsletter />
+      <Newsletter id="section-newsletter" />
       <Row className="section-two" id="section-two">
         <h1 className="section-two-heading">How it works</h1>
         <Row className="section-two-rows-left">
@@ -119,21 +120,43 @@ const LandingPage = () => {
             <img src={fitnessImage} className="section-two-images" />
           </Col>
           <Col className="section-two-right">
-            <svg
-              fill="#007bff"
-              version="1.1"
-              id="Capa_1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              width="70px"
-              height="70px"
-              viewBox="0 0 485.535 485.535"
-              xmlSpace="preserve"
-              stroke="#007bff"
-            >
-              {/* SVG Content */}
-            </svg>
             <AnimationScroll animationClass="left-animation">
+              <svg
+                fill="#007bff"
+                version="1.1"
+                id="Capa_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="70px"
+                height="70px"
+                viewBox="0 0 485.535 485.535"
+                xml:space="preserve"
+                stroke="#007bff"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <g>
+                    {" "}
+                    <g id="_x35__13_">
+                      {" "}
+                      <g>
+                        {" "}
+                        <path d="M55.465,123.228c-15.547,0-28.159,12.608-28.159,28.161v56.673C11.653,211.908,0,225.928,0,242.765 c0,16.842,11.652,30.861,27.306,34.707v56.666c0,15.555,12.612,28.16,28.159,28.16c15.546,0,28.16-12.605,28.16-28.16V151.389 C83.625,135.837,71.011,123.228,55.465,123.228z" />{" "}
+                        <path d="M334.498,65.278c-23.092,0-41.811,18.719-41.811,41.812v93.864h-12.801h-60.585h-19.625l-6.827-0.163V107.09 c0-23.092-18.72-41.812-41.813-41.812c-23.091,0-41.812,18.719-41.812,41.812v271.355c0,23.093,18.721,41.812,41.812,41.812 c23.094,0,41.813-18.719,41.813-41.812v-93.653c0,0,4.501-0.211,6.827-0.211h19.625h60.585h12.801v93.864 c0,23.093,18.719,41.812,41.811,41.812c23.094,0,41.812-18.719,41.812-41.812V107.089 C376.311,83.998,357.592,65.278,334.498,65.278z" />{" "}
+                        <path d="M458.229,208.062v-56.673c0-15.552-12.613-28.161-28.158-28.161c-15.547,0-28.16,12.608-28.16,28.161v182.749 c0,15.555,12.613,28.16,28.16,28.16c15.545,0,28.158-12.605,28.158-28.16v-56.666c15.654-3.846,27.307-17.865,27.307-34.707 C485.535,225.927,473.883,211.908,458.229,208.062z" />{" "}
+                      </g>{" "}
+                    </g>{" "}
+                  </g>{" "}
+                </g>
+              </svg>
               <div className="section-two-text">
                 <h3>Personalized workout plan</h3>
                 <p>
@@ -154,7 +177,7 @@ const LandingPage = () => {
                 width="70px"
                 height="70px"
               >
-                {/* SVG Content */}
+                <path d="M0 192c0-35.3 28.7-64 64-64c.5 0 1.1 0 1.6 0C73 91.5 105.3 64 144 64c15 0 29 4.1 40.9 11.2C198.2 49.6 225.1 32 256 32s57.8 17.6 71.1 43.2C339 68.1 353 64 368 64c38.7 0 71 27.5 78.4 64c.5 0 1.1 0 1.6 0c35.3 0 64 28.7 64 64c0 11.7-3.1 22.6-8.6 32H8.6C3.1 214.6 0 203.7 0 192zm0 91.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4z" />
               </svg>
               <div className="section-two-text">
                 <h3>Food & nutrition</h3>
@@ -184,7 +207,7 @@ const LandingPage = () => {
                 width="70px"
                 height="70px"
               >
-                {/* SVG Content */}
+                <path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L240 221.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z" />
               </svg>
               <div className="section-two-text">
                 <h3>Progress tracking</h3>

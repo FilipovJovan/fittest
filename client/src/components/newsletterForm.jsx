@@ -61,8 +61,9 @@ const Newsletter = () => {
   };
 
   return (
-    <Wrapper>
-      {/* Animated container */}
+    <Wrapper id="section-newsletter">
+      {" "}
+      {/* Ensure this ID is present */}
       <animated.div style={revealAnimation} ref={ref}>
         <CardFooter className="text-center text-lg-left mt-4 container">
           <Container className="p-4">
@@ -70,7 +71,7 @@ const Newsletter = () => {
               <Row className="d-flex justify-content-center">
                 <Col size="auto" className="mb-4 mb-md-0">
                   <p>
-                    <strong>Sign up to claim your discount!</strong>
+                    <strong>Sign up and be amongst the first ones!</strong>
                   </p>
                 </Col>
                 <Col md="5" size="12" className="mb-4 mb-md-0">
