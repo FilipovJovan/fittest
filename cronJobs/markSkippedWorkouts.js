@@ -15,7 +15,7 @@ async function scheduleCronJobsForUsers() {
     console.log(`Scheduling for ${users.length} users...`);
 
     users.forEach(async (user) => {
-      const utcOffset = user.utcOffset || "+00:00";
+      const utcOffset = user.userValues.utcOffset || "+00:00";
       const workoutPlan = await Workout.findOne({ createdBy: user._id });
 
       if (!workoutPlan || !workoutPlan.currentDate) {

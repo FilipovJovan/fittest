@@ -1,3 +1,4 @@
+import { NO_CONTENT } from "http-status-codes";
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
@@ -22,16 +23,6 @@ const UserSchema = new mongoose.Schema(
     avatar: String,
     avatarPublicId: String,
     tier: Number,
-
-    // New fields for fitness calculations
-    height: {
-      type: Number, // height in centimeters
-      required: true,
-    },
-    weight: {
-      type: Number, // weight in kilograms
-      required: true,
-    },
     age: {
       type: Number,
       required: true,
@@ -41,6 +32,57 @@ const UserSchema = new mongoose.Schema(
       enum: ["male", "female", "other"],
       required: true,
     },
+    userValues: {
+      muscleInjuries: {
+        type: String,
+        enum: [
+          "chest",
+          "back",
+          "triceps",
+          "biceps",
+          "traps",
+          "shoulders",
+          "abs",
+          "quadriceps",
+          "hamstrings",
+          "calves",
+          "none",
+        ],
+        default: "none",
+        required: true,
+      },
+      jointInjuries: {
+        type: String,
+        enum: ["elbow", "wrist", "knee", "ankle", "none"],
+        default: "none",
+        required: true,
+      },
+      split: {
+        type: String,
+        enum: [],
+        default: "none",
+        required: true,
+      },
+      utcOffset: {
+        type: String,
+        default: "+00:00",
+        validate: {
+          validator: function (v) {
+            return /^(\+|-)\d{2}:\d{2}$/.test(v);
+          },
+          message: (props) => `${props.value} is not a valid UTC offset!`,
+        },
+      },
+      height: {
+        type: Number,
+        required: true,
+      },
+      weight: {
+        type: Number,
+        required: true,
+      },
+    },
+
     activityLevel: {
       type: String,
       enum: [
@@ -52,17 +94,9 @@ const UserSchema = new mongoose.Schema(
       ],
     },
     workoutLevel: {
-      type: Number, // workouts per week
-      required: true,
-    },
-    /*sleepQuality: {
       type: Number,
       required: true,
     },
-    hydration: {
-      type: Number, // liters per day
-      required: true,
-    },*/
     fitnessGoal: {
       type: String,
       enum: ["weight loss", "maintenance", "muscle gain"],
@@ -75,16 +109,6 @@ const UserSchema = new mongoose.Schema(
       protein: Number,
       fat: Number,
       carbs: Number,
-    },
-    utcOffset: {
-      type: String,
-      default: "+00:00", // UTC as default
-      validate: {
-        validator: function (v) {
-          return /^(\+|-)\d{2}:\d{2}$/.test(v); // Validates format like +02:00 or -05:00
-        },
-        message: (props) => `${props.value} is not a valid UTC offset!`,
-      },
     },
   },
   { timestamps: true }

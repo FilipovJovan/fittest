@@ -7,6 +7,7 @@ import {
   addExerciseToWorkout,
   isWorkoutFinished,
   updateExerciseInWorkout,
+  updatingUserValues,
 } from "../controllers/workoutController.js";
 const router = Router();
 
@@ -20,5 +21,6 @@ router.patch(
 );
 router.post("/workout/add-exercise/:workoutId", addExerciseToWorkout);
 router.patch("/workout/is-workout-finished", isWorkoutFinished);
+router.patch("/workout/user-values", updatingUserValues);
 
 export default router;

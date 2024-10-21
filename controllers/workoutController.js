@@ -1,5 +1,6 @@
 import Workout from "../models/WorkoutSchema.js";
 import Exercise from "../models/ExerciseModel.js";
+import User from "../models/UserModel.js";
 import { StatusCodes } from "http-status-codes";
 
 export const getWorkout = async (req, res) => {
@@ -172,6 +173,49 @@ export const isWorkoutFinished = async (req, res) => {
     workoutDay.isFinished = true;
 
     await workoutPlan.save();
+
+    res.status(200).json({ message: "Values updated successfully" });
+  } catch (error) {
+    console.error("Error updating values:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const updatingUserValues = async (req, res) => {
+  try {
+    const {
+      weight,
+      height,
+      muscleInjuries = "none", // default to "none" if not provided
+      jointInjuries = "none", // default to "none" if not provided
+      split,
+      utcOffset,
+      userId,
+    } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Ensure `userValues` object exists
+    if (!user.userValues) {
+      user.userValues = {};
+    }
+
+    // Update user values
+    user.userValues.height = height;
+    user.userValues.weight = weight;
+    user.userValues.muscleInjuries = muscleInjuries || "none";
+    user.userValues.jointInjuries = jointInjuries || "none";
+    user.userValues.split = split;
+    user.userValues.utcOffset = utcOffset;
+
+    // Mark the nested `userValues` object as modified so that Mongoose will save it
+    user.markModified("userValues");
+
+    await user.save();
 
     res.status(200).json({ message: "Values updated successfully" });
   } catch (error) {
