@@ -207,8 +207,10 @@ export const updatingUserValues = async (req, res) => {
     // Update user values
     user.userValues.height = height;
     user.userValues.weight = weight;
-    user.userValues.muscleInjuries = muscleInjuries || "none";
-    user.userValues.jointInjuries = jointInjuries || "none";
+    user.userValues.muscleInjuries =
+      muscleInjuries || user.userValues.muscleInjuries || "none";
+    user.userValues.jointInjuries =
+      jointInjuries || user.userValues.jointInjuries || "none";
     user.userValues.split = split;
     user.userValues.utcOffset = utcOffset;
 

@@ -46,6 +46,7 @@ const UserSchema = new mongoose.Schema(
           "quadriceps",
           "hamstrings",
           "calves",
+          "forearm",
           "none",
         ],
         default: "none",
@@ -53,7 +54,7 @@ const UserSchema = new mongoose.Schema(
       },
       jointInjuries: {
         type: String,
-        enum: ["elbow", "wrist", "knee", "ankle", "none"],
+        enum: ["elbow", "wrist", "knee", "ankle", "lower back", "none"],
         default: "none",
         required: true,
       },
