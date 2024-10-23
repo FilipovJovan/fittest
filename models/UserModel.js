@@ -34,7 +34,7 @@ const UserSchema = new mongoose.Schema(
     },
     userValues: {
       muscleInjuries: {
-        type: String,
+        type: Array,
         enum: [
           "chest",
           "back",
@@ -53,7 +53,7 @@ const UserSchema = new mongoose.Schema(
         required: true,
       },
       jointInjuries: {
-        type: String,
+        type: Array,
         enum: ["elbow", "wrist", "knee", "ankle", "lower back", "none"],
         default: "none",
         required: true,
