@@ -31,6 +31,7 @@ export const generateWorkout = async (req, res) => {
       userId,
       startDate,
       restDays,
+      label,
     } = req.body;
 
     const utcOffset = req.body.utcOffset || "+00:00"; // If user sends timezone offset
@@ -56,6 +57,7 @@ export const generateWorkout = async (req, res) => {
       startDate: currentDate,
       equipmentType,
       restDays: restDays || [],
+      label,
     });
 
     // Respond with the workout and endDate
@@ -159,6 +161,7 @@ async function generateWorkoutProgram({
   startDate,
   equipmentType,
   restDays,
+  label,
 }) {
   const frequency = workoutsPerWeek || 3; // Replace with user's selected frequency
   const weeks = 5;
@@ -449,6 +452,7 @@ async function generateWorkoutProgram({
           dayNumber: day,
           workout: dailyWorkout,
           date: workoutDate.toDate(),
+          label: label,
         });
 
         dayCounter++; // Increment workout day counter only if it's not a rest day
@@ -540,6 +544,7 @@ async function generateWorkoutProgram({
         currentDate: startDate.toDate(),
         endDate,
         exercises: populatedExercises,
+        label,
       });
       const savedWorkout = await newWorkout.save();
 

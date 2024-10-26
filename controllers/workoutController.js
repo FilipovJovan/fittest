@@ -1,6 +1,7 @@
 import Workout from "../models/WorkoutSchema.js";
 import Exercise from "../models/ExerciseModel.js";
 import User from "../models/UserModel.js";
+import ArchivedWorkout from "../models/ArchivedWorkoutSchema.js";
 import { StatusCodes } from "http-status-codes";
 
 export const getWorkout = async (req, res) => {
@@ -223,5 +224,57 @@ export const updatingUserValues = async (req, res) => {
   } catch (error) {
     console.error("Error updating values:", error);
     res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const workoutDelete = async (req, res) => {
+  try {
+    const { workoutId } = req.params;
+
+    // Delete the workout plan from the active workouts
+    const result = await Workout.deleteOne({ _id: workoutId });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Workout not found" });
+    }
+
+    res.status(200).json({ message: "Workout deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting workout:", error);
+    res.status(500).json({ message: "Failed to delete workout" });
+  }
+};
+
+export const archiveWorkout = async (req, res) => {
+  try {
+    const { workoutId } = req.params;
+
+    // Find the workout by ID
+    const workout = await Workout.findById(workoutId);
+
+    if (!workout) {
+      return res.status(404).json({ message: "Workout not found" });
+    }
+
+    // Create an archived workout entry
+    const archivedWorkout = new ArchivedWorkout({
+      userId: workout.createdBy,
+      workoutData: workout.toObject(), // Copy all workout details
+      label: `Workout ${workout.label}`,
+      startDate: workout.startDate,
+      endDate: new Date(), // Set the archive date
+    });
+
+    await archivedWorkout.save();
+
+    // Remove the workout from the active collection
+    await Workout.deleteOne({ _id: workoutId });
+
+    res
+      .status(200)
+      .json({ message: "Workout archived successfully", archivedWorkout });
+  } catch (error) {
+    console.error("Error archiving workout:", error);
+    res.status(500).json({ message: "Failed to archive workout" });
   }
 };

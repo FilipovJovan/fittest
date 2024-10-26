@@ -88,6 +88,10 @@ const workoutSchema = new Schema({
     type: mongoose.Types.ObjectId,
     ref: "user",
   },
+  label: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Workout = mongoose.model("Workout", workoutSchema);
