@@ -3,6 +3,7 @@ import {
   assignSetsRepsRest,
   getRandomNumberInRange,
 } from "./workoutAlgorithm/workoutAlgorithm.js";
+import User from "./models/UserModel.js";
 import Exercise from "./models/ExerciseModel.js";
 import Workout from "./models/WorkoutSchema.js";
 import { WORKOUT_TYPE, DIFFICULTY } from "./utils/constants.js";
@@ -32,6 +33,7 @@ export const generateWorkout = async (req, res) => {
       startDate,
       restDays,
       label,
+      goal,
     } = req.body;
 
     const utcOffset = req.body.utcOffset || "+00:00"; // If user sends timezone offset

@@ -10,6 +10,8 @@ function calculateVolume(reps, weight, sets) {
   return reps * weight * sets;
 }
 
+//console.log(calculateVolume());
+
 // Function to adjust exercise parameters based on user feedback
 function adjustWorkout(counter, exerciseRef, currentWeek) {
   const { reps, sets, rest } = exerciseRef;

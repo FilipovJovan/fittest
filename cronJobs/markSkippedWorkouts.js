@@ -23,9 +23,11 @@ async function scheduleCronJobsForUsers() {
           `No workout plan or currentDate found for user ${user._id}`
         );
         return;
+      } else {
+        console.log(`Found plan for the user ${user.name}`);
       }
 
-      // Set the user's time to 7:00 AM in their timezone
+      // Set the user's time to 00:00 AM in their timezone
       const userTime = moment().utcOffset(utcOffset).set({
         hour: 0,
         minute: 0,
@@ -35,10 +37,6 @@ async function scheduleCronJobsForUsers() {
 
       const userHour = userTime.hours();
       const userMinute = userTime.minutes();
-
-      /*console.log(
-        `Scheduling cron for user ${user._id} at 00:00 in their local timezone (UTC offset: ${utcOffset})`
-      );*/
 
       cron.schedule(`${userMinute} ${userHour} * * *`, async () => {
         try {

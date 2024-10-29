@@ -164,7 +164,7 @@ async function setExercisesWeight({
 
 function calculateWeightsAndReps(oneRepMax, currentReps, weekIndex) {
   if (weekIndex === 0) {
-    let weight = Math.round((oneRepMax / (1 + currentReps / 30)) * 0.8);
+    let weight = Math.round((oneRepMax / (1 + currentReps / 30)) * 0.6);
     let reps;
     if (weight % 5 === 0) {
       reps = Math.round(((30 * (oneRepMax - weight)) / weight) * 0.5);

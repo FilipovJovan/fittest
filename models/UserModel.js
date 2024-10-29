@@ -82,6 +82,27 @@ const UserSchema = new mongoose.Schema(
         type: Number,
         required: true,
       },
+      goal: {
+        type: String,
+        default: "none",
+        required: true,
+      },
+      difficultyLevel: {
+        type: String,
+        required: true,
+      },
+      restDays: {
+        type: [Number],
+        required: true,
+      },
+      equipment: {
+        type: [String],
+        required: true,
+      },
+      workoutType: {
+        type: String,
+        required: true,
+      },
     },
 
     activityLevel: {
