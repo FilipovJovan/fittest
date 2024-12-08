@@ -7,7 +7,8 @@ const Wrapper = styled.section`
     margin-bottom: 2rem;
   }
   .form {
-    max-width: 350px;
+    max-width: 400px;
+    width: 90vw;
     border-radius: 60px 5px 60px 5px;
     background-color: var(--primary-100);
   }

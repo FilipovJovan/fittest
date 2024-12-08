@@ -16,26 +16,31 @@ const pushPullLegs6x = (
   week
 ) => {
   let name = "";
+  const musclesList = [
+    "overall chest",
+    "upper chest",
+    "lower chest",
+    "overall back",
+    "middle back",
+    "lats",
+    "front deltoid",
+    "middle deltoid",
+    "rear deltoid",
+    "biceps",
+    "triceps",
+    "hamstrings",
+    "quadriceps",
+    "calves",
+    "abs",
+  ];
+
   const pushPullLegsMuscles = {
-    1: [
-      "overall chest",
-      "upper chest",
-      "lower chest",
-      "triceps",
-      "front deltoid",
-    ],
-    2: ["overall back", "lats", "biceps", "traps", "rear deltoid"],
-    3: ["hamstrings", "quadriceps", "calves", "abs"],
-    4: [
-      "overall chest",
-      "upper chest",
-      "lower chest",
-      "triceps",
-      "middle deltoid",
-    ],
-    5: ["overall back", "lats", "biceps", "traps", "rear deltoid"],
-    6: ["hamstrings", "quadriceps", "calves", "abs"],
-    7: [],
+    1: musclesList,
+    2: musclesList,
+    3: musclesList,
+    4: musclesList,
+    5: musclesList,
+    6: musclesList,
   };
 
   const muscleTypesUpperLower = pushPullLegsMuscles[day];

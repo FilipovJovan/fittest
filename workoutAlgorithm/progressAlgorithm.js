@@ -5,24 +5,18 @@ import {
   PROGRESS_QUESTIONS_THIRD,
 } from "../utils/constants.js";
 
-// Utility function to calculate workout volume
 function calculateVolume(reps, weight, sets) {
   return reps * weight * sets;
 }
 
-//console.log(calculateVolume());
-
-// Function to adjust exercise parameters based on user feedback
 function adjustWorkout(counter, exerciseRef, currentWeek) {
   const { reps, sets, rest } = exerciseRef;
 
   if (currentWeek == 1) {
-    // Less intense, focus on learning movements and form
     exerciseRef.reps = reps + 1;
     exerciseRef.sets = sets;
     exerciseRef.rest = rest + 0.25;
   } else if (currentWeek >= 2 && currentWeek <= 5) {
-    // Gradual increase in intensity based on user feedback
     if (counter < 2) {
       exerciseRef.reps = reps + 2;
       exerciseRef.sets = sets + 1;
@@ -38,14 +32,12 @@ function adjustWorkout(counter, exerciseRef, currentWeek) {
       exerciseRef.rest = rest + 0.25;
     }
   } else if (currentWeek == 6) {
-    // Reduce intensity to allow for recovery
     exerciseRef.reps = Math.max(1, reps - 1);
     exerciseRef.sets = Math.max(1, sets - 1);
     exerciseRef.rest = rest + 0.25;
   }
 }
 
-// Function to find the next workout day with the same name
 async function findNextWorkoutWithSameName(workout, currentDayId, name) {
   let foundCurrent = false;
   for (const week of workout.weeks) {
@@ -57,7 +49,7 @@ async function findNextWorkoutWithSameName(workout, currentDayId, name) {
       }
     }
   }
-  return null; // If no next workout found with the same name
+  return null;
 }
 
 export const progressTracker = async (req, res) => {
@@ -67,7 +59,6 @@ export const progressTracker = async (req, res) => {
 
     let counter = 0;
 
-    // Calculate counter based on user feedback
     switch (questionOne) {
       case "no connection":
         counter += PROGRESS_QUESTIONS_FIRST.NO_MIND_MUSCLE_CONNECTION;
@@ -112,7 +103,6 @@ export const progressTracker = async (req, res) => {
       return res.status(404).send("Workout not found");
     }
 
-    // Determine the current phase of the workout (adaptation, overload, deload)
     const currentWeekIndex = workout.weeks.findIndex((week) =>
       week.days.some((day) => day._id.toString() === currentDayId)
     );
@@ -124,7 +114,6 @@ export const progressTracker = async (req, res) => {
     }
 
     const currentWeek = currentWeekIndex + 1;
-    // Find the current workout day by ID
     const currentDay = workout.weeks
       .flatMap((week) => week.days)
       .find((day) => day._id.toString() === currentDayId);
@@ -133,7 +122,6 @@ export const progressTracker = async (req, res) => {
       return res.status(404).send("Current workout day not found");
     }
 
-    // Find the next workout day with the same name
     const nextDay = await findNextWorkoutWithSameName(
       workout,
       currentDayId,
@@ -144,13 +132,32 @@ export const progressTracker = async (req, res) => {
       console.log("No next workout found with the same name");
       return res.status(200).send("No next workout found with the same name");
     }
-
-    // Adjust the workout parameters for the next workout day based on user feedback
     nextDay.workout.forEach((exerciseRef) => {
       adjustWorkout(counter, exerciseRef, currentWeek);
     });
 
-    // Save the updated workout plan
+    for (const week of workout.weeks) {
+      let weeklyVolume = 0;
+
+      for (const day of week.days) {
+        let dailyVolume = 0;
+        for (const exercise of day.workout) {
+          const reps = exercise.reps;
+          const weight = exercise.weight;
+          const sets = exercise.sets;
+          const volume = calculateVolume(reps, weight, sets);
+          dailyVolume += volume;
+        }
+        console.log(`Day ${day.name}: Daily Volume = ${dailyVolume}`);
+        weeklyVolume += dailyVolume;
+      }
+      console.log(
+        `Week ${
+          week.name || workout.weeks.indexOf(week) + 1
+        }: Weekly Volume = ${weeklyVolume}`
+      );
+    }
+
     await workout.save();
 
     res.status(200).send("Evaluation and adjustment complete");

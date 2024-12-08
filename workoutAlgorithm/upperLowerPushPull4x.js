@@ -15,30 +15,30 @@ const upperLowerPushPull4x = (
   dailyWorkout
 ) => {
   let name = "";
+  const musclesList = [
+    "overall chest",
+    "upper chest",
+    "lower chest",
+    "overall back",
+    "middle back",
+    "lats",
+    "front deltoid",
+    "middle deltoid",
+    "rear deltoid",
+    "biceps",
+    "triceps",
+    "hamstrings",
+    "quadriceps",
+    "calves",
+    "abs",
+  ];
+
   const upperLowerMuscles = {
-    1: [
-      "overall chest",
-      "upper chest",
-      "lower chest",
-      "overall back",
-      "middle back",
-      "lats",
-      "front deltoid",
-      "read deltoid",
-      "lateral deltoid",
-      "biceps",
-      "triceps",
-    ],
-    2: ["hamstrings", "quadriceps", "calves", "abs"],
-    3: [
-      "overall chest",
-      "lower chest",
-      "upper chest",
-      "front deltoid",
-      "lateral deltoid",
-      "triceps",
-    ],
-    4: ["overall back", "middle back", "lats", "rear deltoid", "biceps"],
+    1: musclesList,
+    2: musclesList,
+    3: musclesList,
+    4: musclesList,
+    5: musclesList,
   };
 
   const muscleTypesUpperLower = upperLowerMuscles[day];

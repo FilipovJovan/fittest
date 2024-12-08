@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Form, redirect, useNavigation } from "react-router-dom";
 import Wrapper from "../assets/Wrappers/RegisterAndLoginPage";
 import customFetch from "../utils/customFetch";
 import Logo from "../components/Logo";
-import FormRow from "../components/FormRow";
 import { toast } from "react-toastify";
+import { WizardForm } from "../components";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   console.log(data);
+
   try {
     await customFetch.post("/auth/register", data);
     toast.success("Registration Successful");
@@ -20,35 +21,39 @@ export const action = async ({ request }) => {
     return error;
   }
 };
+
 const Register = () => {
+  const [isFinalStep, setIsFinalStep] = useState(false); // State to track the final step
+  const handleFormDataChange = (data) => {
+    console.log("Form Data: ", data);
+  };
+
+  const handleFinalStep = (data) => {
+    // Trigger form submission only when final step is reached
+    setIsFinalStep(true);
+    handleFormDataChange(data);
+  };
+
   return (
     <Wrapper>
-      <div className="register-text">
-        <h2>Start your journey</h2>
-        <p>Create your account and start feeling better</p>
-      </div>
       <Form method="post" className="form">
-        <Logo />
-        <h4>Create new account</h4>
+        <h4>Create your account!</h4>
         <p>
           Already a member?
           <Link to="/login" className="member-btn">
             Login
           </Link>
         </p>
-        <FormRow type="text" name="name" defaultValue="Jovan" />
-        <FormRow
-          type="text"
-          name="lastName"
-          labelText="Last Name"
-          defaultValue="Filipov"
+        {/* Wizard Form for Registration */}
+        <WizardForm
+          onFormDataChange={handleFormDataChange}
+          onFinalStep={handleFinalStep} // Pass the final step handler
         />
-        <FormRow type="date" name="date" defaultValue="2005/03/05" />
-        <FormRow type="email" name="email" defaultValue="jovan@gmail.com" />
-        <FormRow type="password" name="password" defaultValue="secret123" />
-        <button type="submit" className="btn">
-          Submit
-        </button>
+        {isFinalStep && (
+          <button type="submit" className="submit-btn">
+            Submit Registration
+          </button>
+        )}
       </Form>
     </Wrapper>
   );

@@ -1,4 +1,3 @@
-import { NO_CONTENT } from "http-status-codes";
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
@@ -36,17 +35,17 @@ const UserSchema = new mongoose.Schema(
       muscleInjuries: {
         type: [String],
         enum: [
-          "chest",
-          "back",
-          "triceps",
-          "biceps",
-          "traps",
-          "shoulders",
-          "abs",
-          "quadriceps",
-          "hamstrings",
-          "calves",
-          "forearm",
+          "Chest",
+          "Back",
+          "Triceps",
+          "Biceps",
+          "Traps",
+          "Shoulders",
+          "Abs",
+          "Quadriceps",
+          "Hamstrings",
+          "Calves",
+          "Forearm",
           "none",
         ],
         default: "none",
@@ -54,7 +53,7 @@ const UserSchema = new mongoose.Schema(
       },
       jointInjuries: {
         type: [String],
-        enum: ["elbow", "wrist", "knee", "ankle", "lower back", "none"],
+        enum: ["Elbow", "Wrist", "Knee", "Ankle", "Lower back", "none"],
         default: "none",
         required: true,
       },
@@ -108,11 +107,11 @@ const UserSchema = new mongoose.Schema(
     activityLevel: {
       type: String,
       enum: [
-        "sedentary",
-        "lightly active",
-        "moderately active",
-        "very active",
-        "extra active",
+        "Sedentary",
+        "Lightly active",
+        "Moderately active",
+        "Very active",
+        "Extra active",
       ],
     },
     workoutLevel: {
@@ -121,7 +120,7 @@ const UserSchema = new mongoose.Schema(
     },
     fitnessGoal: {
       type: String,
-      enum: ["weight loss", "maintenance", "muscle gain"],
+      enum: ["Weight loss", "Maintenance", "Muscle gain"],
       required: true,
     },
     currentCalories: {

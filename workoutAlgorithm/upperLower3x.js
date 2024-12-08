@@ -22,13 +22,16 @@ const upperLower3x = (
     upper: [
       "overall chest",
       "upper chest",
+      "lower chest",
       "overall back",
       "middle back",
+      "lats",
+      "traps",
       "front deltoid",
+      "lateral deltoid",
+      "rear deltoid",
       "biceps",
       "triceps",
-      "middle deltoid",
-      "rear deltoid",
     ],
     lower: ["hamstrings", "quadriceps", "calves", "abs"],
   };

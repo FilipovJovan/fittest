@@ -24,15 +24,14 @@ export const calculateTDEE = (bmr, activityLevel, workoutLevel) => {
   };
 
   const baseTDEE = bmr * activityMultiplier[activityLevel];
-
-  // Adjust based on the number of workouts per week
   let workoutMultiplier = 1;
   if (workoutLevel >= 5) {
-    workoutMultiplier = 1.15; // Significant increase for high workout frequency
+    workoutMultiplier = 1.15;
   } else if (workoutLevel >= 3) {
-    workoutMultiplier = 1.1; // Moderate increase for average workout frequency
+    workoutMultiplier = 1.1;
+    cy;
   } else if (workoutLevel > 0) {
-    workoutMultiplier = 1.05; // Slight increase for low workout frequency
+    workoutMultiplier = 1.05;
   }
 
   return baseTDEE * workoutMultiplier;
@@ -43,13 +42,13 @@ export const adjustCaloriesForGoal = (tdee, fitnessGoal) => {
 
   switch (fitnessGoal) {
     case "weight loss":
-      calorieAdjustment = -500; // typical deficit for weight loss
+      calorieAdjustment = -500;
       break;
     case "maintenance":
-      calorieAdjustment = 0; // maintain TDEE
+      calorieAdjustment = 0;
       break;
     case "muscle gain":
-      calorieAdjustment = 250; // slight surplus for muscle gain
+      calorieAdjustment = 250;
       break;
     default:
       calorieAdjustment = 0;
@@ -88,8 +87,8 @@ export const calculateMacros = (calories, goal) => {
   const carbCalories = calories * carbPercentage;
 
   return {
-    protein: proteinCalories / 4, // grams
-    fat: fatCalories / 9, // grams
-    carbs: carbCalories / 4, // grams
+    protein: proteinCalories / 4,
+    fat: fatCalories / 9,
+    carbs: carbCalories / 4,
   };
 };

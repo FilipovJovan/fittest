@@ -18,17 +18,27 @@ const upperLower2x = (
   console.log(week);
 
   let name = "";
+  const musclesList = [
+    "overall chest",
+    "upper chest",
+    "lower chest",
+    "overall back",
+    "middle back",
+    "lats",
+    "front deltoid",
+    "middle deltoid",
+    "rear deltoid",
+    "biceps",
+    "triceps",
+    "hamstrings",
+    "quadriceps",
+    "calves",
+    "abs",
+  ];
+
   const upperLowerMuscles = {
-    1: [
-      "overall chest",
-      "upper chest",
-      "overall back",
-      "middle back",
-      "front deltoid",
-      "biceps",
-      "triceps",
-    ],
-    2: ["hamstrings", "quadriceps", "calves", "abs"],
+    1: musclesList,
+    2: musclesList,
   };
   const muscleTypesUpperLower = upperLowerMuscles[day];
   const muscleGroupExercisesUpperLower = splitWorkout(

@@ -36,17 +36,11 @@ export const generateWorkout = async (req, res) => {
       goal,
     } = req.body;
 
-    const utcOffset = req.body.utcOffset || "+00:00"; // If user sends timezone offset
+    const utcOffset = req.body.utcOffset || "+00:00";
     const currentDate = startDate
-      ? moment(startDate).utcOffset(utcOffset).startOf("day") // Normalize to 00:00
+      ? moment(startDate).utcOffset(utcOffset).startOf("day")
       : moment().utcOffset(utcOffset).startOf("day");
-    // Simulated exercise fetch from the database
     const exercises = await Exercise.find({}).lean();
-
-    // Save the workout program to the database
-    /*const currentDate = currentDate;
-    const endDate = new Date(currentDate);
-    endDate.setDate(currentDate.getDate() + 8 * 7);*/
 
     // Generate the workout program
     const generatedProgram = await generateWorkoutProgram({
@@ -62,7 +56,6 @@ export const generateWorkout = async (req, res) => {
       label,
     });
 
-    // Respond with the workout and endDate
     res.json({
       //endDate,
       generatedProgram,
@@ -74,32 +67,58 @@ export const generateWorkout = async (req, res) => {
 };
 
 function filterExercisesByEquipment(exercises, equipmentPreference) {
-  return exercises.filter((exercise) =>
+  const filteredByEquipment = exercises.filter((exercise) =>
     equipmentPreference.includes(exercise.equipment)
   );
+
+  if (filteredByEquipment.length === 0) {
+    console.warn(
+      "No exercises found for the given equipment preference. Returning all exercises."
+    );
+    return exercises;
+  }
+
+  return filteredByEquipment;
 }
+
 function selectRandomExercise(exercises, exerciseType) {
-  const filteredExercises = exercises.filter(
+  const filteredByType = exercises.filter(
     (exercise) => exercise.exerciseType === exerciseType
   );
 
-  if (filteredExercises.length === 0) {
-    return null; // Return null or handle the case when no exercises of the specified type are found
+  const pool = filteredByType.length > 0 ? filteredByType : exercises;
+
+  if (pool.length === 0) {
+    console.error("No exercises available for fallback. Check your data.");
+    return null;
   }
 
-  const randomIndex = getRandomNumberInRange(0, filteredExercises.length - 1);
-  return filteredExercises[randomIndex];
+  const randomIndex = getRandomNumberInRange(0, pool.length - 1);
+  const selectedExercise = pool[randomIndex];
+
+  return selectedExercise;
 }
+
 function splitWorkout(workoutWithSetsRepsRest, muscleGroups) {
   if (!muscleGroups || !Array.isArray(muscleGroups)) {
-    console.error("Invalid muscleGroups array");
+    console.error("Invalid muscleGroups array:", muscleGroups);
     return [];
   }
 
-  return workoutWithSetsRepsRest.filter((exercise) =>
+  const filteredExercises = workoutWithSetsRepsRest.filter((exercise) =>
     muscleGroups.includes(exercise.muscleType)
   );
+
+  if (filteredExercises.length === 0) {
+    console.warn(
+      "No exercises found for the specified muscle groups. Returning all exercises."
+    );
+    return workoutWithSetsRepsRest;
+  }
+
+  return filteredExercises;
 }
+
 const getSetsRepsRestByWorkoutType = (workoutType, difficultyLevel) => {
   switch (workoutType) {
     case "strength":
@@ -152,7 +171,6 @@ const getSetsRepsRestByWorkoutType = (workoutType, difficultyLevel) => {
   }
 };
 
-// Function to generate workout program for the user
 async function generateWorkoutProgram({
   difficultyLevel,
   workoutType,
@@ -165,13 +183,11 @@ async function generateWorkoutProgram({
   restDays,
   label,
 }) {
-  const frequency = workoutsPerWeek || 3; // Replace with user's selected frequency
-  const weeks = 5;
-  //const workout = Workout;
+  const frequency = workoutsPerWeek || 3;
+  const weeks = 2;
 
   console.log(splitPreference + " " + workoutsPerWeek);
 
-  // Assign sets, reps, and rest based on user's goal and muscle preference
   const goal = workoutType || WORKOUT_TYPE.ALL_TYPES;
   const workoutWithSetsRepsRest = assignSetsRepsRest(exercises, goal);
 
@@ -214,20 +230,15 @@ async function generateWorkoutProgram({
       workoutSplitName = "Upper Lower Push Pull Split";
       break;
   }
-  // Create the workout program structure
   const workoutProgram = {
     workoutSplitName: workoutSplitName,
     weeks: [],
     exercises: workoutWithSetsRepsRest,
   };
 
-  // ...
-
-  // Function to generate daily workout
   const generateDailyWorkout = () => {
     const dailyWorkout = [];
 
-    // Loop to select compound exercises
     for (let i = 0; i < 4; i++) {
       const compoundExercise = selectRandomExercise(exercises, "compound");
 
@@ -290,7 +301,7 @@ async function generateWorkoutProgram({
       days: [],
     };
 
-    let dayCounter = 1; // Track workout days
+    let dayCounter = 1;
 
     for (let day = 1; day <= 7; day++) {
       let dailyWorkout = [];
@@ -302,7 +313,6 @@ async function generateWorkoutProgram({
         .add(day - 1, "days");
 
       if (restDays.includes(day)) {
-        // If it's a rest day
         weekObject.days.push({
           name: "Rest Day",
           type: "rest",
@@ -311,7 +321,6 @@ async function generateWorkoutProgram({
           date: workoutDate.toDate(),
         });
       } else if (dayCounter <= frequency) {
-        // Workout days
         switch (splitPreference) {
           case "upperLower4x":
             const resultUpperLower4x = upperLower4x(
@@ -358,7 +367,8 @@ async function generateWorkoutProgram({
               workoutWithSetsRepsRest,
               workoutType,
               difficultyLevel,
-              dailyWorkout
+              dailyWorkout,
+              week
             );
             dailyWorkout = resultBroSplit.dailyWorkout;
             name = resultBroSplit.name;
@@ -370,7 +380,8 @@ async function generateWorkoutProgram({
               workoutWithSetsRepsRest,
               workoutType,
               difficultyLevel,
-              dailyWorkout
+              dailyWorkout,
+              week
             );
             dailyWorkout = resultPushPullLegs6x.dailyWorkout;
             name = resultPushPullLegs6x.name;
@@ -382,7 +393,8 @@ async function generateWorkoutProgram({
               workoutWithSetsRepsRest,
               workoutType,
               difficultyLevel,
-              dailyWorkout
+              dailyWorkout,
+              week
             );
             dailyWorkout = resultPushPullLegs3x.dailyWorkout;
             name = resultPushPullLegs3x.name;
@@ -394,7 +406,8 @@ async function generateWorkoutProgram({
               workoutWithSetsRepsRest,
               workoutType,
               difficultyLevel,
-              dailyWorkout
+              dailyWorkout,
+              week
             );
             dailyWorkout = resultPushPullLegsUpperLower.dailyWorkout;
             name = resultPushPullLegsUpperLower.name;
@@ -406,7 +419,8 @@ async function generateWorkoutProgram({
               workoutWithSetsRepsRest,
               workoutType,
               difficultyLevel,
-              dailyWorkout
+              dailyWorkout,
+              week
             );
             dailyWorkout = resultFullBody2x.dailyWorkout;
             name = resultFullBody2x.name;
@@ -418,7 +432,8 @@ async function generateWorkoutProgram({
               workoutWithSetsRepsRest,
               workoutType,
               difficultyLevel,
-              dailyWorkout
+              dailyWorkout,
+              week
             );
             dailyWorkout = resultFullBody3x.dailyWorkout;
             name = resultFullBody3x.name;
@@ -430,7 +445,8 @@ async function generateWorkoutProgram({
               workoutWithSetsRepsRest,
               workoutType,
               difficultyLevel,
-              dailyWorkout
+              dailyWorkout,
+              week
             );
             dailyWorkout = resultFullBody4x.dailyWorkout;
             name = resultFullBody4x.name;
@@ -442,7 +458,8 @@ async function generateWorkoutProgram({
               workoutWithSetsRepsRest,
               workoutType,
               difficultyLevel,
-              dailyWorkout
+              dailyWorkout,
+              week
             );
             dailyWorkout = resultUpperLowerPushPull4x.dailyWorkout;
             name = resultUpperLowerPushPull4x.name;
@@ -457,26 +474,17 @@ async function generateWorkoutProgram({
           label: label,
         });
 
-        dayCounter++; // Increment workout day counter only if it's not a rest day
+        dayCounter++;
       }
     }
 
     workoutProgram.weeks.push(weekObject);
   }
 
-  /*const datePlanIsMade = currentDate;
-  const endDate = new Date(datePlanIsMade);
-  endDate.setDate(datePlanIsMade.getDate() + weeks * 7);*/
-  //const startDate = moment();
   const endDate = startDate
     .clone()
     .add(weeks * 7, "days")
     .toDate();
-
-  /*const currentDateNew = new Date();
-  const endDate = new Date(currentDateNew);
-  endDate.setDate(currentDateNew.getDate() + 8 * weeks);*/
-  //await saveWorkoutProgramToDatabase(workoutProgram, endDate);
 
   const createdBy = userId;
 

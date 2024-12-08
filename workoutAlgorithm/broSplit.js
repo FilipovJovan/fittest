@@ -14,12 +14,30 @@ const broSplit = (
   dailyWorkout
 ) => {
   let name = "";
+  const musclesList = [
+    "overall chest",
+    "upper chest",
+    "lower chest",
+    "overall back",
+    "middle back",
+    "lats",
+    "front deltoid",
+    "middle deltoid",
+    "rear deltoid",
+    "biceps",
+    "triceps",
+    "hamstrings",
+    "quadriceps",
+    "calves",
+    "abs",
+  ];
+
   const broSplitMuscles = {
-    1: ["overall chest", "upper chest", "lower chest"],
-    2: ["overall back", "lats", "middle back"],
-    3: ["front deltoid", "lateral deltoid", "rear deltoid"],
-    4: ["hamstrings", "quadriceps", "calves", "abs"],
-    5: ["biceps", "triceps"],
+    1: musclesList,
+    2: musclesList,
+    3: musclesList,
+    4: musclesList,
+    5: musclesList,
   };
 
   const muscleTypesBroSplit = broSplitMuscles[day];

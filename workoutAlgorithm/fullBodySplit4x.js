@@ -19,35 +19,71 @@ const fullBody4x = (
   const fullBodyMuscles = {
     A: [
       "overall chest",
-      "quadriceps",
+      "upper chest",
+      "lower chest",
       "overall back",
+      "middle back",
+      "lats",
       "front deltoid",
+      "middle deltoid",
+      "rear deltoid",
+      "biceps",
       "triceps",
-      "core",
+      "hamstrings",
+      "quadriceps",
+      "calves",
+      "abs",
     ],
     B: [
-      "hamstrings",
+      "overall chest",
       "upper chest",
+      "lower chest",
+      "overall back",
       "middle back",
-      "lateral deltoid",
+      "lats",
+      "front deltoid",
+      "middle deltoid",
+      "rear deltoid",
       "biceps",
-      "core",
+      "triceps",
+      "hamstrings",
+      "quadriceps",
+      "calves",
+      "abs",
     ],
     C: [
       "overall chest",
-      "hamstrings",
+      "upper chest",
+      "lower chest",
       "overall back",
-      "shoulders",
+      "middle back",
+      "lats",
+      "front deltoid",
+      "middle deltoid",
+      "rear deltoid",
+      "biceps",
       "triceps",
-      "core",
+      "hamstrings",
+      "quadriceps",
+      "calves",
+      "abs",
     ],
     D: [
-      "quadriceps",
+      "overall chest",
       "upper chest",
+      "lower chest",
+      "overall back",
       "middle back",
+      "lats",
       "front deltoid",
+      "middle deltoid",
+      "rear deltoid",
       "biceps",
-      "core",
+      "triceps",
+      "hamstrings",
+      "quadriceps",
+      "calves",
+      "abs",
     ],
   };
 
@@ -76,6 +112,8 @@ const fullBody4x = (
         rest: getRandomNumberInRange(minRest, maxRest),
         exerciseType,
       });
+    } else {
+      console.log("Exercise not found" + exercise);
     }
   };
 
@@ -140,7 +178,7 @@ const fullBody4x = (
       addCompoundExercise("overall back", "strength");
       addCompoundExercise("hamstrings", "hypertrophy");
       addCompoundExercise("lower chest", "hypertrophy");
-      addCompoundExercise("middle back");
+      addCompoundExercise("middle back", "hypertrophy");
       addIsolationExercise("lateral deltoid", "hypertrophy");
       addIsolationExercise("rear deltoid", "hypertrophy");
       addIsolationExercise("hamstrings", "hypertrophy");

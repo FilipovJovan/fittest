@@ -8,23 +8,21 @@ async function scheduleCronJobsForUsers() {
     const users = await User.find();
 
     if (!users || users.length === 0) {
-      console.log("No users found.");
+      //console.log("No users found.");
       return;
     }
 
-    console.log(`Scheduling for ${users.length} users...`);
+    //console.log(`Scheduling for ${users.length} users...`);
 
     users.forEach(async (user) => {
       const utcOffset = user.userValues.utcOffset || "+00:00";
       const workoutPlan = await Workout.findOne({ createdBy: user._id });
 
       if (!workoutPlan || !workoutPlan.currentDate) {
-        console.log(
-          `No workout plan or currentDate found for user ${user._id}`
-        );
+        //console.log(`No workout plan or currentDate found for user ${user._id}`);
         return;
       } else {
-        console.log(`Found plan for the user ${user.name}`);
+        //console.log(`Found plan for the user ${user.name}`);
       }
 
       // Set the user's time to 00:00 AM in their timezone

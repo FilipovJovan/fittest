@@ -11,6 +11,7 @@ import PricingPackage from "../components/pricingComponent";
 import Newsletter from "../components/newsletterForm";
 import Footer from "../components/Footer";
 import AnimationScroll from "../components/AnimationScroll";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
@@ -23,6 +24,7 @@ const LandingPage = () => {
               <div className="first-text">
                 <div className="text-headings">
                   <h1>FITTEST.</h1>
+                  {/*<Link to="/register">Register</Link>*/}
                 </div>
                 <p>
                   Customized workouts personalized for you including meals &
