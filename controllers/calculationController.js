@@ -23,19 +23,14 @@ export const calculateUserCaloriesAndMacros = async (req, res) => {
       workoutLevel = user.workoutLevel,
     } = req.body;
 
-    // Calculate BMR
     const bmr = calculateBMR(weight, height, age, gender);
 
-    // Calculate TDEE
     const tdee = calculateTDEE(bmr, activityLevel, workoutLevel);
 
-    // Adjust for fitness goal
     const dailyCalories = adjustCaloriesForGoal(tdee, fitnessGoal);
 
-    // Calculate macronutrients
     const macros = calculateMacros(dailyCalories, fitnessGoal);
 
-    // Round the numbers
     const roundedCalories = Math.round(dailyCalories);
     const roundedMacros = {
       protein: Math.round(macros.protein),
@@ -54,10 +49,8 @@ export const calculateUserCaloriesAndMacros = async (req, res) => {
   }
 };
 
-// Example function to calculate activity multiplier based on steps per day and workouts per week
 const calculateActivityMultiplier = (steps, workouts) => {
-  let activityMultiplier = 1.2; // Default for sedentary
-
+  let activityMultiplier = 1.2;
   if (steps > 10000 || workouts >= 4) {
     activityMultiplier = 1.5;
   } else if (steps > 7000 || workouts >= 3) {
@@ -69,14 +62,12 @@ const calculateActivityMultiplier = (steps, workouts) => {
   return activityMultiplier;
 };
 
-// Example function to adjust multiplier based on sleep quality
 const calculateSleepMultiplier = (hours) => {
   if (hours >= 8) return 1.1;
   if (hours >= 6) return 1.05;
   return 1.0;
 };
 
-// Example function to adjust multiplier based on hydration
 const calculateHydrationMultiplier = (liters) => {
   if (liters >= 3) return 1.1;
   if (liters >= 2) return 1.05;
