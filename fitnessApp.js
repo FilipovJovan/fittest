@@ -184,7 +184,7 @@ async function generateWorkoutProgram({
   label,
 }) {
   const frequency = workoutsPerWeek || 3;
-  const weeks = 2;
+  const weeks = 5;
 
   console.log(splitPreference + " " + workoutsPerWeek);
 

@@ -13,7 +13,6 @@ export const calculateUserCaloriesAndMacros = async (req, res) => {
     if (!user) {
       return res.status(404).send("User not found");
     }
-
     const {
       weight = user.weight,
       height = user.height,

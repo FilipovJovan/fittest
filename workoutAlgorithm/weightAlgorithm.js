@@ -214,14 +214,6 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
           let currentReps = exerciseRef.reps;
           let updatedValues;
           let weight;
-          /*for (let i = 0; i <= weekIndex; i++) {
-            if (currentReps === 12) {
-              weight = Math.round(oneRepMax / (1 + 8 / 30));
-              currentReps = 8;
-            } else {
-              currentReps++;
-            }
-          }*/
 
           switch (exerciseName) {
             //CHEST EXERCISES

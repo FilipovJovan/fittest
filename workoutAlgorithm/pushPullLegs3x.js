@@ -16,61 +16,32 @@ const pushPullLegs3x = (
   week
 ) => {
   let name = "";
-  const upperLowerMuscles = {
-    1: [
-      "overall chest",
-      "upper chest",
-      "lower chest",
-      "overall back",
-      "middle back",
-      "lats",
-      "front deltoid",
-      "middle deltoid",
-      "rear deltoid",
-      "biceps",
-      "triceps",
-      "hamstrings",
-      "quadriceps",
-      "calves",
-      "abs",
-    ],
-    2: [
-      "overall chest",
-      "upper chest",
-      "lower chest",
-      "overall back",
-      "middle back",
-      "lats",
-      "front deltoid",
-      "middle deltoid",
-      "rear deltoid",
-      "biceps",
-      "triceps",
-      "hamstrings",
-      "quadriceps",
-      "calves",
-      "abs",
-    ],
-    3: [
-      "overall chest",
-      "upper chest",
-      "lower chest",
-      "overall back",
-      "middle back",
-      "lats",
-      "front deltoid",
-      "middle deltoid",
-      "rear deltoid",
-      "biceps",
-      "triceps",
-      "hamstrings",
-      "quadriceps",
-      "calves",
-      "abs",
-    ],
+  const musclesList = [
+    "overall chest",
+    "upper chest",
+    "lower chest",
+    "overall back",
+    "middle back",
+    "lats",
+    "traps",
+    "front deltoid",
+    "rear deltoid",
+    "lateral deltoid",
+    "biceps",
+    "triceps",
+    "hamstrings",
+    "quadriceps",
+    "calves",
+    "abs",
+  ];
+
+  const pushPullLegs3 = {
+    1: musclesList,
+    2: musclesList,
+    3: musclesList,
   };
 
-  const muscleTypesUpperLower = upperLowerMuscles[day];
+  const muscleTypesUpperLower = pushPullLegs3[day];
   const muscleGroupExercisesUpperLower = splitWorkout(
     workoutWithSetsRepsRest,
     muscleTypesUpperLower

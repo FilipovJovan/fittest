@@ -17,10 +17,10 @@ export const calculateBMR = (weight, height, age, gender) => {
 export const calculateTDEE = (bmr, activityLevel, workoutLevel) => {
   const activityMultiplier = {
     sedentary: 1.2,
-    "lightly active": 1.375,
-    "moderately active": 1.55,
-    "very active": 1.725,
-    "extra active": 1.9,
+    "Lightly active": 1.375,
+    "Moderately active": 1.55,
+    "Very active": 1.725,
+    "Extra active": 1.9,
   };
 
   const baseTDEE = bmr * activityMultiplier[activityLevel];
@@ -41,13 +41,13 @@ export const adjustCaloriesForGoal = (tdee, fitnessGoal) => {
   let calorieAdjustment;
 
   switch (fitnessGoal) {
-    case "weight loss":
+    case "Weight loss":
       calorieAdjustment = -500;
       break;
-    case "maintenance":
+    case "Maintenance":
       calorieAdjustment = 0;
       break;
-    case "muscle gain":
+    case "Muscle gain":
       calorieAdjustment = 250;
       break;
     default:
@@ -61,17 +61,17 @@ export const calculateMacros = (calories, goal) => {
   let proteinPercentage, fatPercentage, carbPercentage;
 
   switch (goal) {
-    case "weight loss":
+    case "Weight loss":
       proteinPercentage = 0.3;
       fatPercentage = 0.25;
       carbPercentage = 0.45;
       break;
-    case "maintenance":
+    case "Maintenance":
       proteinPercentage = 0.25;
       fatPercentage = 0.3;
       carbPercentage = 0.45;
       break;
-    case "muscle gain":
+    case "Muscle gain":
       proteinPercentage = 0.3;
       fatPercentage = 0.25;
       carbPercentage = 0.45;

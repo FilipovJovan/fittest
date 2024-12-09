@@ -148,7 +148,7 @@ export const progressTracker = async (req, res) => {
           const volume = calculateVolume(reps, weight, sets);
           dailyVolume += volume;
         }
-        console.log(`Day ${day.name}: Daily Volume = ${dailyVolume}`);
+        //console.log(`Day ${day.name}: Daily Volume = ${dailyVolume}`);
         weeklyVolume += dailyVolume;
       }
       console.log(
