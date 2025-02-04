@@ -4,6 +4,7 @@ import { FiAlignRight } from "react-icons/fi";
 import Logo from "./Logo";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { HashLink as Link } from "react-router-hash-link";
+import { EbooksPage } from "../pages";
 
 const NavigationBar = () => {
   return (
@@ -50,6 +51,16 @@ const NavigationBar = () => {
                 className="mr-3 navbar-items active"
               >
                 Pricing
+              </Link>
+              <Link
+                to="/ebooks"
+                smooth={true}
+                duration={500}
+                spy={true}
+                offset={-50}
+                className="mr-3 navbar-items active"
+              >
+                E-books
               </Link>
               <Link
                 to="#section-four"

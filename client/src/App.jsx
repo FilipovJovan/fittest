@@ -15,6 +15,7 @@ import {
   ProgressPage,
   VerificationPage,
   UnsubscribePage,
+  EbooksPage,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "ebooks",
+        element: <EbooksPage />,
       },
       {
         path: "dashboard",

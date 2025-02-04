@@ -82,7 +82,6 @@ const Wrapper = styled.div`
   .goal-button.selected {
     background-color: var(--purple-500);
     color: white;
-    border: 2px solid #0056b3;
   }
 
   .gender-icons-male.selected {
@@ -118,15 +117,24 @@ const Wrapper = styled.div`
     background: #ccc;
     cursor: not-allowed;
   }
-
+  .submit-button {
+    background: #6a11cb;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
   .goals {
     display: flex;
-    flex-direction: column; /* Stack buttons vertically */
-    align-items: center; /* Center buttons horizontally */
-    gap: 20px; /* Space between buttons */
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
     margin-top: 20px;
-    max-height: 100%; /* Prevents overflow */
-    overflow-y: auto; /* Adds scroll for many options */
+    max-height: 100%;
+    overflow-y: auto;
   }
 
   .goal-button {
@@ -137,14 +145,14 @@ const Wrapper = styled.div`
     padding: 8px 25px;
     font-size: 18px;
     width: 100%;
-    max-width: 300px;
+    max-width: 230px;
     cursor: pointer;
     transition: all 0.3s ease;
   }
 
   .goal-button:hover {
     background-color: var(--primary-400);
-    transform: scale(1.05);
+    transform: scale(1.01);
   }
 
   .goal-button:active {

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, Form, redirect, useNavigation } from "react-router-dom";
 import Wrapper from "../assets/Wrappers/RegisterAndLoginPage";
 import customFetch from "../utils/customFetch";
-import Logo from "../components/Logo";
 import { toast } from "react-toastify";
 import { WizardForm } from "../components";
 
@@ -12,7 +11,14 @@ export const action = async ({ request }) => {
   console.log(data);
 
   try {
-    await customFetch.post("/auth/register", data);
+    const apiKey = import.meta.env.VITE_API_KEY;
+    await customFetch.post("http://localhost:5000/api/v1/auth/register", data, {
+      headers: {
+        "x-api-key": apiKey, // Use Bearer token format if required
+        "Content-Type": "application/json", // Ensure JSON content type
+      },
+    });
+
     toast.success("Registration Successful");
     return redirect("/login");
   } catch (error) {
@@ -23,13 +29,12 @@ export const action = async ({ request }) => {
 };
 
 const Register = () => {
-  const [isFinalStep, setIsFinalStep] = useState(false); // State to track the final step
+  const [isFinalStep, setIsFinalStep] = useState(false);
   const handleFormDataChange = (data) => {
     console.log("Form Data: ", data);
   };
 
   const handleFinalStep = (data) => {
-    // Trigger form submission only when final step is reached
     setIsFinalStep(true);
     handleFormDataChange(data);
   };
@@ -47,7 +52,7 @@ const Register = () => {
         {/* Wizard Form for Registration */}
         <WizardForm
           onFormDataChange={handleFormDataChange}
-          onFinalStep={handleFinalStep} // Pass the final step handler
+          onFinalStep={handleFinalStep}
         />
         {isFinalStep && (
           <button type="submit" className="submit-btn">

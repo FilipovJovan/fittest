@@ -10,7 +10,12 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   try {
-    await customFetch.post("/auth/login", data);
+    const apiKey = import.meta.env.VITE_API_KEY;
+    await customFetch.post("http://localhost:5000/auth/login", data, {
+      headers: {
+        "x-api-key": apiKey,
+      },
+    });
     toast.success("Login successful");
     return redirect("/dashboard");
   } catch (error) {

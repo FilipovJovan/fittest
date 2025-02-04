@@ -136,6 +136,7 @@ export const progressTracker = async (req, res) => {
       adjustWorkout(counter, exerciseRef, currentWeek);
     });
 
+    let response = [];
     for (const week of workout.weeks) {
       let weeklyVolume = 0;
 
@@ -151,12 +152,13 @@ export const progressTracker = async (req, res) => {
         //console.log(`Day ${day.name}: Daily Volume = ${dailyVolume}`);
         weeklyVolume += dailyVolume;
       }
-      console.log(
+      response.push(
         `Week ${
           week.name || workout.weeks.indexOf(week) + 1
         }: Weekly Volume = ${weeklyVolume}`
       );
     }
+    res.send(response.join("\n"));
 
     await workout.save();
 

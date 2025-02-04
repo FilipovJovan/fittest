@@ -12,3 +12,4 @@ export { default as DashboardLayoutPage } from "./DashboardLayoutPage";
 export { default as ProgressPage } from "./ProgressPage";
 export { default as VerificationPage } from "./VerificationPage";
 export { default as UnsubscribePage } from "./UnsubscribePage";
+export { default as EbooksPage } from "./EbooksPage";

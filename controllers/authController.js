@@ -25,8 +25,8 @@ export const login = async (req, res) => {
     user.password
   );
   if (!isPasswordCorrect) {
-    res.status(StatusCodes.UNAUTHORIZED).json({ msg: "invalid credentials" });
-    throw new UnauthenticatedError("invalid credentials");
+    res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Incorrect password" });
+    throw new UnauthenticatedError("Incorrect password");
   }
 
   const token = createJWT({ userId: user._id, role: user.role });

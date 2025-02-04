@@ -20,12 +20,13 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
   });
 
   const [selectedOptions, setSelectedOptions] = useState({
-    gender: null,
-    goal: null,
-    activity: null,
-    split: null,
+    gender: "",
+    goal: "",
+    activity: "",
+    split: "",
     restDays: [],
-    training: null,
+    training: "",
+    equipment: [""],
   });
 
   const [registrationData, setRegistrationData] = useState({
@@ -36,13 +37,13 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     date: "",
   });
 
-  const updateParentData = () => {
+  /*const updateParentData = () => {
     onFormDataChange({
       ...selectedOptions,
       ...valueGroups,
       ...registrationData,
     });
-  };
+  };*/
 
   const progressPercentage = ((currentTab + 1) / totalTabs) * 100;
 
@@ -57,12 +58,10 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
   const nextStep = () => {
     if (currentTab === 1) {
       const selectedValues = getSelectedValues();
-      console.log(selectedValues);
+      setFormData(selectedValues);
     }
     if (currentTab < totalTabs - 1) {
       setCurrentTab(currentTab + 1);
-    } else {
-      onFinalStep(formData);
     }
   };
 
@@ -84,35 +83,32 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     return age;
   };
 
-  // Example usage:
-  const age = calculateAge("1995-08-15"); // Replace with any birthdate
-  console.log(age);
-
   const [formData, setFormData] = useState({
     name: registrationData.firstName,
     lastName: registrationData.lastName,
     date: registrationData.date,
     email: registrationData.email,
     password: registrationData.password,
-    age: calculateAge(registrationData.date), // or use the age provided
+    age: calculateAge(registrationData.date),
     gender: selectedOptions.gender,
     activityLevel: selectedOptions.activity,
     fitnessGoal: selectedOptions.goal,
     userValues: {
       weight: valueGroups.weight,
-      height: valueGroups.heightCm, // or heightFeet/heightInches depending on the unit system
-      utcOffset: "+02:00", // You can adjust this based on user location
-      muscleInjuries: "none", // Adjust this based on the user's input
-      jointInjuries: "none", // Adjust this based on the user's input
+      height:
+        valueGroups.heightCm ||
+        (valueGroups.heightFeet && valueGroups.heightInches),
+      utcOffset: "+02:00",
+      muscleInjuries: "none",
+      jointInjuries: "none",
       split: selectedOptions.split,
       goal: selectedOptions.goal,
-      difficultyLevel: selectedOptions.training, // Adjust this based on the user's input
+      difficultyLevel: selectedOptions.training,
       restDays: selectedOptions.restDays,
-      equipment: ["barbells", "machines"], // Adjust based on user input
-      workoutType: "hypertrophy", // Adjust based on user input
+      equipment: selectedOptions.equipment,
+      workoutType: "hypertrophy",
     },
   });
-  console.log("Submitting form data:", formData);
 
   const prevStep = () => {
     if (currentTab > 0) {
@@ -120,21 +116,20 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     }
   };
 
-  const handleInputChange = (e) => {
+  /*const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
     onFormDataChange(formData);
-  };
+  };*/
 
   const handleOptionClick = (key, value) => {
     setSelectedOptions((prev) => ({
       ...prev,
       [key]: value,
     }));
-    updateParentData();
   };
 
   const handleRestDayClick = (day) => {
@@ -152,7 +147,7 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     });
   };
 
-  const convertValues = () => {
+  /*const convertValues = () => {
     if (unitSystem === "metric") {
       const weightLbs = Math.round(valueGroups.weight * 2.20462);
 
@@ -179,15 +174,7 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
         heightCm: totalCm,
       }));
     }
-  };
-
-  const handleRegistrationChange = (e) => {
-    const { name, value } = e.target;
-    setRegistrationData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  };*/
 
   const handleUnitSwitch = (system) => {
     if (unitSystem === system) return;
@@ -315,7 +302,7 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
               <h3>What’s your workout goal?</h3>
               <p>Please select your fitness goal!</p>
               <div className="goals">
-                {["weight loss", "maintenance", "muscle gain"].map((goal) => (
+                {["Weight loss", "Maintenance", "Muscle gain"].map((goal) => (
                   <button
                     key={goal}
                     className={`goal-button ${
@@ -389,7 +376,9 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
                   <button
                     key={training}
                     className={`goal-button ${
-                      selectedOptions.training === training ? "selected" : ""
+                      selectedOptions.difficultyLevel === training
+                        ? "selected"
+                        : ""
                     }`}
                     onClick={() =>
                       handleOptionClick("difficultyLevel", training)
@@ -406,7 +395,7 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
                 <button
                   onClick={nextStep}
                   className="next-button"
-                  disabled={!selectedOptions.training}
+                  disabled={!selectedOptions.difficultyLevel}
                 >
                   Next
                 </button>
@@ -562,20 +551,32 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
 
           {currentTab === 9 && (
             <div className="slide">
-              <h3>Your Preferences</h3>
               <p>Complete your setup!</p>
-              <div className="navigation-buttons">
-                <button onClick={prevStep} className="prev-button">
-                  Prev
-                </button>
-                <button
-                  onClick={handleSubmitClick}
-                  className="submit-button"
-                  disabled={!selectedOptions.equipment}
-                >
-                  Submit
-                </button>
-              </div>
+              <FormRow type="text" name="name" defaultValue="Jovan" />
+              <FormRow
+                type="text"
+                name="lastName"
+                labelText="Last Name"
+                defaultValue="Filipov"
+              />
+              <FormRow type="date" name="date" defaultValue="2005/03/05" />
+              <FormRow
+                type="email"
+                name="email"
+                defaultValue="jovan@gmail.com"
+              />
+              <FormRow
+                type="password"
+                name="password"
+                defaultValue="secret123"
+              />
+              <button
+                onClick={handleSubmit}
+                className="submit-button"
+                disabled={!registrationData}
+              >
+                Submit
+              </button>
             </div>
           )}
         </div>
