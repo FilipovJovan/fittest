@@ -1,16 +1,19 @@
 import React from "react";
-import "../assets/Wrappers/Ebooks";
+//images
 import EbookTrainingImage from "../assets/images/Strength & Hypertrophy Training Guide (1).png";
 import EbookDietImage from "../assets/images/Ultimate Guide to Healthy Eating & Diet Optimization (1).png";
+import EbookSleepImage from "../assets/images/The Power of Sleep Unlocking Peak Performance & Recovery.jpg";
+//ebooks
 import trainingEbook from "../assets/ebooks/Strength & Hypertrophy Training Guide.pdf";
 import dietEbook from "../assets/ebooks/Ultimate Guide to Healthy Eating & Diet Optimization.pdf";
+import sleepEbook from "../assets/ebooks/The Power of Sleep Unlocking Peak Performance & Recovery.pdf";
+
 import Wrapper from "../assets/Wrappers/Ebooks";
 import { Footer } from "../components";
 import Newsletter from "../components/newsletterForm";
-import BackArrow from "../assets/images/left-arrow-svgrepo-com.svg";
 import { Link } from "react-router-dom";
-import LandingPage from "./LandingPage";
 import { HashLink } from "react-router-hash-link";
+import EbookCard from "../components/EBookCard";
 
 const EbooksPage = () => {
   return (
@@ -50,57 +53,24 @@ const EbooksPage = () => {
         {/* E-Books Grid */}
         <div className="container">
           <div className="row">
-            {/* Training E-Book */}
-            <div className="col-md-6">
-              <div className="card ebook-card">
-                <img
-                  src={EbookTrainingImage}
-                  className="card-img-top"
-                  alt="Training E-Book"
-                />
-                <div className="card-body">
-                  <h2 className="card-title">Strength & Hypertrophy Guide</h2>
-                  <p className="card-text">
-                    Learn how to build muscle, optimize your workout split, and
-                    improve recovery.
-                  </p>
-                  <a
-                    href={trainingEbook}
-                    download
-                    className="btn btn-primary w-100"
-                  >
-                    📥 Download
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Diet E-Book */}
-            <div className="col-md-6">
-              <div className="card ebook-card">
-                <img
-                  src={EbookDietImage}
-                  className="card-img-top"
-                  alt="Diet E-Book"
-                />
-                <div className="card-body">
-                  <h2 className="card-title">
-                    Ultimate Nutrition & Diet Guide
-                  </h2>
-                  <p className="card-text">
-                    Discover how to eat right, reduce unhealthy foods, and feel
-                    amazing.
-                  </p>
-                  <a
-                    href={dietEbook}
-                    download
-                    className="btn btn-secondary w-100"
-                  >
-                    📥 Download
-                  </a>
-                </div>
-              </div>
-            </div>
+            <EbookCard
+              image={EbookTrainingImage}
+              title="Strength & Hypertrophy Guide"
+              description="Learn how to build muscle, optimize your workout split, and improve recovery."
+              downloadLink={trainingEbook}
+            />
+            <EbookCard
+              image={EbookDietImage}
+              title="Ultimate Diet & Nutrition Guide"
+              description="Master nutrition, cut unhealthy fats, and fuel your body for success."
+              downloadLink={dietEbook}
+            />
+            <EbookCard
+              image={EbookSleepImage}
+              title="The Ultimate Guide to Sleep & Recovery"
+              description="Boost muscle growth, enhance recovery, and improve mental clarity with better sleep."
+              downloadLink={sleepEbook}
+            />
           </div>
         </div>
 
