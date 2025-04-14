@@ -31,6 +31,16 @@ import { authenticateApiKey } from "./middleware/apiKeyMiddleware.js";
 import NewsletterSubscriber from "./models/newsletterSubscriber.js";
 import { sendVerificationEmail, sendBulkEmails } from "./emailService.js";
 
+app.use(cookieParser());
+app.use(express.json());
+
+app.use("/api/v1", authenticateApiKey);
+app.use("/api/v1/generate-custom", workoutRouter);
+app.use("/api/v1/calculate-calories-macros", calorieRouter);
+app.use("/api/v1/exercises", authenticateUser, exerciseRouter);
+app.use("/api/v1/users", authenticateUser, userRouter);
+app.use("/api/v1/auth", authRouter);
+
 //Cron job
 import "./cronJobs/markSkippedWorkouts.js";
 
@@ -40,9 +50,8 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, "./public")));
-app.use(express.json());
+
 app.use(cors());
 
 // Newsletter routes
@@ -149,21 +158,6 @@ app.post("/sendBulkEmails", async (req, res) => {
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./public", "index.html"));
 });
-
-app.get("/", (req, res) => {
-  res.json({ msg: "test route" });
-});
-
-app.get("/test", (req, res) => {
-  res.json({ msg: "test route" });
-});
-
-app.use("/api/v1", authenticateApiKey);
-app.use("/api/v1/generate-custom", workoutRouter);
-app.use("/api/v1/calculate-calories-macros", calorieRouter);
-app.use("/api/v1/exercises", authenticateUser, exerciseRouter);
-app.use("/api/v1/users", authenticateUser, userRouter);
-app.use("/api/v1/auth", authRouter);
 
 app.use("*", (req, res) => {
   res.status(404).json({ msg: "not found" });

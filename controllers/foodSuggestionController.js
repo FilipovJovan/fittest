@@ -131,6 +131,15 @@ export const suggestFoods = async (req, res) => {
   }
 };
 
+export const getMeals = async (req, res) => {
+  const { meal, goal } = req.query;
+  const queryObject = {};
+  if (meal) queryObject.categoryMeal = meal;
+  if (goal) queryObject.category = goal;
+  const meals = await Food.find(queryObject);
+  res.status(200).json({ meals });
+};
+
 /*export const suggestDailyPlan = async (req, res) => {
   try {
     const { userId } = req.body;

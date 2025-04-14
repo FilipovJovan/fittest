@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   .wizard-container {
     max-width: 600px;
-    height: 75vh; /* Full screen height */
+    height: 65vh; /* Full screen height */
     margin: 0 auto;
     padding: 20px;
     font-family: "Arial", sans-serif;
@@ -84,12 +84,29 @@ const Wrapper = styled.div`
     color: white;
   }
 
-  .gender-icons-male.selected {
-    color: var(--primary-500);
+  .gender-icons-svg {
+    width: 40px;
+    transition: filter 0.3s ease-in-out;
   }
 
-  .gender-icons-female.selected {
-    color: var(--purple-500);
+  /* Default gray color */
+  /* Default state for Male and Female */
+  .gender-icons-male img,
+  .gender-icons-female img {
+    filter: brightness(0) saturate(100%) invert(46%) sepia(0%) saturate(0%)
+      hue-rotate(0deg) brightness(90%) contrast(90%);
+  }
+
+  /* When selected, Male turns Blue (approx. #007bff) */
+  .gender-icons-male.selected svg {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(100%) saturate(900%)
+      hue-rotate(190deg) brightness(99%) contrast(100%);
+  }
+
+  /* When selected, Female turns Purple (approx. #8400ff) */
+  .gender-icons-female.selected svg {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(70%) saturate(600%)
+      hue-rotate(270deg) brightness(90%) contrast(100%);
   }
 
   .navigation-buttons {
@@ -185,30 +202,45 @@ const Wrapper = styled.div`
 
   .unit-switch {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* Adds spacing between elements */
+  }
+
+  .unit-toggle {
+    display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-top: 10px;
+    gap: 1rem;
+    margin-bottom: 1rem; /* Moves inputs further down */
   }
 
-  .unit-switch button {
-    background: #f7f7f7;
-    border: 1px solid #ccc;
-    color: #333;
-    font-size: 0.9rem;
-    border-radius: 8px;
-    padding: 5px 10px;
+  .unit-toggle button {
+    padding: 10px 20px;
+    border: none;
     cursor: pointer;
-    transition: background 0.3s ease;
+    background-color: #ddd;
+    border-radius: 5px;
+    font-weight: bold;
   }
 
-  .unit-switch button.active {
-    background: #6a11cb;
-    color: #fff;
-    border-color: #6a11cb;
+  .unit-toggle button.active {
+    background-color: var(--primary-500); /* Adjust based on your theme */
+    color: white;
   }
 
   .unit-switch button:hover {
     background: #e0e0e0;
+  }
+  .registration-form {
+    background: none;
+    margin: auto;
+  }
+  .registration-form input {
+    background: none;
+    margin: 5px 0px 5px 0px;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 8px;
   }
 
   @media screen and (max-width: 420px) {
@@ -257,6 +289,24 @@ const Wrapper = styled.div`
     color: var(--white);
     letter-spacing: var(--letter-spacing);
     margin-left: 0.25rem;
+  }
+
+  .activity-level-options {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .activity-level-option {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .activity-level-option.selected {
+    background-color: #007bff; /* Blue background for selected option */
+    color: white;
   }
 `;
 

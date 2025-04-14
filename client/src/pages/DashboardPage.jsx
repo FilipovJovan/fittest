@@ -9,9 +9,17 @@ import { toast } from "react-toastify";
 
 export const loader = async () => {
   try {
-    const { data } = await customFetch.get("/users/current-user");
+    const apiKey = import.meta.env.VITE_API_KEY;
+    const { data } = await customFetch.get("/users/current-user", {
+      headers: {
+        "x-api-key": apiKey,
+        "Content-Type": "application/json",
+      },
+    });
+
     return data;
   } catch (error) {
+    console.log(error);
     return redirect("/login");
   }
 };
@@ -20,6 +28,7 @@ const DashboardContext = createContext();
 
 const DashboardPage = () => {
   const { user } = useLoaderData();
+
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
 

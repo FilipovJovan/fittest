@@ -4,9 +4,25 @@ import cloudinary from "cloudinary";
 import { promises as fs } from "fs";
 
 export const getCurrentUser = async (req, res) => {
-  const user = await User.findOne({ _id: req.user.userId });
-  const userWithoutPassword = user.toJSON();
-  res.status(StatusCodes.OK).json({ user: userWithoutPassword });
+  //console.log("Request received! Checking user...");
+  //console.log("req.user:", req.user); // 🔍 Log the user object
+
+  if (!req.user) {
+    return res.status(401).json({ msg: "Unauthorized! No user found." });
+  }
+
+  try {
+    const user = await User.findOne({ _id: req.user.userId });
+    if (!user) {
+      return res.status(404).json({ msg: "User not found!" });
+    }
+
+    const userWithoutPassword = user.toJSON();
+    res.status(200).json({ user: userWithoutPassword });
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ msg: "Server error" });
+  }
 };
 
 export const getApplicationStats = async (req, res) => {

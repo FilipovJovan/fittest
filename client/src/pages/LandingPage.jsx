@@ -24,7 +24,7 @@ const LandingPage = () => {
               <div className="first-text">
                 <div className="text-headings">
                   <h1>FITTEST.</h1>
-                  {/*<Link to="/register">Register</Link>*/}
+                  <Link to="/register">Register</Link>
                 </div>
                 <p>
                   Customized workouts personalized for you including meals &

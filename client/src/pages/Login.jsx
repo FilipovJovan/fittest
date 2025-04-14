@@ -11,14 +11,18 @@ export const action = async ({ request }) => {
   const data = Object.fromEntries(formData);
   try {
     const apiKey = import.meta.env.VITE_API_KEY;
-    await customFetch.post("http://localhost:5000/auth/login", data, {
+
+    await customFetch.post("/auth/login", data, {
       headers: {
         "x-api-key": apiKey,
+        "Content-Type": "application/json",
       },
     });
     toast.success("Login successful");
     return redirect("/dashboard");
   } catch (error) {
+    console.log(error);
+
     toast.error(error?.response?.data?.msg);
     return error;
   }
@@ -30,24 +34,24 @@ const Login = () => {
 
   return (
     <Wrapper>
-      <div className="register-text">
-        <h2>Welcome!</h2>
+      <div className="background">
+        <div className="register-text">
+          <h2 className="login-heading">Welcome!</h2>
+        </div>
+        <Form method="post" className="login-form">
+          <p>
+            Not a member?
+            <Link to="/register" className="member-btn">
+              Register
+            </Link>
+          </p>
+          <FormRow type="email" name="email" defaultValue="email@gmail.com" />
+          <FormRow type="password" name="password" defaultValue="secret123" />
+          <button type="submit" className="btn" disabled={isSubmitting}>
+            {isSubmitting ? "submitting" : "submit"}
+          </button>
+        </Form>
       </div>
-      <Form method="post" className="form">
-        <Logo />
-        <h4>Create new account</h4>
-        <p>
-          Already a member?
-          <Link to="/register" className="member-btn">
-            Register
-          </Link>
-        </p>
-        <FormRow type="email" name="email" defaultValue="jovan@gmail.com" />
-        <FormRow type="password" name="password" defaultValue="secret123" />
-        <button type="submit" className="btn" disabled={isSubmitting}>
-          {isSubmitting ? "submitting" : "submit"}
-        </button>
-      </Form>
     </Wrapper>
   );
 };

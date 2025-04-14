@@ -29,7 +29,6 @@ export const calculateTDEE = (bmr, activityLevel, workoutLevel) => {
     workoutMultiplier = 1.15;
   } else if (workoutLevel >= 3) {
     workoutMultiplier = 1.1;
-    cy;
   } else if (workoutLevel > 0) {
     workoutMultiplier = 1.05;
   }

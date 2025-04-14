@@ -11,7 +11,6 @@ const links = [
   { text: "Dashboard", path: ".", icon: <MdDashboard /> },
   { text: "Workout", path: "workout", icon: <CgGym /> },
   { text: "Diet", path: "diet", icon: <FaBowlFood /> },
-  { text: "Health", path: "health", icon: <MdHealthAndSafety /> },
   { text: "Progress", path: "progress", icon: <FaChartBar /> },
   { text: "Profile", path: "profile", icon: <ImProfile /> },
 ];

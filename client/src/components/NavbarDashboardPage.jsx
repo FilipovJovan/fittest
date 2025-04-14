@@ -13,10 +13,7 @@ const Navbar = () => {
         <button onClick={toggleSidebar} type="button" className="toggle-btn">
           <FaAlignLeft />
         </button>
-        <div>
-          <Logo />
-          <h4 className="logo-text">Healthify</h4>
-        </div>
+        <h4 className="logo-text">FITTEST</h4>
         <div className="btn-container">
           <LogoutContainer />{" "}
         </div>
