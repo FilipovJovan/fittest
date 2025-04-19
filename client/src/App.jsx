@@ -16,12 +16,15 @@ import {
   VerificationPage,
   UnsubscribePage,
   EbooksPage,
+  AllMealsPage,
+  MacrosPage,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { loader as dashboardLoader } from "./pages/DashboardPage";
 import { action as profileAction } from "./pages/Profile";
+//import { loader as FoodLoader } from "./pages/FoodPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -70,6 +73,17 @@ const router = createBrowserRouter([
           {
             path: "diet",
             element: <FoodPage />,
+            //loader: FoodLoader,
+            children: [
+              {
+                path: "macros",
+                element: <MacrosPage />,
+              },
+              {
+                path: "all-meals",
+                element: <AllMealsPage />,
+              },
+            ],
           },
           {
             path: "workout",

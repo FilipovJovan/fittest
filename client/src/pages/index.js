@@ -13,3 +13,5 @@ export { default as ProgressPage } from "./ProgressPage";
 export { default as VerificationPage } from "./VerificationPage";
 export { default as UnsubscribePage } from "./UnsubscribePage";
 export { default as EbooksPage } from "./EbooksPage";
+export { default as AllMealsPage } from "./AllMealsPage";
+export { default as MacrosPage } from "./MacrosPage";

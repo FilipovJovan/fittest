@@ -6,7 +6,8 @@ const Wrapper = styled.div`
     border-radius: 12px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-width: 320px;
+    max-width: 380px;
+    margin: auto;
   }
 
   h3 {

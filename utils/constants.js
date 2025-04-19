@@ -87,3 +87,17 @@ export const PROGRESS_QUESTIONS_THIRD = {
   SOME_MUSCLE_PUMP: 1,
   HIGH_MUSCLE_PUMP: 2,
 };
+
+export const CATEGORY_BY_TIME = {
+  BREAKFAST: "Breakfast",
+  LUNCH: "Lunch",
+  DINNER: "Dinner",
+  SNACK: "Snack",
+  DRINK: "Drink",
+};
+
+export const CATEGORY_BY_GOAL = {
+  WEIGHT_LOSS: "Weight Loss",
+  MAINTENANCE: "Maintenance",
+  MUSCLE_GAIN: "Muscle Gain",
+};
