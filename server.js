@@ -34,6 +34,8 @@ import { sendVerificationEmail, sendBulkEmails } from "./emailService.js";
 app.use(cookieParser());
 app.use(express.json());
 
+app.use(cors());
+
 app.use("/api/v1", authenticateApiKey);
 app.use("/api/v1/generate-custom", workoutRouter);
 app.use("/api/v1/calculate-calories-macros", calorieRouter);
@@ -51,8 +53,6 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use(express.static(path.resolve(__dirname, "./public")));
-
-app.use(cors());
 
 // Newsletter routes
 app.post("/signup", async (req, res) => {
@@ -155,12 +155,15 @@ app.post("/sendBulkEmails", async (req, res) => {
   }
 });
 
-app.get("*", (req, res) => {
+app.get("*", (req, res, next) => {
+  if (req.originalUrl.startsWith("/api/v1/")) {
+    return next();
+  }
   res.sendFile(path.resolve(__dirname, "./public", "index.html"));
 });
 
 app.use("*", (req, res) => {
-  res.status(404).json({ msg: "not found" });
+  res.status(404).json({ msg: "Not Found" });
 });
 
 app.use(errorHandlerMiddleware);

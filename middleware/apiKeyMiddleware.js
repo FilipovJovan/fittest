@@ -2,6 +2,10 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 export const authenticateApiKey = (req, res, next) => {
+  if (req.path.startsWith("/auth/verify-email")) {
+    return next();
+  }
+
   const apiKey = req.header("x-api-key");
   const validApiKey = process.env.API_KEY;
 

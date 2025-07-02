@@ -126,6 +126,48 @@ const fullBody4x = (
   const addIsolationExercise = (muscleType, focus) =>
     addExercise(muscleType, "isolation", focus);
 
+  const extendedEquipment = [
+    ...equipmentType,
+    "no equipment",
+    "dip & pull up bars",
+    "ab roller",
+  ];
+
+  const filteredAbExercises = filterExercisesByEquipment(
+    muscleGroupExercisesFullBody.filter((ex) => ex.muscleType === "abs"),
+    extendedEquipment
+  );
+
+  const addAbIsolationExercise = (muscleType, difficultyLevel) => {
+    const abIsolationExercise = selectRandomExercise(
+      filteredAbExercises.filter((exercise) => {
+        return (
+          exercise.muscleType === muscleType &&
+          (!exercise.difficulty || exercise.difficulty === difficultyLevel)
+        );
+      }),
+      "isolation"
+    );
+
+    if (abIsolationExercise) {
+      const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
+        getSetsRepsRestByWorkoutType(workoutType);
+      dailyWorkout.push({
+        exercise: {
+          _id: abIsolationExercise._id,
+          name: abIsolationExercise.name,
+          muscleType: abIsolationExercise.muscleType,
+          equipment: abIsolationExercise.equipment,
+          instructions: abIsolationExercise.instructions,
+        },
+        sets: getRandomNumberInRange(minSets, maxSets),
+        reps: getRandomNumberInRange(minReps, maxReps),
+        rest: 0.5,
+        exerciseType: "isolation",
+      });
+    }
+  };
+
   const dayRoutineMap = ["A", "B", "C", "D"];
 
   name = dayRoutineMap[day - 1];
@@ -171,6 +213,9 @@ const fullBody4x = (
       addCompoundExercise("upper chest", "hypertrophy");
       addCompoundExercise("lats", "hypertrophy");
       addIsolationExercise("hamstrings", "hypertrophy");
+      for (let i = 0; i < 6; i++) {
+        addAbIsolationExercise("abs", difficultyLevel);
+      }
     } else if (difficultyLevel === "intermediate") {
       addCompoundExercise("overall back", "strength");
       addCompoundExercise("hamstrings", "hypertrophy");
@@ -178,6 +223,9 @@ const fullBody4x = (
       addIsolationExercise("lateral deltoid", "hypertrophy");
       addIsolationExercise("triceps", "hypertrophy");
       addIsolationExercise("hamstrings", "hypertrophy");
+      for (let i = 0; i < 6; i++) {
+        addAbIsolationExercise("abs", difficultyLevel);
+      }
     } else {
       addCompoundExercise("overall back", "strength");
       addCompoundExercise("hamstrings", "hypertrophy");
@@ -186,6 +234,9 @@ const fullBody4x = (
       addIsolationExercise("lateral deltoid", "hypertrophy");
       addIsolationExercise("rear deltoid", "hypertrophy");
       addIsolationExercise("hamstrings", "hypertrophy");
+      for (let i = 0; i < 6; i++) {
+        addAbIsolationExercise("abs", difficultyLevel == "advanced");
+      }
     }
   } else if (name === "C") {
     if (difficultyLevel === "beginner") {
@@ -217,12 +268,18 @@ const fullBody4x = (
       addCompoundExercise("quadriceps", "hypertrophy");
       addIsolationExercise("calves", "hypertrophy");
       addIsolationExercise("rear deltoid", "hypertrophy");
+      for (let i = 0; i < 6; i++) {
+        addAbIsolationExercise("abs", difficultyLevel);
+      }
     } else if (difficultyLevel === "intermediate") {
       addCompoundExercise("hamstrings", "strength");
       addCompoundExercise("lats", "hypertrophy");
       addCompoundExercise("front deltoid", "hypertrophy");
       addIsolationExercise("lower chest" || "upper chest", "hypertrophy");
       addIsolationExercise("lats", "hypertrophy");
+      for (let i = 0; i < 6; i++) {
+        addAbIsolationExercise("abs", difficultyLevel);
+      }
     } else {
       addCompoundExercise("hamstrings", "strength");
       addCompoundExercise("traps");
@@ -232,6 +289,9 @@ const fullBody4x = (
       addIsolationExercise("lower chest" || "upper chest", "hypertrophy");
       addIsolationExercise("lats", "hypertrophy");
       addIsolationExercise("quadriceps");
+      for (let i = 0; i < 6; i++) {
+        addAbIsolationExercise("abs", difficultyLevel == "advanced");
+      }
     }
   }
 

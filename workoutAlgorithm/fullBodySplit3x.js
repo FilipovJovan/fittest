@@ -75,7 +75,7 @@ const fullBody3x = (
 
   const addExercise = (muscleType, exerciseType) => {
     const exercise = selectRandomExercise(
-      filteredMuscleGroupExercisesUpperLower.filter(
+      filteredMuscleGroupExercisesFullBody3x.filter(
         (ex) => ex.muscleType === muscleType
       ),
       exerciseType
@@ -109,6 +109,48 @@ const fullBody3x = (
     addIsolationExercise(muscleType2);
   };
 
+  const extendedEquipment = [
+    ...equipmentType,
+    "no equipment",
+    "dip & pull up bars",
+    "ab roller",
+  ];
+
+  const filteredAbExercises = filterExercisesByEquipment(
+    muscleGroupExercisesFullBody3x.filter((ex) => ex.muscleType === "abs"),
+    extendedEquipment
+  );
+
+  const addAbIsolationExercise = (muscleType, difficultyLevel) => {
+    const abIsolationExercise = selectRandomExercise(
+      filteredAbExercises.filter((exercise) => {
+        return (
+          exercise.muscleType === muscleType &&
+          (!exercise.difficulty || exercise.difficulty === difficultyLevel)
+        );
+      }),
+      "isolation"
+    );
+
+    if (abIsolationExercise) {
+      const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
+        getSetsRepsRestByWorkoutType(workoutType);
+      dailyWorkout.push({
+        exercise: {
+          _id: abIsolationExercise._id,
+          name: abIsolationExercise.name,
+          muscleType: abIsolationExercise.muscleType,
+          equipment: abIsolationExercise.equipment,
+          instructions: abIsolationExercise.instructions,
+        },
+        sets: getRandomNumberInRange(minSets, maxSets),
+        reps: getRandomNumberInRange(minReps, maxReps),
+        rest: 0.5,
+        exerciseType: "isolation",
+      });
+    }
+  };
+
   const routinePatterns = [
     ["fullBodyA", "fullBodyB", "fullBodyC"], // Week 1
     ["fullBodyB", "fullBodyC", "fullBodyA"], // Week 2
@@ -123,12 +165,12 @@ const fullBody3x = (
   name = currentPattern[day - 1];
 
   const muscleTypesUpperLower = upperLowerMuscles[name];
-  const muscleGroupExercisesUpperLower = splitWorkout(
+  const muscleGroupExercisesFullBody3x = splitWorkout(
     workoutWithSetsRepsRest,
     muscleTypesUpperLower
   );
-  const filteredMuscleGroupExercisesUpperLower = filterExercisesByEquipment(
-    muscleGroupExercisesUpperLower,
+  const filteredMuscleGroupExercisesFullBody3x = filterExercisesByEquipment(
+    muscleGroupExercisesFullBody3x,
     equipmentType
   );
 
@@ -139,6 +181,9 @@ const fullBody3x = (
       addCompoundExercise("overall back");
       addCompoundExercise("front deltoid");
       addIsolationExercise("biceps");
+      for (let i = 0; i < 6; i++) {
+        addAbIsolationExercise("abs", difficultyLevel);
+      }
     } else if (difficultyLevel === "intermediate") {
       addCompoundExercise("overall chest");
       addCompoundExercise("quadriceps");
@@ -148,12 +193,18 @@ const fullBody3x = (
       addIsolationExercise("triceps");
       addIsolationExercise("biceps");
       addIsolationExercise("calves");
+      for (let i = 0; i < 6; i++) {
+        addAbIsolationExercise("abs", difficultyLevel);
+      }
     } else {
       addCompoundExercise("overall chest");
       addCompoundExercise("overall back");
       addCompoundExercise("front deltoid");
       addSupersetExercises("triceps", "biceps");
       addSupersetExercises("lats", "hamstrings");
+      for (let i = 0; i < 6; i++) {
+        addAbIsolationExercise("abs", difficultyLevel == "advanced");
+      }
     }
   } else if (name === "fullBodyB") {
     if (difficultyLevel === "beginner") {
@@ -184,6 +235,9 @@ const fullBody3x = (
       addCompoundExercise("lats");
       addCompoundExercise("front deltoid");
       addIsolationExercise("lateral deltoid");
+      for (let i = 0; i < 6; i++) {
+        addAbIsolationExercise("abs", difficultyLevel);
+      }
     } else if (difficultyLevel === "intermediate") {
       addCompoundExercise("lower chest");
       addCompoundExercise("quadriceps");
@@ -193,6 +247,9 @@ const fullBody3x = (
       addIsolationExercise("upper chest");
       addIsolationExercise("lower chest");
       addIsolationExercise("calves");
+      for (let i = 0; i < 6; i++) {
+        addAbIsolationExercise("abs", difficultyLevel);
+      }
     } else {
       addCompoundExercise("lats");
       addCompoundExercise("upper chest") || addCompoundExercise("lower chest");
@@ -202,6 +259,9 @@ const fullBody3x = (
         "biceps" || "triceps"
       );
       addSupersetExercises("quadriceps", "hamstrings");
+      for (let i = 0; i < 6; i++) {
+        addAbIsolationExercise("abs", difficultyLevel == "advanced");
+      }
     }
   }
 

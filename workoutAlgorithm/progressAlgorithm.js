@@ -132,6 +132,7 @@ export const progressTracker = async (req, res) => {
       console.log("No next workout found with the same name");
       return res.status(200).send("No next workout found with the same name");
     }
+
     nextDay.workout.forEach((exerciseRef) => {
       adjustWorkout(counter, exerciseRef, currentWeek);
     });
@@ -149,7 +150,6 @@ export const progressTracker = async (req, res) => {
           const volume = calculateVolume(reps, weight, sets);
           dailyVolume += volume;
         }
-        //console.log(`Day ${day.name}: Daily Volume = ${dailyVolume}`);
         weeklyVolume += dailyVolume;
       }
       response.push(
@@ -158,13 +158,134 @@ export const progressTracker = async (req, res) => {
         }: Weekly Volume = ${weeklyVolume}`
       );
     }
-    res.send(response.join("\n"));
-
-    await workout.save();
 
     res.status(200).send("Evaluation and adjustment complete");
+    await workout.save();
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal Server Error");
+    if (!res.headersSent) {
+      res.status(500).send("Internal Server Error");
+    }
+  }
+};
+
+export const getSetsPerMuscleGroup = async (req, res) => {
+  try {
+    const { workoutId } = req.params;
+    const workout = await Workout.findById(workoutId);
+
+    if (!workout) return res.status(404).send("Workout not found");
+
+    let result = [];
+
+    for (const week of workout.weeks) {
+      const setsPerMuscle = {};
+
+      for (const day of week.days) {
+        for (const exercise of day.workout) {
+          const muscleType = exercise.exercise.muscleType;
+          const sets = exercise.sets;
+
+          if (!setsPerMuscle[muscleType]) {
+            setsPerMuscle[muscleType] = 0;
+          }
+          setsPerMuscle[muscleType] += sets;
+        }
+      }
+
+      result.push({
+        week: week.name || `Week ${workout.weeks.indexOf(week) + 1}`,
+        setsPerMuscle,
+      });
+    }
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+};
+
+export const getVolumePerMuscleGroup = async (req, res) => {
+  try {
+    const { workoutId } = req.params;
+    const workout = await Workout.findById(workoutId);
+
+    if (!workout) return res.status(404).send("Workout not found");
+
+    function calculateVolume(reps, weight, sets) {
+      return reps * weight * sets;
+    }
+
+    let result = [];
+
+    for (const week of workout.weeks) {
+      const volumePerMuscle = {};
+
+      for (const day of week.days) {
+        for (const exercise of day.workout) {
+          const muscleType = exercise.exercise.muscleType;
+          const reps = exercise.reps;
+          const sets = exercise.sets;
+          const weight = exercise.weight;
+
+          const volume = calculateVolume(reps, weight, sets);
+
+          if (!volumePerMuscle[muscleType]) {
+            volumePerMuscle[muscleType] = 0;
+          }
+          volumePerMuscle[muscleType] += volume;
+        }
+      }
+
+      result.push({
+        week: week.name || `Week ${workout.weeks.indexOf(week) + 1}`,
+        volumePerMuscle,
+      });
+    }
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+};
+
+export const getWeeklyVolume = async (req, res) => {
+  try {
+    const { workoutId } = req.params;
+    const workout = await Workout.findById(workoutId);
+
+    if (!workout) return res.status(404).send("Workout not found");
+
+    function calculateVolume(reps, weight, sets) {
+      return reps * weight * sets;
+    }
+
+    let result = [];
+
+    for (const week of workout.weeks) {
+      let weeklyVolume = 0;
+
+      for (const day of week.days) {
+        for (const exercise of day.workout) {
+          const reps = exercise.reps;
+          const sets = exercise.sets;
+          const weight = exercise.weight;
+
+          weeklyVolume += calculateVolume(reps, weight, sets);
+        }
+      }
+
+      result.push({
+        week: week.name || `Week ${workout.weeks.indexOf(week) + 1}`,
+        weeklyVolume,
+      });
+    }
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
   }
 };

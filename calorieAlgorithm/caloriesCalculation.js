@@ -40,13 +40,13 @@ export const adjustCaloriesForGoal = (tdee, fitnessGoal) => {
   let calorieAdjustment;
 
   switch (fitnessGoal) {
-    case "Weight loss":
+    case "Weight Loss":
       calorieAdjustment = -500;
       break;
     case "Maintenance":
       calorieAdjustment = 0;
       break;
-    case "Muscle gain":
+    case "Muscle Gain":
       calorieAdjustment = 250;
       break;
     default:
@@ -60,7 +60,7 @@ export const calculateMacros = (calories, goal) => {
   let proteinPercentage, fatPercentage, carbPercentage;
 
   switch (goal) {
-    case "Weight loss":
+    case "Weight Loss":
       proteinPercentage = 0.3;
       fatPercentage = 0.25;
       carbPercentage = 0.45;
@@ -70,7 +70,7 @@ export const calculateMacros = (calories, goal) => {
       fatPercentage = 0.3;
       carbPercentage = 0.45;
       break;
-    case "Muscle gain":
+    case "Muscle Gain":
       proteinPercentage = 0.3;
       fatPercentage = 0.25;
       carbPercentage = 0.45;

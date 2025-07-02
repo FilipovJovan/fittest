@@ -1,4 +1,5 @@
 import Workout from "../models/WorkoutSchema.js";
+import User from "../models/UserModel.js";
 import { StatusCodes } from "http-status-codes";
 
 function calculate1RM(weight, reps) {
@@ -201,6 +202,7 @@ function calculateWeightsAndReps(oneRepMax, currentReps, weekIndex) {
 async function updateWorkoutWeights(workoutId, setExercisesWeight) {
   try {
     const workout = await Workout.findById(workoutId);
+    const user = User;
 
     if (!workout) {
       throw new Error("Workout not found");
@@ -1197,6 +1199,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
         });
       });
     });
+    user.areWeightsPutted = true;
     await workout.save();
     console.log("Workout weights updated successfully");
   } catch (error) {

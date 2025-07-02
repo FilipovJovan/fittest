@@ -64,7 +64,7 @@ const FoodPage = ({ proteins, carbs, fat, calories }) => {
     };
 
     fetchData();
-  }, [location.search]); // 👈 Refetch when search/query changes
+  }, [location.search]);
 
   const userMacros = user.macros || { protein: proteins, carbs, fat };
   const userCalories = user.currentCalories || calories;

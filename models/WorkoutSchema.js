@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 const exerciseReferenceSchema = new Schema({
   exercise: {
     type: Object,
-    ref: "Exercise", // Reference the Exercise model
+    ref: "Exercise",
     required: true,
     validate: {
       validator: async function (value) {
@@ -61,6 +61,14 @@ const workoutDaySchema = new Schema({
   },
 });
 
+const workoutWeekSchema = new Schema({
+  isTestWeek: {
+    type: Boolean,
+    default: false,
+  },
+  days: [workoutDaySchema],
+});
+
 const workoutSchema = new Schema({
   /*user: {
     type: Schema.Types.ObjectId,
@@ -71,11 +79,7 @@ const workoutSchema = new Schema({
     type: String,
     required: true,
   },
-  weeks: [
-    {
-      days: [workoutDaySchema],
-    },
-  ],
+  weeks: [workoutWeekSchema],
   currentDate: {
     type: Date,
     required: true,

@@ -1,6 +1,13 @@
 import { Router } from "express";
 const router = Router();
-import { login, logout, register } from "../controllers/authController.js";
+import {
+  forgotPassword,
+  login,
+  logout,
+  register,
+  resetPassword,
+  verifyEmail,
+} from "../controllers/authController.js";
 import {
   validateRegisterInput,
   validateLoginInput,
@@ -9,6 +16,10 @@ import {
 router.post("/signup-newsletter");
 router.post("/register", validateRegisterInput, register);
 router.post("/login", validateLoginInput, login);
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
+
 router.get("/logout", logout);
+router.get("/verify-email/:verificationToken", verifyEmail);
 
 export default router;

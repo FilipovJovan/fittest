@@ -20,6 +20,7 @@ export const EQUIPMENT = {
   BARBELL: "barbell",
   WORKOUT_BARS: "dip & pull up bars",
   RESISTANCE_BAND: "resistance band",
+  AB_ROLLER: "ab roller",
 };
 
 export const MUSCLE_TYPE = {

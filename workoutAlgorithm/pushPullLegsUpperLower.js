@@ -87,6 +87,48 @@ const pushPullLegsUpperLower = (
   const addIsolationExercise = (muscleType) =>
     addExercise(muscleType, "isolation");
 
+  const extendedEquipment = [
+    ...equipmentType,
+    "no equipment",
+    "dip & pull up bars",
+    "ab roller",
+  ];
+
+  const filteredAbExercises = filterExercisesByEquipment(
+    muscleGroupExercisesPPLUP.filter((ex) => ex.muscleType === "abs"),
+    extendedEquipment
+  );
+
+  const addAbIsolationExercise = (muscleType, difficultyLevel) => {
+    const abIsolationExercise = selectRandomExercise(
+      filteredAbExercises.filter((exercise) => {
+        return (
+          exercise.muscleType === muscleType &&
+          (!exercise.difficulty || exercise.difficulty === difficultyLevel)
+        );
+      }),
+      "isolation"
+    );
+
+    if (abIsolationExercise) {
+      const { minSets, maxSets, minReps, maxReps, minRest, maxRest } =
+        getSetsRepsRestByWorkoutType(workoutType);
+      dailyWorkout.push({
+        exercise: {
+          _id: abIsolationExercise._id,
+          name: abIsolationExercise.name,
+          muscleType: abIsolationExercise.muscleType,
+          equipment: abIsolationExercise.equipment,
+          instructions: abIsolationExercise.instructions,
+        },
+        sets: getRandomNumberInRange(minSets, maxSets),
+        reps: getRandomNumberInRange(minReps, maxReps),
+        rest: 0.5,
+        exerciseType: "isolation",
+      });
+    }
+  };
+
   if (day == 1) {
     name = "Push day";
     addCompoundExercise("overall chest");
@@ -116,6 +158,9 @@ const pushPullLegsUpperLower = (
       addIsolationExercise("calves");
       addIsolationExercise("lateral deltoid");
     }
+    for (let i = 0; i < 6; i++) {
+      addAbIsolationExercise("abs", difficultyLevel);
+    }
   } else if (day == 4) {
     name = "Upper day";
     addCompoundExercise("overall chest");
@@ -135,7 +180,9 @@ const pushPullLegsUpperLower = (
     addIsolationExercise("quadriceps") || addIsolationExercise("hamstrings");
     for (let i = 0; i < 2; i++) {
       addIsolationExercise("calves");
-      addIsolationExercise("lateral deltoid");
+    }
+    for (let i = 0; i < 6; i++) {
+      addAbIsolationExercise("abs", difficultyLevel);
     }
   }
   return { name, dailyWorkout };

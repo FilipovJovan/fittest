@@ -24,7 +24,6 @@ const LandingPage = () => {
               <div className="first-text">
                 <div className="text-headings">
                   <h1>FITTEST.</h1>
-                  <Link to="/register">Register</Link>
                 </div>
                 <p>
                   Customized workouts personalized for you including meals &
@@ -37,6 +36,7 @@ const LandingPage = () => {
                 <Row className="rowAppLinks">
                   <Col md={6} sm={6} lg={6}>
                     <Container className="container-link-to-app">
+                      {/*
                       <Col md={3} sm={3} lg={3}>
                         <svg
                           className="svg-icons"
@@ -56,11 +56,15 @@ const LandingPage = () => {
                           <p>Soon on</p>
                           <h5>App Store</h5>
                         </div>
-                      </Col>
+                      </Col>*/}
+                      <Link to="/register">
+                        <h4 className="register-text">Register</h4>
+                      </Link>
                     </Container>
                   </Col>
                   <Col md={6} sm={6} lg={6}>
                     <Container className="container-link-to-app">
+                      {/*
                       <Col md={3} sm={3} lg={3}>
                         <svg
                           className="svg-icons"
@@ -102,6 +106,10 @@ const LandingPage = () => {
                           <h5>Google Play</h5>
                         </div>
                       </Col>
+                       */}
+                      <Link to="/login">
+                        <h4 className="login-text">Login</h4>
+                      </Link>
                     </Container>
                   </Col>
                 </Row>
@@ -113,7 +121,7 @@ const LandingPage = () => {
           </Col>
         </Row>
       </Row>
-      <Newsletter id="section-newsletter" />
+      {/* <Newsletter id="section-newsletter" /> */}
       <Row className="section-two" id="section-two">
         <h1 className="section-two-heading">How it works</h1>
         <Row className="section-two-rows-left">

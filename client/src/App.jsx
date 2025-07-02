@@ -5,7 +5,7 @@ import {
   Login,
   Register,
   FoodPage,
-  ExercisePage,
+  WorkoutPage,
   Profile,
   DashboardPage,
   Error,
@@ -18,12 +18,21 @@ import {
   EbooksPage,
   AllMealsPage,
   MacrosPage,
+  DayPage,
+  WeekPage,
+  SetsPerMusclePage,
+  VolumePerMusclePage,
+  WeeklyVolumePage,
+  VerifyEmail,
+  ForgotPassword,
+  ResetPassword,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { loader as dashboardLoader } from "./pages/DashboardPage";
 import { action as profileAction } from "./pages/Profile";
+import { action as forgotPasswordAction } from "./pages/ForgotPassword";
 //import { loader as FoodLoader } from "./pages/FoodPage";
 const router = createBrowserRouter([
   {
@@ -41,6 +50,10 @@ const router = createBrowserRouter([
         action: registerAction,
       },
       {
+        path: "/verify-email/:verificationToken",
+        element: <VerifyEmail />,
+      },
+      {
         path: "login",
         element: <Login />,
         action: loginAction,
@@ -53,6 +66,12 @@ const router = createBrowserRouter([
         path: "unsubscribe",
         element: <UnsubscribePage />,
       },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+        action: forgotPasswordAction,
+      },
+      { path: "/reset-password", element: <ResetPassword /> },
       {
         path: "profile",
         element: <Profile />,
@@ -87,7 +106,17 @@ const router = createBrowserRouter([
           },
           {
             path: "workout",
-            element: <ExercisePage />,
+            element: <WorkoutPage />,
+            children: [
+              {
+                path: "week/:weekId",
+                element: <WeekPage />,
+              },
+              {
+                path: "week/:weekId/day/:dayId",
+                element: <DayPage />,
+              },
+            ],
           },
           {
             path: "health",
@@ -101,6 +130,11 @@ const router = createBrowserRouter([
           {
             path: "progress",
             element: <ProgressPage />,
+            children: [
+              { path: "sets", element: <SetsPerMusclePage /> },
+              { path: "volume", element: <VolumePerMusclePage /> },
+              { path: "weekly", element: <WeeklyVolumePage /> },
+            ],
           },
         ],
       },

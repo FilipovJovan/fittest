@@ -3,8 +3,9 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   .wizard-container {
     max-width: 600px;
-    height: 65vh; /* Full screen height */
-    margin: 0 auto;
+    height: fit-content; /* Full screen height */
+    //margin: 0 auto;
+    margin-bottom: 13rem;
     padding: 20px;
     font-family: "Arial", sans-serif;
     text-align: center;
@@ -53,40 +54,76 @@ const Wrapper = styled.div`
     margin-bottom: 20px;
   }
   .gender-icons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .gender-icons {
     display: flex;
     justify-content: center;
+    gap: 40px;
+    padding: 20px;
     align-items: center;
-    gap: 20px;
-    margin-top: 70px;
   }
 
-  .gender-icons div {
+  /* Each gender icon container */
+  .gender-icons-male,
+  .gender-icons-female {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: transform 0.3s;
+    padding: 15px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    width: 130px;
+    height: 130px;
+    position: relative;
+    user-select: none; /* Prevent text/icon selection */
+    -webkit-tap-highlight-color: transparent; /* Prevent tap highlight on mobile */
   }
 
-  .gender-icons div:hover {
+  /* Specific icon colors and font weight */
+  .gender-icons-male {
+    color: #007bff;
+    font-weight: 700;
+  }
+
+  .gender-icons-female {
+    color: var(--purple-500);
+    font-weight: 700;
+  }
+
+  /* Selected state */
+  .gender-icons-male.selected,
+  .gender-icons-female.selected {
+    transform: scale(1.2);
+  }
+
+  /* Ensure colors remain the same when selected */
+  .gender-icons-male.selected p {
+    color: #007bff;
+  }
+  .gender-icons-female.selected p {
+    color: var(--purple-500);
+  }
+
+  /* Hover effect */
+  .gender-icons-male:hover,
+  .gender-icons-female:hover {
+    transform: scale(1.05);
+  }
+
+  /* Ensure selected state is visible when hovered */
+  .gender-icons-male.selected:hover,
+  .gender-icons-female.selected:hover {
     transform: scale(1.1);
   }
-
-  .gender-icons div p {
-    font-size: 0.9rem;
-    margin-top: 10px;
-    color: #555;
-  }
-
   .goal-button.selected {
     background-color: var(--purple-500);
     color: white;
-  }
-
-  .gender-icons-svg {
-    width: 40px;
-    transition: filter 0.3s ease-in-out;
   }
 
   /* Default gray color */
@@ -199,7 +236,9 @@ const Wrapper = styled.div`
     border: 1px solid #ccc;
     border-radius: 8px;
   }
-
+  .react-datepicker-wrapper {
+    display: inline;
+  }
   .unit-switch {
     display: flex;
     flex-direction: column;
@@ -242,14 +281,19 @@ const Wrapper = styled.div`
     font-size: 14px;
     border-radius: 8px;
   }
+  .create-button {
+    color: white;
+    background-color: var(--primary-500);
+    border-radius: 12px;
+    border: none;
+    padding: 0.5rem;
+    width: 200px;
+    cursor: pointer;
+  }
 
   @media screen and (max-width: 420px) {
     .picker-item {
       font-size: 15px;
-    }
-    .gender-icons div {
-      width: 60px;
-      height: 60px;
     }
   }
 

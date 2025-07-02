@@ -16,6 +16,8 @@ const MacrosPage = () => {
 
   const handleSuggestFoods = async () => {
     setLoading(true);
+    console.log("reached");
+
     try {
       const response = await customFetch.post(
         "/calculate-calories-macros/suggestFoods",

@@ -1320,136 +1320,334 @@
     "instructions": "Assume a push-up position with your hands close together directly under your chest. Lower your body towards the floor by bending your elbows, then push back up to the starting position."
   },
   {
-    "name": "Crunches",
+    "name": "Seated Knee Tucks",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "no equipment",
     "muscleType": "abs",
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions": "Lie on your back with your knees bent and feet flat on the floor. Place your hands behind your head or across your chest. Lift your shoulders towards your knees by engaging your core, then lower back down slowly. Keep your lower back pressed into the floor throughout the movement."
+    "instructions": "Sit on the edge of a bench or chair with your hands gripping the sides for support. Lean back slightly and extend your legs out. Pull your knees towards your chest while engaging your core, then extend them back out without touching the floor."
   },
   {
-    "name": "Reverse Crunches",
+    "name": "Dead Bug",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "no equipment",
     "muscleType": "abs",
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions": "Lie on your back with your legs lifted and knees bent at 90 degrees. Place your hands by your sides or under your hips for support. Curl your hips off the floor towards your chest, then slowly lower your legs back to the starting position. Focus on using your lower abs to lift your hips."
+    "instructions": "Lie on your back with your arms extended towards the ceiling and knees bent at 90 degrees. Slowly lower one arm and the opposite leg towards the floor while keeping your core engaged. Return to the starting position and repeat on the other side."
   },
   {
-    "name": "Bicycle Crunches",
+    "name": "Mountain Climbers",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
+    "equipment": "no equipment",
+    "muscleType": "abs",
+    "exerciseType": "compound",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Start in a plank position with your hands under your shoulders. Quickly pull one knee towards your chest, then switch legs in a running motion while keeping your core tight and hips level."
+  },
+  {
+    "name": "Heel Taps",
+    "workoutType": "all types",
+    "difficultyLevel": "beginner",
     "equipment": "no equipment",
     "muscleType": "abs",
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions": "Lie on your back with your hands behind your head and legs lifted. Bring one knee towards your chest while rotating your torso to bring the opposite elbow towards that knee. Switch sides in a pedaling motion, keeping your core engaged and lower back pressed into the floor."
+    "instructions": "Lie on your back with your knees bent and feet flat on the floor. Lift your shoulders slightly off the ground and reach one hand towards the same-side heel, then alternate to the other side in a controlled motion."
   },
   {
-    "name": "Plank",
+    "name": "Standing Side Crunches",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "no equipment",
     "muscleType": "abs",
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions": "Assume a push-up position with your body in a straight line from head to heels. Rest on your forearms instead of your hands. Engage your core, squeeze your glutes, and hold this position while keeping your hips level and avoiding sagging in your lower back."
+    "instructions": "Stand with your feet shoulder-width apart and hands behind your head. Lift one knee towards your elbow on the same side while crunching your torso sideways. Alternate sides while keeping your core engaged."
   },
   {
-    "name": "V-Ups",
+    "name": "Bird Dog",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "no equipment",
     "muscleType": "abs",
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions": "Lie on your back with your arms extended above your head and legs straight. Simultaneously lift your legs and upper body off the ground, reaching your hands towards your toes to form a 'V' shape. Lower back down with control and repeat."
+    "instructions": "Start on all fours with your hands under your shoulders and knees under your hips. Extend one arm forward and the opposite leg backward while keeping your core tight. Hold briefly, then return to the starting position and switch sides."
   },
   {
-    "name": "Lying Leg Raises",
+    "name": "Knee-to-Elbow Plank",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "no equipment",
     "muscleType": "abs",
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions": "Lie on your back with your legs straight and arms by your sides. Lift your legs towards the ceiling while keeping them straight, then slowly lower them back down without letting them touch the floor. Engage your core throughout the movement."
+    "instructions": "Start in a plank position on your forearms. Bring one knee towards the same-side elbow, engaging your obliques. Return to the starting position and repeat on the other side, keeping your hips stable."
   },
   {
-    "name": "Russian Twist",
+    "name": "Leg Lift Hold",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "no equipment",
     "muscleType": "abs",
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions": "Sit on the floor with your knees bent and feet flat. Lean back slightly and lift your feet off the ground. Hold your hands together in front of you and twist your torso to the right, then to the left, touching the floor beside your hips with each twist."
+    "instructions": "Lie on your back with your legs straight and hands under your hips. Lift your legs a few inches off the ground and hold the position while engaging your core. Keep your lower back pressed into the floor."
   },
   {
-    "name": "Hanging Leg Raises",
+    "name": "Side Plank Hip Dips (Beginner)",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "dip & pull up bars",
-    "muscleType": "abs",
-    "exerciseType": "isolation",
-    "exerciseImportance": "primary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions": "Hang from a pull-up bar with your arms fully extended and legs straight. Engage your core and lift your legs towards your chest while keeping them straight. Slowly lower your legs back to the starting position without swinging your body."
-  },
-  {
-    "name": "Hanging Knee Raises",
-    "workoutType": "all types",
-    "difficultyLevel": "every level",
-    "equipment": "dip & pull up bars",
-    "muscleType": "abs",
-    "exerciseType": "isolation",
-    "exerciseImportance": "primary",
-    "exerciseTypeByWeight": "weighted",
-    "instructions": "Hang from a pull-up bar with your arms fully extended and legs straight. Bring your knees up towards your chest, engaging your abs throughout the movement. Lower your knees back down slowly and repeat."
-  },
-  {
-    "name": "Toe Touches",
-    "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "no equipment",
     "muscleType": "abs",
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions": "Lie on your back with your legs extended towards the ceiling. Reach your hands towards your toes by lifting your shoulders off the floor. Engage your core and lower back down slowly, keeping your legs straight throughout the exercise."
+    "instructions": "Lie on your side with your forearm supporting your body and knees bent for stability. Lift your hips to form a straight line, then lower them slightly and raise again. Switch sides after completing the set."
   },
   {
-    "name": "Flutter Kicks",
+    "name": "Modified V-Ups",
     "workoutType": "all types",
-    "difficultyLevel": "every level",
+    "difficultyLevel": "beginner",
     "equipment": "no equipment",
     "muscleType": "abs",
     "exerciseType": "isolation",
     "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions": "Lie on your back with your legs straight and hands under your hips for support. Lift your legs slightly off the floor and alternate kicking them up and down in a fluttering motion. Keep your core engaged and lower back pressed into the floor."
+    "instructions": "Lie on your back with your arms extended above your head and knees bent. Lift your upper body and knees towards each other to form a modified 'V' shape, then lower back down with control."
   },
   {
-    "name": "Medicine Ball Slams",
+    "name": "Dragon Flags (Intermediate)",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "no equipment",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on a bench or the floor, gripping the edges behind your head. Lift your legs and hips off the ground, keeping your body straight, then slowly lower back down without letting your legs touch the ground."
+  },
+  {
+    "name": "Hollow Body Hold",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "no equipment",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on your back with your arms extended overhead and legs straight. Lift your arms, legs, and shoulders off the ground, pressing your lower back into the floor. Hold this position while keeping your core engaged."
+  },
+  {
+    "name": "Side Plank with Leg Lift",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "no equipment",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Start in a side plank with your forearm supporting your body. Lift your top leg straight up, hold briefly, then lower it back down. Keep your hips elevated and core tight. Switch sides after completing the set."
+  },
+  {
+    "name": "Ab Rollouts",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "ab roller",
+    "muscleType": "abs",
+    "exerciseType": "compound",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Kneel on the floor with an ab roller in your hands. Roll the wheel forward, extending your body while keeping your core tight. Pull the roller back towards your knees without letting your hips sag."
+  },
+  {
+    "name": "Cable Woodchoppers",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "machines",
+    "muscleType": "abs",
+    "exerciseType": "compound",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Stand sideways to a cable machine with the handle set at shoulder height. Pull the handle diagonally across your body towards your opposite hip, rotating your torso. Return to the starting position and repeat, then switch sides."
+  },
+  {
+    "name": "Windshield Wipers",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "no equipment",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on your back with your legs lifted towards the ceiling and arms out to the sides for support. Slowly lower your legs to one side, keeping them straight, then bring them back up and lower to the other side."
+  },
+  {
+    "name": "Plank with Shoulder Taps",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "no equipment",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Start in a plank position with your hands under your shoulders. Lift one hand to tap the opposite shoulder, keeping your hips stable. Alternate sides while maintaining a strong core and straight body line."
+  },
+  {
+    "name": "Decline Crunches",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "machines",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on a decline bench with your feet secured. Place your hands behind your head and lift your shoulders towards your knees by engaging your core. Lower back down slowly, keeping control."
+  },
+  {
+    "name": "Russian Twist with Weight",
     "workoutType": "all types",
     "difficultyLevel": "intermediate",
     "equipment": "dumbbells",
     "muscleType": "abs",
-    "exerciseType": "compound",
-    "exerciseImportance": "secondary",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
     "exerciseTypeByWeight": "weighted",
-    "instructions": "Stand with your feet shoulder-width apart and hold a medicine ball overhead. Slam the ball down towards the ground with force while engaging your core. Catch the ball on the rebound or pick it up and repeat."
+    "instructions": "Sit on the floor with your knees bent, holding a dumbbell. Lean back slightly and lift your feet off the ground. Twist your torso to the right, then to the left, touching the dumbbell to the floor beside your hips."
+  },
+  {
+    "name": "Hanging Oblique Crunches",
+    "workoutType": "all types",
+    "difficultyLevel": "intermediate",
+    "equipment": "dip & pull up bars",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Hang from a pull-up bar with your arms extended. Lift your knees and twist them towards one side, engaging your obliques. Lower back down and repeat on the other side without swinging."
+  },
+  {
+    "name": "Dragon Flags (Advanced)",
+    "workoutType": "all types",
+    "difficultyLevel": "advanced",
+    "equipment": "no equipment",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on a bench, gripping the edges behind your head. Lift your entire body into a straight line, keeping only your shoulders in contact with the bench. Slowly lower your body back down with control."
+  },
+  {
+    "name": "L-Sit Hold",
+    "workoutType": "all types",
+    "difficultyLevel": "advanced",
+    "equipment": "dip & pull up bars",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Using parallel bars or dip bars, lift your body off the ground with your arms straight. Extend your legs straight out in front of you to form an 'L' shape. Hold the position while keeping your core engaged."
+  },
+  {
+    "name": "Hanging Windshield Wipers",
+    "workoutType": "all types",
+    "difficultyLevel": "advanced",
+    "equipment": "dip & pull up bars",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Hang from a pull-up bar with your legs straight and lifted towards the ceiling. Slowly lower your legs to one side, then bring them back up and lower to the other side, keeping your core tight and avoiding swinging."
+  },
+  {
+    "name": "Ab Wheel Rollout to Pike",
+    "workoutType": "all types",
+    "difficultyLevel": "advanced",
+    "equipment": "ab roller",
+    "muscleType": "abs",
+    "exerciseType": "compound",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Kneel with an ab roller and roll forward, extending your body. Pull the roller back and lift your hips towards the ceiling to form a pike position, engaging your abs. Return to the starting position."
+  },
+  {
+    "name": "Weighted Decline Sit-Ups",
+    "workoutType": "all types",
+    "difficultyLevel": "advanced",
+    "equipment": "machines",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on a decline bench with your feet secured, holding a dumbbell across your chest. Lift your torso towards your knees by engaging your core, then lower back down with control."
+  },
+  {
+    "name": "Plank with Hip Rotation",
+    "workoutType": "all types",
+    "difficultyLevel": "advanced",
+    "equipment": "no equipment",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Start in a forearm plank position. Rotate your hips to one side, bringing them close to the floor without touching, then rotate to the other side. Keep your core tight and shoulders stable."
+  },
+  {
+    "name": "Toes-to-Bar",
+    "workoutType": "all types",
+    "difficultyLevel": "advanced",
+    "equipment": "dip & pull up bars",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Hang from a pull-up bar with your arms extended. Lift your legs straight up until your toes touch the bar, engaging your core. Lower your legs back down slowly without swinging."
+  },
+  {
+    "name": "Cable Crunch",
+    "workoutType": "all types",
+    "difficultyLevel": "advanced",
+    "equipment": "machines",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Kneel in front of a cable machine with a rope attachment set at a high position. Pull the rope down and crunch your torso towards your knees, engaging your abs. Return to the starting position with control."
+  },
+  {
+    "name": "Hollow Body Rockers",
+    "workoutType": "all types",
+    "difficultyLevel": "advanced",
+    "equipment": "no equipment",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Lie on your back in a hollow body position with arms and legs slightly raised. Gently rock your body back and forth while keeping your core tight and maintaining the hollow shape."
+  },
+  {
+    "name": "Weighted Plank",
+    "workoutType": "all types",
+    "difficultyLevel": "advanced",
+    "equipment": "dumbbells",
+    "muscleType": "abs",
+    "exerciseType": "isolation",
+    "exerciseImportance": "primary",
+    "exerciseTypeByWeight": "weighted",
+    "instructions": "Start in a forearm plank position with a weight plate placed on your lower back. Keep your body in a straight line, engage your core, and hold the position without letting your hips sag."
   },
   {
     "name": "Barbell Squats",

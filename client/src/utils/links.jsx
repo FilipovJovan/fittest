@@ -10,7 +10,7 @@ import { FaChartBar } from "react-icons/fa";
 const links = [
   { text: "Dashboard", path: ".", icon: <MdDashboard /> },
   { text: "Workout", path: "workout", icon: <CgGym /> },
-  { text: "Diet", path: "diet", icon: <FaBowlFood /> },
+  { text: "Diet", path: "diet/macros", icon: <FaBowlFood /> },
   { text: "Progress", path: "progress", icon: <FaChartBar /> },
   { text: "Profile", path: "profile", icon: <ImProfile /> },
 ];

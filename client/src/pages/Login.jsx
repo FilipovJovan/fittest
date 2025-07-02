@@ -1,10 +1,11 @@
-import React from "react";
+import { React, useState } from "react";
 import { Link, Form, redirect, useNavigation } from "react-router-dom";
 import Wrapper from "../assets/Wrappers/RegisterAndLoginPage";
 import Logo from "../components/Logo";
 import FormRow from "../components/FormRow";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -31,10 +32,12 @@ export const action = async ({ request }) => {
 const Login = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePassword = () => setShowPassword((prev) => !prev);
 
   return (
     <Wrapper>
-      <div className="background">
+      <div className="login-background">
         <div className="register-text">
           <h2 className="login-heading">Welcome!</h2>
         </div>
@@ -45,8 +48,33 @@ const Login = () => {
               Register
             </Link>
           </p>
-          <FormRow type="email" name="email" defaultValue="email@gmail.com" />
-          <FormRow type="password" name="password" defaultValue="secret123" />
+          <FormRow type="email" name="email" placeholder="example@gmail.com" />
+          <FormRow
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="secret123"
+            extraElement={
+              <button
+                type="button"
+                onClick={togglePassword}
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  margin: 0,
+                  color: "#555",
+                }}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            }
+          />
+          <p style={{ marginTop: "0.5rem" }}>
+            <Link to="/forgot-password" className="forgot-password-link">
+              Forgot your password?
+            </Link>
+          </p>
+
           <button type="submit" className="btn" disabled={isSubmitting}>
             {isSubmitting ? "submitting" : "submit"}
           </button>

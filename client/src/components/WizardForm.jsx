@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Wrapper from "../assets/Wrappers/WizardForm";
+import { Mars, Venus } from "lucide-react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
+import DatePicker from "react-datepicker";
 
 const WizardForm = ({ onFormDataChange, onFinalStep }) => {
   const [step, setStep] = useState(1);
   const [unit, setUnit] = useState("metric");
   const [weightKg, setWeightKg] = useState(70);
   const [heightCm, setHeightCm] = useState(175);
-  const [weightLbs, setWeightLbs] = useState((70 * 2.20462).toFixed(2));
+  const [weightLbs, setWeightLbs] = useState(70 * 2.20462);
   const [heightFeet, setHeightFeet] = useState(5);
   const [heightInches, setHeightInches] = useState(9);
   const [formData, setFormData] = useState({
@@ -15,7 +19,7 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     date: "",
     email: "",
     password: "",
-    age: 19,
+    age: 21,
     gender: "",
     activityLevel: "",
     fitnessGoal: "",
@@ -23,8 +27,8 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     userValues: {
       weight: 70,
       height: 175,
-      muscleInjuries: "",
-      jointInjuries: "",
+      muscleInjuries: [],
+      jointInjuries: [],
       split: "",
       goal: "none",
       difficultyLevel: "",
@@ -33,10 +37,15 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
       workoutType: "hypertrophy",
     },
   });
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const restDayLimits = {
-    broSplit: 2, // 5 workout days, 2 rest days
-    fullBody2x: 5, // 2 workout days, 5 rest days
+    broSplit: 2,
+    fullBody2x: 5,
     fullBody3x: 4,
     fullBody4x: 3,
     pushPullLegs3x: 4,
@@ -60,6 +69,41 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     upperLower4x: 4,
   };
 
+  // Synchronize Metric and Imperial states
+  useEffect(() => {
+    if (unit === "metric") {
+      setWeightLbs(weightKg * 2.20462);
+      const inches = heightCm / 2.54;
+      setHeightFeet(Math.floor(inches / 12));
+      setHeightInches(Math.round(inches % 12));
+    } else {
+      setWeightKg(weightLbs / 2.20462);
+      const totalInches = heightFeet * 12 + heightInches;
+      setHeightCm(totalInches * 2.54);
+    }
+  }, [unit, weightKg, heightCm, weightLbs, heightFeet, heightInches]);
+
+  useEffect(() => {
+    if (formData.date) {
+      const age = calculateAge(formData.date);
+      console.log("Date:", formData.date);
+      console.log("Age:", age);
+
+      if (!isNaN(age)) {
+        setFormData((prevData) => ({
+          ...prevData,
+          age: age.toString(),
+        }));
+
+        onFormDataChange({ age: age.toString() });
+
+        if (age < 18) {
+          toast.warning("You must be at least 18 years old.");
+        }
+      }
+    }
+  }, [formData.date]);
+
   const toggleRestDay = (day) => {
     setFormData((prevFormData) => {
       const currentRestDays = prevFormData.userValues.restDays || [];
@@ -67,14 +111,12 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
 
       let updatedRestDays;
       if (currentRestDays.includes(day)) {
-        // Remove day if it's already selected
         updatedRestDays = currentRestDays.filter((d) => d !== day);
       } else {
-        // Add only if the limit is not exceeded
         if (currentRestDays.length < maxRestDays) {
           updatedRestDays = [...currentRestDays, day];
         } else {
-          return prevFormData; // Do nothing if limit reached
+          return prevFormData;
         }
       }
 
@@ -88,13 +130,41 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     });
   };
 
-  // Handle input change
+  const toggleMuscleInjury = (muscle) => {
+    const currentInjuries = formData.userValues.muscleInjuries || [];
+    const isSelected = currentInjuries.includes(muscle);
+
+    const updatedInjuries = isSelected
+      ? currentInjuries.filter((m) => m !== muscle) // remove if selected
+      : [...currentInjuries, muscle]; // add if not selected
+
+    handleFieldChange("userValues", {
+      ...formData.userValues,
+      muscleInjuries: updatedInjuries,
+    });
+  };
+
+  const toggleJointInjury = (joint) => {
+    const currentInjuries = formData.userValues.jointInjuries || [];
+    const isSelected = currentInjuries.includes(joint);
+
+    const updatedInjuries = isSelected
+      ? currentInjuries.filter((m) => m !== joint) // remove if selected
+      : [...currentInjuries, joint]; // add if not selected
+
+    handleFieldChange("userValues", {
+      ...formData.userValues,
+      jointInjuries: updatedInjuries,
+    });
+  };
+
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
-    onFormDataChange({ [e.target.name]: e.target.value });
+    onFormDataChange({ [name]: value });
   };
 
   const handleFieldChange = (fieldName, value) => {
@@ -104,12 +174,8 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     }));
   };
 
-  /*handleFieldChange(
-    "workoutLevel",
-    workoutLevels[formData.userValues.split] || 0
-  );*/
   formData.workoutLevel = workoutLevels[formData.userValues.split] || 0;
-  // Handle userValues input change
+
   const handleUserValuesChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -121,19 +187,15 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     }));
   };
 
-  const calculateAge = (birthDateString) => {
-    // Split the string into day, month, and year
-    const [day, month, year] = birthDateString.split(".").map(Number);
+  const calculateAge = (birthDate) => {
+    if (!(birthDate instanceof Date)) return null; // optional safety check
 
-    // Create a Date object (JS months are 0-based, so subtract 1)
-    const birthDate = new Date(year, month - 1, day);
     const today = new Date();
 
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
     const dayDiff = today.getDate() - birthDate.getDate();
 
-    // If the birthday hasn't occurred yet this year, subtract 1
     if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
       age--;
     }
@@ -141,40 +203,39 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     return age;
   };
 
-  // Move to the next step
   const nextStep = () => {
+    // Update formData.userValues with the latest weight and height
+    setFormData((prevData) => ({
+      ...prevData,
+      userValues: {
+        ...prevData.userValues,
+        weight: unit === "metric" ? weightKg : weightLbs / 2.20462,
+        height:
+          unit === "metric"
+            ? heightCm
+            : (heightFeet * 12 + heightInches) * 2.54,
+      },
+    }));
     setStep((prevStep) => prevStep + 1);
   };
 
-  // Move to the previous step
   const prevStep = () => {
     setStep((prevStep) => prevStep - 1);
   };
 
   const handleSubmit = () => {
-    //const age = calculateAge(formData.date);
-    const finalData = { ...formData }; // Add calculated age to form data
-    onFinalStep(finalData); // Pass final form data to Register component
+    const finalData = { ...formData };
+    onFinalStep(finalData);
   };
+
   const handleUnitChange = (newUnit) => {
     setUnit(newUnit);
-
-    if (newUnit === "imperial") {
-      setWeightLbs((weightKg * 2.20462).toFixed(1));
-      const inches = heightCm / 2.54;
-      setHeightFeet(Math.floor(inches / 12));
-      setHeightInches(Math.round(inches % 12));
-    } else {
-      setWeightKg((weightLbs / 2.20462).toFixed(1));
-      const totalInches = heightFeet * 12 + heightInches;
-      setHeightCm(Math.floor(totalInches * 2.54));
-    }
   };
 
   const handleInchesChange = (e) => {
-    let inches = parseInt(e.target.value, 10);
+    let inches = parseFloat(e.target.value) || 0;
 
-    if (isNaN(inches) || inches < 0) {
+    if (inches < 0) {
       setHeightInches(0);
       return;
     }
@@ -185,6 +246,26 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     }
 
     setHeightInches(inches);
+  };
+
+  const handleWeightKgChange = (value) => {
+    const numValue = parseFloat(value) || 0;
+    setWeightKg(numValue);
+  };
+
+  const handleHeightCmChange = (value) => {
+    const numValue = parseFloat(value) || 0;
+    setHeightCm(numValue);
+  };
+
+  const handleWeightLbsChange = (value) => {
+    const numValue = parseFloat(value) || 0;
+    setWeightLbs(numValue);
+  };
+
+  const handleHeightFeetChange = (value) => {
+    const numValue = parseFloat(value) || 0;
+    setHeightFeet(numValue);
   };
 
   return (
@@ -207,13 +288,7 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
                   }`}
                   onClick={() => setFormData({ ...formData, gender: "male" })}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
-                    className="gender-icons-svg"
-                  >
-                    <path d="M376 0c-9.7 0-18.5 5.8-22.2 14.8s-1.7 19.3 5.2 26.2l33.4 33.4L370.3 96.4 345 71c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l25.4 25.4L307.8 159c-28.4-19.5-62.7-31-99.8-31c-97.2 0-176 78.8-176 176s78.8 176 176 176s176-78.8 176-176c0-37-11.4-71.4-31-99.8l28.6-28.6L407 201c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-25.4-25.4 22.1-22.1L471 153c6.9 6.9 17.2 8.9 26.2 5.2s14.8-12.5 14.8-22.2l0-112c0-13.3-10.7-24-24-24L376 0zm88 48s0 0 0 0s0 0 0 0s0 0 0 0zM96 304a112 112 0 1 1 224 0A112 112 0 1 1 96 304z" />
-                  </svg>
+                  <Mars width={"70px"} height={"80px"} />
                   <p>Male</p>
                 </div>
 
@@ -223,13 +298,7 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
                   }`}
                   onClick={() => setFormData({ ...formData, gender: "female" })}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
-                    className="gender-icons-svg"
-                  >
-                    <path d="M80 176a112 112 0 1 1 224 0A112 112 0 1 1 80 176zM224 349.1c81.9-15 144-86.8 144-173.1C368 78.8 289.2 0 192 0S16 78.8 16 176c0 86.3 62.1 158.1 144 173.1l0 34.9-32 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l32 0 0 32c0 17.7 14.3 32 32 32s32-14.3 32-32l0-32 32 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-32 0 0-34.9z" />
-                  </svg>
+                  <Venus width={"70px"} height={"80px"} />
                   <p>Female</p>
                 </div>
               </div>
@@ -244,88 +313,83 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
           {step === 2 && (
             <div className="slide">
               <h3>Height and Weight</h3>
-              {/*<div className="weight-height-picker">
-                <label className="picker-label">Weight</label>
-                <input
-                  type="number"
-                  className="picker-input"
-                  name="weight"
-                  value={formData.userValues.weight}
-                  onChange={handleChange}
-                />
-                <label className="picker-label">Height</label>
-                <input
-                  type="number"
-                  className="picker-input"
-                  name="height"
-                  value={formData.userValues.height}
-                  onChange={handleChange}
-                />
-              </div>*/}
-
               <div className="unit-switch">
-                {/* Toggle Buttons (Now Above Inputs) */}
+                {/* Toggle Buttons */}
                 <div className="unit-toggle">
                   <button
                     type="button"
-                    className={unit === "metric" ? "active" : ""}
+                    className={`toggle-button ${
+                      unit === "metric" ? "active" : ""
+                    }`}
                     onClick={() => handleUnitChange("metric")}
                   >
                     Metric
                   </button>
                   <button
                     type="button"
-                    className={unit === "imperial" ? "active" : ""}
+                    className={`toggle-button ${
+                      unit === "imperial" ? "active" : ""
+                    }`}
                     onClick={() => handleUnitChange("imperial")}
                   >
                     Imperial
                   </button>
                 </div>
 
-                {/* Input Fields Below */}
+                {/* Input Fields */}
                 {unit === "metric" ? (
                   <div className="metric-inputs">
-                    <label value={formData.userValues.weight}>
+                    <label className="input-label">
                       Weight (kg):
                       <input
                         type="number"
+                        className="input-field"
                         value={weightKg}
                         onChange={(e) => setWeightKg(e.target.value)}
+                        aria-label="Weight in kilograms"
                       />
                     </label>
-                    <label value={formData.userValues.height}>
+                    <label className="input-label">
                       Height (cm):
                       <input
                         type="number"
+                        className="input-field"
                         value={heightCm}
                         onChange={(e) => setHeightCm(e.target.value)}
+                        aria-label="Height in centimeters"
                       />
                     </label>
                   </div>
                 ) : (
                   <div className="imperial-inputs">
-                    <label>
+                    <label className="input-label">
                       Weight (lbs):
                       <input
                         type="number"
+                        className="input-field"
                         value={weightLbs}
                         onChange={(e) => setWeightLbs(e.target.value)}
+                        aria-label="Weight in pounds"
                       />
                     </label>
-                    <label>
+                    <label className="input-label">
                       Height (feet):
                       <input
                         type="number"
+                        className="input-field"
                         value={heightFeet}
                         onChange={(e) => setHeightFeet(e.target.value)}
+                        aria-label="Height in feet"
                       />
                     </label>
-                    <label>
+                    <label className="input-label">
                       Height (inches):
                       <input
                         type="number"
+                        className="input-field"
                         value={heightInches}
                         onChange={handleInchesChange}
+                        aria-label="Height in inches"
                       />
                     </label>
                   </div>
@@ -333,8 +397,12 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
               </div>
 
               <div className="navigation-buttons">
-                <button onClick={prevStep}>Back</button>
-                <button onClick={nextStep}>Next</button>
+                <button className="back-button" onClick={prevStep}>
+                  Back
+                </button>
+                <button className="next-button" onClick={nextStep}>
+                  Next
+                </button>
               </div>
             </div>
           )}
@@ -405,10 +473,10 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
               <div className="activity-level-options">
                 <div
                   className={`activity-level-option ${
-                    formData.fitnessGoal === "Muscle gain" ? "selected" : ""
+                    formData.fitnessGoal === "Muscle Gain" ? "selected" : ""
                   }`}
                   onClick={() =>
-                    handleFieldChange("fitnessGoal", "Muscle gain")
+                    handleFieldChange("fitnessGoal", "Muscle Gain")
                   }
                 >
                   Muscle gain
@@ -425,10 +493,10 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
                 </div>
                 <div
                   className={`activity-level-option ${
-                    formData.fitnessGoal === "Weight loss" ? "selected" : ""
+                    formData.fitnessGoal === "Weight Loss" ? "selected" : ""
                   }`}
                   onClick={() =>
-                    handleFieldChange("fitnessGoal", "Weight loss")
+                    handleFieldChange("fitnessGoal", "Weight Loss")
                   }
                 >
                   Weight loss
@@ -708,148 +776,39 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
             <div className="slide">
               <h3>Have you had any muscle injuries recently?</h3>
               <div className="activity-level-options">
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.muscleInjuries === "none"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      muscleInjuries: "none",
-                    })
-                  }
-                >
-                  None
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.muscleInjuries === "chest"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      muscleInjuries: "chest",
-                    })
-                  }
-                >
-                  Chest
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.muscleInjuries === "back"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      muscleInjuries: "back",
-                    })
-                  }
-                >
-                  Back
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.muscleInjuries === "triceps"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      muscleInjuries: "triceps",
-                    })
-                  }
-                >
-                  Triceps
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.muscleInjuries === "biceps"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      muscleInjuries: "biceps",
-                    })
-                  }
-                >
-                  Biceps
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.muscleInjuries === "deltoids"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      muscleInjuries: "deltoids",
-                    })
-                  }
-                >
-                  Shoulders
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.muscleInjuries === "quadriceps"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      muscleInjuries: "quadriceps",
-                    })
-                  }
-                >
-                  Quadriceps
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.muscleInjuries === "hamstrings"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      muscleInjuries: "hamstrings",
-                    })
-                  }
-                >
-                  Hamstrings
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.muscleInjuries === "calves"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      muscleInjuries: "calves",
-                    })
-                  }
-                >
-                  Calves
-                </div>
+                {[
+                  "none",
+                  "chest",
+                  "back",
+                  "triceps",
+                  "biceps",
+                  "deltoids",
+                  "quadriceps",
+                  "hamstrings",
+                  "calves",
+                ].map((muscle) => (
+                  <div
+                    key={muscle}
+                    className={`activity-level-option ${
+                      formData.userValues.muscleInjuries?.includes(muscle)
+                        ? "selected"
+                        : ""
+                    }`}
+                    onClick={() => toggleMuscleInjury(muscle)}
+                  >
+                    {muscle === "none"
+                      ? "None"
+                      : muscle.charAt(0).toUpperCase() + muscle.slice(1)}
+                  </div>
+                ))}
               </div>
 
               <div className="navigation-buttons">
                 <button onClick={prevStep}>Back</button>
                 <button
                   onClick={nextStep}
-                  disabled={!formData.userValues.difficultyLevel}
+                  // Enable Next if user selected at least one injury or "none"
+                  disabled={!formData.userValues.muscleInjuries?.length}
                 >
                   Next
                 </button>
@@ -859,105 +818,32 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
 
           {step === 9 && (
             <div className="slide">
-              <h3>Have you had any muscle injuries recently?</h3>
+              <h3>Have you had any joint injuries recently?</h3>
               <div className="activity-level-options">
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.jointInjuries === "none"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      jointInjuries: "none",
-                    })
-                  }
-                >
-                  None
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.jointInjuries === "shoulders"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      jointInjuries: "shoulders",
-                    })
-                  }
-                >
-                  Shoulders
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.jointInjuries === "elbow"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      jointInjuries: "elbow",
-                    })
-                  }
-                >
-                  Elbow
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.jointInjuries === "wrist"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      jointInjuries: "wrist",
-                    })
-                  }
-                >
-                  Wrists
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.jointInjuries === "hip"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      jointInjuries: "hip",
-                    })
-                  }
-                >
-                  Hip
-                </div>
-                <div
-                  className={`activity-level-option ${
-                    formData.userValues.jointInjuries === "knee"
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleFieldChange("userValues", {
-                      ...formData.userValues,
-                      jointInjuries: "knee",
-                    })
-                  }
-                >
-                  Knees
-                </div>
+                {["none", "shoulders", "elbow", "wrist", "hip", "knee"].map(
+                  (joint) => (
+                    <div
+                      key={joint}
+                      className={`activity-level-option ${
+                        formData.userValues.jointInjuries?.includes(joint)
+                          ? "selected"
+                          : ""
+                      }`}
+                      onClick={() => toggleJointInjury(joint)}
+                    >
+                      {joint === "none"
+                        ? "None"
+                        : joint.charAt(0).toUpperCase() + joint.slice(1)}
+                    </div>
+                  )
+                )}
               </div>
 
               <div className="navigation-buttons">
                 <button onClick={prevStep}>Back</button>
                 <button
                   onClick={nextStep}
-                  disabled={!formData.userValues.jointInjuries}
+                  disabled={!formData.userValues.jointInjuries?.length}
                 >
                   Next
                 </button>
@@ -985,14 +871,27 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
                   placeholder="Last Name"
                   className="form-input"
                 />
-                <input
+                <DatePicker
+                  selected={formData.date ? new Date(formData.date) : null}
+                  onChange={(date) => setFormData({ ...formData, date })}
+                  className="form-input"
+                  placeholderText="Birth Date"
+                  dateFormat="yyyy-MM-dd"
+                  showYearDropdown
+                  showMonthDropdown
+                  dropdownMode="select"
+                  maxDate={new Date()}
+                  isClearable
+                />
+
+                {/*<input
                   type="date"
                   name="date"
                   value={formData.date}
                   onChange={handleChange}
                   placeholder="Birth Date"
                   className="form-input"
-                />
+                />*/}
                 <input
                   type="email"
                   name="email"
@@ -1001,18 +900,49 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
                   placeholder="Email"
                   className="form-input"
                 />
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Password"
-                  className="form-input"
-                />
+                <div style={{ position: "relative" }}>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Password"
+                    className="form-input"
+                    style={{ paddingRight: "3rem" }}
+                  />
+                  <button
+                    type="button"
+                    onClick={togglePassword}
+                    style={{
+                      position: "absolute",
+                      right: "0.75rem",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      background: "none",
+                      border: "none",
+                      color: "#555",
+                      cursor: "pointer",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
               </div>
               <div className="navigation-buttons">
                 <button onClick={prevStep}>Back</button>
-                <button onClick={nextStep}>Next</button>
+                <button
+                  onClick={nextStep}
+                  disabled={
+                    !formData.email ||
+                    !formData.password ||
+                    !formData.date ||
+                    !formData.name ||
+                    !formData.lastName
+                  }
+                >
+                  Next
+                </button>
               </div>
             </div>
           )}
@@ -1026,7 +956,9 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
               <br />
               <br />
               <br />
-              <button onClick={handleSubmit}>Create</button>
+              <button onClick={handleSubmit} className="create-button">
+                Create
+              </button>
               <div className="navigation-buttons">
                 <button onClick={prevStep}>Back</button>
               </div>

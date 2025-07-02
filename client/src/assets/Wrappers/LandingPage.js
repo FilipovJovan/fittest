@@ -64,16 +64,30 @@ const Wrapper = styled.section`
     transform: translate(-100%, 70%);
     background-color: var(--white);
     border-radius: 6px;
-    text-align: left;
+    text-align: center; /* horizontal fallback */
     width: 220px;
     height: 65px;
     margin-right: 200px;
+
+    /* Center content */
+    display: flex;
+    align-items: center; /* vertical center */
+    justify-content: center; /* horizontal center */
   }
+
   .appLinksText {
     line-height: 0;
     position: relative;
     top: 50%;
     transform: translate(28%, -40%);
+  }
+  .login-text {
+    color: var(--purple-500);
+    font-weight: 600;
+  }
+  .register-text {
+    color: var(--black);
+    font-weight: 600;
   }
   h5 {
     font-weight: 600;
@@ -335,12 +349,15 @@ const Wrapper = styled.section`
       margin-bottom: 50px;
     }
     .da {
-      height: 20vh;
+      height: 25vh;
       flex-direction: column;
       flex-wrap: nowrap;
       max-width: 800px;
       text-align: center;
       margin: auto;
+    }
+    .rowAppLinks {
+      margin-bottom: 150px;
     }
     .container-link-to-app {
       position: relative;
@@ -417,6 +434,9 @@ const Wrapper = styled.section`
     }
   }
   @media (max-width: 768px) {
+    .rowAppLinks {
+      margin-bottom: 50px;
+    }
     .section-one {
       max-width: 100%;
       margin: auto;
@@ -516,11 +536,17 @@ const Wrapper = styled.section`
       position: relative;
       padding: 15px;
     }
+    .phoneImage {
+      width: 180px;
+    }
     .first-text {
       margin-top: 0px;
     }
     .text-headings h1 {
       margin-top: 20px;
+    }
+    .rowAppLinks {
+      margin-bottom: 50px;
     }
     .container-link-to-app {
       position: relative;
@@ -538,7 +564,6 @@ const Wrapper = styled.section`
       margin-bottom: 0.5rem;
     }
     .phoneImage {
-      width: 220px;
       position: relative;
       top: 2%;
       left: 2%;

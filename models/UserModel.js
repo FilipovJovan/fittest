@@ -31,6 +31,15 @@ const UserSchema = new mongoose.Schema(
       enum: ["male", "female", "other"],
       required: true,
     },
+    isVerified: { type: Boolean, default: false },
+    emailVerificationToken: String,
+    emailVerificationTokenExpiry: Date,
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date },
+    areWeightsPutted: {
+      type: Boolean,
+      default: false,
+    },
     userValues: {
       muscleInjuries: {
         type: [String],
@@ -120,7 +129,7 @@ const UserSchema = new mongoose.Schema(
     },
     fitnessGoal: {
       type: String,
-      enum: ["Weight loss", "Maintenance", "Muscle gain"],
+      enum: ["Weight loss", "Maintenance", "Muscle Gain"],
       required: true,
     },
     currentCalories: {

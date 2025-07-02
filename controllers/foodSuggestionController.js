@@ -9,14 +9,20 @@ const suggestDailyMealPlan = async (user) => {
   const mealPlan = {};
 
   for (const mealType of meals) {
-    const mealOptions = await Food.find({
-      $and: [
-        { categoryMeal: mealType },
-        { category: fitnessGoal },
-        //{ dietTypes: { $in: dietaryPreferences } },
-        //{ name: { $nin: dislikes } },
-      ],
-    }).limit(4); // top 4 options
+    let mealOptions = [];
+
+    try {
+      mealOptions = await Food.find({
+        $and: [
+          { categoryMeal: mealType },
+          { category: fitnessGoal },
+          //{ dietTypes: { $in: dietaryPreferences } },
+          //{ name: { $nin: dislikes } },
+        ],
+      }).limit(4); // top 4 options
+    } catch (error) {
+      console.error(`Error fetching ${mealType}:`, error);
+    }
 
     if (mealType === "Snack" && mealOptions.length === 0) {
       const alternativeCategory = [
@@ -26,18 +32,23 @@ const suggestDailyMealPlan = async (user) => {
       ].find((cat) => cat !== fitnessGoal);
 
       if (alternativeCategory) {
-        const alternativeOptions = await Food.find({
-          $and: [
-            { categoryMeal: mealType },
-            { category: alternativeCategory },
-            //{ dietTypes: { $in: dietaryPreferences } },
-            //{ name: { $nin: dislikes } },
-          ],
-        }).limit(3);
+        try {
+          const alternativeOptions = await Food.find({
+            $and: [
+              { categoryMeal: mealType },
+              { category: alternativeCategory },
+              //{ dietTypes: { $in: dietaryPreferences } },
+              //{ name: { $nin: dislikes } },
+            ],
+          }).limit(3);
 
-        mealPlan[mealType.toLowerCase()] = alternativeOptions;
+          mealPlan[mealType.toLowerCase()] = alternativeOptions;
+        } catch (err) {
+          console.error(`Error fetching fallback for ${mealType}:`, err);
+          mealPlan[mealType.toLowerCase()] = []; // fallback in case of failure
+        }
       } else {
-        mealPlan[mealType.toLowerCase()] = mealOptions;
+        mealPlan[mealType.toLowerCase()] = [];
       }
     } else {
       mealPlan[mealType.toLowerCase()] = mealOptions;

@@ -7,6 +7,15 @@ const Wrapper = styled.section`
       var(--primary-300) 50%,
       var(--purple-300) 100%
     );
+    height: fit-content;
+  }
+  .login-background {
+    margin-top: 0px;
+    background-image: linear-gradient(
+      160deg,
+      var(--primary-300) 50%,
+      var(--purple-300) 100%
+    );
     height: 100vh;
   }
   .logo {

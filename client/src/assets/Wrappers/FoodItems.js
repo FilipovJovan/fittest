@@ -7,17 +7,21 @@ const Wrapper = styled.div`
   .macros-row {
     margin-bottom: 2em;
   }
+  .link-col {
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 8px;
+  }
   .macros-box {
     width: 90%;
-    min-height: 350px; /* Set a fixed min-height to match the Search form */
+    min-height: 350px;
     margin: 0rem 1rem 1rem 1rem;
     background-color: var(--grey-300);
     border-radius: 16px;
     padding: 20px;
     text-align: center;
-    display: flex; /* Ensure content is centered vertically */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Distribute content evenly */
+    justify-content: space-between;
   }
   .macros-col {
     height: 100%;
