@@ -53,6 +53,7 @@ export const register = async (req, res) => {
   user.emailVerificationTokenExpiry = Date.now() + 3600000;
   await user.save();
 
+  const localVerificationEmail = `http://localhost:5173/verify-email/${verificationToken}?email=${user.email}`;
   const verificationUrl = `https://fittestsapp.com/verify-email/${verificationToken}`;
 
   const mailOptions = {
@@ -67,7 +68,7 @@ export const register = async (req, res) => {
       <p>We're excited to have you on board. To get started, please verify your email address by clicking the button below:</p>
 
       <div style="text-align: center; margin: 30px 0;">
-        <a href="${verificationUrl}" style="background-color: #0E7CFF; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+        <a href="${localVerificationEmail}" style="background-color: #0E7CFF; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold;">
           Verify Email
         </a>
       </div>
@@ -82,11 +83,11 @@ export const register = async (req, res) => {
   `,
     text: `Welcome to Fittest!
 
-We're excited to have you. Please verify your email by visiting this link: ${verificationUrl}
+    We're excited to have you. Please verify your email by visiting this link: ${verificationUrl}
 
-If you didn't sign up for Fittest, feel free to ignore this message.
+    If you didn't sign up for Fittest, feel free to ignore this message.
 
-Need help? Reach out to fittestsapp@gmail.com.`,
+    Need help? Reach out to fittestsapp@gmail.com.`,
   };
 
   try {
@@ -140,6 +141,7 @@ export const login = async (req, res) => {
     httpOnly: true,
     expires: new Date(Date.now() + oneDay),
     secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Add this
   });
 
   res.status(StatusCodes.OK).json({ msg: "User logged in" });
@@ -166,20 +168,11 @@ export const verifyEmail = async (req, res) => {
       .json({ msg: "Invalid or expired verification token" });
   }
 
-  /*console.log("Current Time (UTC):", new Date().toISOString());
-  console.log(
-    "Stored Token Expiry Time (UTC):",
-    new Date(user.emailVerificationTokenExpiry).toISOString()
-  );
-*/
   if (user.emailVerificationTokenExpiry < Date.now()) {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ msg: "Invalid or expired verification token" });
   }
-
-  //console.log(user.isVerified);
-  //console.log(user);
 
   user.isVerified = true;
   //console.log(user.isVerified);
@@ -189,6 +182,108 @@ export const verifyEmail = async (req, res) => {
   await user.save();
 
   res.status(StatusCodes.OK).json({ msg: "Email successfully verified" });
+};
+
+export const resendVerificationEmail = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ msg: "Email is required" });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    if (user.isVerified) {
+      return res.status(400).json({ msg: "Email already verified" });
+    }
+
+    const verificationToken = crypto.randomBytes(40).toString("hex");
+    user.emailVerificationToken = verificationToken;
+    user.emailVerificationTokenExpiry = Date.now() + 3600000;
+    await user.save();
+
+    const localVerificationEmail = `http://localhost:5173/verify-email/${verificationToken}?email=${email}`;
+    const verificationUrl = `https://fittestsapp.com/verify-email/${verificationToken}?email=${email}`;
+
+    const mailOptions = {
+      from: "noreply@fittestsapp.com",
+      to: user.email,
+      subject: "Verify your email to get started with Fittest",
+      html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; color: #333; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+        <img src="https://fittestsapp.com/assets/logo-RMM5KPhj.png " alt=Fittest Logo" style="width: 120px; margin-bottom: 20px; border-radius: 12px" margin: auto />
+  
+        <h2>Welcome to Fittest! 🎉</h2>
+        <p>Here is your verification token!</p>
+  
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${localVerificationEmail}" style="background-color: #0E7CFF; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+            Verify Email
+          </a>
+        </div>
+  
+        <p>If the button above doesn’t work, you can copy and paste this URL into your browser:</p>
+        <p style="word-break: break-all; color: #555;">${verificationUrl}</p>
+  
+        <hr style="margin: 40px 0;" />
+        <p style="font-size: 13px; color: #888;">If you didn't create a Fittest account, you can safely ignore this email.</p>
+        <p style="font-size: 13px; color: #888;">Need help? Contact us at <a href="mailto:support@fittests.com">support@fittests.com</a></p>
+      </div>
+    `,
+      text: `Welcome to Fittest!
+  
+      We're excited to have you. Please verify your email by visiting this link: ${verificationUrl}
+  
+      If you didn't sign up for Fittest, feel free to ignore this message.
+  
+      Need help? Reach out to fittestsapp@gmail.com.`,
+    };
+
+    // Send the email
+    try {
+      await resend.emails.send(mailOptions);
+      console.log("Verification email sent successfully!");
+      res.status(201).json({
+        msg: "Email verification has been sent again. Please check it.",
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+        },
+      });
+    } catch (error) {
+      console.error("Error sending verification email:", error);
+      res.status(500).json({ msg: "Failed to send verification email" });
+    }
+
+    res.status(200).json({ msg: "Verification email sent" });
+  } catch (err) {
+    console.error("Error resending verification email:", err);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+export const checkVerification = async (req, res) => {
+  const { email } = req.query;
+  if (!email) {
+    return res.status(400).json({ msg: "Email is required" });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+    return res.status(200).json({ isVerified: user.isVerified });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: "Server error" });
+  }
 };
 
 export const forgotPassword = async (req, res) => {

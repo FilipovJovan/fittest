@@ -34,7 +34,12 @@ import { sendVerificationEmail, sendBulkEmails } from "./emailService.js";
 app.use(cookieParser());
 app.use(express.json());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.use("/api/v1", authenticateApiKey);
 app.use("/api/v1/generate-custom", workoutRouter);

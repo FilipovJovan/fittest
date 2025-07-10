@@ -7,6 +7,8 @@ import {
   register,
   resetPassword,
   verifyEmail,
+  resendVerificationEmail,
+  checkVerification,
 } from "../controllers/authController.js";
 import {
   validateRegisterInput,
@@ -21,5 +23,7 @@ router.post("/reset-password", resetPassword);
 
 router.get("/logout", logout);
 router.get("/verify-email/:verificationToken", verifyEmail);
+router.post("/resend-verification-email", resendVerificationEmail);
+router.get("/check-verification-status", checkVerification);
 
 export default router;

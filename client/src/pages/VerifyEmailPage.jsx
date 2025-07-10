@@ -1,126 +1,139 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import Wrapper from "../assets/Wrappers/VerifyEmailPage";
 
-// Verification status enums
 const VerificationStatus = {
-  IDLE: "idle",
   LOADING: "loading",
   SUCCESS: "success",
   ERROR: "error",
 };
-
 const VerifyEmail = () => {
   const { verificationToken } = useParams();
   const navigate = useNavigate();
-  const [status, setStatus] = useState(VerificationStatus.IDLE);
+  const location = useLocation();
+  const [status, setStatus] = useState(VerificationStatus.LOADING);
   const [errorMessage, setErrorMessage] = useState("");
-  const [canResend, setCanResend] = useState(false); // for auto-resend possibility
-  const isVerifiedRef = useRef(false);
+  const [canResend, setCanResend] = useState(false);
+
+  const queryParams = new URLSearchParams(location.search);
+  const email = queryParams.get("email");
 
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_API_KEY;
-    const hasVerified = localStorage.getItem("emailVerified");
-
-    /*if (hasVerified) {
-      setStatus(VerificationStatus.SUCCESS);
-      return;
-    }*/
-
-    if (!verificationToken) {
-      setStatus(VerificationStatus.ERROR);
-      setErrorMessage("Invalid or missing token.");
+    if (!verificationToken || !email) {
+      //setStatus(VerificationStatus.ERROR);
+      setErrorMessage("Invalid or missing token or email.");
       return;
     }
 
     const controller = new AbortController();
     const signal = controller.signal;
 
-    console.log("Before Verify Email");
-
-    const verifyEmail = async () => {
+    const verifyAndCheckStatus = async () => {
       setStatus(VerificationStatus.LOADING);
-      try {
-        console.log("before");
 
-        const response = await customFetch.get(
+      // Step 1: Attempt to verify the email
+      try {
+        console.log(
+          "Sending verification request for token:",
+          verificationToken
+        );
+        const verifyResponse = await customFetch.get(
           `/auth/verify-email/${verificationToken}`,
           {
-            headers: { "x-api-key": apiKey },
+            headers: { "x-api-key": import.meta.env.VITE_API_KEY },
             signal,
           }
         );
-        console.log("after");
+        console.log("Verification response:", verifyResponse);
+      } catch (error) {
+        if (error.name === "AbortError") {
+          console.log("Verification request aborted.");
+          return;
+        }
+        console.warn(
+          "Initial verification failed, will still check status:",
+          error
+        );
+        // Do not setStatus here!
+      }
 
-        if (response.status >= 200 && response.status < 300) {
+      // Step 2: Check verification status
+      try {
+        const statusResponse = await customFetch.get(
+          `/auth/check-verification-status?email=${email}`,
+          {
+            headers: { "x-api-key": import.meta.env.VITE_API_KEY },
+            signal,
+          }
+        );
+
+        const isVerified = statusResponse.data?.isVerified;
+
+        if (isVerified) {
           setStatus(VerificationStatus.SUCCESS);
-          isVerifiedRef.current = true;
           localStorage.setItem("emailVerified", "true");
+          window.history.replaceState(null, "", "/");
+          setTimeout(() => {
+            navigate("/login", { replace: true });
+          }, 3000);
         } else {
-          setStatus(VerificationStatus.ERROR);
-          setErrorMessage(response.data?.msg || "Verification failed.");
+          //setStatus(VerificationStatus.ERROR);
+          setErrorMessage("Your email is not verified yet.");
+          setCanResend(true);
         }
       } catch (error) {
         if (error.name === "AbortError") {
-          console.log("Request aborted.");
+          console.log("Status check aborted.");
           return;
         }
 
-        console.error("Verification error:", error);
-        setStatus(VerificationStatus.ERROR);
+        console.error("Verification status error:", error);
 
         const serverMessage =
           error.response?.data?.msg || "Something went wrong.";
+
+        if (!serverMessage.toLowerCase().includes("timeout")) {
+          setStatus(VerificationStatus.ERROR);
+        }
+
         setErrorMessage(serverMessage);
 
-        // If token expired, allow resending
         if (serverMessage.toLowerCase().includes("expired")) {
           setCanResend(true);
         }
       }
     };
 
-    verifyEmail();
+    verifyAndCheckStatus();
 
-    return () => {
-      controller.abort();
-    };
-  }, [verificationToken]);
-
-  useEffect(() => {
-    if (status === VerificationStatus.SUCCESS) {
-      window.history.replaceState(null, "", "/");
-
-      const timer = setTimeout(() => {
-        navigate("/login", { replace: true });
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [status, navigate]);
+    return () => controller.abort();
+  }, [verificationToken, email, navigate]);
 
   const handleResendVerification = async () => {
+    if (!email) {
+      alert("Email is missing. Please provide a valid email.");
+      return;
+    }
+
     try {
-      const apiKey = import.meta.env.VITE_API_KEY;
-      const response = await customFetch.post(
+      await customFetch.post(
         "/auth/resend-verification-email",
-        { token: verificationToken }, // or user email depending on your API
+        { email },
         {
-          headers: { "x-api-key": apiKey },
+          headers: { "x-api-key": import.meta.env.VITE_API_KEY },
         }
       );
       alert("Verification email resent successfully!");
     } catch (err) {
-      console.error("Resend failed:", err);
-      alert("Failed to resend verification email. Please try again later.");
+      console.error("Resend verification error:", err);
+      alert("Failed to resend verification email.");
     }
   };
 
   const renderContent = () => {
     switch (status) {
       case VerificationStatus.LOADING:
-      case VerificationStatus.IDLE:
         return (
           <div className="container">
             <h2>Verifying your email...</h2>

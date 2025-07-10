@@ -106,14 +106,18 @@ const Profile = () => {
   } = user;
   return (
     <Wrapper>
-      <h2>{name + " " + lastName}</h2>
-      <h5>Total plans completed: 0</h5>
-      <h5>
-        Current plan ends on:{" "}
-        {!loading && workout?.[0]?.endDate
-          ? new Date(workout[0].endDate).toLocaleDateString()
-          : "No active plan"}
-      </h5>
+      <div className="user-values">
+        <h2>{name + " " + lastName}</h2>
+        <hr />
+        <h5>Total plans completed: 0</h5>
+        <hr />
+        <h5>
+          Current plan ends on:{" "}
+          {!loading && workout?.[0]?.endDate
+            ? new Date(workout[0].endDate).toLocaleDateString()
+            : "No active plan"}
+        </h5>
+      </div>
       <Form method="post" className="form" encType="multipart/form-data">
         <input type="hidden" name="userId" value={user._id} />
         <div className="form-center">

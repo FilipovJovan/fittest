@@ -355,3 +355,79 @@ export const getCurrentWorkoutDay = async (req, res) => {
     res.status(500).json({ message: "Server error." });
   }
 };
+
+export const updateTestWeights = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const {
+      testWeights,
+      testWeekStartDate,
+      knowsWeight,
+      hasChosenWeightOption,
+      areWeightsPutted,
+    } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (testWeights && typeof testWeights === "object") {
+      const allowedFields = [
+        "benchPress",
+        "latPulldown",
+        "barbellRow",
+        "militaryPress",
+        "bicepsCurl",
+        "tricepsPushdown",
+        "squat",
+        "romanianDeadlift",
+      ];
+
+      allowedFields.forEach((field) => {
+        if (field in testWeights) {
+          user.testWeights[field] = testWeights[field];
+        }
+      });
+    }
+
+    if (testWeekStartDate) {
+      user.testWeekStartDate = testWeekStartDate;
+    }
+
+    if (knowsWeight) {
+      user.knowsWeight = knowsWeight;
+    }
+
+    if (hasChosenWeightOption) {
+      user.hasChosenWeightOption = hasChosenWeightOption;
+    }
+
+    if (areWeightsPutted) {
+      user.areWeightsPutted = areWeightsPutted;
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "User data updated",
+      testWeights: user.testWeights,
+      testWeekStartDate: user.testWeekStartDate,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getTestWeights = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const user = await User.findById(userId).select("testWeights");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    return res.status(200).json({ testWeights: user.testWeights || {} });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};

@@ -13,6 +13,8 @@ import {
   getWorkout,
   finishWorkoutDay,
   getCurrentWorkoutDay,
+  updateTestWeights,
+  getTestWeights,
 } from "../controllers/workoutController.js";
 import { authenticateUser } from "../middleware/authMiddleware.js";
 import {
@@ -28,6 +30,7 @@ router.get("/workout/get-current-workout", getCurrentWorkoutDay);
 router.get("/workout/progress/sets/:workoutId", getSetsPerMuscleGroup);
 router.get("/workout/progress/volume/:workoutId", getVolumePerMuscleGroup);
 router.get("/workout/progress/weekly/:workoutId", getWeeklyVolume);
+router.get("/workout/get-test-weights/:userId", getTestWeights);
 
 //POST routes
 router.post("/workout", generateWorkout);
@@ -46,6 +49,7 @@ router.patch("/workout/is-workout-finished", isWorkoutFinished);
 router.patch("/workout/user-values", updatingUserValues);
 
 //PUT routes
+router.put("/workout/update-test-weights/:userId", updateTestWeights);
 router.put("/workout/:id/finish-day", finishWorkoutDay);
 
 //DELETE routes

@@ -13,9 +13,7 @@ const Register = () => {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("Updated Form Data: ", formData);
-  }, [formData]);
+  useEffect(() => {}, [formData]);
 
   const handleFormDataChange = (data) => {
     setFormData((prevState) => ({
@@ -30,7 +28,7 @@ const Register = () => {
 
     try {
       const apiKey = import.meta.env.VITE_API_KEY;
-      console.log("Submitting data:", finalData);
+      //console.log("Submitting data:", finalData);
 
       const registerRes = await customFetch.post("/auth/register", finalData, {
         headers: {
@@ -56,8 +54,10 @@ const Register = () => {
         label: 1,
       };
 
+      //console.log("Workout Reached");
+
       await customFetch.post(
-        "/generate-custom/workout",
+        "/generate-custom/workout/",
         workoutGenerationData,
         {
           headers: {
@@ -77,6 +77,8 @@ const Register = () => {
         workoutLevel: finalData.workoutLevel,
       };
 
+      //console.log("Macros Reached");
+
       await customFetch.post(
         `calculate-calories-macros/calculate/${userId}`,
         macrosCalculationData,
@@ -91,6 +93,9 @@ const Register = () => {
       toast.success(
         "Registration successful! Please check your email to verify your account."
       );
+      // console.log(workoutGenerationData);
+      // console.log(macrosCalculationData);
+
       navigate("/login");
     } catch (error) {
       console.log(error);

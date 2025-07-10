@@ -10,94 +10,97 @@ import customFetch from "../utils/customFetch";
 
 const WorkoutPage = () => {
   const navigate = useNavigate();
-  const { user, authChecked } = useAuth();
+  const { authChecked, user, setUser } = useAuth();
   const { fullWorkoutPlan, loading, workoutPhase } = useWorkout();
   const workoutId = fullWorkoutPlan?.workoutProgram?.[0]?._id;
   const { pathname } = useLocation();
+  const apiKey = import.meta.env.VITE_API_KEY;
+  const userId = user?._id;
+  console.log("User id: " + userId);
 
-  // Load state from localStorage
-  const savedKnowsWeight = localStorage.getItem("knowsWeight");
-  const savedSubmitted = localStorage.getItem("submitted");
-  const savedPracticeWeights = localStorage.getItem("practiceWeights");
-  const savedStartDate = localStorage.getItem("practiceStartDate");
-  const savedAllDays = localStorage.getItem("allDays");
+  const areWeightsPutted = user?.areWeightsPutted;
+  const userKnowsWeight = user?.knowsWeight;
+  const testWeekStartDate = user?.testWeekStartDate;
 
   const [selectedUnit, setSelectedUnit] = useState("");
   const [metricUnit, setMetricUnit] = useState("metric");
-  const [knowsWeight, setKnowsWeight] = useState(
-    savedKnowsWeight ? JSON.parse(savedKnowsWeight) : null
-  );
-  console.log(knowsWeight);
-
-  const [submitted, setSubmitted] = useState(
-    savedSubmitted ? JSON.parse(savedSubmitted) : false
-  );
-  const [practiceWeights, setPracticeWeights] = useState(
-    savedPracticeWeights
-      ? JSON.parse(savedPracticeWeights)
-      : {
-          benchPress: "",
-          latPulldown: "",
-          barbellRow: "",
-          militaryPress: "",
-          bicepsCurl: "",
-          tricepsPushdown: "",
-          squat: "",
-          romanianDeadlift: "",
-        }
-  );
+  const [practiceWeights, setPracticeWeights] = useState({
+    benchPress: null,
+    latPulldown: null,
+    barbellRow: null,
+    militaryPress: null,
+    bicepsCurl: null,
+    tricepsPushdown: null,
+    squat: null,
+    romanianDeadlift: null,
+  });
   const [showWeightForm, setShowWeightForm] = useState(false);
-  const [practiceStartDate, setPracticeStartDate] = useState(
-    savedStartDate ? new Date(JSON.parse(savedStartDate)) : null
-  );
-  const [allDays, setAllDays] = useState(
-    savedAllDays ? JSON.parse(savedAllDays) : []
-  );
   const [showInstructions, setShowInstructions] = useState(false);
   const [showEnteredWeights, setShowEnteredWeights] = useState(false);
+  const [submitted, setSubmitted] = useState(areWeightsPutted || false);
+  const [hasChosenWeightOption, setHasChosenWeightOption] = useState(false);
 
-  const areWeightsPutted = user?.areWeightsPutted;
   const isAtWorkoutRoot = pathname === "/dashboard/workout";
 
-  // Save state to localStorage whenever it changes
+  // Fetch test weights on component mount
   useEffect(() => {
-    localStorage.setItem("knowsWeight", JSON.stringify(knowsWeight));
-    localStorage.setItem("submitted", JSON.stringify(submitted));
-    localStorage.setItem("practiceWeights", JSON.stringify(practiceWeights));
-    if (practiceStartDate) {
-      localStorage.setItem(
-        "practiceStartDate",
-        JSON.stringify(practiceStartDate.toISOString())
-      );
+    const fetchWeights = async () => {
+      try {
+        const response = await customFetch.get(
+          `/generate-custom/workout/get-test-weights/${userId}`,
+          {
+            headers: {
+              "x-api-key": apiKey,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const { testWeights } = response.data;
+        if (testWeights) {
+          setPracticeWeights(testWeights);
+        }
+      } catch (error) {
+        console.error("Error fetching weights:", error);
+      }
+    };
+    if (userId) {
+      fetchWeights();
     }
-    if (allDays.length > 0) {
-      localStorage.setItem("allDays", JSON.stringify(allDays));
+  }, [userId]);
+
+  // Set testWeekStartDate to today if not set and user doesn't know weights
+  useEffect(() => {
+    if (userKnowsWeight === false && !testWeekStartDate && !areWeightsPutted) {
+      const setStartDate = async () => {
+        try {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          const apiKey = import.meta.env.VITE_API_KEY;
+          await customFetch.put(
+            `/generate-custom/workout/update-test-weights/${userId}`,
+            { testWeekStartDate: today.toISOString() },
+            {
+              headers: {
+                "x-api-key": apiKey,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          // Note: Do not mutate user.testWeekStartDate directly; rely on backend update
+        } catch (error) {
+          console.error("Error setting test week start date:", error);
+        }
+      };
+      setStartDate();
     }
-  }, [knowsWeight, submitted, practiceWeights, practiceStartDate, allDays]);
+  }, [userKnowsWeight, testWeekStartDate, areWeightsPutted, userId]);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const daysSinceStart =
-    practiceStartDate &&
-    Math.floor((today - new Date(practiceStartDate)) / (1000 * 60 * 60 * 24));
-  const isSeventhDay = practiceStartDate && daysSinceStart >= 6;
-
-  useEffect(() => {
-    if (knowsWeight === false && !practiceStartDate && !submitted) {
-      const startDate = new Date();
-      startDate.setHours(0, 0, 0, 0);
-      setPracticeStartDate(startDate);
-
-      if (!savedAllDays || JSON.parse(savedAllDays).length === 0) {
-        const newDays = Array.from({ length: 7 }, (_, index) => {
-          const dayDate = new Date(startDate);
-          dayDate.setDate(startDate.getDate() + index);
-          return { date: dayDate.toISOString(), weights: {} };
-        });
-        setAllDays(newDays);
-      }
-    }
-  }, [knowsWeight, practiceStartDate, submitted, savedAllDays]);
+    testWeekStartDate &&
+    Math.floor((today - new Date(testWeekStartDate)) / (1000 * 60 * 60 * 24));
+  const isSeventhDay = testWeekStartDate && daysSinceStart >= 6;
 
   if (!authChecked) return <div>Loading...</div>;
   if (loading || workoutPhase === "loading")
@@ -128,32 +131,34 @@ const WorkoutPage = () => {
     const { name, value } = e.target;
     setPracticeWeights((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: value ? Number(value) : null,
     }));
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    if (
-      daysSinceStart !== undefined &&
-      daysSinceStart >= 0 &&
-      daysSinceStart < 7
-    ) {
-      const updatedAllDays = [...allDays];
-      updatedAllDays[daysSinceStart] = {
-        ...updatedAllDays[daysSinceStart],
-        weights: { ...practiceWeights },
-      };
-      setAllDays(updatedAllDays);
+    try {
+      await customFetch.put(
+        `/generate-custom/workout/update-test-weights/${userId}`,
+        { testWeights: { ...practiceWeights } },
+        {
+          headers: {
+            "x-api-key": apiKey,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setShowWeightForm(false);
+    } catch (error) {
+      console.error("Error saving weights:", error);
     }
-    setShowWeightForm(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const allWeightsFilled = Object.values(practiceWeights).every(
-      (weight) => weight !== "" && weight !== null && !isNaN(weight)
+      (weight) => weight !== null && !isNaN(weight)
     );
     if (!allWeightsFilled) {
       alert("Please enter weights for all 8 exercises before submitting.");
@@ -165,22 +170,20 @@ const WorkoutPage = () => {
       convertedWeights = Object.fromEntries(
         Object.entries(practiceWeights).map(([key, value]) => [
           key,
-          +(value / 2.20462).toFixed(1),
+          value ? +(value / 2.20462).toFixed(1) : null,
         ])
       );
     }
 
-    user.areWeightsPutted == true;
-    await user.save;
     try {
-      const apiKey = import.meta.env.VITE_API_KEY;
       const payload = {
-        ...convertedWeights,
-        workoutId,
+        finalWeights: convertedWeights,
+        areWeightsPutted: true,
+        testWeights: null, // Clear test weights
       };
 
-      const res = await customFetch.post(
-        "/generate-custom/workout/weight-exercises",
+      const res = await customFetch.put(
+        `/generate-custom/workout/update-test-weights/${userId}`,
         payload,
         {
           headers: {
@@ -193,13 +196,32 @@ const WorkoutPage = () => {
       console.log("Successfully submitted:", res.data);
       setSubmitted(true);
       setShowWeightForm(false);
-      localStorage.removeItem("knowsWeight");
-      localStorage.removeItem("submitted");
-      localStorage.removeItem("practiceWeights");
-      localStorage.removeItem("practiceStartDate");
-      localStorage.removeItem("allDays");
     } catch (error) {
       console.error("Error submitting weights:", error);
+    }
+  };
+
+  const setUserKnowsWeight = async (user, weightValue, optionValue) => {
+    try {
+      await customFetch.put(
+        `/generate-custom/workout/update-test-weights/${userId}`,
+        { knowsWeight: weightValue, hasChosenWeightOption: optionValue },
+        {
+          headers: {
+            "x-api-key": apiKey,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      setUser((prevUser) => ({
+        ...prevUser,
+        knowsWeight: weightValue,
+        hasChosenWeightOption: optionValue,
+      }));
+      setHasChosenWeightOption(true);
+    } catch (error) {
+      console.error("Error updating knowsWeight:", error);
     }
   };
 
@@ -221,10 +243,9 @@ const WorkoutPage = () => {
 
     return "not-started";
   };
-  console.log(knowsWeight);
 
-  const shouldShowForm = knowsWeight === true && !submitted;
-  console.log(shouldShowForm);
+  const shouldShowForm = userKnowsWeight && !submitted;
+  console.log("Should show form: " + shouldShowForm);
 
   const renderWeightForm = () => (
     <div className="weight-form">
@@ -257,28 +278,28 @@ const WorkoutPage = () => {
               type="number"
               name="benchPress"
               labelText="Bench Press"
-              value={practiceWeights.benchPress}
+              value={practiceWeights.benchPress || ""}
               onChange={handleChange}
             />
             <FormRow
               type="number"
               name="latPulldown"
               labelText="Lat Pull Down"
-              value={practiceWeights.latPulldown}
+              value={practiceWeights.latPulldown || ""}
               onChange={handleChange}
             />
             <FormRow
               type="number"
               name="barbellRow"
               labelText="Barbell Row"
-              value={practiceWeights.barbellRow}
+              value={practiceWeights.barbellRow || ""}
               onChange={handleChange}
             />
             <FormRow
               type="number"
               name="militaryPress"
               labelText="Military Press"
-              value={practiceWeights.militaryPress}
+              value={practiceWeights.militaryPress || ""}
               onChange={handleChange}
             />
           </Col>
@@ -287,28 +308,28 @@ const WorkoutPage = () => {
               type="number"
               name="bicepsCurl"
               labelText="Biceps Curl"
-              value={practiceWeights.bicepsCurl}
+              value={practiceWeights.bicepsCurl || ""}
               onChange={handleChange}
             />
             <FormRow
               type="number"
               name="tricepsPushdown"
               labelText="Triceps Push Down"
-              value={practiceWeights.tricepsPushdown}
+              value={practiceWeights.tricepsPushdown || ""}
               onChange={handleChange}
             />
             <FormRow
               type="number"
               name="squat"
               labelText="Squat"
-              value={practiceWeights.squat}
+              value={practiceWeights.squat || ""}
               onChange={handleChange}
             />
             <FormRow
               type="number"
               name="romanianDeadlift"
               labelText="Romanian Deadlift"
-              value={practiceWeights.romanianDeadlift}
+              value={practiceWeights.romanianDeadlift || ""}
               onChange={handleChange}
             />
           </Col>
@@ -329,7 +350,7 @@ const WorkoutPage = () => {
           Instructions
         </button>
         {showInstructions && (
-          <div className="mb-2 text-sm bg-gray-100 p-2 rounded">
+          <div className="instruction-text-container">
             <p className="instruction-text">
               Welcome to your test week! Please complete this phase by using
               weights that feel comfortable to you, testing all 8 exercises
@@ -398,28 +419,28 @@ const WorkoutPage = () => {
                         type="number"
                         name="benchPress"
                         labelText="Bench Press"
-                        value={practiceWeights.benchPress}
+                        value={practiceWeights.benchPress || ""}
                         onChange={handleChange}
                       />
                       <FormRow
                         type="number"
                         name="latPulldown"
                         labelText="Lat Pull Down"
-                        value={practiceWeights.latPulldown}
+                        value={practiceWeights.latPulldown || ""}
                         onChange={handleChange}
                       />
                       <FormRow
                         type="number"
                         name="barbellRow"
                         labelText="Barbell Row"
-                        value={practiceWeights.barbellRow}
+                        value={practiceWeights.barbellRow || ""}
                         onChange={handleChange}
                       />
                       <FormRow
                         type="number"
                         name="militaryPress"
                         labelText="Military Press"
-                        value={practiceWeights.militaryPress}
+                        value={practiceWeights.militaryPress || ""}
                         onChange={handleChange}
                       />
                     </Col>
@@ -428,28 +449,28 @@ const WorkoutPage = () => {
                         type="number"
                         name="bicepsCurl"
                         labelText="Biceps Curl"
-                        value={practiceWeights.bicepsCurl}
+                        value={practiceWeights.bicepsCurl || ""}
                         onChange={handleChange}
                       />
                       <FormRow
                         type="number"
                         name="tricepsPushdown"
                         labelText="Triceps Push Down"
-                        value={practiceWeights.tricepsPushdown}
+                        value={practiceWeights.tricepsPushdown || ""}
                         onChange={handleChange}
                       />
                       <FormRow
                         type="number"
                         name="squat"
                         labelText="Squat"
-                        value={practiceWeights.squat}
+                        value={practiceWeights.squat || ""}
                         onChange={handleChange}
                       />
                       <FormRow
                         type="number"
                         name="romanianDeadlift"
                         labelText="Romanian Deadlift"
-                        value={practiceWeights.romanianDeadlift}
+                        value={practiceWeights.romanianDeadlift || ""}
                         onChange={handleChange}
                       />
                     </Col>
@@ -473,7 +494,6 @@ const WorkoutPage = () => {
             )}
           </Col>
           <Col lg={6} md={6} sm={12}>
-            {/* Weight Summary */}
             <div className="weight-summary">
               <button
                 className="instruction-button"
@@ -593,8 +613,7 @@ const WorkoutPage = () => {
       </div>
     );
   };
-  areWeightsPutted == true;
-  console.log("Are weights putted: " + areWeightsPutted);
+
   const renderWeeks = () => {
     return (
       <>
@@ -602,9 +621,7 @@ const WorkoutPage = () => {
         <div className="workout-page">
           {workoutProgram.map((program) =>
             program.weeks
-              .slice(
-                knowsWeight === false ? 1 : areWeightsPutted == true ? 1 : 0
-              )
+              .slice(user?.knowsWeight === false || areWeightsPutted ? 1 : 0)
               .map((week, index) => (
                 <WorkoutWeekCard
                   key={week._id}
@@ -620,23 +637,22 @@ const WorkoutPage = () => {
       </>
     );
   };
-  console.log("Are weights putted: " + areWeightsPutted);
 
   // Check if all weights are filled
   const allWeightsFilled = Object.values(practiceWeights).every(
-    (weight) => weight !== "" && weight !== null && !isNaN(weight)
+    (weight) => weight !== null && !isNaN(weight)
   );
 
-  console.log("Knows weight: " + knowsWeight);
+  console.log("Knows weight: " + userKnowsWeight);
   console.log("Should show form: " + shouldShowForm);
   console.log("Is submitted: " + submitted);
 
   return (
     <Wrapper>
-      {knowsWeight === false ? (
-        <div class="weight-knowledge-check">
+      {!user?.hasChosenWeightOption && user?.knowsWeight === false ? (
+        <div className="weight-knowledge-check">
           <h3>Do You Know Your Starting Weights?</h3>
-          <p class="weight-info-text">
+          <p className="weight-info-text">
             Knowing your starting weights helps us create a plan tailored to
             your current fitness level. Please enter the weight you can lift for{" "}
             <span className="bolder-text">10 repetitions</span> of each
@@ -644,22 +660,22 @@ const WorkoutPage = () => {
             week to help you estimate your weights safely.
           </p>
 
-          <div class="button-group">
+          <div className="button-group">
             <button
-              class="set-knows-weight"
-              onClick={() => setKnowsWeight(true)}
+              className="set-knows-weight"
+              onClick={() => setUserKnowsWeight(user, true, true)}
             >
               Yes, I Know My Weights
             </button>
             <button
-              class="set-knows-weight"
-              onClick={() => setKnowsWeight(false)}
+              className="set-knows-weight"
+              onClick={() => setUserKnowsWeight(user, false, true)}
             >
               No, I Want to Estimate Them
             </button>
           </div>
 
-          <div class="info-box">
+          <div className="info-box">
             <h4>Why This Matters</h4>
             <ul>
               <li>🚀 Personalized training intensity</li>
@@ -668,24 +684,26 @@ const WorkoutPage = () => {
             </ul>
           </div>
 
-          <p class="weight-note">
+          <p className="weight-note">
             ⚠️ Please choose carefully: Once you select an option, it cannot be
             changed later. If you're unsure about your weights, we recommend
             selecting "No" and going through the guided test week.
           </p>
         </div>
-      ) : shouldShowForm ? (
+      ) : !user?.hasChosenWeightOption ? (
         renderWeightForm()
-      ) : knowsWeight === false && !submitted ? (
+      ) : user?.knowsWeight === false && !submitted ? (
         <>
           {isAtWorkoutRoot && renderPracticeWeek()}
           <Outlet />
         </>
-      ) : (
+      ) : user?.areWeightsPutted ? (
         <div>
           {isAtWorkoutRoot && renderWeeks()}
           <Outlet />
         </div>
+      ) : (
+        <div></div>
       )}
     </Wrapper>
   );

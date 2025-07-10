@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
   HomePage,
@@ -26,6 +27,8 @@ import {
   VerifyEmail,
   ForgotPassword,
   ResetPassword,
+  PrivacyPolicy,
+  TermsAndConditions,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -34,6 +37,7 @@ import { loader as dashboardLoader } from "./pages/DashboardPage";
 import { action as profileAction } from "./pages/Profile";
 import { action as forgotPasswordAction } from "./pages/ForgotPassword";
 //import { loader as FoodLoader } from "./pages/FoodPage";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -79,6 +83,14 @@ const router = createBrowserRouter([
       {
         path: "ebooks",
         element: <EbooksPage />,
+      },
+      {
+        path: "terms-and-conditions",
+        element: <TermsAndConditions />,
+      },
+      {
+        path: "privacy-policy",
+        element: <PrivacyPolicy />,
       },
       {
         path: "dashboard",

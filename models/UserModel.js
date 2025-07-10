@@ -40,6 +40,38 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    knowsWeight: {
+      type: Boolean,
+      default: false,
+    },
+    testWeekStartDate: {
+      type: Date,
+      default: null,
+    },
+    hasChosenWeightOption: {
+      type: Boolean,
+      default: false,
+    },
+    finalWeights: {
+      benchPress: { type: Number, default: null },
+      latPulldown: { type: Number, default: null },
+      barbellRow: { type: Number, default: null },
+      militaryPress: { type: Number, default: null },
+      bicepsCurl: { type: Number, default: null },
+      tricepsPushdown: { type: Number, default: null },
+      squat: { type: Number, default: null },
+      romanianDeadlift: { type: Number, default: null },
+    },
+    testWeights: {
+      benchPress: { type: Number, default: null },
+      latPulldown: { type: Number, default: null },
+      barbellRow: { type: Number, default: null },
+      militaryPress: { type: Number, default: null },
+      bicepsCurl: { type: Number, default: null },
+      tricepsPushdown: { type: Number, default: null },
+      squat: { type: Number, default: null },
+      romanianDeadlift: { type: Number, default: null },
+    },
     userValues: {
       muscleInjuries: {
         type: [String],

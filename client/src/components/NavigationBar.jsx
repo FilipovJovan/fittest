@@ -63,6 +63,26 @@ const NavigationBar = () => {
                 E-books
               </Link>
               <Link
+                to="/terms-and-conditions"
+                smooth={true}
+                duration={500}
+                spy={true}
+                offset={-50}
+                className="mr-3 navbar-items active"
+              >
+                Terms & conditions
+              </Link>
+              <Link
+                to="/privacy-policy"
+                smooth={true}
+                duration={500}
+                spy={true}
+                offset={-50}
+                className="mr-3 navbar-items active"
+              >
+                Privacy policy
+              </Link>
+              <Link
                 to="#section-four"
                 smooth={true}
                 duration={500}

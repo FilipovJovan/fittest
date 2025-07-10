@@ -5,7 +5,15 @@ import { Link } from "react-router-dom";
 import { useWorkout } from "../../context/WorkoutContext";
 
 const DashboardLayoutPage = () => {
-  const { currentWorkout, fullWorkoutPlan } = useWorkout();
+  const { currentWorkout, fullWorkoutPlan, loading } = useWorkout();
+
+  if (loading || !fullWorkoutPlan) {
+    return (
+      <Wrapper>
+        <p>Loading your workout plan...</p>
+      </Wrapper>
+    );
+  }
 
   const calculateProgress = () => {
     if (!fullWorkoutPlan?.workoutProgram?.[0]?.weeks) {

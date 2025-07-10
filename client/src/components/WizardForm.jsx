@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import DatePicker from "react-datepicker";
 
 const WizardForm = ({ onFormDataChange, onFinalStep }) => {
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [step, setStep] = useState(1);
   const [unit, setUnit] = useState("metric");
   const [weightKg, setWeightKg] = useState(70);
@@ -267,6 +268,8 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     const numValue = parseFloat(value) || 0;
     setHeightFeet(numValue);
   };
+
+  const age = formData.date ? calculateAge(new Date(formData.date)) : 0;
 
   return (
     <Wrapper>
@@ -928,6 +931,40 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    fontSize: "0.7rem",
+                    textAlign: "left",
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    checked={acceptedTerms}
+                    onChange={(e) => setAcceptedTerms(e.target.checked)}
+                  />
+                  <label htmlFor="terms">
+                    I agree to the{" "}
+                    <a
+                      href="/terms-and-conditions"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Terms & Conditions
+                    </a>{" "}
+                    and{" "}
+                    <a
+                      href="/privacy-policy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Privacy Policy
+                    </a>
+                  </label>
+                </div>
               </div>
               <div className="navigation-buttons">
                 <button onClick={prevStep}>Back</button>
@@ -938,7 +975,9 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
                     !formData.password ||
                     !formData.date ||
                     !formData.name ||
-                    !formData.lastName
+                    !formData.lastName ||
+                    age < 18 ||
+                    !acceptedTerms
                   }
                 >
                   Next

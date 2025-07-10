@@ -7,7 +7,6 @@ let wholeWorkoutPlan = null;
 export const getFullWorkoutPlan = () => wholeWorkoutPlan;
 
 const WorkoutContext = createContext();
-
 export const useWorkout = () => useContext(WorkoutContext);
 
 export const WorkoutProvider = ({ children }) => {
@@ -17,13 +16,13 @@ export const WorkoutProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [workoutPhase, setWorkoutPhase] = useState("loading");
 
-  const { isAuthenticated, authChecked } = useAuth(); // ✅ pull auth state
+  const { isAuthenticated, authChecked, user } = useAuth();
 
+  // Helper to find today's workout from the plan
   const getCurrentWorkoutFromPlan = (plan) => {
     const today = new Date().toDateString();
-    if (!plan?.workoutProgram?.length) return null;
+    const program = plan?.workoutProgram?.[0];
 
-    const program = plan.workoutProgram[0];
     if (!program?.weeks?.length) return null;
 
     for (const week of program.weeks) {
@@ -56,33 +55,27 @@ export const WorkoutProvider = ({ children }) => {
       const current = getCurrentWorkoutFromPlan(plan);
       setCurrentWorkout(current);
 
-      // 🔍 Detect if it's just the test week
       const program = plan?.workoutProgram?.[0];
       const isOnlyTestWeek =
         program?.weeks?.length === 1 && program.weeks[0]?.isTestWeek;
 
-      if (isOnlyTestWeek) {
-        setWorkoutPhase("test");
-      } else {
-        setWorkoutPhase("ready");
-      }
+      setWorkoutPhase(isOnlyTestWeek ? "test" : "ready");
     } catch (error) {
       console.error("Error fetching workout plan:", error.message);
       setFullWorkoutPlan(null);
-      wholeWorkoutPlan = null;
       setCurrentWorkout(null);
-      setWorkoutPhase("ready"); // fallback
+      wholeWorkoutPlan = null;
+      setWorkoutPhase("ready");
     } finally {
       setLoading(false);
     }
   };
 
-  // ✅ Only fetch after auth check & if authenticated
   useEffect(() => {
-    if (authChecked && isAuthenticated) {
+    if (authChecked && isAuthenticated && user && !fullWorkoutPlan) {
       fetchWorkoutPlan();
     }
-  }, [authChecked, isAuthenticated]);
+  }, [authChecked, isAuthenticated, user, fullWorkoutPlan]);
 
   return (
     <WorkoutContext.Provider
@@ -91,7 +84,7 @@ export const WorkoutProvider = ({ children }) => {
         currentWorkout,
         loading,
         workoutPhase,
-        setWorkoutPhase, // useful for updates after test is completed
+        setWorkoutPhase,
         refreshWorkoutPlan: fetchWorkoutPlan,
       }}
     >

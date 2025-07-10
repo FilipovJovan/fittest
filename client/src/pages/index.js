@@ -23,3 +23,5 @@ export { default as SetsPerMusclePage } from "./SetsPerMusclePage";
 export { default as VerifyEmail } from "./VerifyEmailPage";
 export { default as ForgotPassword } from "./ForgotPassword";
 export { default as ResetPassword } from "./ResetPassword";
+export { default as PrivacyPolicy } from "./PrivacyPolicy";
+export { default as TermsAndConditions } from "./TermsAndConditions";

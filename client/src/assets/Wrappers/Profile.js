@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
 const Wrapper = styled.section`
+  .user-values {
+    max-width: 800px;
+    padding: 1rem 2rem 1rem 2rem;
+    background-color: var(--grey-100);
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
   .form {
     background-color: var(--grey-300);
     max-width: none;

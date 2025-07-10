@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  /* workout.css */
   h2,
   h3,
   h4,
@@ -59,6 +58,12 @@ const Wrapper = styled.div`
   }
   .weight-entry-form button {
     margin-right: 1rem;
+  }
+  .instruction-text-container {
+    padding: 1rem;
+    background-color: var(--grey-100);
+    border-radius: 12px;
+    margin: 1rem 0rem 1rem 0rem;
   }
   .instruction-button {
     margin: 1rem 0rem 0.5rem 0rem;
