@@ -54,7 +54,7 @@ export const register = async (req, res) => {
   await user.save();
 
   const localVerificationEmail = `http://localhost:5173/verify-email/${verificationToken}?email=${user.email}`;
-  const verificationUrl = `https://fittestsapp.com/verify-email/${verificationToken}`;
+  const verificationUrl = `https://fittestsapp.com/verify-email/${verificationToken}?email=${user.email}`;
 
   const mailOptions = {
     from: "noreply@fittestsapp.com",
