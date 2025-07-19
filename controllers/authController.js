@@ -68,7 +68,7 @@ export const register = async (req, res) => {
       <p>We're excited to have you on board. To get started, please verify your email address by clicking the button below:</p>
 
       <div style="text-align: center; margin: 30px 0;">
-        <a href="${localVerificationEmail}" style="background-color: #0E7CFF; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+        <a href="${verificationUrl}" style="background-color: #0E7CFF; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold;">
           Verify Email
         </a>
       </div>
