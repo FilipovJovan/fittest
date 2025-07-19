@@ -116,6 +116,29 @@ const fullBody3x = (
     "ab roller",
   ];
 
+  const routinePatterns = [
+    ["fullBodyA", "fullBodyB", "fullBodyC"], // Week 1
+    ["fullBodyB", "fullBodyC", "fullBodyA"], // Week 2
+    ["fullBodyC", "fullBodyA", "fullBodyB"], // Week 3
+    ["fullBodyA", "fullBodyB", "fullBodyC"], // Week 4
+  ];
+
+  // Determine which pattern to use based on the week
+  const currentPattern = routinePatterns[(week - 1) % routinePatterns.length];
+
+  // Determine the workout for the current day
+  name = currentPattern[day - 1];
+
+  const muscleTypesUpperLower = upperLowerMuscles[name];
+  const muscleGroupExercisesFullBody3x = splitWorkout(
+    workoutWithSetsRepsRest,
+    muscleTypesUpperLower
+  );
+  const filteredMuscleGroupExercisesFullBody3x = filterExercisesByEquipment(
+    muscleGroupExercisesFullBody3x,
+    equipmentType
+  );
+
   const filteredAbExercises = filterExercisesByEquipment(
     muscleGroupExercisesFullBody3x.filter((ex) => ex.muscleType === "abs"),
     extendedEquipment
@@ -150,29 +173,6 @@ const fullBody3x = (
       });
     }
   };
-
-  const routinePatterns = [
-    ["fullBodyA", "fullBodyB", "fullBodyC"], // Week 1
-    ["fullBodyB", "fullBodyC", "fullBodyA"], // Week 2
-    ["fullBodyC", "fullBodyA", "fullBodyB"], // Week 3
-    ["fullBodyA", "fullBodyB", "fullBodyC"], // Week 4
-  ];
-
-  // Determine which pattern to use based on the week
-  const currentPattern = routinePatterns[(week - 1) % routinePatterns.length];
-
-  // Determine the workout for the current day
-  name = currentPattern[day - 1];
-
-  const muscleTypesUpperLower = upperLowerMuscles[name];
-  const muscleGroupExercisesFullBody3x = splitWorkout(
-    workoutWithSetsRepsRest,
-    muscleTypesUpperLower
-  );
-  const filteredMuscleGroupExercisesFullBody3x = filterExercisesByEquipment(
-    muscleGroupExercisesFullBody3x,
-    equipmentType
-  );
 
   if (name === "fullBodyA") {
     if (difficultyLevel === "beginner") {

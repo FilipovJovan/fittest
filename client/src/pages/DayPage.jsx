@@ -28,9 +28,9 @@ const DayPage = () => {
 
   const handleFinish = async () => {
     try {
-      console.log("Before");
+      // console.log("Before");
       setShowModal(true); // Show modal
-      console.log("After");
+      // console.log("After");
 
       await customFetch.put(
         `/generate-custom/workout/${workoutId}/finish-day`,
@@ -51,7 +51,7 @@ const DayPage = () => {
 
   useEffect(() => {
     if (showModal) {
-      console.log("showModal changed to true, modal should show now!");
+      // console.log("showModal changed to true, modal should show now!");
     }
   }, [showModal]);
 
@@ -61,7 +61,7 @@ const DayPage = () => {
 
     const updatedDay = { ...day, completed: true };
 
-    navigate("/dashboard/workout/", {
+    navigate("/dashboard/workout", {
       state: {
         days: days.map((d) => (d.name === day.name ? updatedDay : d)),
       },

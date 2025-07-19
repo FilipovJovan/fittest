@@ -182,25 +182,3 @@ export const getMeals = async (req, res) => {
     meals,
   });
 };
-
-/*export const suggestDailyPlan = async (req, res) => {
-  try {
-    const { userId } = req.body;
-
-    if (!userId) {
-      return res.status(400).json({ message: "User ID is required" });
-    }
-
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    const mealPlan = await suggestDailyMealPlan(user);
-
-    res.status(200).json(mealPlan);
-  } catch (err) {
-    console.error("Error in suggestDailyPlan:", err);
-    res.status(500).json({ message: err.message });
-  }
-};*/

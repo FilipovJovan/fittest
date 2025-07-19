@@ -17,10 +17,10 @@ const WeeklyVolumePage = () => {
 
   useEffect(() => {
     if (isLoading || !fullWorkoutPlan?.workoutProgram?.[0]?.weeks) {
-      console.log("Waiting for data or invalid fullWorkoutPlan:", {
-        isLoading,
-        fullWorkoutPlan,
-      });
+      // console.log("Waiting for data or invalid fullWorkoutPlan:", {
+      //   isLoading,
+      //   fullWorkoutPlan,
+      // });
       return;
     }
 
@@ -31,7 +31,7 @@ const WeeklyVolumePage = () => {
         const weekLabel = `Week ${weekIndex + 1}`;
 
         if (!week.days) {
-          console.log("No days found in week:", week);
+          // console.log("No days found in week:", week);
           return;
         }
 
@@ -39,7 +39,7 @@ const WeeklyVolumePage = () => {
 
         week.days.forEach((day) => {
           if (!day.workout) {
-            console.log("No workout found in day:", day);
+            // console.log("No workout found in day:", day);
             return;
           }
 

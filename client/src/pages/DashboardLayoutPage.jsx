@@ -1,16 +1,50 @@
-import React from "react";
-import { Row, Col, ProgressBar } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Row, Col, ProgressBar, Button } from "react-bootstrap";
 import Wrapper from "../assets/Wrappers/DashboardLayout";
 import { Link } from "react-router-dom";
 import { useWorkout } from "../../context/WorkoutContext";
+import { useAuth } from "../../context/AuthContext";
+import Spinner from "../components/Spinner";
 
 const DashboardLayoutPage = () => {
-  const { currentWorkout, fullWorkoutPlan, loading } = useWorkout();
+  const { user, authChecked } = useAuth();
+  const { currentWorkout, fullWorkoutPlan, loading, refreshWorkoutPlan } =
+    useWorkout();
+
+  const [showRefresh, setShowRefresh] = useState(false);
+
+  useEffect(() => {
+    if (!loading) {
+      setShowRefresh(false);
+      return;
+    }
+    const timer = setTimeout(() => setShowRefresh(true), 3000);
+    return () => clearTimeout(timer);
+  }, [loading]);
+
+  if (!authChecked) {
+    return (
+      <Wrapper>
+        <Spinner message="Checking user authentication..." />
+      </Wrapper>
+    );
+  }
+
+  if (!user) {
+    window.location.reload();
+  }
 
   if (loading || !fullWorkoutPlan) {
     return (
       <Wrapper>
-        <p>Loading your workout plan...</p>
+        <Spinner message="Loading your workout plan..." />
+        {showRefresh && (
+          <div className="mt-3 text-center">
+            <Button variant="secondary" onClick={refreshWorkoutPlan}>
+              Refresh
+            </Button>
+          </div>
+        )}
       </Wrapper>
     );
   }

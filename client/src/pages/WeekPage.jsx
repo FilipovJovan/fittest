@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const WeekPage = () => {
-  console.log("reached");
+  // console.log("reached");
 
   const { weekId } = useParams();
   const { state } = useLocation();
@@ -10,8 +10,8 @@ const WeekPage = () => {
 
   // Get workoutId from state or localStorage
   const workoutId = state?.workoutId || localStorage.getItem("workoutId");
-  console.log(workoutId);
-
+  // console.log(workoutId);
+  const weekNumber = state?.weekNumber || localStorage.getItem("weekNumber");
   // Retrieve days from state or localStorage
   const allDays = useMemo(() => {
     if (state?.days) {
@@ -47,7 +47,7 @@ const WeekPage = () => {
 
   const handleDayClick = (day, index) => {
     navigate(`day/${index + 1}`, {
-      state: { workoutId, day, days, weekId },
+      state: { workoutId, day, days, weekId, weekNumber },
     });
   };
 

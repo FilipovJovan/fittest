@@ -61,7 +61,7 @@ const Wrapper = styled.div`
   }
   .instruction-text-container {
     padding: 1rem;
-    background-color: var(--grey-100);
+    background-color: var(--grey-200);
     border-radius: 12px;
     margin: 1rem 0rem 1rem 0rem;
   }

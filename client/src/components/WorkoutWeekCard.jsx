@@ -37,7 +37,7 @@ const WorkoutWeekCard = ({
     localStorage.setItem("allDays", JSON.stringify(days));
     localStorage.setItem("workoutId", workoutId);
     navigate(`week/${week._id}`, {
-      state: { days, workoutId, currentDay },
+      state: { days, workoutId, currentDay, weekNumber },
     });
   };
 

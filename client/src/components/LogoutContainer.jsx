@@ -14,7 +14,7 @@ const LogoutContainer = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
 
   const logoutUser = async () => {
-    console.log("reached");
+    // console.log("reached");
 
     navigate("/");
     await customFetch.get("/auth/logout", {

@@ -4,6 +4,7 @@ import { FoodPageContext } from "./FoodPage";
 import MealContainer from "../components/MealContainer";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 const MacrosPage = () => {
   const mealsRef = useRef(null);
@@ -16,7 +17,7 @@ const MacrosPage = () => {
 
   const handleSuggestFoods = async () => {
     setLoading(true);
-    console.log("reached");
+    // console.log("reached");
 
     try {
       const response = await customFetch.post(
@@ -82,7 +83,11 @@ const MacrosPage = () => {
   const userCalories = user?.currentCalories;
 
   if (!userMacros || !userCalories) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <Spinner message="Loading your macros and meals..." />
+      </>
+    );
   }
 
   return (

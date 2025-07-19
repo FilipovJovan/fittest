@@ -133,6 +133,20 @@ const fullBody4x = (
     "ab roller",
   ];
 
+  const dayRoutineMap = ["A", "B", "C", "D"];
+
+  name = dayRoutineMap[day - 1];
+
+  const muscleTypesFullBody = fullBodyMuscles[name];
+  const muscleGroupExercisesFullBody = splitWorkout(
+    workoutWithSetsRepsRest,
+    muscleTypesFullBody
+  );
+  const filteredMuscleGroupExercisesFullBody = filterExercisesByEquipment(
+    muscleGroupExercisesFullBody,
+    equipmentType
+  );
+
   const filteredAbExercises = filterExercisesByEquipment(
     muscleGroupExercisesFullBody.filter((ex) => ex.muscleType === "abs"),
     extendedEquipment
@@ -167,20 +181,6 @@ const fullBody4x = (
       });
     }
   };
-
-  const dayRoutineMap = ["A", "B", "C", "D"];
-
-  name = dayRoutineMap[day - 1];
-
-  const muscleTypesFullBody = fullBodyMuscles[name];
-  const muscleGroupExercisesFullBody = splitWorkout(
-    workoutWithSetsRepsRest,
-    muscleTypesFullBody
-  );
-  const filteredMuscleGroupExercisesFullBody = filterExercisesByEquipment(
-    muscleGroupExercisesFullBody,
-    equipmentType
-  );
 
   // Adding exercises based on the day
   if (name === "A") {

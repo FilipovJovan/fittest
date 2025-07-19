@@ -102,7 +102,7 @@ export const updateExerciseInWorkout = async (req, res) => {
     }
 
     // Find the specific day within the specified week
-    const workoutDay = workoutPlan.weeks[week - 1].days[day - 1]; // Adjust for 0-based index
+    const workoutDay = workoutPlan.weeks[week - 1].days[day - 1];
 
     if (!workoutDay) {
       return res
@@ -429,5 +429,30 @@ export const getTestWeights = async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const removeTestWeek = async (req, res) => {
+  const { workoutId } = req.params;
+
+  try {
+    const workout = await Workout.findById(workoutId);
+    if (!workout) {
+      return res.status(404).json({ message: "Workout not found" });
+    }
+
+    const originalLength = workout.weeks.length;
+
+    workout.weeks = workout.weeks.filter((week) => !week.isTestWeek);
+
+    if (workout.weeks.length === originalLength) {
+      return res.status(400).json({ message: "No test week to remove" });
+    }
+
+    await workout.save();
+    res.status(200).json({ message: "Test week removed successfully" });
+  } catch (error) {
+    console.error("Error removing test week:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };

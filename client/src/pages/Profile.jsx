@@ -18,7 +18,7 @@ export const action = async ({ request }) => {
   data.muscleInjuries = formData.getAll("muscleInjuries");
   data.jointInjuries = formData.getAll("jointInjuries");
 
-  console.log("Final data to send:", data);
+  // console.log("Final data to send:", data);
 
   try {
     const response = await customFetch.patch(
@@ -32,7 +32,7 @@ export const action = async ({ request }) => {
       }
     );
 
-    console.log("Response:", response.data);
+    // console.log("Response:", response.data);
     toast.success("Profile updated successfully");
   } catch (error) {
     console.error("Error:", error);

@@ -83,6 +83,23 @@ const upperLower3x = (
     "ab roller",
   ];
 
+  const isEvenWeek = week % 2 === 0;
+  const routine = isEvenWeek
+    ? ["Lower day", "Upper day", "Lower day"]
+    : ["Upper day", "Lower day", "Upper day"];
+  name = routine[day - 1];
+
+  const muscleTypesUpperLower =
+    name === "Upper day" ? upperLowerMuscles.upper : upperLowerMuscles.lower;
+  const muscleGroupExercisesUpperLower = splitWorkout(
+    workoutWithSetsRepsRest,
+    muscleTypesUpperLower
+  );
+  const filteredMuscleGroupExercisesUpperLower = filterExercisesByEquipment(
+    muscleGroupExercisesUpperLower,
+    equipmentType
+  );
+
   const filteredAbExercises = filterExercisesByEquipment(
     muscleGroupExercisesUpperLower.filter((ex) => ex.muscleType === "abs"),
     extendedEquipment
@@ -117,23 +134,6 @@ const upperLower3x = (
       });
     }
   };
-
-  const isEvenWeek = week % 2 === 0;
-  const routine = isEvenWeek
-    ? ["Lower day", "Upper day", "Lower day"]
-    : ["Upper day", "Lower day", "Upper day"];
-  name = routine[day - 1];
-
-  const muscleTypesUpperLower =
-    name === "Upper day" ? upperLowerMuscles.upper : upperLowerMuscles.lower;
-  const muscleGroupExercisesUpperLower = splitWorkout(
-    workoutWithSetsRepsRest,
-    muscleTypesUpperLower
-  );
-  const filteredMuscleGroupExercisesUpperLower = filterExercisesByEquipment(
-    muscleGroupExercisesUpperLower,
-    equipmentType
-  );
 
   if (name === "Upper day") {
     addCompoundExercise("overall chest");

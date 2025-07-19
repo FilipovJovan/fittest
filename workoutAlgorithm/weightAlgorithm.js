@@ -653,8 +653,7 @@ async function updateWorkoutWeights(workoutId, setExercisesWeight) {
               exerciseRef.reps = updatedValues.reps;
               break;
             case "Side Lateral Raises":
-              oneRepMax =
-                setExercisesWeight.shoulderEstimatedWeights.sideLateralRaises;
+              oneRepMax = setExercisesWeight.shoulderEstimatedWeights.sideRaise;
               updatedValues = calculateWeightsAndReps(
                 oneRepMax,
                 currentReps,

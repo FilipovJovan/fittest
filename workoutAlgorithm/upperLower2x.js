@@ -15,7 +15,7 @@ const upperLower2x = (
   dailyWorkout,
   week
 ) => {
-  console.log(week);
+  // console.log(week);
 
   let name = "";
   const musclesList = [

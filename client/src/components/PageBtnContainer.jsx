@@ -18,10 +18,10 @@ const PageBtnContainer = () => {
   const handlePageChange = (newPage) => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("page", newPage);
-    console.log(
-      "Navigating to:",
-      `${location.pathname}?${searchParams.toString()}`
-    );
+    // console.log(
+    //   "Navigating to:",
+    //   `${location.pathname}?${searchParams.toString()}`
+    // );
     navigate(`${location.pathname}?${searchParams.toString()}`);
   };
 

@@ -45,7 +45,7 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
   };
 
   const restDayLimits = {
-    broSplit: 2,
+    broSplit5x: 2,
     fullBody2x: 5,
     fullBody3x: 4,
     fullBody4x: 3,
@@ -58,7 +58,7 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
   };
 
   const workoutLevels = {
-    broSplit: 5,
+    broSplit5x: 5,
     fullBody2x: 2,
     fullBody3x: 3,
     fullBody4x: 4,
@@ -87,8 +87,8 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
   useEffect(() => {
     if (formData.date) {
       const age = calculateAge(formData.date);
-      console.log("Date:", formData.date);
-      console.log("Age:", age);
+      // console.log("Date:", formData.date);
+      // console.log("Age:", age);
 
       if (!isNaN(age)) {
         setFormData((prevData) => ({
@@ -582,12 +582,12 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
               <div className="activity-level-options">
                 <div
                   className={`activity-level-option ${
-                    formData.userValues.split === "broSplit" ? "selected" : ""
+                    formData.userValues.split === "broSplit5x" ? "selected" : ""
                   }`}
                   onClick={() =>
                     handleFieldChange("userValues", {
                       ...formData.userValues,
-                      split: "broSplit",
+                      split: "broSplit5x",
                     })
                   }
                 >

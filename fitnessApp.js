@@ -299,7 +299,7 @@ async function generateWorkoutProgram({
     const weekObject = {
       weekNumber: week,
       days: [],
-      isTestWeek: week === 1,
+      isTestWeek: week === 6,
     };
 
     let dayCounter = 1;

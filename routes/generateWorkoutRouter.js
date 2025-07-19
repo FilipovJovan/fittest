@@ -15,6 +15,7 @@ import {
   getCurrentWorkoutDay,
   updateTestWeights,
   getTestWeights,
+  removeTestWeek,
 } from "../controllers/workoutController.js";
 import { authenticateUser } from "../middleware/authMiddleware.js";
 import {
@@ -22,6 +23,7 @@ import {
   getVolumePerMuscleGroup,
   getWeeklyVolume,
 } from "../workoutAlgorithm/progressAlgorithm.js";
+import { getAllExercises } from "../controllers/exerciseController.js";
 const router = Router();
 
 //GET routes
@@ -31,6 +33,7 @@ router.get("/workout/progress/sets/:workoutId", getSetsPerMuscleGroup);
 router.get("/workout/progress/volume/:workoutId", getVolumePerMuscleGroup);
 router.get("/workout/progress/weekly/:workoutId", getWeeklyVolume);
 router.get("/workout/get-test-weights/:userId", getTestWeights);
+router.get("/workout/get-exercises", getAllExercises);
 
 //POST routes
 router.post("/workout", generateWorkout);
@@ -51,6 +54,7 @@ router.patch("/workout/user-values", updatingUserValues);
 //PUT routes
 router.put("/workout/update-test-weights/:userId", updateTestWeights);
 router.put("/workout/:id/finish-day", finishWorkoutDay);
+router.put("/workout/remove-test-week/:workoutId", removeTestWeek);
 
 //DELETE routes
 router.delete("/workout/delete-workout/:workoutId", workoutDelete);

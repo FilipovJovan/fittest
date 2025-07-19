@@ -17,10 +17,10 @@ const SetsPerMusclePage = () => {
 
   useEffect(() => {
     if (isLoading || !fullWorkoutPlan?.workoutProgram?.[0]?.weeks) {
-      console.log("Waiting for data or invalid fullWorkoutPlan:", {
-        isLoading,
-        fullWorkoutPlan,
-      });
+      // console.log("Waiting for data or invalid fullWorkoutPlan:", {
+      //   isLoading,
+      //   fullWorkoutPlan,
+      // });
       return;
     }
 
@@ -31,13 +31,13 @@ const SetsPerMusclePage = () => {
         const weekLabel = `Week ${weekIndex + 1}`;
 
         if (!week.days) {
-          console.log("No days found in week:", week);
+          // console.log("No days found in week:", week);
           return;
         }
 
         week.days.forEach((day) => {
           if (!day.workout) {
-            console.log("No workout found in day:", day);
+            // console.log("No workout found in day:", day);
             return;
           }
 
@@ -55,7 +55,7 @@ const SetsPerMusclePage = () => {
               }
               muscleData[muscleType][weekLabel] += sets;
             } else {
-              console.log("No muscleType found in exercise:", workoutItem);
+              // console.log("No muscleType found in exercise:", workoutItem);
             }
           });
         });
@@ -69,7 +69,7 @@ const SetsPerMusclePage = () => {
         }));
       });
 
-      console.log("Formatted muscleDataByWeek (Sets):", formattedData);
+      // console.log("Formatted muscleDataByWeek (Sets):", formattedData);
       setMuscleDataByWeek(formattedData);
     } catch (error) {
       console.error("Error processing sets per muscle by week:", error);

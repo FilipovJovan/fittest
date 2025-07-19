@@ -34,10 +34,10 @@ const VerifyEmail = () => {
 
       // Step 1: Attempt to verify the email
       try {
-        console.log(
-          "Sending verification request for token:",
-          verificationToken
-        );
+        // console.log(
+        //   "Sending verification request for token:",
+        //   verificationToken
+        // );
         const verifyResponse = await customFetch.get(
           `/auth/verify-email/${verificationToken}`,
           {
@@ -45,10 +45,10 @@ const VerifyEmail = () => {
             signal,
           }
         );
-        console.log("Verification response:", verifyResponse);
+        // console.log("Verification response:", verifyResponse);
       } catch (error) {
         if (error.name === "AbortError") {
-          console.log("Verification request aborted.");
+          // console.log("Verification request aborted.");
           return;
         }
         console.warn(
@@ -84,7 +84,7 @@ const VerifyEmail = () => {
         }
       } catch (error) {
         if (error.name === "AbortError") {
-          console.log("Status check aborted.");
+          // console.log("Status check aborted.");
           return;
         }
 

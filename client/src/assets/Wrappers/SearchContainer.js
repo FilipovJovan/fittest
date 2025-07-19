@@ -33,7 +33,7 @@ const Wrapper = styled.section`
     background-color: transparent;
     border: 1px solid var(--grey-500);
     border-radius: 4px;
-    padding: 0.5em;
+    padding: 0.3em;
     font-size: 1rem;
     color: var(--black);
     appearance: none; /* Remove default browser styling for select */

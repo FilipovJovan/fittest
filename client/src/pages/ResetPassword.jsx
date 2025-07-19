@@ -20,8 +20,8 @@ const ResetPassword = () => {
       toast.error("Invalid or missing token.");
       return;
     }
-    console.log(password);
-    console.log(confirmPassword);
+    // console.log(password);
+    // console.log(confirmPassword);
 
     if (password !== confirmPassword) {
       toast.error("Passwords do not match.");
@@ -40,12 +40,12 @@ const ResetPassword = () => {
           },
         }
       );
-      console.log(password, token);
+      // console.log(password, token);
 
       toast.success("Password reset successful! You can now log in.");
       navigate("/login");
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error(error?.response?.data?.msg || "Reset failed.");
     }
   };

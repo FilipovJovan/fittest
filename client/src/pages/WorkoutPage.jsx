@@ -7,6 +7,8 @@ import Wrapper from "../assets/Wrappers/Workout";
 import FormRow from "../components/FormRow";
 import { Row, Col } from "react-bootstrap";
 import customFetch from "../utils/customFetch";
+import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 const WorkoutPage = () => {
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ const WorkoutPage = () => {
   const { pathname } = useLocation();
   const apiKey = import.meta.env.VITE_API_KEY;
   const userId = user?._id;
-  console.log("User id: " + userId);
+  // console.log("User id: " + userId);
 
   const areWeightsPutted = user?.areWeightsPutted;
   const userKnowsWeight = user?.knowsWeight;
@@ -102,11 +104,17 @@ const WorkoutPage = () => {
     Math.floor((today - new Date(testWeekStartDate)) / (1000 * 60 * 60 * 24));
   const isSeventhDay = testWeekStartDate && daysSinceStart >= 6;
 
-  if (!authChecked) return <div>Loading...</div>;
+  if (!authChecked) {
+    return (
+      <Wrapper>
+        <Spinner message="Loading..." />
+      </Wrapper>
+    );
+  }
   if (loading || workoutPhase === "loading")
     return (
       <Wrapper>
-        <p className="loading-message">Loading...</p>
+        <Spinner message="Loading..." />
       </Wrapper>
     );
   if (workoutPhase === "test")
@@ -155,15 +163,13 @@ const WorkoutPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
     const allWeightsFilled = Object.values(practiceWeights).every(
       (weight) => weight !== null && !isNaN(weight)
     );
-    if (!allWeightsFilled) {
-      alert("Please enter weights for all 8 exercises before submitting.");
-      return;
-    }
+    // if (!allWeightsFilled) {
+    //   alert("Please enter weights for all 8 exercises before submitting.");
+    //   return;
+    // }
 
     let convertedWeights = { ...practiceWeights };
     if (metricUnit === "imperial") {
@@ -177,12 +183,11 @@ const WorkoutPage = () => {
 
     try {
       const payload = {
-        finalWeights: convertedWeights,
         areWeightsPutted: true,
         testWeights: null, // Clear test weights
       };
 
-      const res = await customFetch.put(
+      await customFetch.put(
         `/generate-custom/workout/update-test-weights/${userId}`,
         payload,
         {
@@ -193,12 +198,52 @@ const WorkoutPage = () => {
         }
       );
 
-      console.log("Successfully submitted:", res.data);
+      // console.log("Successfully submitted:", res.data);
       setSubmitted(true);
       setShowWeightForm(false);
+
+      toast.success("Weights submitted successfully!");
     } catch (error) {
       console.error("Error submitting weights:", error);
     }
+
+    try {
+      const payload = {
+        ...convertedWeights, // spreads benchPress, latPulldown, etc.
+        workoutId, // make sure workoutId is defined
+      };
+
+      // console.log("POST payload:", payload);
+
+      await customFetch.post(
+        `/generate-custom/workout/weight-exercises`,
+        payload,
+        {
+          headers: {
+            "x-api-key": apiKey,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(payload);
+
+      // await customFetch.put(
+      //   `/generate-custom/workout/remove-test-week/${workoutId}`,
+      //   {},
+      //   {
+      //     headers: {
+      //       "x-api-key": apiKey,
+      //     },
+      //   }
+      // );
+    } catch (error) {
+      console.error("Error in POST /weight-exercises:", error);
+    }
+
+    navigate("/dashboard");
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   const setUserKnowsWeight = async (user, weightValue, optionValue) => {
@@ -245,7 +290,7 @@ const WorkoutPage = () => {
   };
 
   const shouldShowForm = userKnowsWeight && !submitted;
-  console.log("Should show form: " + shouldShowForm);
+  // console.log("Should show form: " + shouldShowForm);
 
   const renderWeightForm = () => (
     <div className="weight-form">
@@ -363,18 +408,16 @@ const WorkoutPage = () => {
         )}
 
         {workoutProgram.map((program) =>
-          program.weeks
-            .slice(0, 1)
-            .map((week, index) => (
-              <WorkoutWeekCard
-                key={week._id}
-                workoutId={program._id}
-                week={week}
-                weekNumber={index + 1}
-                days={week.days}
-                status={getWeekStatus(week)}
-              />
-            ))
+          program.weeks.slice(5, 6).map((week) => (
+            <WorkoutWeekCard
+              key={week._id}
+              workoutId={program._id}
+              week={week}
+              weekNumber={6} // <- explicitly set to 6
+              days={week.days}
+              status={getWeekStatus(week)}
+            />
+          ))
         )}
         <Row>
           <Col lg={6} md={6} sm={12}>
@@ -621,7 +664,7 @@ const WorkoutPage = () => {
         <div className="workout-page">
           {workoutProgram.map((program) =>
             program.weeks
-              .slice(user?.knowsWeight === false || areWeightsPutted ? 1 : 0)
+              .slice(0, 5)
               .map((week, index) => (
                 <WorkoutWeekCard
                   key={week._id}
@@ -643,13 +686,14 @@ const WorkoutPage = () => {
     (weight) => weight !== null && !isNaN(weight)
   );
 
-  console.log("Knows weight: " + userKnowsWeight);
-  console.log("Should show form: " + shouldShowForm);
-  console.log("Is submitted: " + submitted);
+  // console.log("Knows weight: " + userKnowsWeight);
+  // console.log("Should show form: " + shouldShowForm);
+  // console.log("Is submitted: " + submitted);
 
   return (
     <Wrapper>
-      {!user?.hasChosenWeightOption && user?.knowsWeight === false ? (
+      {/* 1. If user hasn't chosen weight option yet */}
+      {!user?.hasChosenWeightOption ? (
         <div className="weight-knowledge-check">
           <h3>Do You Know Your Starting Weights?</h3>
           <p className="weight-info-text">
@@ -690,20 +734,21 @@ const WorkoutPage = () => {
             selecting "No" and going through the guided test week.
           </p>
         </div>
-      ) : !user?.hasChosenWeightOption ? (
+      ) : user?.areWeightsPutted ? (
+        // 2. User has submitted weights — show full workout
+        <>
+          {isAtWorkoutRoot && renderWeeks()}
+          <Outlet />
+        </>
+      ) : user?.knowsWeight === true ? (
+        // 3. User knows weights but hasn't submitted — show weight input form
         renderWeightForm()
-      ) : user?.knowsWeight === false && !submitted ? (
+      ) : (
+        // 4. User doesn’t know weights and hasn't finished test week — show practice week
         <>
           {isAtWorkoutRoot && renderPracticeWeek()}
           <Outlet />
         </>
-      ) : user?.areWeightsPutted ? (
-        <div>
-          {isAtWorkoutRoot && renderWeeks()}
-          <Outlet />
-        </div>
-      ) : (
-        <div></div>
       )}
     </Wrapper>
   );

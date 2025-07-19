@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import customFetch from "../utils/customFetch";
 import ModalStyles from "../assets/Wrappers/WorkoutFeedbackModel";
+import { toast } from "react-toastify";
 
 const WorkoutFeedbackModal = ({
   show,
@@ -21,24 +22,30 @@ const WorkoutFeedbackModal = ({
   };
 
   const handleSubmit = async () => {
+    const { mindMuscle, soreness, pump } = feedback;
+
+    if (!mindMuscle || !soreness || !pump) {
+      toast.warning("Please answer all questions before submitting.");
+      return;
+    }
+
     try {
       await customFetch.post(
         "generate-custom/workout/progress",
         {
-          questionOne: feedback.mindMuscle,
-          questionTwo: feedback.soreness,
-          questionThree: feedback.pump,
+          questionOne: mindMuscle,
+          questionTwo: soreness,
+          questionThree: pump,
           workoutId,
           currentDayId,
         },
-
         {
           headers: {
             "x-api-key": apiKey,
           },
         }
       );
-      console.log("success");
+      toast.success("Feedback submitted! Great job 💪");
       handleClose();
     } catch (err) {
       console.error("Error submitting feedback:", err);
@@ -50,9 +57,11 @@ const WorkoutFeedbackModal = ({
       <ModalStyles />
       <Modal
         show={show}
-        onHide={handleClose}
+        onHide={() => {}}
         centered
+        backdrop="static"
         dialogClassName="custom-modal"
+        keyboard={false}
       >
         <Modal.Header closeButton>
           <Modal.Title>Congratulations! 🎯</Modal.Title>

@@ -19,7 +19,7 @@ export const loader = async () => {
 
     return data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return redirect("/login");
   }
 };
