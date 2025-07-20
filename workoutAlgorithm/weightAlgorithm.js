@@ -1231,8 +1231,9 @@ export const getExercisesWeight = async (req, res) => {
       romanianDeadlift,
       workoutId,
     });
-    res.status(StatusCodes.OK).json("Success");
+
     await updateWorkoutWeights(workoutId, calculatedWeights);
+    res.status(StatusCodes.OK).json("Success");
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
