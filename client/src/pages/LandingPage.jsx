@@ -242,7 +242,7 @@ const LandingPage = () => {
             pricingButtonText="pricing-button-text-black"
             includedItems={[
               "1 month workout plan",
-              "Meal suggestions",
+              "Meal suggestion",
               "1 newsletter per week",
               "Exercise access",
               "4 pre-made splits",
@@ -261,11 +261,11 @@ const LandingPage = () => {
               "Weight algorithm",
               "Progress tracking",
               "10+ pre-made splits",
-              "Calories calculator",
-              "Warm-up routines",
-              "Stretching routines",
-              "Daily reminders",
-              "100$ worth of ebooks",
+              "Calculated macros",
+              "Calculated calories",
+              "Meals access",
+              "Meal suggestion",
+              "Changing exercises",
             ]}
           />
         </Row>

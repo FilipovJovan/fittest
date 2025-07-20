@@ -279,6 +279,35 @@ const Wrapper = styled.section`
   .left-animation {
     animation: slideInRight 1s ease-in-out forwards;
   }
+
+  .original-price {
+    text-decoration: line-through;
+    color: #888;
+    margin-right: 8px;
+    font-weight: 500;
+  }
+
+  .currently-free {
+    color: #28a745;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .currently-free {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   @keyframes slideInLeft {
     from {
       transform-origin: left;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const PricingPackage = ({
   dotClass,
@@ -31,25 +32,25 @@ const PricingPackage = ({
         <p>{description}</p>
       </Row>
       <Row className="pricing-packages-lower-row">
-        <p>
-          {priceMonthly && priceAnnually ? (
-            <>
-              <span className="highlighted-text-one">{priceMonthly}</span> per
-              month billed annually or{" "}
-              <span className="highlighted-text-two">
-                {priceAnnually} billed monthly
-              </span>
-            </>
-          ) : (
-            <span className="highlighted-text-free">Free</span>
-          )}
+        <p className="premium-price-text">
+          <span className="original-price">
+            {priceMonthly} per month billed annually or {priceAnnually} billed
+            monthly
+          </span>
+          <br />
+          <span className="currently-free">
+            Currently <strong>Free</strong>
+          </span>
         </p>
+
         <Button
           variant="secondary"
           className={`pricing-button ${buttonColor}`}
           onClick={scrollToNewsletter}
         >
-          <p className={pricingButtonText}>Get Started</p>
+          <Link to="/register">
+            <p className={pricingButtonText}>Get Started</p>
+          </Link>
         </Button>
         <h5>What's included</h5>
         {includedItems.map((item, index) => (
