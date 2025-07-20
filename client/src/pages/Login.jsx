@@ -31,7 +31,7 @@ export const action = async ({ request }) => {
 
 const Login = () => {
   const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
+  const isSubmitting = navigation.state === "Submitting";
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword((prev) => !prev);
 
@@ -76,7 +76,7 @@ const Login = () => {
           </p>
 
           <button type="submit" className="btn" disabled={isSubmitting}>
-            {isSubmitting ? "submitting" : "submit"}
+            {isSubmitting ? "Submitting" : "Submit"}
           </button>
         </Form>
       </div>

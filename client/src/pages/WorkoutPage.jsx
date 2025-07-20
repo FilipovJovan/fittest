@@ -182,14 +182,15 @@ const WorkoutPage = () => {
     }
 
     try {
-      const payload = {
+      // First: update test weights (PUT)
+      const updatePayload = {
         areWeightsPutted: true,
-        testWeights: null, // Clear test weights
+        testWeights: null,
       };
 
       await customFetch.put(
         `/generate-custom/workout/update-test-weights/${userId}`,
-        payload,
+        updatePayload,
         {
           headers: {
             "x-api-key": apiKey,
@@ -198,26 +199,15 @@ const WorkoutPage = () => {
         }
       );
 
-      // console.log("Successfully submitted:", res.data);
-      setSubmitted(true);
-      setShowWeightForm(false);
-
-      toast.success("Weights submitted successfully!");
-    } catch (error) {
-      console.error("Error submitting weights:", error);
-    }
-
-    try {
-      const payload = {
-        ...convertedWeights, // spreads benchPress, latPulldown, etc.
-        workoutId, // make sure workoutId is defined
+      // Second: post weights (POST)
+      const weightPayload = {
+        ...convertedWeights,
+        workoutId,
       };
-
-      // console.log("POST payload:", payload);
 
       await customFetch.post(
         `/generate-custom/workout/weight-exercises`,
-        payload,
+        weightPayload,
         {
           headers: {
             "x-api-key": apiKey,
@@ -225,25 +215,30 @@ const WorkoutPage = () => {
           },
         }
       );
-      console.log(payload);
 
-      // await customFetch.put(
-      //   `/generate-custom/workout/remove-test-week/${workoutId}`,
-      //   {},
-      //   {
-      //     headers: {
-      //       "x-api-key": apiKey,
-      //     },
-      //   }
-      // );
+      // ✅ Third: remove test week (PUT) — only if above is successful
+      await customFetch.put(
+        `/generate-custom/workout/remove-test-week/${workoutId}`,
+        {},
+        {
+          headers: {
+            "x-api-key": apiKey,
+          },
+        }
+      );
+
+      setSubmitted(true);
+      setShowWeightForm(false);
+      toast.success("Weights submitted successfully!");
+      navigate("/dashboard");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     } catch (error) {
-      console.error("Error in POST /weight-exercises:", error);
+      console.error("Error during weight submission workflow:", error);
+      toast.error("Something went wrong. Please try again.");
     }
-
-    navigate("/dashboard");
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
   };
 
   const setUserKnowsWeight = async (user, weightValue, optionValue) => {

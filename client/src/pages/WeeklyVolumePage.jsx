@@ -141,7 +141,7 @@ const WeeklyVolumePage = () => {
                   tickLine={false}
                   axisLine={{ stroke: "#ccc" }}
                 />
-                <Tooltip content={<CustomTooltip />} />
+                <Tooltip />
                 <Bar
                   dataKey="volume"
                   fill="#3B82F6"

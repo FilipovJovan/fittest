@@ -199,7 +199,7 @@ const Wrapper = styled.section`
     max-width: 100%;
     text-align: left;
     margin: auto;
-    margin-bottom: 320px;
+    margin-bottom: 25rem;
   }
   .pricing-packages-columns {
     margin: 2px;

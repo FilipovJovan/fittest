@@ -124,9 +124,11 @@ const SetsPerMusclePage = () => {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-gray-800 text-white p-3 rounded-lg shadow-lg">
-          <p className="font-semibold">{label}</p>
-          <p>Sets: {payload[0].value}</p>
+        <div className="bg-gray-900 text-white p-4 rounded-xl shadow-xl border border-gray-700 transition-all duration-150">
+          <p className="font-bold text-sm mb-1 text-red-300">Week {label}</p>
+          <p className="text-indigo-400 font-medium">
+            Sets: {payload[0].value}
+          </p>
         </div>
       );
     }
@@ -171,7 +173,7 @@ const SetsPerMusclePage = () => {
                         tickLine={false}
                         axisLine={{ stroke: "#ccc" }}
                       />
-                      <Tooltip content={<CustomTooltip />} />
+                      <Tooltip />
                       <Bar
                         dataKey="sets"
                         fill="#8884d8"
