@@ -39,6 +39,7 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     },
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -224,9 +225,19 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
     setStep((prevStep) => prevStep - 1);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     const finalData = { ...formData };
-    onFinalStep(finalData);
+
+    try {
+      await onFinalStep(finalData); // Wait for async process
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false); // Optional: keep disabled or re-enable
+    }
   };
 
   const handleUnitChange = (newUnit) => {
@@ -415,6 +426,16 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
               <h3>Activity Level</h3>
 
               <div className="activity-level-options">
+                <div
+                  className={`activity-level-option ${
+                    formData.activityLevel === "Sedentary" ? "selected" : ""
+                  }`}
+                  onClick={() =>
+                    handleFieldChange("activityLevel", "Sedentary")
+                  }
+                >
+                  Sedentary
+                </div>
                 <div
                   className={`activity-level-option ${
                     formData.activityLevel === "Lightly active"
@@ -785,10 +806,13 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
                   "back",
                   "triceps",
                   "biceps",
-                  "deltoids",
+                  "traps",
+                  "shoulders",
+                  "abs",
                   "quadriceps",
                   "hamstrings",
                   "calves",
+                  "forearm",
                 ].map((muscle) => (
                   <div
                     key={muscle}
@@ -823,7 +847,7 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
             <div className="slide">
               <h3>Have you had any joint injuries recently?</h3>
               <div className="activity-level-options">
-                {["none", "shoulders", "elbow", "wrist", "hip", "knee"].map(
+                {["none", "elbow", "wrist", "knee", "ankle", "lower back"].map(
                   (joint) => (
                     <div
                       key={joint}
@@ -995,9 +1019,14 @@ const WizardForm = ({ onFormDataChange, onFinalStep }) => {
               <br />
               <br />
               <br />
-              <button onClick={handleSubmit} className="create-button">
-                Create
+              <button
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className="create-button"
+              >
+                {isSubmitting ? "Creating..." : "Create"}
               </button>
+
               <div className="navigation-buttons">
                 <button onClick={prevStep}>Back</button>
               </div>

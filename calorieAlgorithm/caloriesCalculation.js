@@ -16,7 +16,7 @@ export const calculateBMR = (weight, height, age, gender) => {
 
 export const calculateTDEE = (bmr, activityLevel, workoutLevel) => {
   const activityMultiplier = {
-    sedentary: 1.2,
+    Sedentary: 1.2,
     "Lightly active": 1.375,
     "Moderately active": 1.55,
     "Very active": 1.725,
