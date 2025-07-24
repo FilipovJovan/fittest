@@ -507,56 +507,66 @@ async function generateWorkoutProgram({
     try {
       const startDate = moment(currentDate);
 
-      const exercises = workoutProgram.weeks
-        .map((week, weekIndex) => {
+      const updatedWeeks = await Promise.all(
+        workoutProgram.weeks.map(async (week, weekIndex) => {
           if (!week.days || !Array.isArray(week.days)) {
             throw new Error(`Invalid days structure in week ${weekIndex + 1}`);
           }
-          return week.days.map((day, dayIndex) => {
-            const workoutDate = startDate
-              .clone()
-              .add(weekIndex * 7 + dayIndex, "days");
-            return {
-              ...day,
-              date: workoutDate.toDate(),
-            };
-          });
-        })
-        .flat()
-        .map((day, dayIndex) => {
-          if (!day.workout || !Array.isArray(day.workout)) {
-            throw new Error(`Invalid workout structure on day ${dayIndex + 1}`);
-          }
-          return day.workout.map((exercise) => ({
-            ...exercise,
-            date: day.date,
-          }));
-        })
-        .flat();
-      const populatedExercises = await Promise.all(
-        exercises.map(async (exercise) => {
-          const populatedExercise = await Exercise.findById(
-            exercise.exercise
-          ).lean();
-          if (!populatedExercise) {
-            throw new Error(`Exercise not found for ID: ${exercise.exercise}`);
-          }
+
+          const updatedDays = await Promise.all(
+            week.days.map(async (day, dayIndex) => {
+              const workoutDate = startDate
+                .clone()
+                .add(weekIndex * 7 + dayIndex, "days");
+
+              if (!day.workout || !Array.isArray(day.workout)) {
+                throw new Error(
+                  `Invalid workout structure on day ${dayIndex + 1}`
+                );
+              }
+
+              const updatedWorkout = await Promise.all(
+                day.workout.map(async (exerciseObj) => {
+                  const populatedExercise = await Exercise.findById(
+                    exerciseObj.exercise
+                  ).lean();
+                  if (!populatedExercise) {
+                    throw new Error(
+                      `Exercise not found for ID: ${exerciseObj.exercise}`
+                    );
+                  }
+
+                  return {
+                    ...exerciseObj,
+                    exercise: populatedExercise,
+                  };
+                })
+              );
+
+              return {
+                ...day,
+                workout: updatedWorkout,
+                date: workoutDate.toDate(),
+              };
+            })
+          );
 
           return {
-            ...exercise,
-            exercise: populatedExercise,
+            ...week,
+            days: updatedDays,
           };
         })
       );
+
       const newWorkout = new Workout({
-        weeks: workoutProgram.weeks,
+        weeks: updatedWeeks,
         workoutSplitName,
         createdBy,
         currentDate: startDate.toDate(),
         endDate,
-        exercises: populatedExercises,
         label,
       });
+
       const savedWorkout = await newWorkout.save();
 
       return savedWorkout;
