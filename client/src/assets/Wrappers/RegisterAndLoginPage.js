@@ -85,5 +85,19 @@ const Wrapper = styled.section`
   .login-heading {
     padding-top: 100px;
   }
+  .spinner {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .spinner-circle {
+    border-top-color: var(--white);
+    width: 60px;
+    height: 60px;
+  }
+  .spinner-wrapper {
+    color: var(--white);
+  }
 `;
 export default Wrapper;

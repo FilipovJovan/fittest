@@ -23,10 +23,30 @@ const SpinnerCircle = styled.div`
   animation: ${spin} 0.8s linear infinite;
 `;
 
-const Spinner = ({ message = "" }) => (
-  <SpinnerWrapper>
-    <SpinnerCircle />
-    {message && <p style={{ marginLeft: "1rem" }}>{message}</p>}
+const Spinner = ({
+  message = "",
+  icon = null,
+  className = "",
+  circleClassName = "",
+}) => (
+  <SpinnerWrapper className={className}>
+    <SpinnerCircle className={circleClassName} />
+    <div
+      style={{
+        marginLeft: "1rem",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "0.5rem",
+      }}
+    >
+      {icon && <span style={{ fontSize: "1.5rem" }}>{icon}</span>}
+      <p
+        style={{ fontSize: "1.1rem", fontWeight: 500, marginBottom: "0.5rem" }}
+      >
+        {message}
+      </p>
+    </div>
   </SpinnerWrapper>
 );
 
