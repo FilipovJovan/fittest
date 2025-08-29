@@ -13,11 +13,21 @@ import Spinner from "../components/Spinner";
 const WorkoutPage = () => {
   const navigate = useNavigate();
   const { authChecked, user, setUser } = useAuth();
-  const { fullWorkoutPlan, loading, workoutPhase } = useWorkout();
+  const {
+    fullWorkoutPlan,
+    loading,
+    workoutPhase,
+    refreshWorkoutPlan,
+    redirectTo,
+    setRedirectTo,
+    resumeState,
+  } = useWorkout();
   const workoutId = fullWorkoutPlan?.workoutProgram?.[0]?._id;
   const { pathname } = useLocation();
   const apiKey = import.meta.env.VITE_API_KEY;
   const userId = user?._id;
+  // console.log(workoutId);
+
   // console.log("User id: " + userId);
 
   const areWeightsPutted = user?.areWeightsPutted;
@@ -44,6 +54,20 @@ const WorkoutPage = () => {
 
   const isAtWorkoutRoot = pathname === "/dashboard/workout";
 
+  // useEffect(() => {
+  //   if (resumeState) {
+  //     const { workoutId, weekId, dayNumber, exerciseId } = resumeState;
+
+  //     // Ask user if they want to resume
+  //     if (window.confirm("Do you want to resume your last workout?")) {
+  //       navigate(
+  //         `/dashboard/workout/week/${weekId}/day/${dayNumber}${
+  //           exerciseId ? `/exercise/${exerciseId}` : ""
+  //         }`
+  //       );
+  //     }
+  //   }
+  // }, [resumeState, navigate]);
   // Fetch test weights on component mount
   useEffect(() => {
     const fetchWeights = async () => {
@@ -96,6 +120,19 @@ const WorkoutPage = () => {
       setStartDate();
     }
   }, [userKnowsWeight, testWeekStartDate, areWeightsPutted, userId]);
+
+  // useEffect(() => {
+  //   if (redirectTo) {
+  //     const { workoutId, weekId, dayNumber, exerciseId } = redirectTo;
+  //     refreshWorkoutPlan().then(() => {
+  //       // navigate(`/dashboard/workout/week/${weekId}/day/${dayNumber}`, {
+  //       //   replace: true,
+  //       //   state: { redirectToExercise: exerciseId },
+  //       // });
+  //       setRedirectTo(null); // clear after use
+  //     });
+  //   }
+  // }, [redirectTo, refreshWorkoutPlan, navigate]);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -186,8 +223,10 @@ const WorkoutPage = () => {
       const updatePayload = {
         areWeightsPutted: true,
         testWeights: null,
+        finalWeights: convertedWeights,
       };
 
+      // console.log("Reached 1");
       await customFetch.put(
         `/generate-custom/workout/update-test-weights/${userId}`,
         updatePayload,
@@ -205,6 +244,7 @@ const WorkoutPage = () => {
         workoutId,
       };
 
+      // console.log("Reached 2");
       await customFetch.post(
         `/generate-custom/workout/weight-exercises`,
         weightPayload,
@@ -217,15 +257,16 @@ const WorkoutPage = () => {
       );
 
       // ✅ Third: remove test week (PUT) — only if above is successful
-      await customFetch.put(
-        `/generate-custom/workout/remove-test-week/${workoutId}`,
-        {},
-        {
-          headers: {
-            "x-api-key": apiKey,
-          },
-        }
-      );
+      // console.log("Reached 3");
+      // await customFetch.put(
+      //   `/generate-custom/workout/remove-test-week/${workoutId}`,
+      //   {},
+      //   {
+      //     headers: {
+      //       "x-api-key": apiKey,
+      //     },
+      //   }
+      // );
 
       setSubmitted(true);
       setShowWeightForm(false);

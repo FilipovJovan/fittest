@@ -15,8 +15,21 @@ export const WorkoutProvider = ({ children }) => {
   const [currentWorkout, setCurrentWorkout] = useState(null);
   const [loading, setLoading] = useState(true);
   const [workoutPhase, setWorkoutPhase] = useState("loading");
+  const [redirectTo, setRedirectTo] = useState(null);
+  const [resumeState, setResumeState] = useState(() => {
+    const saved = localStorage.getItem("resumeWorkout");
+    return saved ? JSON.parse(saved) : null;
+  });
 
   const { isAuthenticated, authChecked, user } = useAuth();
+
+  useEffect(() => {
+    if (resumeState) {
+      localStorage.setItem("resumeWorkout", JSON.stringify(resumeState));
+    } else {
+      localStorage.removeItem("resumeWorkout");
+    }
+  });
 
   // Helper to find today's workout from the plan
   const getCurrentWorkoutFromPlan = (plan) => {
@@ -37,6 +50,8 @@ export const WorkoutProvider = ({ children }) => {
   };
 
   const fetchWorkoutPlan = async () => {
+    console.log("Targeted");
+
     try {
       setLoading(true);
       setWorkoutPhase("loading");
@@ -86,6 +101,8 @@ export const WorkoutProvider = ({ children }) => {
         workoutPhase,
         setWorkoutPhase,
         refreshWorkoutPlan: fetchWorkoutPlan,
+        resumeState,
+        setResumeState,
       }}
     >
       {children}

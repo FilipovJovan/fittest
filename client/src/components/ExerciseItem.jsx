@@ -4,6 +4,7 @@ import { Row, Col, Modal, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import Wrapper from "../assets/Wrappers/Workout";
+import { useWorkout } from "../../context/WorkoutContext";
 
 const ExerciseItem = ({
   dayIndex,
@@ -13,7 +14,8 @@ const ExerciseItem = ({
   workoutId,
   weekId,
   day,
-  weekIndex,
+  weekNumber,
+  dayNumber,
 }) => {
   const [availableExercises, setAvailableExercises] = useState([]);
   const [selectedExerciseId, setSelectedExerciseId] = useState(null);
@@ -23,10 +25,14 @@ const ExerciseItem = ({
   const [completedSets, setCompletedSets] = useState([]);
   const [showInstructions, setShowInstructions] = useState(false);
   const [showChangeExerciseForm, setShowChangeExerciseForm] = useState(false);
+  const [applyToWholePlan, setApplyToWholePlan] = useState(false);
   const handleClose = () => setShowChangeExerciseForm(false);
   const newExerciseId = exercise._id;
   const apiKey = import.meta.env.VITE_API_KEY;
-  console.log(dayIndex + " " + weekIndex);
+  const { fullWorkoutPlan, refreshWorkoutPlan, setRedirectTo } = useWorkout();
+  const navigate = useNavigate();
+
+  // console.log("Day: " + dayNumber + " Week: " + weekNumber);
 
   const playBeep = () => {
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -114,12 +120,10 @@ const ExerciseItem = ({
       const apiKey = import.meta.env.VITE_API_KEY;
 
       const payload = {
-        week: weekIndex + 1,
-        day: dayIndex + 1,
+        week: weekNumber,
+        day: dayNumber,
         newExerciseId: selectedExerciseId,
-        sets: sets.length,
-        reps: sets[0].reps,
-        rest: sets[0].rest,
+        applyToWholePlan: applyToWholePlan,
         exerciseType: exercise.type,
       };
 
@@ -134,8 +138,17 @@ const ExerciseItem = ({
         }
       );
 
-      toast.success("Exercise changed successfully!");
+      toast.success("Exercise changed successfully! Go back to you workout.");
       setShowChangeExerciseForm(false);
+      await refreshWorkoutPlan();
+      setRedirectTo({
+        workoutId,
+        weekId,
+        dayNumber,
+        exerciseId: exercise._id,
+      });
+
+      navigate("/dashboard/workout");
     } catch (error) {
       console.error("Error updating exercise:", error);
       toast.error("Failed to change exercise");
@@ -209,7 +222,7 @@ const ExerciseItem = ({
                   workoutId,
                   exerciseId: exercise._id,
                   newExerciseId,
-                  week: weekIndex + 1,
+                  week: weekNumber + 1,
                   day: dayIndex + 1,
                   sets: sets.length,
                   reps: sets[0].reps,
@@ -220,7 +233,7 @@ const ExerciseItem = ({
             >
               <p>Change Exercise</p>
             </button>
-            {/* <Modal show={showChangeExerciseForm} onHide={handleClose} centered>
+            <Modal show={showChangeExerciseForm} onHide={handleClose} centered>
               <Modal.Header closeButton>
                 <Modal.Title>Change exercise</Modal.Title>
               </Modal.Header>
@@ -231,21 +244,36 @@ const ExerciseItem = ({
                   onChange={(e) => setSelectedExerciseId(e.target.value)}
                   value={selectedExerciseId || ""}
                 >
-                  <option value="">-- Select Exercise --</option>
+                  <option value="" className="option">
+                    Select Exercise
+                  </option>
                   {availableExercises.map((ex) => (
                     <option key={ex._id} value={ex._id}>
                       {ex.name}
                     </option>
                   ))}
                 </select>
+                <h6>Apply the change to the whole workout plan?</h6>
+                <Row>
+                  <Col>
+                    <Button onClick={() => setApplyToWholePlan(true)}>
+                      Yes
+                    </Button>
+                  </Col>
+                  <Col>
+                    <Button onClick={() => setApplyToWholePlan(false)}>
+                      No
+                    </Button>
+                  </Col>
+                </Row>
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="success" onClick={confirmExerciseChange}>
                   Confirm
                 </Button>
               </Modal.Footer>
-            </Modal> */}
-            <Modal show={showChangeExerciseForm} onHide={handleClose} centered>
+            </Modal>
+            {/* <Modal show={showChangeExerciseForm} onHide={handleClose} centered>
               <Modal.Header closeButton>
                 <Modal.Title>Change Exercise</Modal.Title>
               </Modal.Header>
@@ -261,11 +289,11 @@ const ExerciseItem = ({
                   shape what's next.
                 </p>
               </Modal.Body>
-            </Modal>
+            </Modal> */}
           </Col>
         </Row>
 
-        <h5>Exercise no. {dayIndex}</h5>
+        {/* <h5>Exercise no. {dayIndex}</h5> */}
 
         {exercise.image && (
           <img

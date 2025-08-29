@@ -42,17 +42,22 @@ const workoutDaySchema = new Schema({
   type: {
     type: String,
     enum: ["workout", "rest"],
-    default: "workout", // Default to workout day if not specified
+    default: "workout",
     required: true,
   },
   workout: [exerciseReferenceSchema],
+  currentExerciseId: {
+    type: Schema.Types.ObjectId,
+    ref: "Exercise",
+    default: null,
+  },
   isFinished: {
     type: Boolean,
     default: false,
   },
   finishedType: {
     type: String,
-    enum: ["pending", "completed", "skipped"],
+    enum: ["pending", "started", "completed", "skipped"],
     default: "pending",
   },
   date: {
