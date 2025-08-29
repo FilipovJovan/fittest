@@ -1,3 +1,4 @@
+import { isToday } from "date-fns";
 import React, { useMemo } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
@@ -7,12 +8,8 @@ const WeekPage = () => {
   const { weekId } = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
+  const { workoutId, weekNumber } = state || {};
 
-  // Get workoutId from state or localStorage
-  const workoutId = state?.workoutId || localStorage.getItem("workoutId");
-  // console.log(workoutId);
-  const weekNumber = state?.weekNumber || localStorage.getItem("weekNumber");
-  // Retrieve days from state or localStorage
   const allDays = useMemo(() => {
     if (state?.days) {
       localStorage.setItem("allDays", JSON.stringify(state.days));
@@ -23,21 +20,36 @@ const WeekPage = () => {
     return stored ? JSON.parse(stored) : [];
   }, [state]);
 
+  // console.log(workoutId);
+
+  // console.log(weekNumber);
+
   // Filter days by weekId
   const days = useMemo(() => {
     if (!allDays.length) return [];
 
-    if (allDays[0]?.weekId) {
-      return allDays.filter((day) => String(day.weekId) === String(weekId));
-    }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-    return allDays;
+    const filteredDays = allDays[0]?.weekId
+      ? allDays.filter((day) => String(day.weekId) === String(weekId))
+      : allDays;
+
+    return filteredDays.map((day) => {
+      const dayDate = day.date ? new Date(day.date) : null;
+      if (dayDate) dayDate.setHours(0, 0, 0, 0);
+
+      const isToday = dayDate && today.getTime() === dayDate.getTime();
+      return { ...day, isToday };
+    });
   }, [allDays, weekId]);
 
   const getDayStatusText = (finishedType) => {
     switch (finishedType) {
       case "completed":
         return "Finished";
+      case "started":
+        return "Started";
       case "skipped":
         return "Skipped";
       default:
@@ -46,8 +58,17 @@ const WeekPage = () => {
   };
 
   const handleDayClick = (day, index) => {
-    navigate(`day/${index + 1}`, {
-      state: { workoutId, day, days, weekId, weekNumber },
+    const firstExerciseId = day.workout?.[0]?._id;
+    navigate(`day/${index + 1}/exercise/${firstExerciseId}`, {
+      state: {
+        workoutId,
+        day,
+        days,
+        weekId,
+        weekNumber,
+        dayNumber: index + 1,
+        isToday: day.isToday,
+      },
     });
   };
 
@@ -86,15 +107,13 @@ const WeekPage = () => {
           return (
             <div
               key={index}
-              className={`day-card enhanced-day-card ${
-                isToday ? "current-day" : ""
-              }`}
+              className={`day-card enhanced-day-card ${day.isToday ? "current-day" : ""}`}
               onClick={() => handleDayClick(day, index)}
             >
               {/* Day Name + (current) */}
               <div className="day-name-container">
                 <h4 className="day-name">{day.name}</h4>
-                {isToday && <p className="current-label">(current)</p>}
+                {day.isToday && <p className="current-label">(current)</p>}
               </div>
 
               {/* Status and Circle */}

@@ -7,6 +7,10 @@ const Wrapper = styled.div`
   h5 {
     margin-bottom: 1rem;
   }
+  .option,
+  input {
+    padding: 1rem;
+  }
   .workout-page {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -242,7 +246,7 @@ const Wrapper = styled.div`
   }
   .go-back-button {
     width: 20%;
-    height: 3rem;
+    height: fit-content;
     margin-bottom: 1rem;
   }
   .workout-header {
@@ -346,6 +350,9 @@ const Wrapper = styled.div`
   .status-text.pending {
     color: red;
   }
+  .status-text.started {
+    color: aqua;
+  }
 
   /* Circle as a separate span */
   .circle {
@@ -366,6 +373,9 @@ const Wrapper = styled.div`
   }
   .circle.pending {
     border: 2px solid red;
+  }
+  .circle.started {
+    border: 2px solid aqua;
   }
   .circle.completed::after {
     content: "✓";
@@ -464,6 +474,7 @@ const Wrapper = styled.div`
   .circle.not-started {
     background-color: #6b7280;
   }
+
   .current-day {
     font-size: 0.9rem;
     font-weight: 500;
@@ -631,6 +642,13 @@ const Wrapper = styled.div`
     font-weight: 600;
     text-decoration: underline;
   }
+
+  .exercise-navigation {
+    display: flex;
+  }
+  .back-button {
+    background-color: var(--purple-400);
+  }
   @media (max-width: 992px) {
     .col-lg-4,
     .col-lg-8 {
@@ -681,7 +699,7 @@ const Wrapper = styled.div`
     }
     .go-back-button {
       font-size: 12px;
-      height: 4rem;
+      height: fit-content;
     }
   }
   @media (max-width: 490px) {
@@ -698,7 +716,7 @@ const Wrapper = styled.div`
   }
   @media (max-width: 796px) {
     .go-back-button {
-      height: 4rem;
+      height: fit-content;
     }
   }
   @media (max-width: 992px) {
