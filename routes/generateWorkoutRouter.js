@@ -16,6 +16,8 @@ import {
   updateTestWeights,
   getTestWeights,
   removeTestWeek,
+  startedWorkoutDay,
+  saveWorkoutProgress,
 } from "../controllers/workoutController.js";
 import { authenticateUser } from "../middleware/authMiddleware.js";
 import {
@@ -54,6 +56,8 @@ router.patch("/workout/user-values", updatingUserValues);
 //PUT routes
 router.put("/workout/update-test-weights/:userId", updateTestWeights);
 router.put("/workout/:id/finish-day", finishWorkoutDay);
+router.put("/workout/:id/started-day", startedWorkoutDay);
+router.put("/workout/:id/save-progress", saveWorkoutProgress);
 router.put("/workout/remove-test-week/:workoutId", removeTestWeek);
 
 //DELETE routes

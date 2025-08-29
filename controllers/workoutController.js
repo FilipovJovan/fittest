@@ -4,6 +4,7 @@ import User from "../models/UserModel.js";
 import ArchivedWorkout from "../models/ArchivedWorkoutSchema.js";
 import { StatusCodes } from "http-status-codes";
 import { comparePassword, hashPassword } from "../utils/passwordUtils.js";
+import setExercisesWeight from "../workoutAlgorithm/weightAlgorithm.js";
 
 export const getWorkout = async (req, res) => {
   const queryObject = {
@@ -78,80 +79,72 @@ export const addExerciseToWorkout = async (req, res) => {
   }
 };
 
-// Controller to update an existing exercise in the workout plan
-export const updateExerciseInWorkout = async (req, res) => {
-  try {
-    const { week, day, newExerciseId, sets, reps, rest, exerciseType } =
-      req.body;
-    const { workoutId, exerciseId } = req.params;
-    console.log("Request body:", req.body);
-    console.log("Params:", req.params);
+// export const updateExerciseInWorkout = async (req, res) => {
+//   try {
+//     const { week, day, newExerciseId, sets, reps, rest, exerciseType } =
+//       req.body;
+//     const { workoutId, exerciseId } = req.params;
+//     console.log("Request body:", req.body);
+//     console.log("Params:", req.params);
 
-    // Find the workout plan by ID
-    const workoutPlan = await Workout.findById(workoutId);
+//     const workoutPlan = await Workout.findById(workoutId);
 
-    if (!workoutPlan) {
-      return res.status(404).json({ message: "Workout plan not found" });
-    }
+//     if (!workoutPlan) {
+//       return res.status(404).json({ message: "Workout plan not found" });
+//     }
 
-    // Check if the week exists
-    if (week < 1 || week > workoutPlan.weeks.length) {
-      return res
-        .status(404)
-        .json({ message: "Week not found in the workout plan" });
-    }
+//     if (week < 1 || week > workoutPlan.weeks.length) {
+//       return res
+//         .status(404)
+//         .json({ message: "Week not found in the workout plan" });
+//     }
 
-    // Find the specific day within the specified week
-    const workoutDay = workoutPlan.weeks[week - 1].days[day - 1];
+//     const workoutDay = workoutPlan.weeks[week - 1].days[day - 1];
 
-    if (!workoutDay) {
-      return res
-        .status(404)
-        .json({ message: "Day not found in the workout plan" });
-    }
+//     if (!workoutDay) {
+//       return res
+//         .status(404)
+//         .json({ message: "Day not found in the workout plan" });
+//     }
 
-    // Find the exercise in the workout day
-    const exerciseIndex = workoutDay.workout.findIndex(
-      (exerciseEntry) => exerciseEntry.exercise._id.toString() === exerciseId
-    );
+//     const exerciseIndex = workoutDay.workout.findIndex(
+//       (exerciseEntry) => exerciseEntry.exercise._id.toString() === exerciseId
+//     );
 
-    if (exerciseIndex === -1) {
-      return res
-        .status(404)
-        .json({ message: "Exercise not found in the workout plan" });
-    }
+//     if (exerciseIndex === -1) {
+//       return res
+//         .status(404)
+//         .json({ message: "Exercise not found in the workout plan" });
+//     }
 
-    // Fetch the new exercise details from the Exercise model
-    const newExercise = await Exercise.findById(newExerciseId);
+//     const newExercise = await Exercise.findById(newExerciseId);
 
-    if (!newExercise) {
-      return res.status(404).json({ message: "New exercise not found" });
-    }
+//     if (!newExercise) {
+//       return res.status(404).json({ message: "New exercise not found" });
+//     }
 
-    // Update the exercise with new details
-    workoutDay.workout[exerciseIndex] = {
-      exercise: {
-        _id: newExercise._id,
-        name: newExercise.name,
-        muscleType: newExercise.muscleType,
-        equipment: newExercise.equipment,
-        instructions: newExercise.instructions,
-      },
-      sets,
-      reps,
-      rest,
-      exerciseType,
-    };
+//     workoutDay.workout[exerciseIndex] = {
+//       exercise: {
+//         _id: newExercise._id,
+//         name: newExercise.name,
+//         muscleType: newExercise.muscleType,
+//         equipment: newExercise.equipment,
+//         instructions: newExercise.instructions,
+//       },
+//       sets,
+//       reps,
+//       rest,
+//       exerciseType,
+//     };
 
-    // Save the updated workout plan
-    await workoutPlan.save();
+//     await workoutPlan.save();
 
-    res.status(200).json({ message: "Exercise updated successfully" });
-  } catch (error) {
-    console.error("Error updating exercise:", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-};
+//     res.status(200).json({ message: "Exercise updated successfully" });
+//   } catch (error) {
+//     console.error("Error updating exercise:", error);
+//     res.status(500).json({ message: "Internal Server Error" });
+//   }
+// };
 
 export const isWorkoutFinished = async (req, res) => {
   try {
@@ -315,6 +308,61 @@ export const finishWorkoutDay = async (req, res) => {
   res.status(200).send("Workout day marked as finished");
 };
 
+export const startedWorkoutDay = async (req, res) => {
+  const { id } = req.params;
+  const { weekId, dayName } = req.body;
+  const workout = await Workout.findById(id);
+  if (!workout) return res.status(404).send("Workout not found");
+
+  // Find the week by matching _id (as a string) with weekId
+  const week = workout.weeks.find((w) => w._id.toString() === weekId);
+  if (!week) return res.status(400).send("Invalid week ID");
+
+  // Find the day within the week
+  const day = week.days.find((d) => d.name === dayName);
+  if (!day) return res.status(400).send("Day not found");
+
+  // Mark the day as finished
+  day.isFinished = false;
+  day.finishedType = "started";
+  await workout.save();
+
+  res.status(200).send("Workout day marked as finished");
+};
+
+export const saveWorkoutProgress = async (req, res) => {
+  try {
+    const { id } = req.params; // workoutId
+    const { weekId, dayName, currentExerciseId } = req.body;
+
+    const workout = await Workout.findById(id);
+    if (!workout) return res.status(404).send("Workout not found");
+
+    // Find the correct week
+    const week = workout.weeks.find((w) => w._id.toString() === weekId);
+    if (!week) return res.status(400).send("Invalid week ID");
+
+    // Find the correct day
+    // console.log(dayName);
+
+    const day = week.days.find((d) => d.name === dayName);
+    if (!day) return res.status(400).send("Day not found");
+
+    // Save progress (just store the id directly)
+    day.currentExerciseId = currentExerciseId;
+
+    await workout.save();
+
+    res.status(200).json({
+      message: "Workout progress saved",
+      currentExerciseId: day.currentExerciseId,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+};
+
 export const getCurrentWorkoutDay = async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -365,6 +413,7 @@ export const updateTestWeights = async (req, res) => {
       knowsWeight,
       hasChosenWeightOption,
       areWeightsPutted,
+      finalWeights,
     } = req.body;
 
     const user = await User.findById(userId);
@@ -385,6 +434,25 @@ export const updateTestWeights = async (req, res) => {
       allowedFields.forEach((field) => {
         if (field in testWeights) {
           user.testWeights[field] = testWeights[field];
+        }
+      });
+    }
+
+    if (finalWeights && typeof finalWeights === "object") {
+      const allowedFields = [
+        "benchPress",
+        "latPulldown",
+        "barbellRow",
+        "militaryPress",
+        "bicepsCurl",
+        "tricepsPushdown",
+        "squat",
+        "romanianDeadlift",
+      ];
+
+      allowedFields.forEach((field) => {
+        if (field in finalWeights) {
+          user.finalWeights[field] = finalWeights[field];
         }
       });
     }
@@ -453,6 +521,166 @@ export const removeTestWeek = async (req, res) => {
     res.status(200).json({ message: "Test week removed successfully" });
   } catch (error) {
     console.error("Error removing test week:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+// Change exercise helper functions
+const findExistingExerciseInPlan = (plan, exerciseId) => {
+  for (const week of plan.weeks) {
+    for (const day of week.days) {
+      for (const entry of day.workout) {
+        if (entry.exercise._id.toString() === exerciseId) {
+          return entry;
+        }
+      }
+    }
+  }
+  return null;
+};
+
+const roundWeight = (weight) => {
+  if (weight % 5 === 0) {
+    return weight;
+  } else if (
+    weight >= (weight / 10 - (weight % 10) / 10) * 10 + 2.5 &&
+    weight <= (weight / 10 - (weight % 10) / 10) * 10 + 7.5
+  ) {
+    return Math.round((weight / 10 - (weight % 10) / 10) * 10 + 5);
+  } else {
+    return Math.round(weight / 10) * 10;
+  }
+};
+
+const getMuscleGroupKey = (muscleType) => {
+  switch (muscleType.toLowerCase()) {
+    case "overall chest" || "upper chest" || "lower chest":
+      return "chestEstimatedWeights";
+    case "middle back" || "lats" || "overall back":
+      return "backEstimatedWeights";
+    case "hamstrings" || "quadriceps" || "calves":
+      return "legEstimatedWeights";
+    case "front deltoid" || "rear deltoid" || "lateral deltoid" || "traps":
+      return "shoulderEstimatedWeights";
+    case "biceps":
+      return "bicepsEstimatedWeights";
+    case "triceps":
+      return "tricepsEstimatedWeights";
+    default:
+      return null;
+  }
+};
+
+const toCamelCase = (str) =>
+  str
+    .replace(/[^a-zA-Z0-9 ]/g, "")
+    .split(" ")
+    .map((word, index) =>
+      index === 0
+        ? word.toLowerCase()
+        : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    )
+    .join("");
+
+// Change exercise function
+export const updateExerciseInWorkout = async (req, res) => {
+  try {
+    const { week, day, newExerciseId, exerciseType, applyToWholePlan } =
+      req.body;
+    const { workoutId, exerciseId } = req.params;
+
+    const workoutPlan = await Workout.findById(workoutId);
+    if (!workoutPlan)
+      return res.status(404).json({ message: "Workout plan not found" });
+
+    const workoutDay = workoutPlan.weeks[week - 1]?.days[day - 1];
+    if (!workoutDay) return res.status(404).json({ message: "Day not found" });
+
+    const exerciseIndex = workoutDay.workout.findIndex(
+      (e) => e.exercise._id.toString() === exerciseId
+    );
+    if (exerciseIndex === -1)
+      return res.status(404).json({ message: "Exercise not found" });
+
+    const newExercise = await Exercise.findById(newExerciseId);
+    if (!newExercise)
+      return res.status(404).json({ message: "New exercise not found" });
+
+    const existingEntry = findExistingExerciseInPlan(
+      workoutPlan,
+      newExerciseId
+    );
+
+    let sets, reps, rest, weight;
+
+    if (existingEntry) {
+      ({ sets, reps, rest, weight } = existingEntry);
+    } else {
+      const groupKey = getMuscleGroupKey(newExercise.muscleType);
+      if (!groupKey) {
+        return res
+          .status(400)
+          .json({ message: "Unsupported muscle group for weight calculation" });
+      }
+      const mainLiftData = {
+        benchPress: 60,
+        latPulldown: 50,
+        barbellRow: 55,
+        militaryPress: 40,
+        bicepsCurl: 25,
+        tricepsPushdown: 30,
+        squat: 80,
+        romanianDeadlift: 70,
+        workoutId,
+      };
+
+      const weightTable = await setExercisesWeight(mainLiftData);
+      const camelName = toCamelCase(newExercise.name);
+
+      if (!weightTable[groupKey][camelName]) {
+        return res
+          .status(400)
+          .json({ message: `No weight mapping found for ${newExercise.name}` });
+      }
+
+      weight = roundWeight(Math.round(weightTable[groupKey][camelName]));
+      sets = exerciseType === "compound" ? 3 : 2;
+      reps = exerciseType === "compound" ? 8 : 12;
+      rest = exerciseType === "compound" ? 2 : 1.5;
+    }
+
+    // 2️⃣ Apply change
+    const updatedExerciseEntry = {
+      exercise: {
+        _id: newExercise._id,
+        name: newExercise.name,
+        muscleType: newExercise.muscleType,
+        equipment: newExercise.equipment,
+        instructions: newExercise.instructions,
+      },
+      sets,
+      reps,
+      rest,
+      weight,
+      exerciseType,
+    };
+
+    if (applyToWholePlan) {
+      for (const weekData of workoutPlan.weeks) {
+        for (const dayData of weekData.days) {
+          dayData.workout = dayData.workout.map((e) =>
+            e.exercise._id.toString() === exerciseId ? updatedExerciseEntry : e
+          );
+        }
+      }
+    } else {
+      workoutDay.workout[exerciseIndex] = updatedExerciseEntry;
+    }
+
+    await workoutPlan.save();
+    res.status(200).json({ message: "Exercise updated successfully" });
+  } catch (error) {
+    console.error("Error updating exercise:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

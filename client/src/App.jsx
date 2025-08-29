@@ -125,7 +125,7 @@ const router = createBrowserRouter([
                 element: <WeekPage />,
               },
               {
-                path: "week/:weekId/day/:dayId",
+                path: "week/:weekId/day/:dayNumber/exercise/:exerciseId",
                 element: <DayPage />,
               },
             ],
