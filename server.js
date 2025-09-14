@@ -16,6 +16,7 @@ import userRouter from "./routes/userRouter.js";
 import exerciseRouter from "./routes/exerciseRouter.js";
 import workoutRouter from "./routes/generateWorkoutRouter.js";
 import calorieRouter from "./routes/calorieRouter.js";
+import gamificationRouter from "./routes/gamificationRoutes.js";
 
 // Public things
 import { dirname } from "path";
@@ -47,6 +48,7 @@ app.use("/api/v1/calculate-calories-macros", calorieRouter);
 app.use("/api/v1/exercises", authenticateUser, exerciseRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/gamification", authRouter, gamificationRouter);
 
 //Cron job
 import "./cronJobs/markSkippedWorkouts.js";

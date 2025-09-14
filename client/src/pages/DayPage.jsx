@@ -6,8 +6,10 @@ import { toast } from "react-toastify";
 import WorkoutFeedbackModal from "../components/WorkoutFeedbackModel";
 import { useWorkout } from "../../context/WorkoutContext";
 import { Modal } from "react-bootstrap";
+import { useAuth } from "../../context/AuthContext";
 
 const DayPage = () => {
+  const { user } = useAuth();
   const apiKey = import.meta.env.VITE_API_KEY;
   const { state } = useLocation();
   const { weekId, day, days, workoutId, weekNumber, dayNumber, isToday } =
@@ -126,6 +128,25 @@ const DayPage = () => {
       );
     } catch (err) {
       console.error("Failed to update workout", err);
+    }
+    logWorkout();
+  };
+
+  const logWorkout = async () => {
+    try {
+      await customFetch.post(
+        `/gamification/log-workout/${user._id}`,
+        {},
+        {
+          headers: {
+            "x-api-key": apiKey,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      toast.success("You earned 40xp! 💪🏼");
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Logging Workout Failed!");
     }
   };
 

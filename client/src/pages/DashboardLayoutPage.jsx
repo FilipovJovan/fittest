@@ -5,13 +5,50 @@ import { Link } from "react-router-dom";
 import { useWorkout } from "../../context/WorkoutContext";
 import { useAuth } from "../../context/AuthContext";
 import Spinner from "../components/Spinner";
+import customFetch from "../utils/customFetch";
+import { toast } from "react-toastify";
 
 const DashboardLayoutPage = () => {
   const { user, authChecked } = useAuth();
   const { currentWorkout, fullWorkoutPlan, loading, refreshWorkoutPlan } =
     useWorkout();
-
   const [showRefresh, setShowRefresh] = useState(false);
+
+  useEffect(() => {
+    if (!user?._id) return;
+
+    const today = new Date().toDateString();
+    const lastLogin = localStorage.getItem("lastDailyLogin");
+
+    if (lastLogin === today) return;
+
+    const sendDailyLogin = async () => {
+      try {
+        const apiKey = import.meta.env.VITE_API_KEY;
+        const { data } = await customFetch.post(
+          `/gamification/daily-login/${user._id}`,
+          {},
+          {
+            headers: {
+              "x-api-key": apiKey,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (data.message === "Daily login rewarded") {
+          toast.success("You earned 10xp! 🔥");
+          localStorage.setItem("lastDailyLogin", today);
+        } else {
+          toast.info(data.message);
+        }
+      } catch (error) {
+        toast.error(error?.response?.data?.message || "Daily login failed!");
+      }
+    };
+
+    sendDailyLogin();
+  }, [user]);
 
   useEffect(() => {
     if (!loading) {

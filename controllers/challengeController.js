@@ -1,0 +1,111 @@
+import Gamification from "../models/GamificationSchema.js";
+import Challenge from "../models/ChallengeSchema.js";
+
+export const createChallenge = async (req, res) => {
+  try {
+    const { name, description, xpReward, condition } = req.body;
+    const challenge = await Challenge.create({
+      name,
+      description,
+      xpReward,
+      condition,
+    });
+    res.status(201).json(challenge);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getChallenges = async (req, res) => {
+  try {
+    const challenges = await Challenge.find();
+    res.json(challenges);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const enrollChallenge = async (req, res) => {
+  try {
+    const { userId, challengeId } = req.body;
+    const gamification = await Gamification.findOne({ userId });
+
+    if (!gamification) {
+      return res
+        .status(404)
+        .json({ message: "Gamification profile not found" });
+    }
+
+    if (
+      !gamification.challenges.some(
+        (c) => c.challengeId.toString() === challengeId
+      )
+    ) {
+      gamification.challenges.push({
+        challengeId,
+        progress: 0,
+        completed: false,
+      });
+      await gamification.save();
+    }
+
+    res.json({
+      message: "User enrolled in challenge",
+      challenges: gamification.challenges,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const updateChallengeProgress = async (req, res) => {
+  try {
+    const { userId, challengeId, progress } = req.body;
+    const gamification = await Gamification.findOne({ userId });
+
+    if (!gamification) {
+      return res
+        .status(404)
+        .json({ message: "Gamification profile not found" });
+    }
+
+    const challenge = gamification.challenges.find(
+      (c) => c.challengeId.toString() === challengeId
+    );
+    if (!challenge) {
+      return res.status(404).json({ message: "Challenge not found for user" });
+    }
+
+    if (challengeDef.endDate && new Date() > challengeDef.endDate) {
+      return res.status(400).json({ message: "Challenge expired" });
+    }
+
+    challenge.progress += progress;
+
+    const challengeDef = await Challenge.findById(challengeId);
+
+    if (!challengeDef) {
+      return res
+        .status(404)
+        .json({ message: "Challenge definition not found" });
+    }
+    if (challenge.progress >= challengeDef.target) {
+      challenge.completed = true;
+      if (challengeDef.reward?.xp) {
+        gamification.xp += challengeDef.reward.xp;
+      }
+      if (challengeDef.reward?.currency) {
+        gamification.currency =
+          (gamification.currency || 0) + challengeDef.reward.currency;
+      }
+    }
+
+    await gamification.save();
+    res.json({
+      message: "Challenge updated",
+      challenges: gamification.challenges,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
