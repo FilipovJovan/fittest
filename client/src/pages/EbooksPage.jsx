@@ -1,12 +1,12 @@
 import React from "react";
-//images
-import EbookTrainingImage from "../assets/images/Strength & Hypertrophy Training Guide (1).png";
-import EbookDietImage from "../assets/images/Ultimate Guide to Healthy Eating & Diet Optimization (1).png";
-import EbookSleepImage from "../assets/images/The Power of Sleep Unlocking Peak Performance & Recovery.jpg";
-//ebooks
-import trainingEbook from "../assets/ebooks/Strength & Hypertrophy Training Guide.pdf";
-import dietEbook from "../assets/ebooks/Ultimate Guide to Healthy Eating & Diet Optimization.pdf";
-import sleepEbook from "../assets/ebooks/The Power of Sleep Unlocking Peak Performance & Recovery.pdf";
+// //images
+// import EbookTrainingImage from "../../public/images/Strength & Hypertrophy Training Guide.png";
+// import EbookDietImage from "../../public/images/Ultimate Guide to Healthy Eating & Diet Optimization (1).png";
+// import EbookSleepImage from "../../public/images/The Power of Sleep Unlocking Peak Performance & Recovery.jpg";
+// //ebooks
+// import trainingEbook from "../../public/ebooks/Strength & Hypertrophy Training Guide.pdf";
+// import dietEbook from "../../public/ebooks/Ultimate Guide to Healthy Eating & Diet Optimization.pdf";
+// import sleepEbook from "../../public/ebooks/The Power of Sleep Unlocking Peak Performance & Recovery.pdf";
 
 import Wrapper from "../assets/Wrappers/Ebooks";
 import { Footer } from "../components";
@@ -54,22 +54,24 @@ const EbooksPage = () => {
         <div className="container">
           <div className="row">
             <EbookCard
-              image={EbookTrainingImage}
+              image="/images/Strength & Hypertrophy Training Guide (1).png"
               title="Strength & Hypertrophy Guide"
               description="Learn how to build muscle, optimize your workout split, and improve recovery."
-              downloadLink={trainingEbook}
+              downloadLink="/ebooks/Strength & Hypertrophy Training Guide.pdf"
             />
+
             <EbookCard
-              image={EbookDietImage}
+              image="/images/Ultimate Guide to Healthy Eating & Diet Optimization (1).png"
               title="Ultimate Diet & Nutrition Guide"
               description="Master nutrition, cut unhealthy fats, and fuel your body for success."
-              downloadLink={dietEbook}
+              downloadLink="/ebooks/Ultimate Guide to Healthy Eating & Diet Optimization.pdf"
             />
+
             <EbookCard
-              image={EbookSleepImage}
+              image="/images/The Power of Sleep Unlocking Peak Performance & Recovery.jpg"
               title="The Ultimate Guide to Sleep & Recovery"
               description="Boost muscle growth, enhance recovery, and improve mental clarity with better sleep."
-              downloadLink={sleepEbook}
+              downloadLink="/ebooks/The Power of Sleep Unlocking Peak Performance & Recovery.pdf"
             />
           </div>
         </div>
