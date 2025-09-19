@@ -3,26 +3,35 @@ import Badge from "../models/BadgeSchema.js";
 import Challenge from "../models/ChallengeSchema.js";
 import { checkAwards } from "./rewardsController.js";
 
+function calculateLevel(xp) {
+  let level = 1;
+  let requiredXp = 500;
+  let increment = 200;
+
+  while (xp >= requiredXp) {
+    xp -= requiredXp;
+    level++;
+    requiredXp += increment;
+    increment += 200;
+  }
+
+  return {
+    level,
+    currentXp: xp,
+    xpForNext: requiredXp,
+  };
+}
+
 export async function awardXp(gamification, amount) {
   gamification.xp += amount;
-  gamification.level = calculateLevel(gamification.xp);
+
+  const { level, xpForNext } = calculateLevel(gamification.xp);
+  gamification.level = level;
+  gamification.xpForNext = xpForNext;
 
   await checkAwards(gamification);
   await gamification.save();
   return gamification;
-}
-
-function calculateLevel(xp) {
-  let level = 1;
-  let threshold = 500;
-  let increment = 50;
-
-  while (xp >= threshold) {
-    level++;
-    threshold += 500 + (level - 1) * increment;
-  }
-
-  return level;
 }
 
 export const createGamificationProfile = async (req, res) => {
@@ -31,6 +40,7 @@ export const createGamificationProfile = async (req, res) => {
     const newProfile = new Gamification({
       userId,
       xp: 0,
+      xpForNext: 500,
       level: 1,
       streak: {
         current: 0,
@@ -39,6 +49,7 @@ export const createGamificationProfile = async (req, res) => {
       },
       badges: [],
       challenges: [],
+      rewards: [],
     });
     await newProfile.save();
     res.json(newProfile);
@@ -60,6 +71,7 @@ export const logWorkout = async (req, res) => {
 
     // XP & streak
     await awardXp(gamification, 40);
+
     const today = new Date();
     const last = gamification.streak.lastWorkoutDate
       ? new Date(gamification.streak.lastWorkoutDate)
@@ -105,17 +117,24 @@ export const logWorkout = async (req, res) => {
         challengeProgress.progress += 1;
         if (challengeProgress.progress >= challengeDef.target) {
           challengeProgress.completed = true;
-          gamification.xp += challengeDef.reward.xp;
+          await awardXp(gamification, challengeDef.reward.xp);
         }
       }
     }
 
     await gamification.save();
 
+    const { level, currentXp, xpForNext } = calculateLevel(gamification.xp);
+
     res.json({
       message: "Workout logged",
       xp: gamification.xp,
-      level: gamification.level,
+      level,
+      progress: {
+        currentXp,
+        xpForNext,
+        percent: ((currentXp / xpForNext) * 100).toFixed(1),
+      },
       streak: gamification.streak,
       badges: gamification.badges,
       challenges: gamification.challenges,
@@ -154,10 +173,17 @@ export const dailyLogin = async (req, res) => {
 
     await gamification.save();
 
+    const { level, currentXp, xpForNext } = calculateLevel(gamification.xp);
+
     res.json({
       message: "Daily login bonus awarded",
       xp: gamification.xp,
-      level: gamification.level,
+      level,
+      progress: {
+        currentXp,
+        xpForNext,
+        percent: ((currentXp / xpForNext) * 100).toFixed(1),
+      },
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -178,16 +204,44 @@ export const getProfile = async (req, res) => {
         .json({ message: "Gamification profile not found!" });
     }
 
-    res.json(gamification);
+    const { level, currentXp, xpForNext } = calculateLevel(gamification.xp);
+
+    res.json({
+      ...gamification.toObject(),
+      level,
+      progress: {
+        currentXp,
+        xpForNext,
+        percent: ((currentXp / xpForNext) * 100).toFixed(1),
+      },
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
 export const getLeaderboard = async (req, res) => {
-  const topUsers = await Gamification.find()
-    .sort({ xp: -1 })
-    .limit(10)
-    .populate("userId", "username avatar");
-  res.json(topUsers);
+  try {
+    const topUsers = await Gamification.find()
+      .sort({ xp: -1 })
+      .limit(10)
+      .populate("userId", "username avatar");
+
+    const leaderboard = topUsers.map((user) => {
+      const { level, currentXp, xpForNext } = calculateLevel(user.xp);
+      return {
+        ...user.toObject(),
+        level,
+        progress: {
+          currentXp,
+          xpForNext,
+          percent: ((currentXp / xpForNext) * 100).toFixed(1),
+        },
+      };
+    });
+
+    res.json(leaderboard);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
