@@ -29,6 +29,10 @@ import {
   ResetPassword,
   PrivacyPolicy,
   TermsAndConditions,
+  AchievementsPage,
+  BadgesPage,
+  ChallengesPage,
+  RewardsPage,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -146,6 +150,15 @@ const router = createBrowserRouter([
               { path: "sets", element: <SetsPerMusclePage /> },
               { path: "volume", element: <VolumePerMusclePage /> },
               { path: "weekly", element: <WeeklyVolumePage /> },
+            ],
+          },
+          {
+            path: "achievements",
+            element: <AchievementsPage />,
+            children: [
+              { path: "badges", element: <BadgesPage /> },
+              { path: "challenges", element: <ChallengesPage /> },
+              { path: "rewards", element: <RewardsPage /> },
             ],
           },
         ],
