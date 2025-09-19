@@ -6,6 +6,10 @@ const GamificationSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  xpForNext: {
+    type: Number,
+    default: 500,
+  },
   level: {
     type: Number,
     default: 1,

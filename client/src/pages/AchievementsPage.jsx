@@ -46,8 +46,8 @@ const AchievementsPage = () => {
     return <p>No profile found.</p>;
   }
 
-  const { xp, level, streak } = profile;
-  const xpToNextLevel = 200;
+  const { xp, level, streak, xpForNext } = profile;
+  const xpToNextLevel = xpForNext;
   const xpProgress = Math.min((xp % xpToNextLevel) / xpToNextLevel, 1) * 100;
   const xpLeft = xpToNextLevel - xp;
 
