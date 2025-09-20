@@ -89,6 +89,18 @@ const Wrapper = styled.section`
     margin-top: 0.5rem;
   }
 
+  button {
+    background-color: var(--primary-300);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: var(--primary-500);
+  }
+
   @media (max-width: 756px) {
     .level-streak-row {
       flex-direction: column;
