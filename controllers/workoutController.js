@@ -5,6 +5,7 @@ import ArchivedWorkout from "../models/ArchivedWorkoutSchema.js";
 import { StatusCodes } from "http-status-codes";
 import { comparePassword, hashPassword } from "../utils/passwordUtils.js";
 import setExercisesWeight from "../workoutAlgorithm/weightAlgorithm.js";
+import { triggerChallengeProgress } from "../utils/helperFunctions.js";
 
 export const getWorkout = async (req, res) => {
   const queryObject = {
@@ -287,25 +288,36 @@ export const archiveWorkout = async (req, res) => {
 };
 
 export const finishWorkoutDay = async (req, res) => {
-  const { id } = req.params;
-  const { weekId, dayName } = req.body;
-  const workout = await Workout.findById(id);
-  if (!workout) return res.status(404).send("Workout not found");
+  try {
+    const { id } = req.params;
+    const { weekId, dayName, userId } = req.body;
 
-  // Find the week by matching _id (as a string) with weekId
-  const week = workout.weeks.find((w) => w._id.toString() === weekId);
-  if (!week) return res.status(400).send("Invalid week ID");
+    const workout = await Workout.findById(id);
+    if (!workout) return res.status(404).send("Workout not found");
 
-  // Find the day within the week
-  const day = week.days.find((d) => d.name === dayName);
-  if (!day) return res.status(400).send("Day not found");
+    const week = workout.weeks.find((w) => w._id.toString() === weekId);
+    if (!week) return res.status(400).send("Invalid week ID");
 
-  // Mark the day as finished
-  day.isFinished = true;
-  day.finishedType = "completed";
-  await workout.save();
+    const day = week.days.find((d) => d.name === dayName);
+    if (!day) return res.status(400).send("Day not found");
 
-  res.status(200).send("Workout day marked as finished");
+    day.isFinished = true;
+    day.finishedType = "completed";
+    await workout.save();
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).send("User not found");
+
+    user.workoutsCompleted = (user.workoutsCompleted || 0) + 1;
+    await user.save();
+
+    await triggerChallengeProgress(user._id, "workoutsCompleted");
+
+    res.status(200).send("Workout day marked as finished");
+  } catch (err) {
+    console.error("Error finishing workout day:", err);
+    res.status(500).send("Server error while finishing workout day");
+  }
 };
 
 export const startedWorkoutDay = async (req, res) => {

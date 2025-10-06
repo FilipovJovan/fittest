@@ -12,7 +12,7 @@ const ChallengeSchema = new mongoose.Schema({
   },
   metric: {
     type: String,
-    enum: ["reps", "workouts", "streaks"],
+    enum: ["reps", "workouts", "streaks", "days", "weeks", "sets"],
   },
   target: Number,
   startDate: Date,
@@ -20,6 +20,17 @@ const ChallengeSchema = new mongoose.Schema({
   reward: {
     xp: Number,
     currency: Number,
+  },
+  progressSource: {
+    type: String,
+    enum: [
+      "loginStreak",
+      "workoutsCompleted",
+      "repsCompleted",
+      "daysActive",
+      "custom",
+    ],
+    default: "loginStreak",
   },
 });
 

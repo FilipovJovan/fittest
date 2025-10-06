@@ -1,5 +1,6 @@
 import Gamification from "../models/GamificationSchema.js";
 import Challenge from "../models/ChallengeSchema.js";
+import User from "../models/UserModel.js";
 
 export const createChallenge = async (req, res) => {
   try {
@@ -61,8 +62,14 @@ export const enrollChallenge = async (req, res) => {
 export const updateChallengeProgress = async (req, res) => {
   try {
     const { userId, challengeId, progress } = req.body;
-    const gamification = await Gamification.findOne({ userId });
 
+    const user = await User.find();
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const gamification = await Gamification.findOne({ userId });
     if (!gamification) {
       return res
         .status(404)
@@ -76,21 +83,42 @@ export const updateChallengeProgress = async (req, res) => {
       return res.status(404).json({ message: "Challenge not found for user" });
     }
 
-    if (challengeDef.endDate && new Date() > challengeDef.endDate) {
-      return res.status(400).json({ message: "Challenge expired" });
-    }
-
-    challenge.progress += progress;
-
     const challengeDef = await Challenge.findById(challengeId);
-
     if (!challengeDef) {
       return res
         .status(404)
         .json({ message: "Challenge definition not found" });
     }
+
+    if (challengeDef.endDate && new Date() > challengeDef.endDate) {
+      return res.status(400).json({ message: "Challenge expired" });
+    }
+
+    let progressIncrement = progress || 0;
+
+    switch (challengeDef.progressSource) {
+      case "loginStreak":
+        progressIncrement = gamification.streak?.current || 0;
+        break;
+      case "workoutsCompleted":
+        progressIncrement = user.workoutsCompleted || 0;
+        break;
+      case "repsCompleted":
+        progressIncrement = gamification.stats?.totalReps || 0;
+        break;
+      case "daysActive":
+        progressIncrement = gamification.stats?.activeDays || 0;
+        break;
+      case "custom":
+      default:
+        break;
+    }
+
+    challenge.progress = progressIncrement;
+
     if (challenge.progress >= challengeDef.target) {
       challenge.completed = true;
+
       if (challengeDef.reward?.xp) {
         gamification.xp += challengeDef.reward.xp;
       }
@@ -101,8 +129,9 @@ export const updateChallengeProgress = async (req, res) => {
     }
 
     await gamification.save();
+
     res.json({
-      message: "Challenge updated",
+      message: "Challenge progress updated",
       challenges: gamification.challenges,
     });
   } catch (err) {

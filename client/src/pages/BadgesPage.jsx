@@ -14,7 +14,6 @@ const BadgesPage = () => {
   const [filter, setFilter] = useState("all");
   const location = useLocation();
   const unlockedBadges = location.state?.unlockedBadges || [];
-  console.log(unlockedBadges);
 
   useEffect(() => {
     const fetchBadges = async () => {
@@ -53,7 +52,7 @@ const BadgesPage = () => {
 
   return (
     <Wrapper>
-      <h2 className="text-2xl font-bold mb-4">Your Badges</h2>
+      <h2 className="text-2xl font-bold mb-4">Badges</h2>
 
       <div className="buttons">
         {["all", "unlocked", "locked"].map((type) => (

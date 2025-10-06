@@ -72,6 +72,10 @@ const UserSchema = new mongoose.Schema(
       squat: { type: Number, default: null },
       romanianDeadlift: { type: Number, default: null },
     },
+    workoutsCompleted: {
+      type: Number,
+      default: 0,
+    },
     userValues: {
       muscleInjuries: {
         type: [String],

@@ -119,6 +119,7 @@ const DayPage = () => {
         {
           weekId,
           dayName: day.name,
+          userId: user._id,
         },
         {
           headers: {

@@ -170,6 +170,10 @@ export const dailyLogin = async (req, res) => {
 
     await awardXp(gamification, 10);
     gamification.lastLogin = new Date();
+    gamification.streak.longest = Math.max(
+      gamification.streak.longest,
+      gamification.streak.current
+    );
 
     await gamification.save();
 
