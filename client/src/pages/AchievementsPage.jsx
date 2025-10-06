@@ -52,7 +52,6 @@ const AchievementsPage = () => {
   }
 
   const { xp, level, streak, xpForNext } = profile;
-  console.log(profile.badges);
 
   const xpToNextLevel = xpForNext;
   const xpProgress = Math.min((xp % xpToNextLevel) / xpToNextLevel, 1) * 100;
@@ -108,6 +107,10 @@ const AchievementsPage = () => {
             <Col md={5} className="level-streak challenges-card">
               <Link
                 to="/dashboard/achievements/challenges"
+                state={{
+                  enrolledChallenges: profile.challenges,
+                  streak: profile.streak,
+                }}
                 className="block w-full h-full text-white"
               >
                 <h3>Challenges ⚔️</h3>
@@ -118,6 +121,7 @@ const AchievementsPage = () => {
             <Col md={4} className="level-streak rewards-card">
               <Link
                 to="/dashboard/achievements/rewards"
+                state={{ rewards: profile.rewards }}
                 className="block w-full h-full text-white"
               >
                 <h3>Rewards 🎁</h3>
@@ -135,7 +139,7 @@ const AchievementsPage = () => {
             <ArrowLeft size={20} className="mr-2" />
             Back
           </button>
-          <Outlet />
+          <Outlet context={{ profile }} />
         </div>
       )}
     </Wrapper>

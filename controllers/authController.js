@@ -7,6 +7,8 @@ import crypto from "crypto";
 import { Resend } from "resend";
 import sendEmail from "../utils/sendEmail.js";
 import dotenv from "dotenv";
+import { updateChallengeProgress } from "./challengeController.js";
+import { triggerChallengeProgress } from "../utils/helperFunctions.js";
 dotenv.config();
 
 console.log("Resend API Key:", process.env.RESEND_API_KEY);
@@ -125,13 +127,14 @@ export const login = async (req, res) => {
     throw new UnauthenticatedError("Incorrect password");
   }
 
-  // NEW: Check if the user's email is verified
   if (!user.isVerified) {
     res.status(StatusCodes.UNAUTHORIZED).json({
       msg: "Please verify your email before logging in.",
     });
     throw new UnauthenticatedError("Email not verified");
   }
+
+  await triggerChallengeProgress(user._id, "loginStreak");
 
   const token = createJWT({ userId: user._id, role: user.role });
 
@@ -141,7 +144,7 @@ export const login = async (req, res) => {
     httpOnly: true,
     expires: new Date(Date.now() + oneDay),
     secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Add this
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   });
 
   res.status(StatusCodes.OK).json({ msg: "User logged in" });
