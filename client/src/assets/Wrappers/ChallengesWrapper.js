@@ -1,23 +1,34 @@
 import styled from "styled-components";
 const Wrapper = styled.section`
-  margin: auto;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
   .buttons {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
   }
 
   .filter-btn {
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
     border: none;
+    font-weight: 500;
     background: #e5e7eb;
     color: #111827;
     cursor: pointer;
-    transition:
-      background 0.2s ease,
-      color 0.2s ease;
+    transition: all 0.2s ease;
   }
 
   .filter-btn:hover {
@@ -29,16 +40,15 @@ const Wrapper = styled.section`
     color: white;
   }
 
-  .filter-btn.unlocked {
+  .filter-btn.enrolled {
     background: #22c55e;
     color: white;
   }
 
-  .filter-btn.locked {
+  .filter-btn.notEnrolled {
     background: #ef4444;
     color: white;
   }
-
   .challenge {
     display: grid;
     grid-template-columns: 1fr;

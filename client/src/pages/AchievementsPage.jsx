@@ -54,7 +54,9 @@ const AchievementsPage = () => {
   const { xp, level, streak, xpForNext } = profile;
 
   const xpToNextLevel = xpForNext;
-  const xpProgress = Math.min((xp % xpToNextLevel) / xpToNextLevel, 1) * 100;
+  const xpProgress = Math.round(
+    Math.min((xp % xpToNextLevel) / xpToNextLevel, 1) * 100
+  );
   const xpLeft = xpToNextLevel - xp;
 
   return (
