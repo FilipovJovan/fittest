@@ -79,7 +79,7 @@ const ChallengesPage = () => {
 
   const filteredChallenges = challenges.filter((challenge) => {
     if (filter === "enrolled") return challenge.enrolled;
-    if (filter === "not enrolled") return !challenge.enrolled;
+    if (filter === "notEnrolled") return !challenge.enrolled;
     return true;
   });
 
@@ -88,15 +88,22 @@ const ChallengesPage = () => {
       <h2 className="text-2xl font-bold mb-4">Challenges</h2>
 
       <div className="buttons">
-        {["all", "enrolled", "not enrolled"].map((type) => (
-          <button
-            key={type}
-            onClick={() => setFilter(type)}
-            className={`filter-btn ${filter === type ? type : ""}`}
-          >
-            {type.charAt(0).toUpperCase() + type.slice(1)}
-          </button>
-        ))}
+        {["all", "enrolled", "notEnrolled"].map((type) => {
+          const label =
+            type === "notEnrolled"
+              ? "Not Enrolled"
+              : type.charAt(0).toUpperCase() + type.slice(1);
+
+          return (
+            <button
+              key={type}
+              onClick={() => setFilter(type)}
+              className={`filter-btn ${filter === type ? type : ""}`}
+            >
+              {label}
+            </button>
+          );
+        })}
       </div>
 
       <div className="challenge">
