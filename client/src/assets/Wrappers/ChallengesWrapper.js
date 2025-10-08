@@ -14,7 +14,6 @@ const Wrapper = styled.section`
 
   .buttons {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
     margin-bottom: 2.5rem;

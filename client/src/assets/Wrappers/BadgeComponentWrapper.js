@@ -9,6 +9,9 @@ const Wrapper = styled.section`
     width: 100%;
     max-width: 380px;
     margin: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
   }
 
   .badge-card:hover {
@@ -59,6 +62,21 @@ const Wrapper = styled.section`
 
   .badge-status.status-locked {
     color: #dc2626;
+  }
+  @media (max-width: 490px) {
+    .badge-card {
+      max-width: 280px;
+      padding: 16px;
+    }
+
+    .badge-description {
+      font-size: 0.8rem;
+      line-height: 1.3;
+    }
+
+    .badge-name {
+      font-size: 1rem;
+    }
   }
 `;
 

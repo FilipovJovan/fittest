@@ -1,5 +1,6 @@
 import styled from "styled-components";
 const Wrapper = styled.section`
+  margin: auto;
   h2 {
     margin-bottom: 1rem;
   }
@@ -9,7 +10,8 @@ const Wrapper = styled.section`
     padding: 1.5rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
-    width: 100%;
+    max-width: 100%;
+    margin: auto;
   }
 
   .progress-box:hover {
@@ -38,7 +40,8 @@ const Wrapper = styled.section`
     font-weight: bold;
   }
   .level-streak-row {
-    width: 100%;
+    max-width: 100%;
+    margin: auto;
     display: flex;
     flex-direction: row;
     gap: 1.5rem;

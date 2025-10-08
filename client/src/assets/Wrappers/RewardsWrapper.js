@@ -15,7 +15,6 @@ const Wrapper = styled.section`
 
   .buttons {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
     margin-bottom: 2.5rem;
@@ -53,7 +52,7 @@ const Wrapper = styled.section`
 
   .rewards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
     justify-items: center;
   }
