@@ -3679,6 +3679,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                     c-5.858,5.858-5.858,15.355,0,21.213l75,75c2.87,2.87,6.705,4.394,10.61,4.394c1.932,0,3.881-0.374,5.737-1.142\r
                     c5.605-2.322,9.26-7.791,9.26-13.858v-60h210c8.284,0,15-6.716,15-15C330,156.716,323.284,150,315,150z M75,203.787L36.213,165\r
                     L75,126.213V203.787z`},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:21,columnNumber:13},void 0)},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:10,columnNumber:11},void 0)},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:9,columnNumber:9},void 0),h.jsxDEV("div",{className:"container",children:[h.jsxDEV("h3",{children:"Terms & Conditions"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:31,columnNumber:11},void 0),h.jsxDEV("hr",{},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:32,columnNumber:11},void 0),h.jsxDEV("h4",{children:"1. Acceptance of Terms"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:33,columnNumber:11},void 0),h.jsxDEV("p",{children:"By creating an account or using the Fittest App, you agree to these Terms & Conditions. If you do not agree, do not use the App."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:34,columnNumber:11},void 0),h.jsxDEV("hr",{},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:38,columnNumber:11},void 0),h.jsxDEV("h4",{children:"2. Eligibility"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:39,columnNumber:11},void 0),h.jsxDEV("p",{children:"You must be at least 18 years old to use this app. By using Fittest App, you confirm that you meet this requirement."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:40,columnNumber:11},void 0),h.jsxDEV("hr",{},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:44,columnNumber:11},void 0),h.jsxDEV("h4",{children:"3. Health Disclaimer"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:45,columnNumber:11},void 0),h.jsxDEV("p",{children:[h.jsxDEV("span",{className:"bold",children:"We are not medical professionals."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:47,columnNumber:13},void 0)," The workouts, nutrition tips, and fitness recommendations in the app are for",h.jsxDEV("span",{className:"bold",children:"informational purposes only."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:50,columnNumber:13},void 0)," They are"," ",h.jsxDEV("span",{className:"bold",children:"not a substitute for professional medical advice, diagnosis, or treatment."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:51,columnNumber:13},void 0)]},void 0,!0,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:46,columnNumber:11},void 0),h.jsxDEV("ul",{children:[h.jsxDEV("li",{children:"Always consult a physician before starting any fitness program."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:57,columnNumber:13},void 0),h.jsxDEV("li",{children:"Stop exercising and seek medical attention if you experience pain, dizziness, or shortness of breath."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:60,columnNumber:13},void 0)]},void 0,!0,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:56,columnNumber:11},void 0),h.jsxDEV("p",{children:"You assume full responsibility for your health decisions and outcomes related to the use of this app."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:65,columnNumber:11},void 0),h.jsxDEV("hr",{},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:69,columnNumber:11},void 0),h.jsxDEV("h4",{children:"4. User Responsibilities"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:70,columnNumber:11},void 0),h.jsxDEV("p",{children:"You agree to:"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:71,columnNumber:11},void 0),h.jsxDEV("ul",{children:[h.jsxDEV("li",{children:"Use the app only for lawful, personal use."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:73,columnNumber:13},void 0),h.jsxDEV("li",{children:"Provide accurate information when signing up"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:74,columnNumber:13},void 0),h.jsxDEV("li",{children:"Not share your account with others."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:75,columnNumber:13},void 0)]},void 0,!0,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:72,columnNumber:11},void 0),h.jsxDEV("p",{children:"We reserve the right to suspend or terminate your access if you violate these terms."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:77,columnNumber:11},void 0),h.jsxDEV("hr",{},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:81,columnNumber:11},void 0),h.jsxDEV("h4",{children:"5. No Guarantee of Results"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:82,columnNumber:11},void 0),h.jsxDEV("p",{children:"Fittest App does not guarantee any specific fitness results. Progress depends on many individual factors, including diet, consistency, genetics, and lifestyle."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:83,columnNumber:11},void 0),h.jsxDEV("hr",{},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:88,columnNumber:11},void 0),h.jsxDEV("h4",{children:"6. Intellectual Property"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:89,columnNumber:11},void 0),h.jsxDEV("p",{children:"All content in the app (logos, workouts, code, text, etc.) is the property of Fittest or its licensors. You may not reproduce, distribute, or exploit it without permission."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:90,columnNumber:11},void 0),h.jsxDEV("hr",{},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:95,columnNumber:11},void 0),h.jsxDEV("h4",{children:"7. Modifications to the App"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:96,columnNumber:11},void 0),h.jsxDEV("p",{children:"We may update or discontinue features in the app at any time, with or without notice."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:97,columnNumber:11},void 0),h.jsxDEV("hr",{},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:101,columnNumber:11},void 0),h.jsxDEV("h4",{children:"8. Limitation of Liability"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:102,columnNumber:11},void 0),h.jsxDEV("p",{children:"To the maximum extent permitted by law:"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:103,columnNumber:11},void 0),h.jsxDEV("ul",{children:[h.jsxDEV("li",{children:["Fittest App, its developers, and affiliates are"," ",h.jsxDEV("span",{className:"bold",children:"not liable"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:107,columnNumber:15},void 0)," for any injury, health issue, or loss (financial or otherwise) arising from the use of this app."]},void 0,!0,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:105,columnNumber:13},void 0),h.jsxDEV("li",{children:["Use of the app is ",h.jsxDEV("span",{className:"bold",children:"at your own risk."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:112,columnNumber:33},void 0)]},void 0,!0,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:111,columnNumber:13},void 0)]},void 0,!0,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:104,columnNumber:11},void 0),h.jsxDEV("hr",{},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:115,columnNumber:11},void 0),h.jsxDEV("h4",{children:"9. Third-Party Services"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:116,columnNumber:11},void 0),h.jsxDEV("p",{children:"The app may link to or integrate with third-party tools or platforms. We are not responsible for their practices or content."},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:117,columnNumber:11},void 0),h.jsxDEV("hr",{},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:121,columnNumber:11},void 0),h.jsxDEV("h4",{children:"10. Data & Privacy"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:122,columnNumber:11},void 0),h.jsxDEV("p",{children:["We respect your privacy. Please review our"," ",h.jsxDEV(pr,{to:"/privacy-policy",children:h.jsxDEV("span",{className:"bold",children:"Privacy policy"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:126,columnNumber:15},void 0)},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:125,columnNumber:13},void 0)," ","to learn how we handle your data."]},void 0,!0,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:123,columnNumber:11},void 0),h.jsxDEV("hr",{},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:130,columnNumber:11},void 0),h.jsxDEV("h4",{children:"11. Contact"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:131,columnNumber:11},void 0),h.jsxDEV("p",{children:["If you have questions about these Terms,",h.jsxDEV("br",{},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:134,columnNumber:13},void 0)," contact us at:",h.jsxDEV("span",{className:"bold",children:" support@fittestsapp.com"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:135,columnNumber:13},void 0)]},void 0,!0,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:132,columnNumber:11},void 0)]},void 0,!0,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:30,columnNumber:9},void 0)]},void 0,!0,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:8,columnNumber:7},void 0)},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/pages/TermsAndConditions.jsx",lineNumber:7,columnNumber:5},void 0),v5e=Zt.section`
+  margin: auto;
   h2 {
     margin-bottom: 1rem;
   }
@@ -3688,7 +3689,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     padding: 1.5rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
-    width: 100%;
+    max-width: 100%;
+    margin: auto;
   }
 
   .progress-box:hover {
@@ -3717,7 +3719,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     font-weight: bold;
   }
   .level-streak-row {
-    width: 100%;
+    max-width: 100%;
+    margin: auto;
     display: flex;
     flex-direction: row;
     gap: 1.5rem;
@@ -3795,6 +3798,9 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     width: 100%;
     max-width: 380px;
     margin: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
   }
 
   .badge-card:hover {
@@ -3846,6 +3852,21 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   .badge-status.status-locked {
     color: #dc2626;
   }
+  @media (max-width: 490px) {
+    .badge-card {
+      max-width: 280px;
+      padding: 16px;
+    }
+
+    .badge-description {
+      font-size: 0.8rem;
+      line-height: 1.3;
+    }
+
+    .badge-name {
+      font-size: 1rem;
+    }
+  }
 `,y5e=({name:e,icon:t,description:n,unlocked:r})=>h.jsxDEV(g5e,{children:h.jsxDEV("div",{className:`badge-card ${r?"unlocked":"locked"}`,children:[h.jsxDEV("div",{className:"badge-icon",children:t?t.startsWith("http")?h.jsxDEV("img",{src:t,alt:e},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/components/BadgeComponent.jsx",lineNumber:11,columnNumber:15},void 0):t:"🏅"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/components/BadgeComponent.jsx",lineNumber:8,columnNumber:9},void 0),h.jsxDEV("h3",{className:"badge-name",children:e},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/components/BadgeComponent.jsx",lineNumber:19,columnNumber:9},void 0),h.jsxDEV("p",{className:"badge-description",children:n},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/components/BadgeComponent.jsx",lineNumber:20,columnNumber:9},void 0),h.jsxDEV("p",{className:`badge-status ${r?"status-unlocked":"status-locked"}`,children:r?"Unlocked ✅":"Locked 🔒"},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/components/BadgeComponent.jsx",lineNumber:21,columnNumber:9},void 0)]},void 0,!0,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/components/BadgeComponent.jsx",lineNumber:7,columnNumber:7},void 0)},void 0,!1,{fileName:"C:/Users/Jovan Filipov/Desktop/FittestAppProject/client/src/components/BadgeComponent.jsx",lineNumber:6,columnNumber:5},void 0),b5e=Zt.section`
   max-width: 1200px;
   margin: 3rem auto;
@@ -3861,7 +3882,6 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
 
   .buttons {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
     margin-bottom: 2.5rem;
@@ -3923,7 +3943,6 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
 
   .buttons {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
     margin-bottom: 2.5rem;
@@ -4108,7 +4127,6 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
 
   .buttons {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
     margin-bottom: 2.5rem;
@@ -4146,7 +4164,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
 
   .rewards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
     justify-items: center;
   }
