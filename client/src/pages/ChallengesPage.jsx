@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import Wrapper from "../assets/Wrappers/ChallengesWrapper";
 import customFetch from "../utils/customFetch";
 import ChallengeComponent from "../components/ChallengeComponent";
+import { Filter, Unlock, Lock, X } from "lucide-react";
 
 const ChallengesPage = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
@@ -16,6 +17,7 @@ const ChallengesPage = () => {
   const enrolledChallenges = location.state?.enrolledChallenges || [];
   const streak = location.state?.streak;
   const { profile } = useOutletContext();
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     const fetchChallenges = async () => {
@@ -23,8 +25,6 @@ const ChallengesPage = () => {
         const res = await customFetch.get("/gamification/challenge/get", {
           headers: { "x-api-key": apiKey },
         });
-
-        const enrolledIds = enrolledChallenges.map((ec) => ec.challengeId._id);
 
         const allChallenges = res.data.map((challenge) => {
           const enrolledChallenge = enrolledChallenges?.find(
@@ -83,28 +83,47 @@ const ChallengesPage = () => {
     return true;
   });
 
+  const handleFilterSelect = (type) => {
+    setFilter(type);
+    setShowFilters(false);
+  };
+
   return (
     <Wrapper>
-      <h2 className="text-2xl font-bold mb-4">Challenges</h2>
+      <div className="rewards-header">
+        <h2>Challenges</h2>
 
-      <div className="buttons">
-        {["all", "enrolled", "notEnrolled"].map((type) => {
-          const label =
-            type === "notEnrolled"
-              ? "Not Enrolled"
-              : type.charAt(0).toUpperCase() + type.slice(1);
-
-          return (
-            <button
-              key={type}
-              onClick={() => setFilter(type)}
-              className={`filter-btn ${filter === type ? type : ""}`}
-            >
-              {label}
-            </button>
-          );
-        })}
+        <div
+          className="filter-toggle"
+          onClick={() => setShowFilters((prev) => !prev)}
+        >
+          {showFilters ? <X size={18} /> : <Filter size={18} />}
+          <span>Filters</span>
+        </div>
       </div>
+
+      {showFilters && (
+        <div className="filter-dropdown">
+          <div
+            className={`filter-option ${filter === "all" ? "active" : ""}`}
+            onClick={() => handleFilterSelect("all")}
+          >
+            🌟 All
+          </div>
+          <div
+            className={`filter-option ${filter === "enrolled" ? "active" : ""}`}
+            onClick={() => handleFilterSelect("enrolled")}
+          >
+            <Unlock size={16} /> Enrolled
+          </div>
+          <div
+            className={`filter-option ${filter === "notEnrolled" ? "active" : ""}`}
+            onClick={() => handleFilterSelect("notEnrolled")}
+          >
+            <Lock size={16} /> Not Enrolled
+          </div>
+        </div>
+      )}
 
       <div className="challenge">
         {filteredChallenges.map((challenge) => (

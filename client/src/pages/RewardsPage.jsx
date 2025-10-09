@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import RewardComponent from "../components/RewardComponent";
+import { Filter, Unlock, Lock, X } from "lucide-react";
 
 const RewardsPage = () => {
   const location = useLocation();
@@ -11,6 +12,7 @@ const RewardsPage = () => {
   const [rewards, setRewards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
+  const [showFilters, setShowFilters] = useState(false);
 
   const unlockedRewards = location.state?.rewards || [];
 
@@ -21,24 +23,14 @@ const RewardsPage = () => {
           headers: { "x-api-key": apiKey },
         });
 
-        console.log("Unlocked rewards from location.state:", unlockedRewards);
-
         const unlockedIds = unlockedRewards.map((rw) =>
           typeof rw.rewardId === "string" ? rw.rewardId : rw.rewardId._id
         );
-
-        console.log("Unlocked reward IDs:", unlockedIds);
 
         const allRewards = res.data.map((reward) => ({
           ...reward,
           unlocked: unlockedIds.includes(reward._id),
         }));
-
-        console.log("All rewards with unlock status:", allRewards);
-        console.log(
-          "Unlocked rewards:",
-          allRewards.filter((r) => r.unlocked)
-        );
 
         setRewards(allRewards);
       } catch (error) {
@@ -62,21 +54,47 @@ const RewardsPage = () => {
     return true;
   });
 
+  const handleFilterSelect = (type) => {
+    setFilter(type);
+    setShowFilters(false);
+  };
+
   return (
     <Wrapper>
-      <h2>Rewards</h2>
+      <div className="rewards-header">
+        <h2>Rewards</h2>
 
-      <div className="buttons">
-        {["all", "unlocked", "locked"].map((type) => (
-          <button
-            key={type}
-            onClick={() => setFilter(type)}
-            className={`filter-btn ${filter === type ? type : ""}`}
-          >
-            {type.charAt(0).toUpperCase() + type.slice(1)}
-          </button>
-        ))}
+        <div
+          className="filter-toggle"
+          onClick={() => setShowFilters((prev) => !prev)}
+        >
+          <Filter size={18} />
+          <span>Filters</span>
+        </div>
       </div>
+
+      {showFilters && (
+        <div className="filter-dropdown">
+          <div
+            className={`filter-option ${filter === "all" ? "active" : ""}`}
+            onClick={() => handleFilterSelect("all")}
+          >
+            🌟 All
+          </div>
+          <div
+            className={`filter-option ${filter === "unlocked" ? "active" : ""}`}
+            onClick={() => handleFilterSelect("unlocked")}
+          >
+            <Unlock size={16} /> Unlocked
+          </div>
+          <div
+            className={`filter-option ${filter === "locked" ? "active" : ""}`}
+            onClick={() => handleFilterSelect("locked")}
+          >
+            <Lock size={16} /> Locked
+          </div>
+        </div>
+      )}
 
       <div className="rewards-grid">
         {filteredRewards.map((reward) => (

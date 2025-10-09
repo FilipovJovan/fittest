@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import Wrapper from "../assets/Wrappers/Workout";
 import { useWorkout } from "../../context/WorkoutContext";
+import Spinner from "./Spinner";
 
 const ExerciseItem = ({
   dayIndex,
@@ -26,11 +27,39 @@ const ExerciseItem = ({
   const [showInstructions, setShowInstructions] = useState(false);
   const [showChangeExerciseForm, setShowChangeExerciseForm] = useState(false);
   const [applyToWholePlan, setApplyToWholePlan] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleClose = () => setShowChangeExerciseForm(false);
   const newExerciseId = exercise._id;
   const apiKey = import.meta.env.VITE_API_KEY;
   const { fullWorkoutPlan, refreshWorkoutPlan, setRedirectTo } = useWorkout();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const newTime = sets[0].rest * 60;
+    setTimeLeft(newTime);
+    setInitialTimeLeft(newTime);
+    setIsRunning(false);
+    setCompletedSets([]);
+  }, [exercise]);
+
+  useEffect(() => {
+    let interval;
+
+    if (timeLeft === 0 && isRunning) {
+      playBeep();
+      toast.success("Your Time Is Up!");
+      setIsRunning(false);
+      setTimeLeft(initialTimeLeft);
+    }
+
+    if (isRunning && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [isRunning, timeLeft]);
 
   // console.log("Day: " + dayNumber + " Week: " + weekNumber);
 
@@ -116,6 +145,7 @@ const ExerciseItem = ({
   const confirmExerciseChange = async () => {
     if (!selectedExerciseId) return toast.error("Please select a new exercise");
 
+    setLoading(true);
     try {
       const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -141,46 +171,24 @@ const ExerciseItem = ({
       toast.success("Exercise changed successfully! Go back to you workout.");
       setShowChangeExerciseForm(false);
       await refreshWorkoutPlan();
-      setRedirectTo({
-        workoutId,
-        weekId,
-        dayNumber,
-        exerciseId: exercise._id,
-      });
-
-      navigate("/dashboard/workout");
+      // setRedirectTo({
+      //   workoutId,
+      //   weekId,
+      //   dayNumber,
+      //   exerciseId: exercise._id,
+      // });
+      // setTimeout(() => {
+      //   navigate(
+      //     `/dashboard/workout/week/${weekId}/day/${dayNumber}/exercise/${exercise._id}`
+      //   );
+      // }, 300);
     } catch (error) {
       console.error("Error updating exercise:", error);
       toast.error("Failed to change exercise");
+    } finally {
+      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    const newTime = sets[0].rest * 60;
-    setTimeLeft(newTime);
-    setInitialTimeLeft(newTime);
-    setIsRunning(false);
-    setCompletedSets([]);
-  }, [exercise]);
-
-  useEffect(() => {
-    let interval;
-
-    if (timeLeft === 0 && isRunning) {
-      playBeep();
-      toast.success("Your Time Is Up!");
-      setIsRunning(false);
-      setTimeLeft(initialTimeLeft);
-    }
-
-    if (isRunning && timeLeft > 0) {
-      interval = setInterval(() => {
-        setTimeLeft((prevTime) => prevTime - 1);
-      }, 1000);
-    }
-
-    return () => clearInterval(interval);
-  }, [isRunning, timeLeft]);
 
   const handleStartStop = () => {
     setIsRunning((prev) => !prev);
@@ -233,47 +241,61 @@ const ExerciseItem = ({
             >
               <p>Change Exercise</p>
             </button>
-            <Modal show={showChangeExerciseForm} onHide={handleClose} centered>
+            {/* <Modal show={showChangeExerciseForm} onHide={handleClose} centered>
               <Modal.Header closeButton>
                 <Modal.Title>Change exercise</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <h6>Select a replacement exercise:</h6>
-                <select
-                  className="form-select mb-3"
-                  onChange={(e) => setSelectedExerciseId(e.target.value)}
-                  value={selectedExerciseId || ""}
-                >
-                  <option value="" className="option">
-                    Select Exercise
-                  </option>
-                  {availableExercises.map((ex) => (
-                    <option key={ex._id} value={ex._id}>
-                      {ex.name}
-                    </option>
-                  ))}
-                </select>
-                <h6>Apply the change to the whole workout plan?</h6>
-                <Row>
-                  <Col>
-                    <Button onClick={() => setApplyToWholePlan(true)}>
-                      Yes
-                    </Button>
-                  </Col>
-                  <Col>
-                    <Button onClick={() => setApplyToWholePlan(false)}>
-                      No
-                    </Button>
-                  </Col>
-                </Row>
+                {loading ? (
+                  <Spinner
+                    message="Changing your exercise..."
+                    icon="💪"
+                    className="feedback-spinner"
+                  />
+                ) : (
+                  <>
+                    <h6>Select a replacement exercise:</h6>
+                    <select
+                      className="form-select mb-3"
+                      onChange={(e) => setSelectedExerciseId(e.target.value)}
+                      value={selectedExerciseId || ""}
+                    >
+                      <option value="" className="option">
+                        Select Exercise
+                      </option>
+                      {availableExercises.map((ex) => (
+                        <option key={ex._id} value={ex._id}>
+                          {ex.name}
+                        </option>
+                      ))}
+                    </select>
+                    <h6>Apply the change to the whole workout plan?</h6>
+                    <Row>
+                      <Col>
+                        <Button onClick={() => setApplyToWholePlan(true)}>
+                          Yes
+                        </Button>
+                      </Col>
+                      <Col>
+                        <Button onClick={() => setApplyToWholePlan(false)}>
+                          No
+                        </Button>
+                      </Col>
+                    </Row>
+                  </>
+                )}
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="success" onClick={confirmExerciseChange}>
-                  Confirm
+                <Button
+                  variant="success"
+                  onClick={confirmExerciseChange}
+                  disabled={loading}
+                >
+                  {loading ? "Processing..." : "Confirm"}
                 </Button>
               </Modal.Footer>
-            </Modal>
-            {/* <Modal show={showChangeExerciseForm} onHide={handleClose} centered>
+            </Modal> */}
+            <Modal show={showChangeExerciseForm} onHide={handleClose} centered>
               <Modal.Header closeButton>
                 <Modal.Title>Change Exercise</Modal.Title>
               </Modal.Header>
@@ -289,7 +311,7 @@ const ExerciseItem = ({
                   shape what's next.
                 </p>
               </Modal.Body>
-            </Modal> */}
+            </Modal>
           </Col>
         </Row>
 

@@ -8,45 +8,130 @@ const Wrapper = styled.section`
     font-size: 2rem;
     font-weight: 700;
     color: #111827;
-    margin-bottom: 1.5rem;
     text-align: center;
+    margin-bottom: 1.5rem;
   }
 
-  .buttons {
+  /* ---------- Header ---------- */
+  .rewards-header {
     display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
   }
 
-  .filter-btn {
-    padding: 0.6rem 1.4rem;
-    border-radius: 8px;
-    border: none;
-    font-weight: 500;
-    background: #e5e7eb;
+  .filter-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--grey-300);
     color: #111827;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease-in-out;
+    border: 1px solid transparent;
   }
 
-  .filter-btn:hover {
-    background: #d1d5db;
+  .filter-toggle:hover {
+    background-color: #e5e7eb;
   }
 
-  .filter-btn.all {
-    background: #3b82f6;
+  /* ---------- Dropdown ---------- */
+  .filter-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    background-color: var(--grey-100);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.3s ease forwards;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .filter-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--grey-200);
+    color: #374151;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+    border: 1px solid transparent;
+  }
+
+  .filter-option:hover {
+    background-color: #e5e7eb;
+  }
+
+  .filter-option.active {
+    background-color: #3b82f6;
     color: white;
+    border-color: #2563eb;
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
   }
 
-  .filter-btn.enrolled {
-    background: #22c55e;
-    color: white;
+  .filter-option svg {
+    flex-shrink: 0;
   }
 
-  .filter-btn.notEnrolled {
-    background: #ef4444;
-    color: white;
+  /* ---------- Grid ---------- */
+  .rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+  }
+
+  .loading,
+  .empty {
+    text-align: center;
+    color: #4b5563;
+    font-size: 1rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 640px) {
+    .rewards-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .filter-toggle {
+      font-size: 0.85rem;
+      padding: 7px 12px;
+      align-self: flex-start;
+    }
+
+    .filter-dropdown {
+      padding: 0.8rem;
+      gap: 0.5rem;
+      width: fit-content;
+      align-self: flex-end;
+    }
+
+    .filter-option {
+      font-size: 0.85rem;
+      padding: 8px 12px;
+    }
   }
   .challenge {
     display: grid;
