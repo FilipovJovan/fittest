@@ -21,7 +21,7 @@ const Register = () => {
   const loadingMessages = [
     { text: "Creating your account", delay: 2000, icon: <FaUserPlus /> },
     { text: "Generating your workout plan", delay: 5000, icon: <FaDumbbell /> },
-    { text: "Calculating your macros", delay: 3000, icon: <FaAppleAlt /> }, // extended to 3s for visibility
+    { text: "Calculating your macros", delay: 3000, icon: <FaAppleAlt /> },
   ];
 
   // Dot animation effect
