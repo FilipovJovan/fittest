@@ -4,12 +4,18 @@ import customFetch from "../utils/customFetch";
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 import { ProgressBar, Row, Col } from "react-bootstrap";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useOutletContext,
+} from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 const AchievementsPage = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
-  const { user } = useAuth();
+  const { user } = useOutletContext();
 
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,6 +25,7 @@ const AchievementsPage = () => {
   const isMainPage = location.pathname === "/dashboard/achievements";
 
   useEffect(() => {
+    if (!user?._id) return;
     const fetchProfile = async () => {
       try {
         const { data } = await customFetch.get(
@@ -41,7 +48,7 @@ const AchievementsPage = () => {
     };
 
     fetchProfile();
-  }, [user._id, apiKey]);
+  }, [user?._id, apiKey]);
 
   if (loading) {
     return <p>Loading gamification data...</p>;
