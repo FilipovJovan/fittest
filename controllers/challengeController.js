@@ -101,7 +101,7 @@ export const updateChallengeProgress = async (req, res) => {
         progressIncrement = gamification.streak?.current || 0;
         break;
       case "workoutsCompleted":
-        progressIncrement = user.workoutsCompleted || 0;
+        progressIncrement = gamification.stats?.workoutsCompleted || 0;
         break;
       case "repsCompleted":
         progressIncrement = gamification.stats?.totalReps || 0;

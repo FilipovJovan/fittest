@@ -9,6 +9,7 @@ import sendEmail from "../utils/sendEmail.js";
 import dotenv from "dotenv";
 import { updateChallengeProgress } from "./challengeController.js";
 import { triggerChallengeProgress } from "../utils/helperFunctions.js";
+import { checkAndAwardBadges } from "./badgeController.js";
 dotenv.config();
 
 console.log("Resend API Key:", process.env.RESEND_API_KEY);
@@ -135,6 +136,8 @@ export const login = async (req, res) => {
   }
 
   await triggerChallengeProgress(user._id, "loginStreak");
+
+  const newBadges = await checkAndAwardBadges(user._id);
 
   const token = createJWT({ userId: user._id, role: user.role });
 
