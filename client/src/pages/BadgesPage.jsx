@@ -24,11 +24,21 @@ const BadgesPage = () => {
           headers: { "x-api-key": apiKey },
         });
 
-        const unlockedIds = unlockedBadges.map((ub) => ub.badgeId._id);
+        const unlockedIds = unlockedBadges.map((ub) =>
+          typeof ub.badgeId === "object"
+            ? ub.badgeId._id?.toString()
+            : ub.badgeId?.toString()
+        );
         const allBadges = res.data.map((badge) => ({
           ...badge,
-          unlocked: unlockedIds.includes(badge._id),
+          unlocked: unlockedIds.includes(badge._id.toString()),
         }));
+
+        console.log("Unlocked badge IDs:", unlockedIds);
+        console.log(
+          "All badge IDs:",
+          res.data.map((b) => b._id)
+        );
 
         setBadges(allBadges);
       } catch (error) {

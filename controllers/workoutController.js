@@ -1,11 +1,13 @@
 import Workout from "../models/WorkoutSchema.js";
 import Exercise from "../models/ExerciseModel.js";
 import User from "../models/UserModel.js";
+import Gamification from "../models/GamificationSchema.js";
 import ArchivedWorkout from "../models/ArchivedWorkoutSchema.js";
 import { StatusCodes } from "http-status-codes";
 import { comparePassword, hashPassword } from "../utils/passwordUtils.js";
 import setExercisesWeight from "../workoutAlgorithm/weightAlgorithm.js";
 import { triggerChallengeProgress } from "../utils/helperFunctions.js";
+import { checkAndAwardBadges } from "./badgeController.js";
 
 export const getWorkout = async (req, res) => {
   const queryObject = {
@@ -291,6 +293,7 @@ export const finishWorkoutDay = async (req, res) => {
   try {
     const { id } = req.params;
     const { weekId, dayName, userId } = req.body;
+    console.log(userId);
 
     const workout = await Workout.findById(id);
     if (!workout) return res.status(404).send("Workout not found");
@@ -308,12 +311,45 @@ export const finishWorkoutDay = async (req, res) => {
     const user = await User.findById(userId);
     if (!user) return res.status(404).send("User not found");
 
-    user.workoutsCompleted = (user.workoutsCompleted || 0) + 1;
-    await user.save();
+    let gamification = await Gamification.findOne({ userId });
+    if (!gamification) {
+      gamification = await Gamification.create({ userId });
+    }
 
-    await triggerChallengeProgress(user._id, "workoutsCompleted");
+    let totalSets = 0;
+    let totalReps = 0;
+    let totalWeight = 0;
 
-    res.status(200).send("Workout day marked as finished");
+    for (const w of day.workout) {
+      totalSets += w.sets || 0;
+      totalReps += (w.reps || 0) * (w.sets || 1);
+      totalWeight += (w.reps || 0) * (w.sets || 1) * (w.weight || 0);
+    }
+
+    gamification.stats.workoutsCompleted =
+      (gamification.stats.workoutsCompleted || 0) + 1;
+    gamification.stats.totalSets =
+      (gamification.stats.totalSets || 0) + totalSets;
+    gamification.stats.totalReps =
+      (gamification.stats.totalReps || 0) + totalReps;
+    gamification.stats.totalWeight =
+      (gamification.stats.totalWeight || 0) + totalWeight;
+    gamification.stats.daysActive = (gamification.stats.daysActive || 0) + 1;
+
+    const xpGained = 10 + Math.floor(totalWeight / 100);
+    gamification.xp = (gamification.xp || 0) + xpGained;
+
+    await gamification.save();
+
+    await triggerChallengeProgress(userId, "workoutsCompleted");
+    const newBadges = await checkAndAwardBadges(userId);
+
+    res.status(200).json({
+      message: "Workout day marked as finished",
+      totals: { totalSets, totalReps, totalWeight },
+      xpGained,
+      newBadges,
+    });
   } catch (err) {
     console.error("Error finishing workout day:", err);
     res.status(500).send("Server error while finishing workout day");
@@ -344,7 +380,7 @@ export const startedWorkoutDay = async (req, res) => {
 
 export const saveWorkoutProgress = async (req, res) => {
   try {
-    const { id } = req.params; // workoutId
+    const { id } = req.params;
     const { weekId, dayName, currentExerciseId } = req.body;
 
     const workout = await Workout.findById(id);

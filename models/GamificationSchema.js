@@ -25,6 +25,13 @@ const GamificationSchema = new mongoose.Schema({
     },
     lastWorkoutDate: Date,
   },
+  stats: {
+    workoutsCompleted: { type: Number, default: 0 },
+    totalSets: { type: Number, default: 0 },
+    totalReps: { type: Number, default: 0 },
+    totalWeight: { type: Number, default: 0 },
+    daysActive: { type: Number, default: 0 },
+  },
   lastLogin: {
     type: Date,
   },
