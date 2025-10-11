@@ -1,5 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import User from "../models/UserModel.js";
+import Gamification from "../models/GamificationSchema.js";
 import { comparePassword, hashPassword } from "../utils/passwordUtils.js";
 import { UnauthenticatedError } from "../errors/customError.js";
 import { createJWT } from "../utils/tokenUtils.js";
@@ -10,6 +11,7 @@ import dotenv from "dotenv";
 import { updateChallengeProgress } from "./challengeController.js";
 import { triggerChallengeProgress } from "../utils/helperFunctions.js";
 import { checkAndAwardBadges } from "./badgeController.js";
+import { checkAwards } from "./rewardsController.js";
 dotenv.config();
 
 console.log("Resend API Key:", process.env.RESEND_API_KEY);
@@ -111,46 +113,88 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ msg: "Invalid credentials" });
+    }
 
-  if (!user) {
-    res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Invalid credentials" });
-    throw new UnauthenticatedError("Invalid credentials");
-  }
+    const isPasswordCorrect = await comparePassword(
+      req.body.password,
+      user.password
+    );
+    if (!isPasswordCorrect) {
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ msg: "Incorrect password" });
+    }
 
-  const isPasswordCorrect = await comparePassword(
-    req.body.password,
-    user.password
-  );
+    if (!user.isVerified) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({
+        msg: "Please verify your email before logging in.",
+      });
+    }
 
-  if (!isPasswordCorrect) {
-    res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Incorrect password" });
-    throw new UnauthenticatedError("Incorrect password");
-  }
+    const gamification = await Gamification.findOne({ userId: user._id });
 
-  if (!user.isVerified) {
-    res.status(StatusCodes.UNAUTHORIZED).json({
-      msg: "Please verify your email before logging in.",
+    // Example: XP for daily login
+    const xpGained = 50;
+    if (gamification) {
+      gamification.xp += xpGained;
+      await gamification.save();
+    }
+
+    // Trigger progress updates
+    await triggerChallengeProgress(user._id, "loginStreak");
+
+    // Check for new badges and rewards
+    const newBadges = await checkAndAwardBadges(user._id);
+    const newRewards = await checkAwards(gamification);
+
+    // Collect UI events
+    const events = [];
+
+    if (xpGained > 0) {
+      events.push({ type: "xpEarned", amount: xpGained });
+    }
+
+    if (newBadges?.length > 0) {
+      newBadges.forEach((b) =>
+        events.push({ type: "badgeUnlocked", name: b.name })
+      );
+    }
+
+    if (newRewards?.length > 0) {
+      newRewards.forEach((r) =>
+        events.push({ type: "rewardUnlocked", name: r.name })
+      );
+    }
+
+    // JWT setup
+    const token = createJWT({ userId: user._id, role: user.role });
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      expires: new Date(Date.now() + oneDay),
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
-    throw new UnauthenticatedError("Email not verified");
+
+    // Send structured response
+    res.status(200).json({
+      message: "User logged in",
+      xpGained,
+      newBadges,
+      newRewards,
+      events,
+    });
+  } catch (err) {
+    console.error("Error in login:", err);
+    res.status(500).json({ msg: "Server error during login" });
   }
-
-  await triggerChallengeProgress(user._id, "loginStreak");
-
-  const newBadges = await checkAndAwardBadges(user._id);
-
-  const token = createJWT({ userId: user._id, role: user.role });
-
-  const oneDay = 1000 * 60 * 60 * 24;
-
-  res.cookie("token", token, {
-    httpOnly: true,
-    expires: new Date(Date.now() + oneDay),
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-  });
-
-  res.status(StatusCodes.OK).json({ msg: "User logged in" });
 };
 
 export const logout = (req, res) => {
