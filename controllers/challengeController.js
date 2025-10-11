@@ -63,8 +63,7 @@ export const updateChallengeProgress = async (req, res) => {
   try {
     const { userId, challengeId, progress } = req.body;
 
-    const user = await User.find();
-
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -94,6 +93,7 @@ export const updateChallengeProgress = async (req, res) => {
       return res.status(400).json({ message: "Challenge expired" });
     }
 
+    // calculate progress increment based on the source
     let progressIncrement = progress || 0;
 
     switch (challengeDef.progressSource) {
@@ -114,18 +114,40 @@ export const updateChallengeProgress = async (req, res) => {
         break;
     }
 
+    // update challenge progress
     challenge.progress = progressIncrement;
 
-    if (challenge.progress >= challengeDef.target) {
+    // collect frontend events
+    const events = [];
+
+    // check completion
+    if (!challenge.completed && challenge.progress >= challengeDef.target) {
       challenge.completed = true;
+
+      // reward handling
+      let xpGained = 0;
+      let currencyGained = 0;
 
       if (challengeDef.reward?.xp) {
         gamification.xp += challengeDef.reward.xp;
+        xpGained = challengeDef.reward.xp;
+        events.push({ type: "xpEarned", amount: xpGained });
       }
+
       if (challengeDef.reward?.currency) {
         gamification.currency =
           (gamification.currency || 0) + challengeDef.reward.currency;
+        currencyGained = challengeDef.reward.currency;
+        events.push({ type: "currencyEarned", amount: currencyGained });
       }
+
+      // notify challenge completion
+      events.push({
+        type: "challengeCompleted",
+        name: challengeDef.name,
+        xp: xpGained,
+        currency: currencyGained,
+      });
     }
 
     await gamification.save();
@@ -133,8 +155,10 @@ export const updateChallengeProgress = async (req, res) => {
     res.json({
       message: "Challenge progress updated",
       challenges: gamification.challenges,
+      events,
     });
   } catch (err) {
+    console.error("Error updating challenge:", err);
     res.status(500).json({ message: err.message });
   }
 };

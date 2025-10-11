@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useLocation, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -18,6 +18,7 @@ const ChallengesPage = () => {
   const streak = location.state?.streak;
   const { profile } = useOutletContext();
   const [showFilters, setShowFilters] = useState(false);
+  const previousChallengesRef = useRef([]);
 
   useEffect(() => {
     const fetchChallenges = async () => {
@@ -32,7 +33,6 @@ const ChallengesPage = () => {
           );
 
           const enrolled = Boolean(enrolledChallenge);
-
           const progress =
             enrolledChallenge?.progress ??
             (() => {
@@ -61,6 +61,26 @@ const ChallengesPage = () => {
           };
         });
 
+        // ✅ Compare before updating state
+        const prevChallenges = previousChallengesRef.current;
+
+        allChallenges.forEach((challenge) => {
+          const prev = prevChallenges.find((p) => p._id === challenge._id);
+
+          if (!prev?.completed && challenge.completed) {
+            toast.success(`🔥 Challenge Completed: ${challenge.name}`);
+          } else if (
+            prev &&
+            challenge.progress > prev.progress &&
+            !challenge.completed
+          ) {
+            toast.info(
+              `📈 ${challenge.name}: ${challenge.progress}/${challenge.target}`
+            );
+          }
+        });
+
+        previousChallengesRef.current = allChallenges;
         setChallenges(allChallenges);
       } catch (error) {
         console.error("Error:", error);

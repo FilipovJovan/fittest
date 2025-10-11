@@ -135,7 +135,7 @@ const DayPage = () => {
 
   const logWorkout = async () => {
     try {
-      await customFetch.post(
+      const res = await customFetch.post(
         `/gamification/log-workout/${user._id}`,
         {},
         {
@@ -145,9 +145,31 @@ const DayPage = () => {
           },
         }
       );
-      toast.success("You earned 40xp! 💪🏼");
+      const events = res.data.events || [];
+
+      if (events.length === 0) {
+        toast.info("Workout logged successfully!");
+        return;
+      }
+
+      events.forEach((event) => {
+        switch (event.type) {
+          case "xpEarned":
+            toast.success(`+${event.amount} XP earned! 💪`);
+            break;
+          case "badgeUnlocked":
+            toast.success(`🏅 New badge unlocked: ${event.name}`);
+            break;
+          case "rewardUnlocked":
+            toast.info(`🎁 You unlocked: ${event.name}`);
+            break;
+          default:
+            toast.info(event.message || "Progress updated!");
+        }
+      });
     } catch (error) {
       toast.error(error?.response?.data?.message || "Logging Workout Failed!");
+      console.log(error);
     }
   };
 
