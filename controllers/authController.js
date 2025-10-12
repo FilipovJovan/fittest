@@ -138,38 +138,63 @@ export const login = async (req, res) => {
     }
 
     const gamification = await Gamification.findOne({ userId: user._id });
+    let xpGained = 0;
+    let events = [];
+    let newBadges = [];
+    let newRewards = [];
 
     // Example: XP for daily login
-    const xpGained = 50;
     if (gamification) {
-      gamification.xp += xpGained;
-      await gamification.save();
-    }
+      const today = new Date().toDateString();
+      const lastLogin = gamification.lastLogin
+        ? gamification.lastLogin.toDateString()
+        : null;
 
-    // Trigger progress updates
-    await triggerChallengeProgress(user._id, "loginStreak");
+      // ✅ Only award XP if last login was NOT today
+      if (lastLogin !== today) {
+        xpGained = 10; // XP for daily login
+        gamification.xp += xpGained;
+        gamification.lastLogin = new Date();
 
-    // Check for new badges and rewards
-    const newBadges = await checkAndAwardBadges(user._id);
-    const newRewards = await checkAwards(gamification);
+        // Update streak
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        if (lastLogin === yesterday.toDateString()) {
+          gamification.streak.current += 1;
+        } else {
+          gamification.streak.current = 1;
+        }
 
-    // Collect UI events
-    const events = [];
+        gamification.streak.longest = Math.max(
+          gamification.streak.longest,
+          gamification.streak.current
+        );
 
-    if (xpGained > 0) {
-      events.push({ type: "xpEarned", amount: xpGained });
-    }
+        await gamification.save();
 
-    if (newBadges?.length > 0) {
-      newBadges.forEach((b) =>
-        events.push({ type: "badgeUnlocked", name: b.name })
-      );
-    }
+        // ✅ Trigger challenge progress only when daily login counts
+        await triggerChallengeProgress(user._id, "loginStreak");
 
-    if (newRewards?.length > 0) {
-      newRewards.forEach((r) =>
-        events.push({ type: "rewardUnlocked", name: r.name })
-      );
+        // ✅ Check for new badges & rewards
+        newBadges = await checkAndAwardBadges(user._id);
+        newRewards = await checkAwards(gamification);
+
+        if (xpGained > 0) {
+          events.push({ type: "xpEarned", amount: xpGained });
+        }
+
+        if (newBadges?.length > 0) {
+          newBadges.forEach((b) =>
+            events.push({ type: "badgeUnlocked", name: b.name })
+          );
+        }
+
+        if (newRewards?.length > 0) {
+          newRewards.forEach((r) =>
+            events.push({ type: "rewardUnlocked", name: r.name })
+          );
+        }
+      }
     }
 
     // JWT setup
@@ -185,7 +210,10 @@ export const login = async (req, res) => {
 
     // Send structured response
     res.status(200).json({
-      message: "User logged in",
+      message:
+        xpGained > 0
+          ? "Daily login bonus awarded!"
+          : "Welcome back — XP already claimed for today.",
       xpGained,
       newBadges,
       newRewards,
