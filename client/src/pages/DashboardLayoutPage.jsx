@@ -136,11 +136,16 @@ const DashboardLayoutPage = () => {
         <Col className="image-box-col">
           <Link to="/dashboard/workout">
             <img
-              src="https://hips.hearstapps.com/hmg-prod/images/gettyimages-1673453535.jpg"
-              alt="Workout Photo"
+              src="https://hips.hearstapps.com/hmg-prod/images/gettyimages-1673453535.jpg?auto=webp&width=600"
+              alt="Person doing workout"
               className="images"
+              width="600"
+              height="400"
+              loading="eager"
+              fetchpriority="high"
             />
           </Link>
+
           {currentWorkout ? (
             <Row className="on-image-text">
               <Col>{currentWorkout.name}</Col>
@@ -152,12 +157,16 @@ const DashboardLayoutPage = () => {
             </Row>
           )}
         </Col>
+
         <Col>
           <Link to="/dashboard/diet/macros">
             <img
               src="https://www.takingcharge.csh.umn.edu/sites/default/files/styles/max_1300x1300/public/healthy%20eating%20plate%20iStock-1433432507.jpg.webp?itok=D8OzVh7u"
-              alt="Healthy Food Photo"
+              alt="Healthy balanced meal plate"
               className="images"
+              width="600"
+              height="400"
+              loading="lazy"
             />
           </Link>
           <Row className="on-image-text">
