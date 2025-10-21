@@ -117,7 +117,12 @@ const LandingPage = () => {
             </Row>
           </Col>
           <Col md={12} sm={12} lg={6} className="da">
-            <img src={phoneImage} className="phoneImage" />
+            <img
+              src={phoneImage}
+              className="phoneImage"
+              alt="Phone image"
+              loading="lazy"
+            />
           </Col>
         </Row>
       </Row>
@@ -127,7 +132,12 @@ const LandingPage = () => {
         <Row className="section-two-rows-left">
           <Col>
             <AnimationScroll animationClass="right-animation"></AnimationScroll>
-            <img src={fitnessImage} className="section-two-images" />
+            <img
+              src={fitnessImage}
+              className="section-two-images"
+              alt="Fitness Image"
+              loading="lazy"
+            />
           </Col>
           <Col className="section-two-right">
             <AnimationScroll animationClass="left-animation">
@@ -168,7 +178,7 @@ const LandingPage = () => {
                 </g>
               </svg>
               <div className="section-two-text">
-                <h3>Personalized workout plan</h3>
+                <h4>Personalized workout plan</h4>
                 <p>
                   Personalized workout plans tailored through advanced
                   algorithm.
@@ -190,7 +200,7 @@ const LandingPage = () => {
                 <path d="M0 192c0-35.3 28.7-64 64-64c.5 0 1.1 0 1.6 0C73 91.5 105.3 64 144 64c15 0 29 4.1 40.9 11.2C198.2 49.6 225.1 32 256 32s57.8 17.6 71.1 43.2C339 68.1 353 64 368 64c38.7 0 71 27.5 78.4 64c.5 0 1.1 0 1.6 0c35.3 0 64 28.7 64 64c0 11.7-3.1 22.6-8.6 32H8.6C3.1 214.6 0 203.7 0 192zm0 91.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4z" />
               </svg>
               <div className="section-two-text">
-                <h3>Food & nutrition</h3>
+                <h4>Food & nutrition</h4>
                 <p>
                   Access to a variety of meal recipes and nutritional
                   recommendations.
@@ -200,13 +210,23 @@ const LandingPage = () => {
           </Col>
           <Col>
             <AnimationScroll animationClass="left-animation"></AnimationScroll>
-            <img src={dietImage} className="section-two-images" />
+            <img
+              src={dietImage}
+              className="section-two-images"
+              alt="Diet Image"
+              loading="lazy"
+            />
           </Col>
         </Row>
         <Row className="section-two-rows-left">
           <Col>
             <AnimationScroll animationClass="right-animation"></AnimationScroll>
-            <img src={progressImage} className="section-two-images" />
+            <img
+              src={progressImage}
+              className="section-two-images"
+              alt="Progress Image"
+              loading="lazy"
+            />
           </Col>
           <Col className="section-two-right">
             <AnimationScroll animationClass="left-animation">
@@ -220,7 +240,7 @@ const LandingPage = () => {
                 <path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L240 221.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z" />
               </svg>
               <div className="section-two-text">
-                <h3>Progress tracking</h3>
+                <h4>Progress tracking</h4>
                 <p>
                   Set goals, track workouts, log meals, and see progress in
                   real-time.
