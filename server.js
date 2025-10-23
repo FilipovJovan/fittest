@@ -59,7 +59,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-app.use(express.static(path.resolve(__dirname, "./public")));
+app.use(express.static(path.resolve(__dirname, "./client/dist")));
 
 // Newsletter routes
 app.post("/signup", async (req, res) => {
@@ -166,7 +166,7 @@ app.get("*", (req, res, next) => {
   if (req.originalUrl.startsWith("/api/v1/")) {
     return next();
   }
-  res.sendFile(path.resolve(__dirname, "./public", "index.html"));
+  res.sendFile(path.resolve(__dirname, "./client/dist", "index.html"));
 });
 
 app.use("*", (req, res) => {
