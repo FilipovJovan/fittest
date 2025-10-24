@@ -53,6 +53,7 @@
     "resend": "^4.4.1"
   },
   "devDependencies": {
+    "tailwindcss": "^4.1.16",
     "vite-imagetools": "^9.0.0",
     "vite-plugin-pwa": "^1.0.1"
   }

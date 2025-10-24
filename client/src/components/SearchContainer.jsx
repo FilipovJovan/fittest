@@ -1,6 +1,6 @@
 import React from "react";
 import { FormRow, FormRowSelect, SubmitBtn } from ".";
-import Wrapper from "../assets/wrappers/SearchContainer";
+import Wrapper from "../assets/Wrappers/SearchContainer";
 import { Form, useSubmit, Link, useLocation } from "react-router-dom";
 import { CATEGORY_BY_GOAL, CATEGORY_BY_TIME } from "../../../utils/constants";
 import { useFoodPageContext } from "../pages/FoodPage";

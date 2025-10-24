@@ -2,10 +2,12 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 import { imagetools } from "vite-imagetools";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [
     react(),
+    tailwindcss(),
     imagetools(), // Automatic image optimization (resize, format, etc.)
     VitePWA({
       registerType: "autoUpdate",
