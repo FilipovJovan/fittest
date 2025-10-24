@@ -6,8 +6,10 @@ import { toast } from "react-toastify";
 import WorkoutFeedbackModal from "../components/WorkoutFeedbackModel";
 import { useWorkout } from "../../context/WorkoutContext";
 import { Modal } from "react-bootstrap";
+import { useAuth } from "../../context/AuthContext";
 
 const DayPage = () => {
+  const { user } = useAuth();
   const apiKey = import.meta.env.VITE_API_KEY;
   const { state } = useLocation();
   const { weekId, day, days, workoutId, weekNumber, dayNumber, isToday } =
@@ -117,6 +119,7 @@ const DayPage = () => {
         {
           weekId,
           dayName: day.name,
+          userId: user._id,
         },
         {
           headers: {
@@ -126,6 +129,47 @@ const DayPage = () => {
       );
     } catch (err) {
       console.error("Failed to update workout", err);
+    }
+    logWorkout();
+  };
+
+  const logWorkout = async () => {
+    try {
+      const res = await customFetch.post(
+        `/gamification/log-workout/${user._id}`,
+        {},
+        {
+          headers: {
+            "x-api-key": apiKey,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const events = res.data.events || [];
+
+      if (events.length === 0) {
+        toast.info("Workout logged successfully!");
+        return;
+      }
+
+      events.forEach((event) => {
+        switch (event.type) {
+          case "xpEarned":
+            toast.success(`+${event.amount} XP earned! 💪`);
+            break;
+          case "badgeUnlocked":
+            toast.success(`🏅 New badge unlocked: ${event.name}`);
+            break;
+          case "rewardUnlocked":
+            toast.info(`🎁 You unlocked: ${event.name}`);
+            break;
+          default:
+            toast.info(event.message || "Progress updated!");
+        }
+      });
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Logging Workout Failed!");
+      console.log(error);
     }
   };
 

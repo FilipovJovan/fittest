@@ -25,3 +25,7 @@ export { default as ForgotPassword } from "./ForgotPassword";
 export { default as ResetPassword } from "./ResetPassword";
 export { default as PrivacyPolicy } from "./PrivacyPolicy";
 export { default as TermsAndConditions } from "./TermsAndConditions";
+export { default as AchievementsPage } from "./AchievementsPage";
+export { default as BadgesPage } from "./BadgesPage";
+export { default as ChallengesPage } from "./ChallengesPage";
+export { default as RewardsPage } from "./RewardsPage";

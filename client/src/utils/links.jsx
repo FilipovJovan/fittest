@@ -6,6 +6,7 @@ import { CgGym } from "react-icons/cg";
 import { MdHealthAndSafety } from "react-icons/md";
 import { ImProfile } from "react-icons/im";
 import { FaChartBar } from "react-icons/fa";
+import { FaTrophy } from "react-icons/fa";
 
 const links = [
   { text: "Dashboard", path: ".", icon: <MdDashboard /> },
@@ -13,6 +14,7 @@ const links = [
   { text: "Diet", path: "diet/macros", icon: <FaBowlFood /> },
   { text: "Progress", path: "progress", icon: <FaChartBar /> },
   { text: "Profile", path: "profile", icon: <ImProfile /> },
+  { text: "Achievements", path: "achievements", icon: <FaTrophy /> },
 ];
 
 export default links;

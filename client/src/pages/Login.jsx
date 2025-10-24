@@ -13,13 +13,29 @@ export const action = async ({ request }) => {
   try {
     const apiKey = import.meta.env.VITE_API_KEY;
 
-    await customFetch.post("/auth/login", data, {
+    const res = await customFetch.post("/auth/login", data, {
       headers: {
         "x-api-key": apiKey,
         "Content-Type": "application/json",
       },
     });
+    const events = res.data.events || [];
+
     toast.success("Login successful");
+
+    events.forEach((event) => {
+      switch (event.type) {
+        case "xpEarned":
+          toast.success(`+${event.amount} XP!`);
+          break;
+        case "badgeUnlocked":
+          toast.success(`🏅 New badge: ${event.name}`);
+          break;
+        case "rewardUnlocked":
+          toast.info(`🎁 Reward unlocked: ${event.name}`);
+          break;
+      }
+    });
     return redirect("/dashboard");
   } catch (error) {
     // console.log(error);

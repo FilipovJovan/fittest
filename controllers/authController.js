@@ -1,5 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import User from "../models/UserModel.js";
+import Gamification from "../models/GamificationSchema.js";
 import { comparePassword, hashPassword } from "../utils/passwordUtils.js";
 import { UnauthenticatedError } from "../errors/customError.js";
 import { createJWT } from "../utils/tokenUtils.js";
@@ -7,6 +8,10 @@ import crypto from "crypto";
 import { Resend } from "resend";
 import sendEmail from "../utils/sendEmail.js";
 import dotenv from "dotenv";
+import { updateChallengeProgress } from "./challengeController.js";
+import { triggerChallengeProgress } from "../utils/helperFunctions.js";
+import { checkAndAwardBadges } from "./badgeController.js";
+import { checkAwards } from "./rewardsController.js";
 dotenv.config();
 
 console.log("Resend API Key:", process.env.RESEND_API_KEY);
@@ -108,43 +113,116 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ msg: "Invalid credentials" });
+    }
 
-  if (!user) {
-    res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Invalid credentials" });
-    throw new UnauthenticatedError("Invalid credentials");
-  }
+    const isPasswordCorrect = await comparePassword(
+      req.body.password,
+      user.password
+    );
+    if (!isPasswordCorrect) {
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ msg: "Incorrect password" });
+    }
 
-  const isPasswordCorrect = await comparePassword(
-    req.body.password,
-    user.password
-  );
+    if (!user.isVerified) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({
+        msg: "Please verify your email before logging in.",
+      });
+    }
 
-  if (!isPasswordCorrect) {
-    res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Incorrect password" });
-    throw new UnauthenticatedError("Incorrect password");
-  }
+    const gamification = await Gamification.findOne({ userId: user._id });
+    let xpGained = 0;
+    let events = [];
+    let newBadges = [];
+    let newRewards = [];
 
-  // NEW: Check if the user's email is verified
-  if (!user.isVerified) {
-    res.status(StatusCodes.UNAUTHORIZED).json({
-      msg: "Please verify your email before logging in.",
+    // Example: XP for daily login
+    if (gamification) {
+      const today = new Date().toDateString();
+      const lastLogin = gamification.lastLogin
+        ? gamification.lastLogin.toDateString()
+        : null;
+
+      // ✅ Only award XP if last login was NOT today
+      if (lastLogin !== today) {
+        xpGained = 10; // XP for daily login
+        gamification.xp += xpGained;
+        gamification.lastLogin = new Date();
+
+        // Update streak
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        if (lastLogin === yesterday.toDateString()) {
+          gamification.streak.current += 1;
+        } else {
+          gamification.streak.current = 1;
+        }
+
+        gamification.streak.longest = Math.max(
+          gamification.streak.longest,
+          gamification.streak.current
+        );
+
+        await gamification.save();
+
+        // ✅ Trigger challenge progress only when daily login counts
+        await triggerChallengeProgress(user._id, "loginStreak");
+
+        // ✅ Check for new badges & rewards
+        newBadges = await checkAndAwardBadges(user._id);
+        newRewards = await checkAwards(gamification);
+
+        if (xpGained > 0) {
+          events.push({ type: "xpEarned", amount: xpGained });
+        }
+
+        if (newBadges?.length > 0) {
+          newBadges.forEach((b) =>
+            events.push({ type: "badgeUnlocked", name: b.name })
+          );
+        }
+
+        if (newRewards?.length > 0) {
+          newRewards.forEach((r) =>
+            events.push({ type: "rewardUnlocked", name: r.name })
+          );
+        }
+      }
+    }
+
+    // JWT setup
+    const token = createJWT({ userId: user._id, role: user.role });
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      expires: new Date(Date.now() + oneDay),
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
-    throw new UnauthenticatedError("Email not verified");
+
+    // Send structured response
+    res.status(200).json({
+      message:
+        xpGained > 0
+          ? "Daily login bonus awarded!"
+          : "Welcome back — XP already claimed for today.",
+      xpGained,
+      newBadges,
+      newRewards,
+      events,
+    });
+  } catch (err) {
+    console.error("Error in login:", err);
+    res.status(500).json({ msg: "Server error during login" });
   }
-
-  const token = createJWT({ userId: user._id, role: user.role });
-
-  const oneDay = 1000 * 60 * 60 * 24;
-
-  res.cookie("token", token, {
-    httpOnly: true,
-    expires: new Date(Date.now() + oneDay),
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Add this
-  });
-
-  res.status(StatusCodes.OK).json({ msg: "User logged in" });
 };
 
 export const logout = (req, res) => {
