@@ -22,3 +22,10 @@ check the link that you will get in the terminal after pushing.
 5. After pushing on some branch, when you will have new task, stay
    on the last branch and do git fetch, that way you will se the new branch
    and if some changes has been made.
+
+6. If you get some kind of timeout errors it is a problem with the Mongo DB, it usually happens
+   when your network is not added in the db, so log in the db, navigate to Database & Network Access and then
+   navigate to IP Access List and add your IP, good practice is to log in the mongo account before starting
+   to work because it will be easier to start the project and you will have no errors with the db (95% of the time).
+   If when adding your IP you get something like 200 IP address already, delete some of the old IP's so that you
+   can add you IP.
