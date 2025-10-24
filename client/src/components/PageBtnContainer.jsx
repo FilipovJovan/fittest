@@ -1,5 +1,5 @@
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
-import Wrapper from "../assets/wrappers/PageBtnContainer";
+import Wrapper from "../assets/Wrappers/PageBtnContainer";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useFoodPageContext } from "../pages/FoodPage";
 import React from "react";
@@ -10,7 +10,6 @@ const PageBtnContainer = () => {
   } = useFoodPageContext();
   const location = useLocation();
   const navigate = useNavigate();
-
   // Ensure currentPage is a number and fallback to 1 if it's invalid
   const safeCurrentPage = Number(currentPage) || 1;
   const safeNumOfPages = Number(numOfPages) || 1;
