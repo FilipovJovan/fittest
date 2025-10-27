@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useContext, useState, useRef } from "react";
 import { Row, Col, Form } from "react-bootstrap";
 import { FoodPageContext } from "./FoodPage";

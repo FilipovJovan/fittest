@@ -17,6 +17,7 @@ const DayPage = () => {
   const { exerciseId } = useParams();
   const navigate = useNavigate();
   const { setResumeState } = useWorkout();
+  // eslint-disable-next-line no-unused-vars
   let currentExerciseId;
   // console.log(day.finishedType);
 

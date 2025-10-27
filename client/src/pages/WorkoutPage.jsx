@@ -437,7 +437,9 @@ const WorkoutPage = () => {
               weights that feel comfortable to you, testing all 8 exercises
               (input the weight you can lift for 10 reps of each exercise), and
               ensuring you enter all weights by the 7th day so we can accurately
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
               adjust your personalized workout plan. Below, click 'Enter
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
               Weights' to open the form.
             </p>
           </div>

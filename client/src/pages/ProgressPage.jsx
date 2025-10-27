@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { useLocation, Outlet, useNavigate } from "react-router-dom";
 import { getFullWorkoutPlan, useWorkout } from "../../context/WorkoutContext";
@@ -51,7 +52,7 @@ const ProgressPage = () => {
           <h2>Your mesocycle</h2>
           <h5>{splitName || "No workout split name found"}</h5>
 
-          <div className="max-w-sm mx-auto p-3 mb-2 progress-container">
+          <div className="p-3 mb-2 progress-container">
             <div className="progress-stats">
               <h3 className="text-xl font-bold mb-4">Workouts</h3>
               <ProgressStat

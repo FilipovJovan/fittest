@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import WorkoutWeekCard from "../components/WorkoutWeekCard";
 
+// eslint-disable-next-line react/prop-types
 const WeeksPage = ({ workoutProgram }) => {
   const navigate = useNavigate();
 

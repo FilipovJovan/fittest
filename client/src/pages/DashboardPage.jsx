@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useRef } from "react";
 import { useEffect } from "react";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const loader = async () => {
   try {
     const apiKey = import.meta.env.VITE_API_KEY;

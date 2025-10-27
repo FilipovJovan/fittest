@@ -94,5 +94,12 @@ const FoodPage = ({ proteins, carbs, fat, calories }) => {
   );
 };
 
-export const useFoodPageContext = () => useContext(FoodPageContext);
+// eslint-disable-next-line react-refresh/only-export-components
+export const useFoodPageContext = () => {
+  const context = useContext(FoodPageContext);
+  if (!context) {
+    throw new Error("useFoodPageContext must be used within FoodPageContext.Provider");
+  }
+  return context;
+};
 export default FoodPage;
