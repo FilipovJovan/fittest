@@ -57,7 +57,7 @@ const Login = () => {
         <div className="register-text">
           <h2 className="login-heading">Welcome!</h2>
         </div>
-        <Form method="post" className="login-form">
+        <Form method="post" className="login-form" aria-label="Login form">
           <p>
             Not a member?
             <Link to="/register" className="member-btn">
@@ -73,10 +73,11 @@ const Login = () => {
               <button
                 type="button"
                 onClick={togglePassword}
+                aria-label={showPassword ? "Hide password" : "Show password"}
                 style={{
                   background: "none",
                   border: "none",
-                  padding: 0,
+                  padding: "8px",
                   margin: 0,
                   color: "#555",
                 }}
@@ -91,7 +92,7 @@ const Login = () => {
             </Link>
           </p>
 
-          <button type="submit" className="btn" disabled={isSubmitting}>
+          <button type="submit" className="btn text-white" aria-label="Submit login form" disabled={isSubmitting}>
             {isSubmitting ? "Submitting" : "Submit"}
           </button>
         </Form>
