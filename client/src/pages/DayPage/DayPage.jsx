@@ -6,6 +6,7 @@ import WorkoutFeedbackModal from "../../components/WorkoutFeedbackModel.jsx";
 import {Modal} from "react-bootstrap";
 
 const DayPage = () => {
+
     const {
         handleBackNavigation,
         isRestDay,
@@ -33,6 +34,9 @@ const DayPage = () => {
         handleExitCancel,
         handleExitConfirm
     } = useDayPage();
+
+    // console.log("Day: " + day + " Week id: " + weekId);
+    if (!day || !weekId) return <p>Data missing</p>;
     return (
         <>
             <button onClick={handleBackNavigation} className="go-back-button">
@@ -45,6 +49,9 @@ const DayPage = () => {
                     <div className="rest-day-container">
                         <h2>Rest Day</h2>
                         <p>Take some time to recover and relax. You’ve earned it!</p>
+                        <button onClick={handleFinish} className="btn btn-success mt-4">
+                            Mark Rest Day as Finished ✅
+                        </button>
                     </div>
                 ) : (
                     <>
@@ -85,7 +92,7 @@ const DayPage = () => {
                 )}
             </div>
 
-            {showModal && (
+            {showModal && !isRestDay && (
                 <WorkoutFeedbackModal
                     show={showModal}
                     handleClose={handleModalClose}
@@ -94,7 +101,7 @@ const DayPage = () => {
                 />
             )}
 
-            {showStartModal && !(day.finishedType === "started") && (
+            {showStartModal && !(day.finishedType === "started") && !isRestDay && (
                 <Modal show={showStartModal} centered>
                     <Modal.Header>
                         <Modal.Title>Start Workout</Modal.Title>
@@ -116,7 +123,7 @@ const DayPage = () => {
                 </Modal>
             )}
 
-            {day.finishedType === "started" && (
+            {day.finishedType === "started" && !isRestDay && (
                 <Modal
                     show={showResumeModal}
                     onHide={() => setShowResumeModal(false)}
@@ -171,11 +178,32 @@ const DayPage = () => {
                     <Modal.Body>
                         <p>Are you sure you want to quit the workout?</p>
                         <div className="button-row">
-                            <button onClick={handleExitConfirm} className="btn btn-secondary">
+                            <button onClick={handleExitConfirm} className="btn btn-primary">
                                 Yes
                             </button>
-                            <button onClick={handleExitCancel} className="btn btn-primary">
+                            <button onClick={handleExitCancel} className="btn btn-secondary">
                                 No
+                            </button>
+                        </div>
+                    </Modal.Body>
+                </Modal>
+            )}
+
+            {isRestDay && (day.finishedType !== "completed") && (
+                <Modal show={showExitModal} centered>
+                    <Modal.Header>
+                        <Modal.Title>Rest Day Not Confirmed</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>{day.finishedType}</p>
+                        <p>Do you want to leave without marking today as your rest day?
+                            Confirming helps us track your progress accurately.</p>
+                        <div className="button-row">
+                            <button onClick={handleFinish} className="btn btn-primary">
+                                Confirm rest day
+                            </button>
+                            <button onClick={() => navigate(-1)} className="btn btn-secondary">
+                                Leave without confirming
                             </button>
                         </div>
                     </Modal.Body>
