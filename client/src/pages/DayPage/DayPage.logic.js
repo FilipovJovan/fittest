@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import customFetch from "../../utils/customFetch.js";
 import {toast} from "react-toastify";
 
+
 export const useDayPage = () => {
     const {user} = useAuth();
     const apiKey = import.meta.env.VITE_API_KEY;
@@ -14,7 +15,7 @@ export const useDayPage = () => {
     state || {};
     const {exerciseId} = useParams();
     const navigate = useNavigate();
-    const {setResumeState} = useWorkout();
+    const {setResumeState, refreshWorkoutPlan} = useWorkout();
     let currentExerciseId;
     // console.log(day.finishedType);
 
@@ -31,20 +32,6 @@ export const useDayPage = () => {
     const [hasStarted, setHasStarted] = useState(false);
     const [showResumeModal, setShowResumeModal] = useState(false);
 
-    // console.log("Day: " + day + " Week id: " + weekId);
-    if (!day || !weekId) return <p>Data missing</p>;
-
-    // console.log(day.isFinished);
-
-    const currentIndex = day.workout.findIndex(
-        (ex) => String(ex._id) === String(exerciseId)
-    );
-    const currentExercise = day.workout[currentIndex];
-    const isLast = currentIndex === day.workout.length - 1;
-    const isFirst = currentIndex === 0;
-
-    const isRestDay = (day.type == "rest") === true;
-
     useEffect(() => {
         if (day.finishedType === "started") {
             setShowResumeModal(true);
@@ -59,6 +46,28 @@ export const useDayPage = () => {
             exerciseId,
         });
     }, [workoutId, weekId, dayNumber, exerciseId, setResumeState]);
+
+    useEffect(() => {
+        if (showExitModal) { /* empty */
+        }
+    }, [showExitModal]);
+
+    useEffect(() => {
+        if (showModal) {
+            // console.log("showModal changed to true, modal should show now!");
+        }
+    }, [showModal]);
+
+    // console.log(day.isFinished);
+
+    const currentIndex = day.workout.findIndex(
+        (ex) => String(ex._id) === String(exerciseId)
+    );
+    const currentExercise = day.workout[currentIndex];
+    const isLast = currentIndex === day.workout.length - 1;
+    const isFirst = currentIndex === 0;
+
+    const isRestDay = (day.type === "rest");
 
     const handleStartWorkout = async () => {
         try {
@@ -103,7 +112,7 @@ export const useDayPage = () => {
                 {state: {workoutId, day, days, weekId, weekNumber, dayNumber}}
             );
         }
-        currentExerciseId = nextExercise._id;
+        currentExerciseId = prevExercise._id;
     };
 
     const handleFinish = async () => {
@@ -117,6 +126,7 @@ export const useDayPage = () => {
                 {
                     weekId,
                     dayName: day.name,
+                    dayId: day._id,
                     userId: user._id,
                 },
                 {
@@ -125,10 +135,12 @@ export const useDayPage = () => {
                     },
                 }
             );
+            navigate(`/dashboard/workout`);
+            await refreshWorkoutPlan();
         } catch (err) {
             console.error("Failed to update workout", err);
         }
-        logWorkout();
+        await logWorkout();
     };
 
     const logWorkout = async () => {
@@ -233,16 +245,6 @@ export const useDayPage = () => {
         }
     };
 
-    useEffect(() => {
-        if (showExitModal) {
-        }
-    }, [showExitModal]);
-
-    useEffect(() => {
-        if (showModal) {
-            // console.log("showModal changed to true, modal should show now!");
-        }
-    }, [showModal]);
 
     // useEffect(() => {
     //   if (location.state?.redirectToExercise && day) {
@@ -266,7 +268,10 @@ export const useDayPage = () => {
     };
 
     const handleBackNavigation = () => {
-        setShowExitModal(true);
+        if (isRestDay && day.finishedType === "completed") {
+            handleExitConfirm();
+        } else
+            setShowExitModal(true);
     };
 
     const handleExitConfirm = () => {

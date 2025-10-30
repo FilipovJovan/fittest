@@ -50,7 +50,7 @@ export const WorkoutProvider = ({ children }) => {
   };
 
   const fetchWorkoutPlan = async () => {
-    console.log("Targeted");
+    //console.log("Targeted");
 
     try {
       setLoading(true);

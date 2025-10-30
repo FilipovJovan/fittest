@@ -4,6 +4,7 @@ import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useAuth} from "../../../context/AuthContext.jsx";
 import {useEffect, useState} from "react";
+import {useWorkout} from "../../../context/WorkoutContext.jsx";
 
 export const useWorkoutPage = () => {
     // Add your hooks, state, or logic here
