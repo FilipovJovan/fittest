@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 
 export const useMacrosPage = () => {
     const mealsRef = useRef(null);
-    const {user} = useContext(FoodPageContext);
+    const { user } = useContext(FoodPageContext) || {};
     const [suggestedMeals, setSuggestedMeals] = useState([]);
     const [loading, setLoading] = useState(false);
     const [mealType, setMealType] = useState("Breakfast"); // default selection
