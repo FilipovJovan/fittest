@@ -20,7 +20,15 @@ html {
   --primary-300: #2f93f7;
   --primary-400: #0882fc;
   --primary-500: #007bff;
+  --primary-600: #0067d3;
+  --primary-700: #0054af;
+  --primary-800: #004493;
+  --primary-900: #003475;
 
+  --purple-900: #410080;
+  --purple-800: #50009f;
+  --purple-700: #5e01ba;
+  --purple-600: #7001da;
   --purple-500: #8400ff;
   --purple-400: #911bff;
   --purple-300: #9b31fe;
