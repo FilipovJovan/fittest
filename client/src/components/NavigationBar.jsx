@@ -11,7 +11,7 @@ const NavigationBar = () => {
     <Wrapper>
       <Container className="fluid">
         <Navbar expand="lg" className="py-4 px-4 sticky-top">
-          <Navbar.Brand>
+          <Navbar.Brand className="d-flex align-items-center">
             <Link
               to="#section-one"
               smooth={true}

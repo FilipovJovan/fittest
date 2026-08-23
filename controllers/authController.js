@@ -1,71 +1,72 @@
-import { StatusCodes } from "http-status-codes";
+import {StatusCodes} from "http-status-codes";
 import User from "../models/UserModel.js";
 import Gamification from "../models/GamificationSchema.js";
-import { comparePassword, hashPassword } from "../utils/passwordUtils.js";
-import { UnauthenticatedError } from "../errors/customError.js";
-import { createJWT } from "../utils/tokenUtils.js";
+import {comparePassword, hashPassword} from "../utils/passwordUtils.js";
+import {UnauthenticatedError} from "../errors/customError.js";
+import {createJWT} from "../utils/tokenUtils.js";
 import crypto from "crypto";
-import { Resend } from "resend";
+import {Resend} from "resend";
 import sendEmail from "../utils/sendEmail.js";
 import dotenv from "dotenv";
-import { updateChallengeProgress } from "./challengeController.js";
-import { triggerChallengeProgress } from "../utils/helperFunctions.js";
-import { checkAndAwardBadges } from "./badgeController.js";
-import { checkAwards } from "./rewardsController.js";
+import {updateChallengeProgress} from "./challengeController.js";
+import {triggerChallengeProgress} from "../utils/helperFunctions.js";
+import {checkAndAwardBadges} from "./badgeController.js";
+import {checkAwards} from "./rewardsController.js";
+
 dotenv.config();
 
-console.log("Resend API Key:", process.env.RESEND_API_KEY);
+// console.log("Resend API Key:", process.env.RESEND_API_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const register = async (req, res) => {
-  const calculateAge = (birthDateString) => {
-    const [day, month, year] = birthDateString.split(".").map(Number);
-    const birthDate = new Date(year, month - 1, day);
-    const today = new Date();
+    const calculateAge = (birthDateString) => {
+        const [day, month, year] = birthDateString.split(".").map(Number);
+        const birthDate = new Date(year, month - 1, day);
+        const today = new Date();
 
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    const dayDiff = today.getDate() - birthDate.getDate();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        const dayDiff = today.getDate() - birthDate.getDate();
 
-    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
-      age--;
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            age--;
+        }
+
+        return age;
+    };
+
+    const birthDate = req.body.date;
+    if (!birthDate) {
+        return res.status(400).json({msg: "Birth date is required"});
     }
 
-    return age;
-  };
+    const age = calculateAge(birthDate);
+    if (age < 18) {
+        return res.status(400).json({msg: "User must be at least 18 years old"});
+    }
 
-  const birthDate = req.body.date;
-  if (!birthDate) {
-    return res.status(400).json({ msg: "Birth date is required" });
-  }
+    const isFirstAccount = (await User.countDocuments()) === 0;
+    req.body.role = isFirstAccount ? "admin" : "user";
 
-  const age = calculateAge(birthDate);
-  if (age < 18) {
-    return res.status(400).json({ msg: "User must be at least 18 years old" });
-  }
+    const hashedPassword = await hashPassword(req.body.password);
+    req.body.password = hashedPassword;
 
-  const isFirstAccount = (await User.countDocuments()) === 0;
-  req.body.role = isFirstAccount ? "admin" : "user";
+    const user = await User.create(req.body);
 
-  const hashedPassword = await hashPassword(req.body.password);
-  req.body.password = hashedPassword;
+    const verificationToken = crypto.randomBytes(32).toString("hex");
 
-  const user = await User.create(req.body);
+    user.emailVerificationToken = verificationToken;
+    user.emailVerificationTokenExpiry = Date.now() + 3600000;
+    await user.save();
 
-  const verificationToken = crypto.randomBytes(32).toString("hex");
+    const localVerificationEmail = `http://localhost:5173/verify-email/${verificationToken}?email=${user.email}`;
+    const verificationUrl = `https://fittestsapp.com/verify-email/${verificationToken}?email=${user.email}`;
 
-  user.emailVerificationToken = verificationToken;
-  user.emailVerificationTokenExpiry = Date.now() + 3600000;
-  await user.save();
-
-  const localVerificationEmail = `http://localhost:5173/verify-email/${verificationToken}?email=${user.email}`;
-  const verificationUrl = `https://fittestsapp.com/verify-email/${verificationToken}?email=${user.email}`;
-
-  const mailOptions = {
-    from: "noreply@fittestsapp.com",
-    to: user.email,
-    subject: "Verify your email to get started with Fittest",
-    html: `
+    const mailOptions = {
+        from: "noreply@fittestsapp.com",
+        to: user.email,
+        subject: "Verify your email to get started with Fittest",
+        html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; color: #333; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
       <img src="https://fittestsapp.com/assets/logo-RMM5KPhj.png " alt=Fittest Logo" style="width: 120px; margin-bottom: 20px; border-radius: 12px" margin: auto />
 
@@ -86,213 +87,213 @@ export const register = async (req, res) => {
       <p style="font-size: 13px; color: #888;">Need help? Contact us at <a href="mailto:support@fittests.com">support@fittests.com</a></p>
     </div>
   `,
-    text: `Welcome to Fittest!
+        text: `Welcome to Fittest!
 
     We're excited to have you. Please verify your email by visiting this link: ${verificationUrl}
 
     If you didn't sign up for Fittest, feel free to ignore this message.
 
     Need help? Reach out to fittestsapp@gmail.com.`,
-  };
+    };
 
-  try {
-    await resend.emails.send(mailOptions);
-    console.log("Verification email sent successfully!");
-    res.status(201).json({
-      msg: "User created. Please check your email for verification.",
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-      },
-    });
-  } catch (error) {
-    console.error("Error sending verification email:", error);
-    res.status(500).json({ msg: "Failed to send verification email" });
-  }
+    try {
+        await resend.emails.send(mailOptions);
+        console.log("Verification email sent successfully!");
+        res.status(201).json({
+            msg: "User created. Please check your email for verification.",
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+            },
+        });
+    } catch (error) {
+        console.error("Error sending verification email:", error);
+        res.status(500).json({msg: "Failed to send verification email"});
+    }
 };
 
 export const login = async (req, res) => {
-  try {
-    const user = await User.findOne({ email: req.body.email });
-    if (!user) {
-      return res
-        .status(StatusCodes.UNAUTHORIZED)
-        .json({ msg: "Invalid credentials" });
-    }
-
-    const isPasswordCorrect = await comparePassword(
-      req.body.password,
-      user.password
-    );
-    if (!isPasswordCorrect) {
-      return res
-        .status(StatusCodes.UNAUTHORIZED)
-        .json({ msg: "Incorrect password" });
-    }
-
-    if (!user.isVerified) {
-      return res.status(StatusCodes.UNAUTHORIZED).json({
-        msg: "Please verify your email before logging in.",
-      });
-    }
-
-    const gamification = await Gamification.findOne({ userId: user._id });
-    let xpGained = 0;
-    let events = [];
-    let newBadges = [];
-    let newRewards = [];
-
-    // Example: XP for daily login
-    if (gamification) {
-      const today = new Date().toDateString();
-      const lastLogin = gamification.lastLogin
-        ? gamification.lastLogin.toDateString()
-        : null;
-
-      // ✅ Only award XP if last login was NOT today
-      if (lastLogin !== today) {
-        xpGained = 10; // XP for daily login
-        gamification.xp += xpGained;
-        gamification.lastLogin = new Date();
-
-        // Update streak
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        if (lastLogin === yesterday.toDateString()) {
-          gamification.streak.current += 1;
-        } else {
-          gamification.streak.current = 1;
+    try {
+        const user = await User.findOne({email: req.body.email});
+        if (!user) {
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({msg: "Invalid credentials"});
         }
 
-        gamification.streak.longest = Math.max(
-          gamification.streak.longest,
-          gamification.streak.current
+        const isPasswordCorrect = await comparePassword(
+            req.body.password,
+            user.password
         );
-
-        await gamification.save();
-
-        // ✅ Trigger challenge progress only when daily login counts
-        await triggerChallengeProgress(user._id, "loginStreak");
-
-        // ✅ Check for new badges & rewards
-        newBadges = await checkAndAwardBadges(user._id);
-        newRewards = await checkAwards(gamification);
-
-        if (xpGained > 0) {
-          events.push({ type: "xpEarned", amount: xpGained });
+        if (!isPasswordCorrect) {
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({msg: "Incorrect password"});
         }
 
-        if (newBadges?.length > 0) {
-          newBadges.forEach((b) =>
-            events.push({ type: "badgeUnlocked", name: b.name })
-          );
+        if (!user.isVerified) {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                msg: "Please verify your email before logging in.",
+            });
         }
 
-        if (newRewards?.length > 0) {
-          newRewards.forEach((r) =>
-            events.push({ type: "rewardUnlocked", name: r.name })
-          );
+        const gamification = await Gamification.findOne({userId: user._id});
+        let xpGained = 0;
+        let events = [];
+        let newBadges = [];
+        let newRewards = [];
+
+        // Example: XP for daily login
+        if (gamification) {
+            const today = new Date().toDateString();
+            const lastLogin = gamification.lastLogin
+                ? gamification.lastLogin.toDateString()
+                : null;
+
+            // ✅ Only award XP if last login was NOT today
+            if (lastLogin !== today) {
+                xpGained = 10; // XP for daily login
+                gamification.xp += xpGained;
+                gamification.lastLogin = new Date();
+
+                // Update streak
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                if (lastLogin === yesterday.toDateString()) {
+                    gamification.streak.current += 1;
+                } else {
+                    gamification.streak.current = 1;
+                }
+
+                gamification.streak.longest = Math.max(
+                    gamification.streak.longest,
+                    gamification.streak.current
+                );
+
+                await gamification.save();
+
+                // ✅ Trigger challenge progress only when daily login counts
+                await triggerChallengeProgress(user._id, "loginStreak");
+
+                // ✅ Check for new badges & rewards
+                newBadges = await checkAndAwardBadges(user._id);
+                newRewards = await checkAwards(gamification);
+
+                if (xpGained > 0) {
+                    events.push({type: "xpEarned", amount: xpGained});
+                }
+
+                if (newBadges?.length > 0) {
+                    newBadges.forEach((b) =>
+                        events.push({type: "badgeUnlocked", name: b.name})
+                    );
+                }
+
+                if (newRewards?.length > 0) {
+                    newRewards.forEach((r) =>
+                        events.push({type: "rewardUnlocked", name: r.name})
+                    );
+                }
+            }
         }
-      }
+
+        // JWT setup
+        const token = createJWT({userId: user._id, role: user.role});
+        const oneDay = 1000 * 60 * 60 * 24;
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            expires: new Date(Date.now() + oneDay),
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        });
+
+        // Send structured response
+        res.status(200).json({
+            message:
+                xpGained > 0
+                    ? "Daily login bonus awarded!"
+                    : "Welcome back — XP already claimed for today.",
+            xpGained,
+            newBadges,
+            newRewards,
+            events,
+        });
+    } catch (err) {
+        console.error("Error in login:", err);
+        res.status(500).json({msg: "Server error during login"});
     }
-
-    // JWT setup
-    const token = createJWT({ userId: user._id, role: user.role });
-    const oneDay = 1000 * 60 * 60 * 24;
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      expires: new Date(Date.now() + oneDay),
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    });
-
-    // Send structured response
-    res.status(200).json({
-      message:
-        xpGained > 0
-          ? "Daily login bonus awarded!"
-          : "Welcome back — XP already claimed for today.",
-      xpGained,
-      newBadges,
-      newRewards,
-      events,
-    });
-  } catch (err) {
-    console.error("Error in login:", err);
-    res.status(500).json({ msg: "Server error during login" });
-  }
 };
 
 export const logout = (req, res) => {
-  res.cookie("token", "logout", {
-    httpOnly: true,
-    expires: new Date(Date.now()),
-  });
-  res.status(StatusCodes.OK).json({ msg: "user logged out" });
+    res.cookie("token", "logout", {
+        httpOnly: true,
+        expires: new Date(Date.now()),
+    });
+    res.status(StatusCodes.OK).json({msg: "user logged out"});
 };
 
 export const verifyEmail = async (req, res) => {
-  const { verificationToken } = req.params;
+    const {verificationToken} = req.params;
 
-  const user = await User.findOne({
-    emailVerificationToken: verificationToken,
-  });
+    const user = await User.findOne({
+        emailVerificationToken: verificationToken,
+    });
 
-  if (!user) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Invalid or expired verification token" });
-  }
+    if (!user) {
+        return res
+            .status(StatusCodes.BAD_REQUEST)
+            .json({msg: "Invalid or expired verification token"});
+    }
 
-  if (user.emailVerificationTokenExpiry < Date.now()) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Invalid or expired verification token" });
-  }
+    if (user.emailVerificationTokenExpiry < Date.now()) {
+        return res
+            .status(StatusCodes.BAD_REQUEST)
+            .json({msg: "Invalid or expired verification token"});
+    }
 
-  user.isVerified = true;
-  //console.log(user.isVerified);
+    user.isVerified = true;
+    //console.log(user.isVerified);
 
-  user.emailVerificationToken = undefined;
-  user.emailVerificationTokenExpiry = undefined;
-  await user.save();
+    user.emailVerificationToken = undefined;
+    user.emailVerificationTokenExpiry = undefined;
+    await user.save();
 
-  res.status(StatusCodes.OK).json({ msg: "Email successfully verified" });
+    res.status(StatusCodes.OK).json({msg: "Email successfully verified"});
 };
 
 export const resendVerificationEmail = async (req, res) => {
-  const { email } = req.body;
+    const {email} = req.body;
 
-  if (!email) {
-    return res.status(400).json({ msg: "Email is required" });
-  }
-
-  try {
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+    if (!email) {
+        return res.status(400).json({msg: "Email is required"});
     }
 
-    if (user.isVerified) {
-      return res.status(400).json({ msg: "Email already verified" });
-    }
+    try {
+        const user = await User.findOne({email});
 
-    const verificationToken = crypto.randomBytes(40).toString("hex");
-    user.emailVerificationToken = verificationToken;
-    user.emailVerificationTokenExpiry = Date.now() + 3600000;
-    await user.save();
+        if (!user) {
+            return res.status(404).json({msg: "User not found"});
+        }
 
-    const localVerificationEmail = `http://localhost:5173/verify-email/${verificationToken}?email=${email}`;
-    const verificationUrl = `https://fittestsapp.com/verify-email/${verificationToken}?email=${email}`;
+        if (user.isVerified) {
+            return res.status(400).json({msg: "Email already verified"});
+        }
 
-    const mailOptions = {
-      from: "noreply@fittestsapp.com",
-      to: user.email,
-      subject: "Verify your email to get started with Fittest",
-      html: `
+        const verificationToken = crypto.randomBytes(40).toString("hex");
+        user.emailVerificationToken = verificationToken;
+        user.emailVerificationTokenExpiry = Date.now() + 3600000;
+        await user.save();
+
+        const localVerificationEmail = `http://localhost:5173/verify-email/${verificationToken}?email=${email}`;
+        const verificationUrl = `https://fittestsapp.com/verify-email/${verificationToken}?email=${email}`;
+
+        const mailOptions = {
+            from: "noreply@fittestsapp.com",
+            to: user.email,
+            subject: "Verify your email to get started with Fittest",
+            html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; color: #333; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
         <img src="https://fittestsapp.com/assets/logo-RMM5KPhj.png " alt=Fittest Logo" style="width: 120px; margin-bottom: 20px; border-radius: 12px" margin: auto />
   
@@ -313,79 +314,79 @@ export const resendVerificationEmail = async (req, res) => {
         <p style="font-size: 13px; color: #888;">Need help? Contact us at <a href="mailto:support@fittests.com">support@fittests.com</a></p>
       </div>
     `,
-      text: `Welcome to Fittest!
+            text: `Welcome to Fittest!
   
       We're excited to have you. Please verify your email by visiting this link: ${verificationUrl}
   
       If you didn't sign up for Fittest, feel free to ignore this message.
   
       Need help? Reach out to fittestsapp@gmail.com.`,
-    };
+        };
 
-    // Send the email
-    try {
-      await resend.emails.send(mailOptions);
-      console.log("Verification email sent successfully!");
-      res.status(201).json({
-        msg: "Email verification has been sent again. Please check it.",
-        user: {
-          _id: user._id,
-          name: user.name,
-          email: user.email,
-        },
-      });
-    } catch (error) {
-      console.error("Error sending verification email:", error);
-      res.status(500).json({ msg: "Failed to send verification email" });
+        // Send the email
+        try {
+            await resend.emails.send(mailOptions);
+            console.log("Verification email sent successfully!");
+            res.status(201).json({
+                msg: "Email verification has been sent again. Please check it.",
+                user: {
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                },
+            });
+        } catch (error) {
+            console.error("Error sending verification email:", error);
+            res.status(500).json({msg: "Failed to send verification email"});
+        }
+
+        res.status(200).json({msg: "Verification email sent"});
+    } catch (err) {
+        console.error("Error resending verification email:", err);
+        res.status(500).json({msg: "Server error"});
     }
-
-    res.status(200).json({ msg: "Verification email sent" });
-  } catch (err) {
-    console.error("Error resending verification email:", err);
-    res.status(500).json({ msg: "Server error" });
-  }
 };
 
 export const checkVerification = async (req, res) => {
-  const { email } = req.query;
-  if (!email) {
-    return res.status(400).json({ msg: "Email is required" });
-  }
-
-  try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+    const {email} = req.query;
+    if (!email) {
+        return res.status(400).json({msg: "Email is required"});
     }
-    return res.status(200).json({ isVerified: user.isVerified });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ msg: "Server error" });
-  }
+
+    try {
+        const user = await User.findOne({email});
+        if (!user) {
+            return res.status(404).json({msg: "User not found"});
+        }
+        return res.status(200).json({isVerified: user.isVerified});
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({msg: "Server error"});
+    }
 };
 
 export const forgotPassword = async (req, res) => {
-  const { email } = req.body;
-  console.log(email);
+    const {email} = req.body;
+    console.log(email);
 
-  if (!email) return res.status(400).json({ msg: "Email is required" });
+    if (!email) return res.status(400).json({msg: "Email is required"});
 
-  const user = await User.findOne({ email });
-  if (!user) return res.status(404).json({ msg: "User not found" });
+    const user = await User.findOne({email});
+    if (!user) return res.status(404).json({msg: "User not found"});
 
-  const resetToken = crypto.randomBytes(32).toString("hex");
-  const tokenExpiration = Date.now() + 1000 * 60 * 15;
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    const tokenExpiration = Date.now() + 1000 * 60 * 15;
 
-  user.resetPasswordToken = resetToken;
-  user.resetPasswordExpires = tokenExpiration;
-  await user.save();
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = tokenExpiration;
+    await user.save();
 
-  const resetUrl = `http://localhost:5173/reset-password?token=${resetToken}`;
+    const resetUrl = `http://localhost:5173/reset-password?token=${resetToken}`;
 
-  await sendEmail({
-    to: email,
-    subject: "Reset Your Fittest Password",
-    html: `
+    await sendEmail({
+        to: email,
+        subject: "Reset Your Fittest Password",
+        html: `
     <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 30px;">
       <div style="max-width: 600px; margin: auto; background: #ffffff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
         <div style="text-align: center;">
@@ -413,35 +414,35 @@ export const forgotPassword = async (req, res) => {
       </div>
     </div>
     `,
-  });
-  console.log("sent");
+    });
+    console.log("sent");
 
-  res.status(200).json({ msg: "Reset link sent to your email" });
+    res.status(200).json({msg: "Reset link sent to your email"});
 };
 
 export const resetPassword = async (req, res) => {
-  const { token, password } = req.body;
-  console.log("Received reset:", req.body);
-  if (!token || !password) {
-    return res.status(400).json({ msg: "Token and password are required" });
-  }
+    const {token, password} = req.body;
+    console.log("Received reset:", req.body);
+    if (!token || !password) {
+        return res.status(400).json({msg: "Token and password are required"});
+    }
 
-  const user = await User.findOne({
-    resetPasswordToken: token,
-    resetPasswordExpires: { $gt: Date.now() },
-  });
+    const user = await User.findOne({
+        resetPasswordToken: token,
+        resetPasswordExpires: {$gt: Date.now()},
+    });
 
-  if (!user) {
-    return res.status(400).json({ msg: "Token is invalid or has expired" });
-  }
+    if (!user) {
+        return res.status(400).json({msg: "Token is invalid or has expired"});
+    }
 
-  const hashedPassword = await hashPassword(password);
-  user.password = hashedPassword;
+    const hashedPassword = await hashPassword(password);
+    user.password = hashedPassword;
 
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpires = undefined;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
 
-  await user.save();
+    await user.save();
 
-  res.status(200).json({ msg: "Password has been reset successfully" });
+    res.status(200).json({msg: "Password has been reset successfully"});
 };
