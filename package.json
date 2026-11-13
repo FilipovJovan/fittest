@@ -8,7 +8,9 @@
     "server": "nodemon server",
     "client": "cd client && npm run dev",
     "dev": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\"",
-    "create-component": "node scripts/create-component.js"
+    "create-component": "node scripts/create-component.js",
+    "build": "npm install --include=dev && cd client && npm install --include=dev && npm run build",
+  "start": "node server.js"
   },
   "keywords": [],
   "author": "",
