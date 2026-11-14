@@ -25,7 +25,8 @@ import path from "path";
 
 // Middleware
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
-import { authenticateUser } from "./middleware/authMiddleware.js";
+// import { authenticateUser } from "./middleware/authMiddleware.js";
+import { authenticateUser, authorizePermissions } from "./middleware/authMiddleware.js";
 import { authenticateApiKey } from "./middleware/apiKeyMiddleware.js";
 
 // Models and services for newsletter
@@ -37,7 +38,8 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://fittestsapp.com",
+    // origin: "https://fittestsapp.com",
+    origin: process.env.APP_URL,
     credentials: true,
   })
 );
@@ -150,7 +152,9 @@ app.post("/unsubscribe", async (req, res) => {
   }
 });
 
-app.post("/sendBulkEmails", async (req, res) => {
+// app.post("/sendBulkEmails", async (req, res) => {
+// Only a logged-in admin may send newsletters to all subscribers
+app.post("/sendBulkEmails", authenticateUser, authorizePermissions("admin"), async (req, res) => {
   const { subject, text } = req.body;
   try {
     const subscribers = await NewsletterSubscriber.find({ verified: true });

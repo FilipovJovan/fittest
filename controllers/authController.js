@@ -18,6 +18,12 @@ dotenv.config();
 // console.log("Resend API Key:", process.env.RESEND_API_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Email verification is skipped when NODE_ENV=development, or when SKIP_EMAIL_VERIFICATION=true
+// (e.g. on Render before a sending domain is verified in Resend). Remove that variable to turn verification back on.
+const shouldSkipEmailVerification = () =>
+    process.env.NODE_ENV === "development" ||
+    process.env.SKIP_EMAIL_VERIFICATION === "true";
+
 export const register = async (req, res) => {
     const calculateAge = (birthDateString) => {
         const [day, month, year] = birthDateString.split(".").map(Number);
@@ -59,16 +65,35 @@ export const register = async (req, res) => {
     user.emailVerificationTokenExpiry = Date.now() + 3600000;
     await user.save();
 
+    // Development / demo: skip email verification and mark the account as verified
+    if (shouldSkipEmailVerification()) {
+        user.isVerified = true;
+        user.emailVerificationToken = undefined;
+        user.emailVerificationTokenExpiry = undefined;
+        await user.save();
+        return res.status(201).json({
+            msg: "User created. Email verification skipped (development mode).",
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+            },
+        });
+    }
+
     const localVerificationEmail = `http://localhost:5173/verify-email/${verificationToken}?email=${user.email}`;
-    const verificationUrl = `https://fittestsapp.com/verify-email/${verificationToken}?email=${user.email}`;
+    // const verificationUrl = `https://fittestsapp.com/verify-email/${verificationToken}?email=${user.email}`;
+    const verificationUrl = `${process.env.APP_URL}/verify-email/${verificationToken}?email=${user.email}`;
 
     const mailOptions = {
-        from: "noreply@fittestsapp.com",
+        // from: "noreply@fittestsapp.com",
+        from: process.env.EMAIL_FROM || "noreply@fittestsapp.com",
         to: user.email,
         subject: "Verify your email to get started with Fittest",
         html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; color: #333; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
-      <img src="https://fittestsapp.com/assets/logo-RMM5KPhj.png " alt=Fittest Logo" style="width: 120px; margin-bottom: 20px; border-radius: 12px" margin: auto />
+      <!-- <img src="https://fittestsapp.com/assets/logo-RMM5KPhj.png " alt=Fittest Logo" style="width: 120px; margin-bottom: 20px; border-radius: 12px" margin: auto /> -->
+      <img src="${process.env.APP_URL}/logo-RMM5KPhj.png" alt="Fittest Logo" style="width: 120px; margin-bottom: 20px; border-radius: 12px" />
 
       <h2>Welcome to Fittest! 🎉</h2>
       <p>We're excited to have you on board. To get started, please verify your email address by clicking the button below:</p>
@@ -132,7 +157,8 @@ export const login = async (req, res) => {
                 .json({msg: "Incorrect password"});
         }
 
-        if (!user.isVerified) {
+        // if (!user.isVerified) {
+        if (!user.isVerified && !shouldSkipEmailVerification()) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 msg: "Please verify your email before logging in.",
             });
@@ -287,15 +313,18 @@ export const resendVerificationEmail = async (req, res) => {
         await user.save();
 
         const localVerificationEmail = `http://localhost:5173/verify-email/${verificationToken}?email=${email}`;
-        const verificationUrl = `https://fittestsapp.com/verify-email/${verificationToken}?email=${email}`;
+        // const verificationUrl = `https://fittestsapp.com/verify-email/${verificationToken}?email=${email}`;
+        const verificationUrl = `${process.env.APP_URL}/verify-email/${verificationToken}?email=${email}`;
 
         const mailOptions = {
-            from: "noreply@fittestsapp.com",
+            // from: "noreply@fittestsapp.com",
+            from: process.env.EMAIL_FROM || "noreply@fittestsapp.com",
             to: user.email,
             subject: "Verify your email to get started with Fittest",
             html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; color: #333; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
-        <img src="https://fittestsapp.com/assets/logo-RMM5KPhj.png " alt=Fittest Logo" style="width: 120px; margin-bottom: 20px; border-radius: 12px" margin: auto />
+        <!-- <img src="https://fittestsapp.com/assets/logo-RMM5KPhj.png " alt=Fittest Logo" style="width: 120px; margin-bottom: 20px; border-radius: 12px" margin: auto /> -->
+        <img src="${process.env.APP_URL}/logo-RMM5KPhj.png" alt="Fittest Logo" style="width: 120px; margin-bottom: 20px; border-radius: 12px" />
   
         <h2>Welcome to Fittest! 🎉</h2>
         <p>Here is your verification token!</p>
@@ -381,7 +410,8 @@ export const forgotPassword = async (req, res) => {
     user.resetPasswordExpires = tokenExpiration;
     await user.save();
 
-    const resetUrl = `http://localhost:5173/reset-password?token=${resetToken}`;
+    // const resetUrl = `http://localhost:5173/reset-password?token=${resetToken}`;
+    const resetUrl = `${process.env.APP_URL || "http://localhost:5173"}/reset-password?token=${resetToken}`;
 
     await sendEmail({
         to: email,
@@ -390,7 +420,8 @@ export const forgotPassword = async (req, res) => {
     <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 30px;">
       <div style="max-width: 600px; margin: auto; background: #ffffff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
         <div style="text-align: center;">
-          <img src="https://fittestsapp.com/assets/logo-RMM5KPhj.png" alt="Fittest Logo" width="120" style="margin-bottom: 20px; border-radius: 20px" />
+          <!-- <img src="https://fittestsapp.com/assets/logo-RMM5KPhj.png" alt="Fittest Logo" width="120" style="margin-bottom: 20px; border-radius: 20px" /> -->
+          <img src="${process.env.APP_URL}/logo-RMM5KPhj.png" alt="Fittest Logo" width="120" style="margin-bottom: 20px; border-radius: 20px" />
           <h2 style="color: #333;">Reset Your Password</h2>
         </div>
   
